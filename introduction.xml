@@ -1,97 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter xml:id="intro"
+<chapter xml:id="introduction"
       xmlns="http://docbook.org/ns/docbook"
       xmlns:xlink="http://www.w3.org/1999/xlink"
-      version="5.0" xml:lang="en">
+      version="5.0" xml:lang="es">
 
-  <title>Introduction</title>
+  <title>Introducción</title>
   <para>
-    Today mobile applications retrieve asynchronously information from multiple sites.
-    Developers have two ways to get this information:
+    Una de las grandes ventajas que ha dado internet al desarrollo de aplicaciones es la posibilidad de poder tener datos de forma dinámica, la mayoría de veces pudiendo cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar datos para mostrar a los usuarios dependiendo del momento del día u otras características.
+  </para>
+  <para>
+    La descarga de estos datos de internet puede realizarse de diferentes maneras, ya sea de forma síncrona o asíncrona, pero se pueden agrupar en dos grandes grupos para conseguir esta información:
   </para>
   <para>
     <itemizedlist>
       <listitem>
-        Poll: Periodically query for information from the server.
+        Poll: Periódicamente se pide información al servidor de terceros.
       </listitem>
       <listitem>
-        Push: The server sends the information to the client when the required
-        information is available.
+        Push: El servidor manda información al cliente cuando hay información disponible para él.
       </listitem>
     </itemizedlist>
   </para>
   <para>
-    The first method is strongly discouraged due to the large number of connections
-    made to the server needlessly, because information is not available and you lose time and resources.
+    El primer método está desaconsejado por varios motivos. El primero de ellos es porque usa un alto número de conexiones hacia el servidor de terceros, muchas de las cuales no tienen una utilidad real puesto que no siempre que se pregunta si tienen datos realmente se poseen.
   </para>
   <para>
-    That is why the PUSH methods are widely used for information retrieval,
-    anyway how PUSH platforms are currently working are misusing mobile radio
-    resources and also consuming too much battery.
+    Es por esto que los métodos de recogida de información basados en tecnologías Push son ampliamente usados para actualizar la información. Sin embargo, aunque estos métodos a primera vista puedan verse como más eficientes que los de polling, son realmente válidos para conexiones estables y sin limitaciones, pero muy poco efectivos y muy perjudiciales para las redes móviles, como las de telefonía.
   </para>
   <para>
-    This article aims to explain how to manage this kind of messaging, problems
-    with existing solutions and finally how Telefónica Digital, within the framework
-    of the development of Firefox OS operating system, defined a new solution which is
-    friendlier to the network and uses lower battery consumption on mobile devices.
+    El objetivo de este proyecto es explicar por qué es un problema usar cualquiera de estas dos soluciones planteadas en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de las redes móviles y cómo pueden mejorarse. El desarrollo de este proyecto está enmarcado en la creación del sistema operativo Firefox OS, que quiere acercar el desarrollo de aplicaciones web directamente a los dispositivos móviles, eliminando capas intermedias y permitiendo que cualquier aplicación de los teléfonos sea programada en HTML5, CSS3 y JavaScript.
   </para>
 
   <section>
-    <title>State of the art</title>
+    <title>Descripción del servicio</title>
     <para>
-      Historically, mobile operators offered (and offer) real mechanisms for PUSH notifications,
-      also known as WAP PUSH. WAP PUSH can "wake up" applications when any action
-      is required from them by the server side (without interaction from the user).
-      Sending WAP PUSH messages is done in the circuit-switching domain, the same used
-      for voice and SMS, and that is why the user don't need to establish a data connection.
-      These kind messages work properly out of the box.
+      La plataforma del servidor de notificaciones se encargará de enviar mensajes push (pequeños mensajes, como conversaciones de chat, una estructura JSON sobre un partido de fútbol…) a terminales que están dentro de las redes móviles, exponiendo unas APIs claras y sencillas, tanto para el desarrollador de la aplicación web como para el creador de los sistemas operativos.
     </para>
     <para>
-      WAP PUSH solutions works great when the user is registered in the mobile network,
-      but if you are out of coverage or connected to a WiFi hotspot instead a celular
-      network, you can not receive these messages.
+      La principal idea de crear este servicio es la de usar de una forma mucho más eficiente los recursos de las redes móviles por lo que el uso de la batería sería mucho menor, a la vez que se reduciría el tráfico de señalización en la red de telefonía móvil, lo que permitiría a las empresas de telecomunicaciones el ahorrar tanto recursos como ofrecer un mejor servicio a sus usuarios.
     </para>
-    <para>
-      Also, if we add that this messages implies an economic cost (basically it
-      is a short message SMS) the effect is that major smartphone operating systems
-      (Apple iOS and Google Android) have implemented a parallel solution that would
-      work regardless of the mobile network to which the user belongs and it can
-      run smoothly when they are using WiFi networks.
-    </para>
-
-    <section>
-      <title>Current Internet solutions issues</title>
-      <para>
-        Internet PUSH solutions are based on a public accesible server which handles
-        all the notification delivery.
-      </para>
-      <para>
-        These solutions were designed without considering the mobile networks
-        way of working and forces the handset to maintain an open socket with
-        the server in order to avoid misnotifications.
-      </para>
-      <para>
-        This way of working increases the signalling and the handsets battery
-        consume.
-        For more information about this, please refer to the
-        "<xref linkend="network_issues" endterm="network_issues_title" />" chapter
-      </para>
-    </section>
   </section>
 
   <section>
-    <title>Service Description</title>
-    <para>
-      The Notification Server platform is aimed to deliver push notifications
-      (small messages like a real-time chat, a JSON data structure defining
-      the goal of a soccer match) to web based terminals inside mobile networks.
-    </para>
-    <para>
-      The main objective of this service is to deliver these messages
-      considering the way of working of the mobile radio so the battery
-      consumption and traffic generated is reduced to the minimal.
-      It is developed for working on stable Internet connections, like on
-      Wi-Fi or Ethernet.
-    </para>
+    <title>Objetivos</title>
+    <para>El primer objetivo es la creación de una plataforma de mensajes push que sea amigable para los dispositivos móviles, esto es, que no use demasiada batería, a la vez que sea interesante para las operadoras el uso de esta tecnología, siendo otro de los objetivos el de reducir el consumo de ancho de banda y de señalización en la red móvil.</para>
+    <para>Además, la implementación de este mecanismo de push, al estar englobado en el desarrollo del sistema operativo para móviles Firefox OS, cuyos lenguajes de programación principales son HTML, JavaScript y CSS, se quiere que sea propuesta como el estandar de notificaciones Push por el W3C para que sea implantado por todos los navegadores y que haya una mejor unión entre las redes de telefonía móvil y el mundo de internet.</para>
   </section>
+
 </chapter>

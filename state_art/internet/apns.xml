@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="state_art_internet_apns"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="5.0" xml:lang="es">
+
+  <title xml:id="state_art_internet_apns_title">Estado del arte: Internet</title>
+  <para>
+    Este capítulo tiene como objetivo listar las diferentes tecnologías que se han usado a lo largo del tiempo para mandar mensajes push a los dispositivos móviles. Algunas de ellas han sido creadas por los operadores, por lo que tienen un carácter de buen uso de las redes móviles, sin embargo, ninguna de ellas se ha impuesto sobre las creadas por las empresas de software o de internet por varias razones, por lo que estas decidieron crear sus propias plataformas de push de la manera más simple para ellos: usando las tecnologías de internet, lo que quiere decir que muchas de ellas son muy malas para las redes móviles.
+  </para>
+  <para>
+    Pero antes de comentar cuáles son las diferentes propuestas que se han realizado en los últimos años, necesitamos saber cómo funcionan las redes móviles en el nivel radio, y cómo los operadores tienen montada su infraestructura móvil.
+  </para>
+
+
+  <!-- <section>
+    <title>Operators</title>
+    <para>
+      Historically, mobile operators offered (and offer) real mechanisms for PUSH notifications,
+      also known as WAP PUSH. WAP PUSH can "wake up" applications when any action
+      is required from them by the server side (without interaction from the user).
+      Sending WAP PUSH messages is done in the circuit-switching domain, the same used
+      for voice and SMS, and that is why the user don't need to establish a data connection.
+      These kind messages work properly out of the box.
+    </para>
+    <para>
+      WAP PUSH solutions works great when the user is registered in the mobile network,
+      but if you are out of coverage or connected to a WiFi hotspot instead a celular
+      network, you can not receive these messages.
+    </para>
+    <para>
+      Also, if we add that this messages implies an economic cost (basically it
+      is a short message SMS) the effect is that major smartphone operating systems
+      (Apple iOS and Google Android) have implemented a parallel solution that would
+      work regardless of the mobile network to which the user belongs and it can
+      run smoothly when they are using WiFi networks.
+    </para>
+
+    <section>
+      <title>WAP Push</title>
+      <para>XXX</para>
+    </section>
+
+    <section>
+      <title>WAP Push222</title>
+      <para>XXX</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Empresas de internet</title>
+    <para>
+      Internet PUSH solutions are based on a public accesible server which handles
+      all the notification delivery.
+    </para>
+    <para>
+      These solutions were designed without considering the mobile networks
+      way of working and forces the handset to maintain an open socket with
+      the server in order to avoid misnotifications.
+    </para>
+    <para>
+      This way of working increases the signalling and the handsets battery
+      consume.
+      For more information about this, please refer to the
+      "<xref linkend="network_issues" endterm="network_issues_title" />" chapter
+    </para>
+
+    <section>
+      <title>Google Cloud Messaging for Android (GCM)</title>
+      <para>XXX</para>
+    </section>
+
+    <section>
+      <title>Apple Push Notification Service (APN)</title>
+      <para>XXX</para>
+    </section>
+
+    <section>
+      <title>Thialfi</title>
+      <para>XXX</para>
+    </section>
+
+  </section> -->
+</section>
