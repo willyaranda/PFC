@@ -17,28 +17,28 @@ clean:
 
 xhtml5:
 	mkdir -p output/xhtml5
-	xsltproc --xinclude -o output/xhtml5/notification_server.xhtml $(XSL_BASE)xhtml5/docbook.xsl notification_server.xml
+	xsltproc --xinclude -o output/xhtml5/main.xhtml $(XSL_BASE)xhtml5/docbook.xsl main.xml
 	cp -r resources output/xhtml5/.
 
 xhtml5_chunked:
 	mkdir -p output/xhtml5_chunked
-	xsltproc --xinclude -o output/xhtml5_chunked/ $(XSL_BASE)xhtml5/chunk.xsl notification_server.xml
+	xsltproc --xinclude -o output/xhtml5_chunked/ $(XSL_BASE)xhtml5/chunk.xsl main.xml
 	cp -r resources output/xhtml5_chunked/.
 
 xhtml:
 	mkdir -p output/xhtml
-	xsltproc --xinclude -o output/xhtml/notification_server.xhtml $(XSL_BASE)xhtml-1_1/docbook.xsl notification_server.xml
+	xsltproc --xinclude -o output/xhtml/main.xhtml $(XSL_BASE)xhtml-1_1/docbook.xsl main.xml
 	cp -r resources output/xhtml/.
 
 html_chunked:
 	mkdir -p output/html_chunked
-	xsltproc --xinclude -o output/html_chunked/ $(XSL_BASE)html/chunk.xsl notification_server.xml
+	xsltproc --xinclude -o output/html_chunked/ $(XSL_BASE)html/chunk.xsl main.xml
 	cp -r resources output/html_chunked/.
 
 pdf:
 	mkdir -p output/pdf
-	xsltproc --xinclude -o output/db.fo $(XSL_BASE)fo/docbook.xsl notification_server.xml
-	fop output/db.fo -pdf output/pdf/notification_server.pdf
+	xsltproc --xinclude --stringparam paper.type A4 -o output/db.fo $(XSL_BASE)fo/docbook.xsl main.xml
+	fop output/db.fo -pdf output/pdf/main.pdf
 	rm -f output/db.fo
 
 define FOP_LOG4J_FILE

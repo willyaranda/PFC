@@ -23,7 +23,7 @@
     <revhistory>
       <revision>
         <revnumber>1.0</revnumber>
-        <date>Diciembre 2012</date>
+        <date>Enero 2013</date>
         <authorinitials>gll</authorinitials>
         <revremark>Presentado</revremark>
         <revdescription>Documento según presentado al tribunal del PFC</revdescription>
@@ -81,7 +81,7 @@
             <firstname>Ignacio Eliseo</firstname>
             <surname>Barandalla Torregrosa</surname>
           </personname>
-          y al resto de gente de Telefónica Digital que me ha enseñado un montón de cosas.
+          y al resto de gente de Telefónica I+D, ya sea del grupo de Open Web Device o de otros, que me ha enseñado un montón de cosas durante mi año allí.
         </para>
       </listitem>
     </itemizedlist>
@@ -89,11 +89,13 @@
 
   <xi:include href="introduction.xml" />
   <xi:include href="state_art/main.xml" />
-  <!-- <xi:include href="architecture/main.xml" />
   <xi:include href="api/main.xml" />
+  <!-- <xi:include href="architecture/main.xml" />
+  <xi:include htref="security/main.xml" />
   <xi:include href="first_implementation/main.xml" />
   <xi:include href="performance/main.xml" />
   <xi:include href="deployment/main.xml" />
   <xi:include href="comparision/main.xml" />
-  <xi:include href="lessons_learned/main.xml" /> -->
+  <xi:include href="lessons_learned/main.xml" />
+  <xi:include href="future/main.xml" /> -->
 </book>

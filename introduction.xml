@@ -6,10 +6,13 @@
 
   <title>Introducción</title>
   <para>
-    Una de las grandes ventajas que ha dado internet al desarrollo de aplicaciones es la posibilidad de poder tener datos de forma dinámica, la mayoría de veces pudiendo cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar datos para mostrar a los usuarios dependiendo del momento del día u otras características.
+    Una de las grandes ventajas que ha dado internet al desarrollo de aplicaciones es, a parte de una distribución mucho más sencilla de dichas aplicaciones, es la posibilidad de poder obtener datos de forma dinámica, la mayoría de veces pudiendo cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar datos para mostrar a los usuarios dependiendo del momento del día u otras características. Aplicaciones que nos muestran los resultados de nuestro equipo favorito de fútbol, el tiempo que va a realizar en nuestra ciudad y si va a llover, o incluso mensajería instantánea son uno de los grandes usos de las tecnologías de internet para aplicaciones locales.
   </para>
   <para>
-    La descarga de estos datos de internet puede realizarse de diferentes maneras, ya sea de forma síncrona o asíncrona, pero se pueden agrupar en dos grandes grupos para conseguir esta información:
+    A lo largo de los años, las tecnologías sobre cómo descargar estos datos han ido variando, acomodándose a los momentos puntuales que han sucedido en internet, desde redes de módem lentas para lo que conocemos hoy en día hasta redes de fibra óptica capaces de descargar un gran flujo de datos pasando por las olvidadas redes móviles, que son aquellas que más han sufrido esta descarga de datos de una manera, en muchas veces, incontrolada.
+  </para>
+  <para>
+    Así pues, la descarga de estos datos de internet puede realizarse de diferentes maneras, ya sea de forma síncrona o asíncrona, pero se pueden agrupar en dos grandes grupos para conseguir esta información:
   </para>
   <para>
     <itemizedlist>
@@ -22,19 +25,22 @@
     </itemizedlist>
   </para>
   <para>
-    El primer método está desaconsejado por varios motivos. El primero de ellos es porque usa un alto número de conexiones hacia el servidor de terceros, muchas de las cuales no tienen una utilidad real puesto que no siempre que se pregunta si tienen datos realmente se poseen.
+    Estos dos grandes paradigmas son los grandes usados a lo largo de la historia de internet y de las aplicaciones. Durante mucho tiempo sólo se usó las soluciones de polling y ahora cada vez más se usan las soluciones de push, sin embargo, su uso siempre ha sido dispar y, dependiendo de qué tipo de aplicaciones y cómo necesiten los datos, el uso de una o de otra es más importante.
+  </para>
+  <para>
+    Sin embargo, el primer método está desaconsejado por varios motivos que hacen que las redes se colapsen con su uso. El primero de ellos es porque usa un alto número de conexiones hacia el servidor de terceros, muchas de las cuales no tienen una utilidad real puesto que no siempre que se pregunta si tienen datos realmente se poseen.
   </para>
   <para>
     Es por esto que los métodos de recogida de información basados en tecnologías Push son ampliamente usados para actualizar la información. Sin embargo, aunque estos métodos a primera vista puedan verse como más eficientes que los de polling, son realmente válidos para conexiones estables y sin limitaciones, pero muy poco efectivos y muy perjudiciales para las redes móviles, como las de telefonía.
   </para>
   <para>
-    El objetivo de este proyecto es explicar por qué es un problema usar cualquiera de estas dos soluciones planteadas en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de las redes móviles y cómo pueden mejorarse. El desarrollo de este proyecto está enmarcado en la creación del sistema operativo Firefox OS, que quiere acercar el desarrollo de aplicaciones web directamente a los dispositivos móviles, eliminando capas intermedias y permitiendo que cualquier aplicación de los teléfonos sea programada en HTML5, CSS3 y JavaScript.
+    El objetivo de este proyecto es explicar por qué es un problema usar cualquiera de estas dos soluciones planteadas en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de las redes móviles y cómo pueden mejorarse. El desarrollo de este proyecto está enmarcado en la creación del sistema operativo Firefox OS, que quiere acercar el desarrollo de aplicaciones web directamente a los dispositivos móviles, eliminando capas intermedias y permitiendo que cualquier aplicación de los teléfonos móviles sea programada en HTML5, CSS3 y JavaScript, a la vez que se permita un desarrollo de aplicaciones totalmente multiplataforma.
   </para>
 
   <section>
     <title>Descripción del servicio</title>
     <para>
-      La plataforma del servidor de notificaciones se encargará de enviar mensajes push (pequeños mensajes, como conversaciones de chat, una estructura JSON sobre un partido de fútbol…) a terminales que están dentro de las redes móviles, exponiendo unas APIs claras y sencillas, tanto para el desarrollador de la aplicación web como para el creador de los sistemas operativos.
+      La plataforma del servidor de notificaciones se encargará de enviar mensajes push (pequeños mensajes, como conversaciones de chat, una estructura JSON sobre la descripción de un partido de fútbol…) a terminales que están dentro de las redes móviles, exponiendo unas APIs claras y sencillas, tanto para el desarrollador de la aplicación web como para el creador de los sistemas operativos.
     </para>
     <para>
       La principal idea de crear este servicio es la de usar de una forma mucho más eficiente los recursos de las redes móviles por lo que el uso de la batería sería mucho menor, a la vez que se reduciría el tráfico de señalización en la red de telefonía móvil, lo que permitiría a las empresas de telecomunicaciones el ahorrar tanto recursos como ofrecer un mejor servicio a sus usuarios.
