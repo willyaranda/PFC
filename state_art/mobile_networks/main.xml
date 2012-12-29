@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="state_art_mobile_networks_main"
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  version="5.0" xml:lang="es">
+
+  <title xml:id="state_art_mobile_networks_title">Redes móviles</title>
+  <para>
+    Para crear un servicio que sea especialmente interesante para la redes móviles y que use pocos recursos, ancho de banda y en general, cualquier operadora pueda pensar en él, hay que plantear en primer lugar cómo es el funcionamiento de las redes móviles que están despliegadas a lo largo del mundo, conocer los detalles de las implementaciones y el por qué se han hecho e incluso los acuerdos que se han tenido que llegar entre la capacidad de las líneas, los mensajes de señalización y diferentes aspectos para que el servicio esté balanceado entre los usuarios de las redes y los propietarios de estas.
+  </para>
+  <para>
+    Es por todo esto que la necesidad de conocer en profundidad en qué gastan los dispositivos móviles su batería a lo largo del tiempo de conexión y por qué no se hace un buen uso de todos los recursos que nos da las redes móviles, es necesario para empezar a plantear un escenario satisfactorio que guste a todas las partes.
+  </para>
+
+  <section>
+    <title>Redes LAN públicas o privadas</title>
+    <para>
+      En primer lugar, tenemos dos tipos de redes principales para identificar los terminales dentro de las redes de telefonía, basadas en IP:
+      <itemizedlist>
+        <listitem>
+          <para>
+            IPv4: Son las direcciones IP más usadas en la actualidad y estandarizadas en el año 1981, en el RFC-791<footnote><para>http://tools.ietf.org/html/rfc791</para></footnote>. Se caracterizan por tener 2<superscript>32</superscript> direcciones disponibles para asignar, el cual equivalen a 4.294.967.296 equipos. Sin embargo, el principal problema es que son demasiado pocas para todos los diferentes dispositivos que hay hoy en día conectados a internet, y requieren de técnicas (como el NATting) para poder acomodar más equipos, con problemas que veremos más adelante.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            IPv6: Es la evolución directa de IPv4, estandarizada como RFC-2460<footnote><para>http://tools.ietf.org/html/rfc2460</para></footnote>, pero sin compatibilidad hacia atrás, por lo que equipos funcionando sólo con IPv6 no son capaces de llegar a dispositivos equipados sólo con IPv4 y para que puedan hablar entre ellos hay que realizar túneles o conversiones entre ambos tipos de direcciones.. Tiene una serie de ventajas sobre IPv4, la principal es que el número de dispositivos con IP distinta y no repetida aumenta de forma dramática (hasta el punto de llegar a 340 sextillones de direcciones, o 2<superscript>128</superscript>) y que, en un futuro, relegará a IPv4 a un segundo plano.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </para>
+    <para>
+      Además de los tipos de direcciones, ya sean IPv4 o IPv6, tenemos el problema de si dichas IPs están en redes públicas o privadas, los cuales limitan el acceso que tienen hacia otros dispositivos dentro o fuera de dichas redes, que puede ser beneficioso en algunos casos y realmente perjudicial en otros.
+    </para>
+    <para>
+      Así pues, tenemos estos dos tipos de redes, que se explican mediante:
+      <itemizedlist>
+        <listitem>
+          <para>
+            LAN pública: Los equipos conectados a este tipo de redes poseen una dirección IP (ya sea de versión 4 ó 6) que les permite que sean visibles por el resto de dispositivos conectados a internet y, en determinada medida, accesible sin restricciones. Esto quiere decir que cualquiera puede saber que estamos en internet y tenemos una conexión directa con los equipos a los que queremos conectarnos (servidores web, de correo, de mensajería instantánea) de una manera directa, y ellos pueden contactar con nosotros aunque no tengamos conexión, puesto que somos visibles.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            LAN privadas: Estamos dentro de un segmento de red que sólo es visible para otros equipos que compartan dicho segmento con nosotros. Esto hace que no tengamos una conexión directa con internet, si no que tengamos que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a internet no con nuestra dirección real, si no con la dirección que tenga dicho NAT y reencamine nuestras peticiones hasta el exterior, a la vez que reencaminando las respuestas desde el exterior hasta nuestro dispositivo.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </para>
+    <para>
+      Sin embargo, ninguna de las soluciones es la panacea por diferentes cuestiones. En primer lugar, tener una IP pública hace que estemos expuestos de forma completa a cualquier dispositivo de internet que pueda vernos si no tenemos un control intermedio (normalmente un firewall) para protegernos de ataques. Además, al ser visible por todo el mundo, somos vulnerables a cualquier petición que nos venga del exterior, como escaneos de puertos, PINGs, o floods incontrolados. Es por esto, que la mayoría de operadores de telefonía móvil que tienen servicios de datos, intentan evitar el dar IPs públicas a sus dispositivos para evitar estos problemas, que al final llevan a un uso de batería mayor debido a que se están recibiendo más datos, detalle que se explicará en la siguiente sección.
+    </para>
+    <para>
+      Pero a su vez, el tener un direccionamiento privado tampoco ayuda en demasía a las redes móviles. No ayuda ya que, aunque se haya comentado que el dispositivo sea accesible desde internet suele ser un inconveniente (problemas de seguridad, gasto de batería), en algunos casos nos es muy útil, como en el momento de recibir notificaciones push. El tener un direccionamiento privado nos hace que sólo seamos visibles para nuestros vecinos en nuestra red privada, y que la IP interna sea diferente a la externa, por lo que cualquier intento de conexión desde la red pública (internet, por ejemplo) no pueda llegar a nuestra IP, ya que difiere la que nosotros tenemos asignada con la que salimos a internet.
+    </para>
+    <para>
+      También podría pensarse que debido a que IPv4 tiene un rango de direcciones muy limitado, el uso de redes privadas con NATing está muy extendido, frase que es correcta. Pero también podría pensarse que usando IPv6 todos los problemas están resueltos, y que al haber tantas posibilidades de direccionar dispositivos el uso de mecanismos de push se irá perdiendo, pero hay que tener en cuenta, como se ha dicho anteriormente, que las operadoras suelen desplegar sistemas de firewall, por lo que aunque sus clientes dispongan de terminales con IPv6 pública, y por lo tanto, visibles desde internet, algunas conexiones serán bloqueadas, para evitar congestión en la red y un alto uso de batería, por lo que habría que crear reglas específicas en los firewall para permitir conexiones entrantes hacia los dispositivos por parte de determinados lugares.
+    </para>
+    <note>
+      <title>Redes fijas en el hogar</title>
+      <para>
+        No se ha hablado de redes en el hogar puesto que la diferencia no es tan apreciable, y nos permite mantener equipos fuera de internet, como televisiones o sistemas DLNA. Además, es transparente para los usuarios, ya que el peso lo lleva el router, que además de darnos acceso a internet, hace de NAT, por lo que solemos tener sistemas 2 en 1.
+      </para>
+    </note>
+  </section>
+
+  <section>
+    <title>Estados del dominio de circuitos</title>
+    <para>
+      Como se ha comentado anteriormente, vamos a describir los estados radio que son más interesantes. En la especificación 3GPP TS 25.331<footnote><para>http://www.3gpp.org/ftp/Specs/html-info/25331.htm</para></footnote> podemos ver todos los estados de la capa RRC (Radio Resource Control):
+    </para>
+    <para>
+      Para simplificar, sólo están listados los estados de la red 3G, que ahora mismo es la más usada.
+      <itemizedlist>
+        <listitem>
+          <para>
+          Cell_DCH (Canal dedicado): Cuando el teléfono está en este estado radio es porque está transmitiendo una gran cantidad de datos y la red le ha puesto en un canal dedicado.
+          </para>
+          <para>
+            El tiempo de inactividad es muy corto para este estado, conocido como el temporizador T1, y suele variar entre 5 y 20 segundos. Esto quiere decir que si se alcanza este temporizador, el teléfono cambiará su estado radio a Cell_FACH.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Cell_FACH: En este estado, el teléfono está conectado a la red móvil y usa un canal compartido con otros terminales.
+          </para>
+          <para>
+            Normally, this state is assigned by the network when the handset is
+            transmitting a small amount of data.
+            So it's common to use it when sending keep-alive packages.
+          </para>
+          <para>
+            The inactivity time of this state is a little longer (30 seconds) and
+            is konwn as T2 timer. When T2 timer is shotted, the handset will be
+            moved to Cell_PCH or URA_PCH (depending on the type of network)
+          </para>
+        </listitem>
+        <listitem>
+          Cell_PCH or URA_PCH (PCH: Paging Channel) (URA: UTRAN Registration Area)
+          <para>
+            In this state the handset is not able to send any data except
+            signalling information in order to be able to localize the handset
+            inside the celullar network.
+          </para>
+          <para>
+            In both states, the RRC connection is established and open, but it's
+            rarely used.
+          </para>
+          <para>
+            In this state, the handset informs the network every time the device
+            change from one sector to another so the network is able to known
+            exactly the BTS which is offering service to the device.
+          </para>
+          <para>
+            The T3 timer defines the maximum time to be in a PCH state. This timer
+            is longer than T1 and T2 and depends on each carrier. When it's fired
+            the handset is moved to IDLE mode so if new data transmission is needed
+            the handset will need near 2 seconds to restablish the channel and a
+            lot of signalling messages.
+          </para>
+        </listitem>
+        <listitem>
+          RRC_IDLE
+          <para>
+            This is the most economical state since the handset radio is practically
+            stopped.
+          </para>
+          <para>
+            In this state, the radio is only listening to radio messages quering
+            the handset to "Wake Up" (paging messages).
+          </para>
+          <para>
+            Also, the handset modem is listening the cell data so each time it
+            detects that the user changed from one LAC (Localization Area Code -
+            Group of multiple BTS) to another, the handset will change to the
+            PCH state in order to inform the network.
+          </para>
+          <para>
+            So when a handset is in this state, it can be Waked Up to a more
+            active state and also the network knowns the LAC where the handset
+            is moving, so if the network needs to inform the handset it should
+            send a broadcast paging message through all the LAC BTS in order to
+            locate the handset.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </para>
+    <para>
+      The following scheme represent the different radio states ordered by
+      power comsuption on the device:
+    </para>
+    <para>
+      <imagedata fileref="../../resources/rcc_states.png" align="center" width="5in" />
+    </para>
+  </section>
+
+</section>

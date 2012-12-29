@@ -7,14 +7,12 @@
   <info>
     <title>Servidor de notificaciones Push</title>
     <subtitle>Notificaciones para la web</subtitle>
-    <authorgroup>
       <author>
         <personname>
           <firstname>Guillermo</firstname>
           <surname>López Leal</surname>
         </personname>
       </author>
-    </authorgroup>
     <copyright>
       <year>2012</year>
       <holder>Guillermo López Leal</holder>
@@ -29,7 +27,6 @@
         <revdescription>Documento según presentado al tribunal del PFC</revdescription>
       </revision>
     </revhistory>
-    <productnumber>1.0</productnumber>
   </info>
 
   <acknowledgements>
@@ -81,7 +78,7 @@
             <firstname>Ignacio Eliseo</firstname>
             <surname>Barandalla Torregrosa</surname>
           </personname>
-          y al resto de gente de Telefónica I+D, ya sea del grupo de Open Web Device o de otros, que me ha enseñado un montón de cosas durante mi año allí.
+          y al resto de gente de Telefónica I+D, ya sea del grupo de Open Web Device o de otros, que me ha enseñado un montón de cosas durante mi año allí. Gracias a todos.
         </para>
       </listitem>
     </itemizedlist>

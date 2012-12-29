@@ -6,7 +6,7 @@
 
   <title>Introducción</title>
   <para>
-    Una de las grandes ventajas que ha dado internet al desarrollo de aplicaciones es, a parte de una distribución mucho más sencilla de dichas aplicaciones, es la posibilidad de poder obtener datos de forma dinámica, la mayoría de veces pudiendo cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar datos para mostrar a los usuarios dependiendo del momento del día u otras características. Aplicaciones que nos muestran los resultados de nuestro equipo favorito de fútbol, el tiempo que va a realizar en nuestra ciudad y si va a llover, o incluso mensajería instantánea son uno de los grandes usos de las tecnologías de internet para aplicaciones locales.
+    Una de las grandes ventajas que ha dado internet al desarrollo de aplicaciones es, a parte de una distribución mucho más sencilla de dichas aplicaciones, es la posibilidad de poder obtener datos de forma dinámica, la mayoría de veces pudiendo cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar los datos a mostrar a los usuarios dependiendo del momento del día u otras características. Aplicaciones que nos muestran los resultados de nuestro equipo favorito de fútbol, el tiempo que va a realizar en nuestra ciudad, o incluso mensajería instantánea son uno de los grandes usos de las tecnologías de internet para aplicaciones locales.
   </para>
   <para>
     A lo largo de los años, las tecnologías sobre cómo descargar estos datos han ido variando, acomodándose a los momentos puntuales que han sucedido en internet, desde redes de módem lentas para lo que conocemos hoy en día hasta redes de fibra óptica capaces de descargar un gran flujo de datos pasando por las olvidadas redes móviles, que son aquellas que más han sufrido esta descarga de datos de una manera, en muchas veces, incontrolada.
@@ -33,9 +33,39 @@
   <para>
     Es por esto que los métodos de recogida de información basados en tecnologías Push son ampliamente usados para actualizar la información. Sin embargo, aunque estos métodos a primera vista puedan verse como más eficientes que los de polling, son realmente válidos para conexiones estables y sin limitaciones, pero muy poco efectivos y muy perjudiciales para las redes móviles, como las de telefonía.
   </para>
-  <para>
-    El objetivo de este proyecto es explicar por qué es un problema usar cualquiera de estas dos soluciones planteadas en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de las redes móviles y cómo pueden mejorarse. El desarrollo de este proyecto está enmarcado en la creación del sistema operativo Firefox OS, que quiere acercar el desarrollo de aplicaciones web directamente a los dispositivos móviles, eliminando capas intermedias y permitiendo que cualquier aplicación de los teléfonos móviles sea programada en HTML5, CSS3 y JavaScript, a la vez que se permita un desarrollo de aplicaciones totalmente multiplataforma.
-  </para>
+
+  <section>
+    <title>Resumen</title>
+    <para>
+      La creación de un sistema de notificaciones push, con un API sencilla y fácil de utilizar, transparente para los desarrolladores de aplicaciones, con el objetivo de que funcione en diferentes tipos de redes de datos, como celulares o ADSL, en el dominio de paquetes o de circuitos, y haga un uso mínimo de recursos y de batería, utilizando todas las peculiaridades de cada servicio para que sea la mejor solución en cada situación.
+    </para>
+  </section>
+
+  <section>
+    <title>Objetivos</title>
+    <itemizedlist mark="opencircle">
+      <listitem>
+        <para>
+          Explicar por qué es un problema usar cualquiera de las dos soluciones planteadas al inicio del capítulo en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de dichas redes móviles y cómo pueden mejorarse.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Creación de una plataforma de mensajería push que sea amigable para los dispositivos móviles con las consideraciones expuestas en el punto anterior: que no use demasiada batería, que sea interesante para las operadoras móviles y que reduzca el consumo de ancho de banda y de señalización en la red móvil.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Implementación de este mecanismo de push, no sólo en su parte servidor si no en su parte cliente. Este desarrollo está englobado en la creación del sistema operativo para móviles Firefox OS.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Estandarización al organismo W3C, para que sea implantado por todos los navegadores y que haya una mejor unión entre las redes de telefonía móvil y el mundo de internet, para el intercambio de datos de forma eficiente.
+        </para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
   <section>
     <title>Descripción del servicio</title>
@@ -43,14 +73,8 @@
       La plataforma del servidor de notificaciones se encargará de enviar mensajes push (pequeños mensajes, como conversaciones de chat, una estructura JSON sobre la descripción de un partido de fútbol…) a terminales que están dentro de las redes móviles, exponiendo unas APIs claras y sencillas, tanto para el desarrollador de la aplicación web como para el creador de los sistemas operativos.
     </para>
     <para>
-      La principal idea de crear este servicio es la de usar de una forma mucho más eficiente los recursos de las redes móviles por lo que el uso de la batería sería mucho menor, a la vez que se reduciría el tráfico de señalización en la red de telefonía móvil, lo que permitiría a las empresas de telecomunicaciones el ahorrar tanto recursos como ofrecer un mejor servicio a sus usuarios.
+      La principal idea de crear este servicio es la de usar de una forma mucho más eficiente los recursos de las redes móviles por lo que el uso de la batería será menor, a la vez que se reduciría el tráfico de señalización en la red de telefonía móvil, lo que permitiría a las empresas de telecomunicaciones el ahorrar recursos como ofrecer un mejor servicio a sus usuarios.
     </para>
-  </section>
-
-  <section>
-    <title>Objetivos</title>
-    <para>El primer objetivo es la creación de una plataforma de mensajes push que sea amigable para los dispositivos móviles, esto es, que no use demasiada batería, a la vez que sea interesante para las operadoras el uso de esta tecnología, siendo otro de los objetivos el de reducir el consumo de ancho de banda y de señalización en la red móvil.</para>
-    <para>Además, la implementación de este mecanismo de push, al estar englobado en el desarrollo del sistema operativo para móviles Firefox OS, cuyos lenguajes de programación principales son HTML, JavaScript y CSS, se quiere que sea propuesta como el estandar de notificaciones Push por el W3C para que sea implantado por todos los navegadores y que haya una mejor unión entre las redes de telefonía móvil y el mundo de internet.</para>
   </section>
 
 </chapter>

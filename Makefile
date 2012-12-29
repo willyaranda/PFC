@@ -37,7 +37,7 @@ html_chunked:
 
 pdf:
 	mkdir -p output/pdf
-	xsltproc --xinclude --stringparam paper.type A4 -o output/db.fo $(XSL_BASE)fo/docbook.xsl main.xml
+	xsltproc --xinclude --stringparam paper.type A4 --stringparam body.font.size 12 --stringparam normal.para.spacing 1.5 --stringparam body.font.family Helvetica -o output/db.fo $(XSL_BASE)fo/docbook.xsl main.xml
 	fop output/db.fo -pdf output/pdf/main.pdf
 	rm -f output/db.fo
 
