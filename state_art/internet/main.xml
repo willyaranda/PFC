@@ -5,12 +5,12 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title xml:id="state_art_internet_title">Estado del arte: Internet</title>
+  <title xml:id="state_art_internet_title">Internet: servicios push</title>
   <para>
-    Este capítulo tiene como objetivo listar las diferentes tecnologías que se han usado a lo largo del tiempo para mandar mensajes push a los dispositivos móviles. Algunas de ellas han sido creadas por los operadores, por lo que tienen un carácter de buen uso de las redes móviles, sin embargo, ninguna de ellas se ha impuesto sobre las creadas por las empresas de software o de internet por varias razones, por lo que estas decidieron crear sus propias plataformas de push de la manera más simple para ellos: usando las tecnologías de internet, lo que quiere decir que muchas de ellas son muy malas para las redes móviles.
+    Una vez visto las diferentes plataformas push creadas por los organismos de los operadores de telefonía móvil, tenemos que movernos hacia tecnologías más modernas y que han sido creadas por empresas radicadas principalmente en internet. Estas tecnologías son relativamente similares entre ellas, pero se difieren en las cuotas, autenticación… pero la idea sobre cómo mantener el canal de comunicación entre los dispositivos y el servidor de notificaciones es muy similar.
   </para>
   <para>
-    Pero antes de comentar cuáles son las diferentes propuestas que se han realizado en los últimos años, necesitamos saber cómo funcionan las redes móviles en el nivel radio, y cómo los operadores tienen montada su infraestructura móvil.
+    Así pues, vamos a ver ver cada una de estas tecnologías y a explicarlas brevemente.
   </para>
 
   <xi:include href="gcm.xml" />

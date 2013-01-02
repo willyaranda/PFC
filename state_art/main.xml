@@ -16,4 +16,7 @@
   <xi:include href="mobile_networks/main.xml" />
 
   <xi:include href="operators/main.xml" />
+
+  <xi:include href="internet/main.xml" />
+
 </chapter>

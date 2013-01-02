@@ -5,7 +5,7 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title>Estado actual de servicios push</title>
+  <title>Operadores: servicios push</title>
   <para>
     Así pues, vistos los problemas que tiene la red móvil, cómo se comporta y cuál es el mejor estado de radio para mantener a un terminal para que el uso de batería y de recursos de red sea el menor posible, vamos a explicar las soluciones actuales de push, tanto las propuestas por las propias operadoras de telefonía, ya sea por parte del GSMA<footnote><para>http://www.gsma.com/</para></footnote> como por OMA<footnote><para>Open Mobile Alliance: http://openmobilealliance.org/</para></footnote>, dos de los organismos internacionales en la estandarización de protocolos para telefonía móvil.
   </para>
