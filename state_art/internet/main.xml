@@ -5,7 +5,7 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title xml:id="state_art_internet_title">Internet: servicios push</title>
+  <title xml:id="state_art_internet_title">Internet</title>
   <para>
     Una vez visto las diferentes plataformas push creadas por los organismos de los operadores de telefonía móvil, tenemos que movernos hacia tecnologías más modernas y que han sido creadas por empresas radicadas principalmente en internet. Estas tecnologías son relativamente similares entre ellas, pero se difieren en las cuotas, autenticación… pero la idea sobre cómo mantener el canal de comunicación entre los dispositivos y el servidor de notificaciones es muy similar.
   </para>

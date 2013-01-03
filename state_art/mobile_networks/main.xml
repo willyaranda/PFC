@@ -19,14 +19,20 @@
       En primer lugar, tenemos dos tipos de redes principales para identificar los terminales dentro de las redes de telefonía, basadas en IP:
       <itemizedlist>
         <listitem>
-          <para>
-            IPv4: Son las direcciones IP más usadas en la actualidad y estandarizadas en el año 1981, en el RFC-791<footnote><para>http://tools.ietf.org/html/rfc791</para></footnote>. Se caracterizan por tener 2<superscript>32</superscript> direcciones disponibles para asignar, el cual equivalen a 4.294.967.296 equipos. Sin embargo, el principal problema es que son demasiado pocas para todos los diferentes dispositivos que hay hoy en día conectados a internet, y requieren de técnicas (como el NATting) para poder acomodar más equipos, con problemas que veremos más adelante.
-          </para>
+          <formalpara>
+            <title>IPv4</title>
+            <para>
+              Son las direcciones IP más usadas en la actualidad y estandarizadas en el año 1981, en el RFC-791<footnote><para>http://tools.ietf.org/html/rfc791</para></footnote>. Se caracterizan por tener 2<superscript>32</superscript> direcciones disponibles para asignar, el cual equivalen a 4.294.967.296 equipos. Sin embargo, el principal problema es que son demasiado pocas para todos los diferentes dispositivos que hay hoy en día conectados a internet, y requieren de técnicas (como el NATting) para poder acomodar más equipos, con problemas que veremos más adelante.
+            </para>
+          </formalpara>
         </listitem>
         <listitem>
-          <para>
-            IPv6: Es la evolución directa de IPv4, estandarizada como RFC-2460<footnote><para>http://tools.ietf.org/html/rfc2460</para></footnote>, pero sin compatibilidad hacia atrás, por lo que equipos funcionando sólo con IPv6 no son capaces de llegar a dispositivos equipados sólo con IPv4 y para que puedan hablar entre ellos hay que realizar túneles o conversiones entre ambos tipos de direcciones.. Tiene una serie de ventajas sobre IPv4, la principal es que el número de dispositivos con IP distinta y no repetida aumenta de forma dramática (hasta el punto de llegar a 340 sextillones de direcciones, o 2<superscript>128</superscript>) y que, en un futuro, relegará a IPv4 a un segundo plano.
-          </para>
+          <formalpara>
+            <title>IPv6</title>
+            <para>
+              Es la evolución directa de IPv4, estandarizada como RFC-2460<footnote><para>http://tools.ietf.org/html/rfc2460</para></footnote>, pero sin compatibilidad hacia atrás, por lo que equipos funcionando sólo con IPv6 no son capaces de llegar a dispositivos equipados sólo con IPv4 y para que puedan hablar entre ellos hay que realizar túneles o conversiones entre ambos tipos de direcciones.. Tiene una serie de ventajas sobre IPv4, la principal es que el número de dispositivos con IP distinta y no repetida aumenta de forma dramática (hasta el punto de llegar a 340 sextillones de direcciones, o 2<superscript>128</superscript>) y que, en un futuro, relegará a IPv4 a un segundo plano.
+            </para>
+        </formalpara>
         </listitem>
       </itemizedlist>
     </para>
@@ -37,14 +43,20 @@
       Así pues, tenemos estos dos tipos de redes, que se explican mediante:
       <itemizedlist>
         <listitem>
-          <para>
-            LAN pública: Los equipos conectados a este tipo de redes poseen una dirección IP (ya sea de versión 4 ó 6) que les permite que sean visibles por el resto de dispositivos conectados a internet y, en determinada medida, accesible sin restricciones. Esto quiere decir que cualquiera puede saber que estamos en internet y tenemos una conexión directa con los equipos a los que queremos conectarnos (servidores web, de correo, de mensajería instantánea) de una manera directa, y ellos pueden contactar con nosotros aunque no tengamos conexión, puesto que somos visibles.
-          </para>
+          <formalpara>
+            <title>LAN pública</title>
+            <para>
+              Los equipos conectados a este tipo de redes poseen una dirección IP (ya sea de versión 4 ó 6) que les permite que sean visibles por el resto de dispositivos conectados a internet y, en determinada medida, accesible sin restricciones. Esto quiere decir que cualquiera puede saber que estamos en internet y tenemos una conexión directa con los equipos a los que queremos conectarnos (servidores web, de correo, de mensajería instantánea) de una manera directa, y ellos pueden contactar con nosotros aunque no tengamos conexión, puesto que somos visibles.
+            </para>
+          </formalpara>
         </listitem>
         <listitem>
-          <para>
-            LAN privadas: Estamos dentro de un segmento de red que sólo es visible para otros equipos que compartan dicho segmento con nosotros. Esto hace que no tengamos una conexión directa con internet, si no que tengamos que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a internet no con nuestra dirección real, si no con la dirección que tenga dicho NAT y reencamine nuestras peticiones hasta el exterior, a la vez que reencaminando las respuestas desde el exterior hasta nuestro dispositivo.
-          </para>
+          <formalpara>
+            <title>LAN privadas</title>
+            <para>
+              Estamos dentro de un segmento de red que sólo es visible para otros equipos que compartan dicho segmento con nosotros. Esto hace que no tengamos una conexión directa con internet, si no que tengamos que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a internet no con nuestra dirección real, si no con la dirección que tenga dicho NAT y reencamine nuestras peticiones hasta el exterior, a la vez que reencaminando las respuestas desde el exterior hasta nuestro dispositivo.
+            </para>
+          </formalpara>
         </listitem>
       </itemizedlist>
     </para>
@@ -74,84 +86,69 @@
       Para simplificar, sólo están listados los estados de la red 3G, que ahora mismo es la más usada.
       <itemizedlist>
         <listitem>
-          <para>
-          Cell_DCH (Canal dedicado): Cuando el teléfono está en este estado radio es porque está transmitiendo una gran cantidad de datos y la red le ha puesto en un canal dedicado.
-          </para>
-          <para>
-            El tiempo de inactividad es muy corto para este estado, conocido como el temporizador T1, y suele variar entre 5 y 20 segundos. Esto quiere decir que si se alcanza este temporizador, el teléfono cambiará su estado radio a Cell_FACH.
-          </para>
+          <formalpara>
+            <title>Cell_DCH (Canal dedicado)</title>
+            <para>
+              Cuando el teléfono está en este estado radio es porque está transmitiendo una gran cantidad de datos y la red le ha puesto en un canal dedicado.
+            </para>
+            <para>
+              El tiempo de inactividad es muy corto para este estado, conocido como el temporizador T1, y suele variar entre 5 y 20 segundos. Esto quiere decir que si se alcanza este temporizador, el teléfono cambiará su estado radio a Cell_FACH.
+            </para>
+          </formalpara>
         </listitem>
         <listitem>
-          <para>
-          Cell_FACH: En este estado, el teléfono está conectado a la red móvil y usa un canal compartido con otros terminales.
-          </para>
-          <para>
-            Normally, this state is assigned by the network when the handset is
-            transmitting a small amount of data.
-            So it's common to use it when sending keep-alive packages.
-          </para>
-          <para>
-            The inactivity time of this state is a little longer (30 seconds) and
-            is konwn as T2 timer. When T2 timer is shotted, the handset will be
-            moved to Cell_PCH or URA_PCH (depending on the type of network)
-          </para>
+          <formalpara>
+            <title>Cell_FACH</title>
+            <para>
+              En este estado, el teléfono está conectado a la red móvil y usa un canal compartido con otros terminales. Suele estar transmitiendo un pequeño número de paquetes, que normalmente son keep-alives.
+            </para>
+            <para>
+              El temporizador de inactividad en este estado es un poco mayor (del orden de los 30 segundos) y es conocido como el temporizador T2. Cuando es disparado, el dispositivo es movido por la radio del al estado Cell_PCH o URA_PCH (dependiendo del tipo de red).
+            </para>
+          </formalpara>
         </listitem>
         <listitem>
-          Cell_PCH or URA_PCH (PCH: Paging Channel) (URA: UTRAN Registration Area)
-          <para>
-            In this state the handset is not able to send any data except
-            signalling information in order to be able to localize the handset
-            inside the celullar network.
-          </para>
-          <para>
-            In both states, the RRC connection is established and open, but it's
-            rarely used.
-          </para>
-          <para>
-            In this state, the handset informs the network every time the device
-            change from one sector to another so the network is able to known
-            exactly the BTS which is offering service to the device.
-          </para>
-          <para>
-            The T3 timer defines the maximum time to be in a PCH state. This timer
-            is longer than T1 and T2 and depends on each carrier. When it's fired
-            the handset is moved to IDLE mode so if new data transmission is needed
-            the handset will need near 2 seconds to restablish the channel and a
-            lot of signalling messages.
-          </para>
+          <formalpara>
+            <title>Cell_PCH o URA_PCH (PCH: Paging CHannel) (URA: UTRAN Registration Area)</title>
+            <para>
+              En este estado, el teléfono no puede mandar ningún dato, excepto información de señalización para poder localizar el dispositivo dentro de la red móvil. En este caso, la conexión RRC está establecida y abierta, pero apenas es usada.
+            </para>
+            <para>
+              En este estado, el dispositivo informa a la red cada cierto tiempo que el dispositivo cambia de una celda (o sector) a otra, para que la red sea capaz de conocer exactamente en qué BTS (Base Transceiver Station, o nodo B) se encuentra ofreciendo servicio al dispositivo.
+            </para>
+            <para>
+              El temporizador T3 define el tiempo máximo que un terminal puede estar en un estado PCH. Este temporizador es mayor que T1 y T2 y depende de cada operador de red. Cuando se dispara, el dispositivo se mueve al estado IDLE, por lo que cualquier dato que quiera transmitir el dispositivo le llevará unos dos segundos para restablecer el canal y un montón de mensajes de señalización.
+            </para>
+          </formalpara>
         </listitem>
         <listitem>
-          RRC_IDLE
-          <para>
-            This is the most economical state since the handset radio is practically
-            stopped.
-          </para>
-          <para>
-            In this state, the radio is only listening to radio messages quering
-            the handset to "Wake Up" (paging messages).
-          </para>
-          <para>
-            Also, the handset modem is listening the cell data so each time it
-            detects that the user changed from one LAC (Localization Area Code -
-            Group of multiple BTS) to another, the handset will change to the
-            PCH state in order to inform the network.
-          </para>
-          <para>
-            So when a handset is in this state, it can be Waked Up to a more
-            active state and also the network knowns the LAC where the handset
-            is moving, so if the network needs to inform the handset it should
-            send a broadcast paging message through all the LAC BTS in order to
-            locate the handset.
-          </para>
+          <formalpara>
+            <title>RRC_IDLE</title>
+            <para>
+              Es el estado más económico en el que puede estar la radio, ya que prácticamente está dormida.
+            </para>
+            <para>
+              También, hay que decir que el modem está escuchando a los datos de célula por lo que cada vez que detecta que el usuario cambia de un LAC (Localization Area Code, un grupo de múltiples BTS o NodosB) a otro, el dispositivo cambiará el estado PCH para informar a la red de su nueva ubicación.
+            </para>
+            <para>
+              Así pues, cuando el dispositivo está en este estado, puede ser despierto a un estado más activo de red y también la red sabe en qué LAC se encuentra moviéndose el dispositivo, por lo que si la red necesita informar al dispositivo de que está ocurriendo algo en la red (una llamada, un SMS, alguien quiere mandarle datos), se manda un mensaje de broadcast, llamado Paging por toda la red LAC de BTS para localizar el dispositivo.
+            </para>
+          </formalpara>
         </listitem>
       </itemizedlist>
     </para>
     <para>
-      The following scheme represent the different radio states ordered by
-      power comsuption on the device:
+      El siguiente esquema representa los diferentes estados radio, ordenador por consumo energético en el dispositivo.
+    </para>
+    <figure>
+      <title>Esquema de estados radio</title>
+      <imagedata fileref="../../resources/rcc_states.png" align="center" width="5in" />
+    </figure>
+    <para>
+      Así pues, como se puede ver, el estado más interesante para mantener un dispositivo móvil en la red celular es el modo Idle, puesto que no tiene una conexión de red abierta constantemente, y el uso de recursos es de alrededor 100 veces menos entre este modo y el de máxima excitación (CELL_DCH), lo que hará que la batería dure más tiempo, tengamos menos señalización de red, y estemos ocupando menos recursos, tanto en nuestro dispositivo como en la red.
     </para>
     <para>
-      <imagedata fileref="../../resources/rcc_states.png" align="center" width="5in" />
+      Entonces, como podemos ver, queremos mantener al dispositivo el máximo tiempo posible en este estado, por todas las razones expuestas anteriormente.
     </para>
   </section>
 

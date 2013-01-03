@@ -5,82 +5,91 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0" xml:lang="es">
 
-  <title>Notification server API</title>
+  <title>Application Program Interface, API</title>
   <para>
-    The Notification Server API is based on the W3C draft:
-    <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">
-      [http://dvcs.w3.org/hg/push/raw-file/default/index.html]
-    </link>
+    El servidor de notificaciones tiene diferentes API que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">el estándar</link> que estaba proponiendo el W3C, se mantiene por compatibilidad hacia atrás, pero sin embargo, se sobreescriben algunos métodos para introducir mejoras de seguridad.
   </para>
   <para>
-    In order to understand this chapter, we'll present the different actors:
+    Para entender este capítulo, es necesario presentar a los diferentes actores que hacen aparición:
     <itemizedlist>
       <listitem>
-        WebApp (WA):
-        <para>
-          The user's applications which is normally executed on the
-          user device.
-        </para>
+        <formalpara>
+          <title>Aplicación web (WebApp: WA)</title>
+          <para>
+            La aplicación del usuario que es ejecutada en el dispositivo.
+          </para>
+        </formalpara>
       </listitem>
       <listitem>
-        User Agent (UA):
-        <para>
-          Since this protocol born under the Firefox OS umbrella the
-          "operating system" layer is known as the User Agent layer, in our case
-          is the Gecko engine.
-        </para>
+        <formalpara>
+          <title>Agente de usuario (User-Agent: UA)</title>
+          <para>
+            Como el proyecto se inició bajo el paraguas de Firefox OS, cuyo motor de renderizado de páginas web, equivalente a aplicaciones web es conocido como el Agente de usuario, que en nuestro caso es Gecko, el motor de Mozilla.
+          </para>
+        </formalpara>
       </listitem>
       <listitem>
-        Notification Server (NS):
-        <para>
-          Centralized infrastructure of the notification
-          server platform. This one can be freely deployed by anyone since it's
-          open source:
-          <link xlink:href="https://github.com/telefonicaid/notification_server">
-            [https://github.com/telefonicaid/notification_server]
-          </link>.
-          The protocol also allows to use any server infrastructure the user wants
-        </para>
+        <formalpara>
+          <title>Servidor de notificaciones (Notification Server: NS)</title>
+          <para>
+            Es la infraestructura centralizada del servidor de notificaciones. Cualquiera puede desplegar una nueva instancia debido a que está <link xlink:href="https://github.com/telefonicaid/notification_server">liberado como código abierto</link>.
+            Como el proyecto se inició bajo el paraguas de Firefox OS, cuyo motor de renderizado de páginas web, equivalente a aplicaciones web es conocido como el Agente de usuario, que en nuestro caso es Gecko, el motor de Mozilla.
+          </para>
+        </formalpara>
       </listitem>
       <listitem>
-        Application server (AS):
-        <para>
-          The WA server side. Normally the applications that runs on a
-          mobile device use one or more Internet servers.
-        </para>
-        <para>
-          Some of them will be deployed by the same developer as the client application.
-        </para>
-        <para>
-          In our case, this server will be the one which send the notification to
-          his clients/users.
-        </para>
+        <formalpara>
+          <title>Servidor de aplicaciones (Application Server: AS)</title>
+          <para>
+            Es la parte servidora de la WA. Normalmente se podría definir como la presencia en internet de la WA, que es la que recibe las URLs a las que tiene que hacer push y la que los realiza.
+          </para>
+        </formalpara>
       </listitem>
     </itemizedlist>
   </para>
   <para>
-    <imagedata fileref="resources/actors_and_channels.png" align="center" width="5in" />
+    <imagedata fileref="../resources/actors_and_channels.png" align="center" width="5in" />
   </para>
 
   <xi:include href="wa_ua.xml" />
   <xi:include href="ua_ns.xml" />
   <xi:include href="as_ns.xml" />
+
   <section xml:id="api_wa_as">
-    <title>API between the WA and the AS</title>
+    <title>API entre WA y AS</title>
     <para>
-      This is a third party API which is independent of the PUSH protocol, so
-      it's out of the scope of this document.
+      Este es el API que es independiente del protocolo de push propuesto, por lo que está fuera del alcance de este proyecto.
     </para>
     <para>
-      Anyway, through this API the publicURL received by the application should
-      be send to his server.
+      Sin embargo, a través de este API la publicURL recibida por la aplicación a través del API entre la WA y el UA, debería ser mandada al servidor de terceros.
     </para>
-    <para>
-      Also this channel could be used to receive valid WATokens to be used during
-      the WA registration.
-    </para>
+    <formalpara>
+      <title>Recomendaciones</title>
+      <para>
+        Sin embargo, hay una serie de pautas que deberían seguir los desarrolladores para pasar la información de una forma segura a través de la red.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Usar un canal seguro de envío de datos, como puede ser una conexión SSL con su servidor.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Cifrar el contenido de la URL con algún algoritmo que permita descifrarlo en la parte servidora.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Por supuesto, asociar algún número que no permita saber a quién corresponde la URL enviada con qué usuario para un atacante externo, pero que el servicio pueda identificarlo de forma unívoca.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </formalpara>
   </section>
+
   <xi:include href="tokens.xml" />
+
   <section>
     <title>WakeUp</title>
     <para>

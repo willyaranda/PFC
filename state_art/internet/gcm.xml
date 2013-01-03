@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xml:id="state_art_internet_gcm"
-      xmlns="http://docbook.org/ns/docbook"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      version="5.0" xml:lang="es">
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  version="5.0" xml:lang="es">
 
   <title xml:id="state_art_internet_gcm_title">GCM: Google Could Messaging</title>
   <para>
-    GCM o Google Cloud Messaging es un sistema de notificaciones push creado por la empresa Google Inc. para su sistema operativo Android. Su finalidad es la misma que los demás sistemas: entregar notificaciones o mensajes que un servicio de terceros (o incluso la misma plataforma de Google) a los usuarios usando un dispositivo de una manera fácil, ordenada y controlada.
+    GCM o Google Cloud Messaging<footnote><para>http://developer.android.com/google/gcm/index.html</para></footnote> es un sistema de notificaciones push creado por la empresa Google para su sistema operativo Android. Su finalidad es la misma que los demás sistemas: entregar notificaciones o mensajes que un servicio de terceros (o incluso la misma plataforma de Google) a los usuarios usando un dispositivo de una manera fácil, ordenada y controlada.
   </para>
   <para>
     Es uno de los sistemas más grandes, puesto que está presente en todos los dispositivos Android que tengan una cuenta de Google asociada, los cuales son prácticamente la mayoría. El número de usuarios de este servicio no es especificado por Google, pero podría ser similar o inferior al número de dispositivos Android en el mercado, que supera los 600 millones de dispositivos<footnote><para>XXXX FALTA REFERENCIA</para></footnote>.
@@ -21,7 +21,143 @@
     </para>
   </blockquote>
   <formalpara>
-    <title>Características principales</title>
-    <para>GCM</para>
+    <title>Características</title>
+    <para>GCM tiene como características más interesantes:</para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          La aplicación a la que tiene que llegar la notificación no tiene por qué estar abierta. El servicio GCM se encarga de despertarla y que maneje la notificación.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          No hay ninguna interfaz para administrar la notificacición. GCM simplementa pasa datos en crudo desde que la notificación es recibida hasta que es entregada. La aplicación final es la que tiene la lógica necesaria para saber qué hacer con la notificación en todo momento. Por ejemplo, puede que la notificación sea "hay nuevos datos para descargar", por lo que no muestre ninguna interfaz, o bien un nuevo mensaje de un amigo, que sí es importante mostrar.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Requiere que la versión de Android instalada sea la 2.2 y además tiene que tener la aplicación de Google Play (el antiguo Market) configurada correctamente, esto es, con una cuenta de Google asociada. Pero no obliga a que la aplicación que reciba la notificación esté instalada por Google Play, si no que puede tener cualquier origen.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Usa una conexión permanente con los servidores de Google para recibir las notificaciones y mensajes de control.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Requiere que los servidores de terceros que envíen notificaciones estén registrados en la plataforma. Esto significa que Google puede revocar en cualquier momento el envío de notificaciones por parte de un desarrollador o empresa, simplemente no permitiendo el identificador único que se les proporciona en un primer momento.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          La identificación de la aplicación es de forma única. Esto significa que para cada aplicación que quiera recibir notificaciones push, en cada dispositivo, tiene un número único que la identifica de forma única dentro del servicio. Esta identificación única la da el servidor de GCM a la aplicación, que a su vez la tiene que enviar al servidor de terceros para que se envíe concretamente a esa instancia.
+        </para>
+      </listitem>
+    </itemizedlist>
   </formalpara>
+  <para>
+    Así pues, el diagrama principal del envío y entrega de un mensaje de una forma muy abstracta es:
+    <note>
+      Suponemos que la aplicación instalada tiene un ID de registro que permite recibir notificaciones, además de que el servidor de terceros ha guardado ese ID y que el servidor tiene una clave de API que le permite identificarse como emisor de notificaciones.
+    </note>
+  </para>
+  <orderedlist>
+    <listitem>
+      El servidor de aplicación envía un mensaje a los servidores de GCM.
+    </listitem>
+    <listitem>
+      El servicio GCM encola el mensaje y lo guarda en el caso de que el dispositivo al que se tiene que entregar esté desconectado.
+    </listitem>
+    <listitem>
+      Cuando el dispositivo se encuentre online (puede que ya lo esté, o puede que no), el mensaje es mandado por un canal al dispositivo, que lo parsea el sistema operativo (Android, en este caso), y despierta a la aplicación destino en el caso que esté cerrada o la entrega directamente.
+    </listitem>
+    <listitem>
+      La aplicación procesa el mensaje y realiza cualquier tipo de evento relacionado con ella: sincronizar datos de fondo, mostrar una alerta…
+    </listitem>
+  </orderedlist>
+  <para>
+    GCM es un sistema que no es obligatorio para las aplicaciones Android publicadas en el Market de Google, sin embargo, su diseño hace que sea bastante eficiente para las redes móviles y haya un buen puñado de ventajas que hacen que los servicios de terceros tengan que tener menos lógica y preocuparse menos de la suerte que van a correr sus mensajes.
+  </para>
+  <para>
+    Cabe señalar, que antes de la introducción de GCM para los desarrolladores de Android (en julio de 2012), antes había un sistema muy similar para teléfonos Android, llamado Cloud to Device Messagging, o más conocido como C2DM<footnote><para>https://developers.google.com/android/c2dm/</para></footnote>
+  </para>
+  <formalpara>
+    <title>Ventajas</title>
+    <para>
+      GCM tiene una serie de ventajas sobre su predecesor CD2M (no explicado puesto que ha sido sustituido por esta versión) de las cuales habría que destacar:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Tiene un mejor uso de batería, ya que puede encolar mensajes para ser entregados cuando el dispositivo está con una conexión activa (y por lo tanto tiene la radio móvil activada). Además, no tiene por qué notificar al dispositivo siempre que le llegue una nueva notificación, si no que puede esperar a que pase a estar activo (por ejemplo, que se encienda la pantalla) para mandar los datos.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          El uso de datos y la transferencia es más eficiente, por las explicaciones del punto anterior. Esto hace que se gaste menos batería y que el usuario sólo pueda recibir notificaciones cuando realmente son interesantes: cuando se usa el dispositivo, y mantener en cola las no prioritarias.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          El API es más sencilla, puesto que hay menos pasos para poder usar el servicio y además, el código del cliente en las aplicaciones es más claro y fácil de implementar, sobrescribiendo algunos métodos de las clases de las cuales se extiende.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          La migración del servicio es muy simple, y sólo hay que cambiar la URL de push para que apunte hacia otro servidor.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Se eliminan las cuotas que había en el sistema anterior, permitiendo a los desarrolladores crecer de forma sencilla y sin nuevas peticiones. Además, se pueden consultar el estado de los mensajes en el perfil de Google.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Permiten un mensaje (<code>payload</code>) de 4KiB, por lo que muchos de los datos que puedan ir por esta mensajería push no requerirán que las aplicaciones se conecten al servidor de terceros para recoger la información y realizar una segunda conexión.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Se permiten hacer mensajes multicast, esto quiere decir que se puede hacer sólo un envío de mensaje push, pero indicando todos los receptores en el momento de enviarlo, se entregarán a todos. Incluso múltiples emisores pueden enviar mensajes a una misma aplicación (por ejemplo, una red social que habla sobre un jugador de fútbol y a la vez información sobre el equipo en el que juega).
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Hay un tiempo de vida máximo de 4 semanas para cada mensaje. Si un mensaje viene sin tiempo de vida, se presupone que el tiempo es máximo, sin embargo, un mensaje muy interesante es del de un TTL (<code>time_to_live</code>) de 0 segundos, el cual se envía a los receptores sin guardarlo, por lo que si no está conectacto el receptor (o los receptores), se pierde.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Existe la posibilidad de sobrescribir mensajes antiguos (con la misma <code>collapse_key</code>), enviar mensajes sólo cuando el usuario esté activo (con <code>delay_while_idle</code>) e incluso comprobar si los mensajes van a ser entregados o no dependiendo de la respuesta que de el servicio.
+        </para>
+      </listitem>
+    </itemizedlist>
+  </formalpara>
+  <para>
+    A pesar de la enorme capacidad que tiene este sistema, con todas sus ventajas que se han mostrado anteriormente, sigue teniendo pequeños fallos que hacen que no sea ampliamente usado, por ejemplo:
+    <orderedlist>
+      <listitem>
+        <formalpara>
+          <title>No es obligatorio</title>
+          <para>
+            Por lo que los diferentes desarrolladores no están obligados a usarlo en sus aplicaciones y pueden crear otros sistemas de push propietarios (como los que hacen la mayoría de aplicaciones de mensajería instantánea), lo que lleva a que la validez del sistema sea menor.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Mantiene una conexión abierta</title>
+          <para>
+            Como se ha comentado, uno de los grandes problemas, junto a la señalización, es la de mantener canales abiertos sin hacer nada en espera de que alguna vez atraviese un dato, en nuestro caso notificaciones. 
+          </para>
+        </formalpara>
+      </listitem>
+    </orderedlist>
+  </para>
+  <figure>
+    <title>Funcionamiento de GCM</title>
+    <imagedata fileref="../../resources/apns-gcm.png" contentwidth="17cm" />
+  </figure>
 </section>

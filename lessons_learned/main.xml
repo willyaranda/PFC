@@ -3,15 +3,69 @@
       xmlns="http://docbook.org/ns/docbook"
       version="5.0" xml:lang="es">
 
-  <title>Lessons learned</title>
+  <title>Lecciones aprendidas</title>
   <para>
-    In this chapter we will explain the lessons we learned during the daily work
-    in a high scalable and high performance server infrastructure
+    Durante el concepto inicial, desarrollo e implementación del servidor de push, se encontraron muchas variables que han hecho cambiar ligeramente el rumbo tomado por el proyecto. Sin embargo, la idea general seguía presente y los cambios que se fueron realizando eran debidos a cosas que se creía que eran más interesantes de tener, como mensajes de deregistro, posibilidad de encolar mensajes y mandar sólo un mensaje final, añadir <code>ACK</code>s específicos de aplicación y no usar los propios de TCP…
   </para>
   <section>
-  	<title></title>
-  	<para></para>
+    <title>Olvidar muchas cosas</title>
+    <para>
+      Una de las primeras decisiones que se tomó en el proyecto fue usar una base de datos no relacional, las llamadas No-SQL. En el caso del proyecto, se eligió MongoDB debido a que era la seleccionada por el plan tecnológico de la empresa. La decisión entre elegir una base de datos No-SQL frente a una SQL convencional (como puede ser MySQL u Oracle) fue simplemente la de no tener un esquema estricto para cada uno de los datos que íbamos a introducir, ya que se creía que el esquema cambiaría (así sucedió de hecho), y permitiría un prototipado de la plataforma mucho más rápido.
+    </para>
+    <para>
+      Sin embargo, el cambiar radicamente el chip entre una solución SQL a algo No-SQL, muy relajado y sin un esquema fijo para todos los "elementos" de una misma "tabla" podría suponer un peligro, puesto que se siguen teniendo nociones de SQL y muchas de las decisiones para estos sistemas se toman a partir de dichos conocimientos.
+    </para>
+    <para>
+      …
+    </para>
   </section>
 
+  <section>
+    <title>Investigar las alternativas. Siempre</title>
+    <para>XXX: node.js y algoritmos</para>
+  </section>
+
+  <section>
+    <title>Hacer tests</title>
+    <para>
+      …
+    </para>
+  </section>
+
+  <section>
+    <title>Jugar, mucho</title>
+    <para>
+      …
+    </para>
+  </section>
+
+  <section>
+    <title>Tener claro qué se quiere y enfocarse en prioridades</title>
+    <para>
+      …
+    </para>
+  </section>
+
+  <section>
+    <title>Conocer a gente que se haya pegado con las tecnologías</title>
+    <para>
+      …
+    </para>
+  </section>
+
+  <section>
+    <title>Trabaja en abierto</title>
+    <para>
+      …
+    </para>
+  </section>
+
+  <section>
+    <title>El hardware es muy importante</title>
+    <subtitle>… y no siempre lo caro es lo mejor, o lo rápido…</subtitle>
+    <para>
+      …
+    </para>
+  </section>
 
 </chapter>

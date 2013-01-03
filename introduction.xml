@@ -17,10 +17,20 @@
   <para>
     <itemizedlist>
       <listitem>
-        Poll: Periódicamente se pide información al servidor de terceros.
+        <formalpara>
+          <title>Poll</title>
+          <para>
+            Periódicamente se pide información al servidor de terceros.
+          </para>
+        </formalpara>
       </listitem>
       <listitem>
-        Push: El servidor manda información al cliente cuando hay información disponible para él.
+        <formalpara>
+          <title>Push</title>
+          <para>
+            El servidor manda información al cliente cuando hay información disponible para él.
+          </para>
+        </formalpara>
       </listitem>
     </itemizedlist>
   </para>
@@ -43,7 +53,7 @@
 
   <section>
     <title>Objetivos</title>
-    <itemizedlist mark="opencircle">
+    <itemizedlist>
       <listitem>
         <para>
           Explicar por qué es un problema usar cualquiera de las dos soluciones planteadas al inicio del capítulo en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de dichas redes móviles y cómo pueden mejorarse.

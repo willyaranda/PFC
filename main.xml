@@ -5,8 +5,8 @@
       id="push_notification_server_pfc">
 
   <info>
-    <title>Servidor de notificaciones Push</title>
-    <subtitle>Notificaciones para la web</subtitle>
+    <title>Notificaciones Push</title>
+    <subtitle>Para dispositivos móviles y la web</subtitle>
       <author>
         <personname>
           <firstname>Guillermo</firstname>
@@ -29,7 +29,7 @@
     </revhistory>
   </info>
 
-  <acknowledgements>
+  <!--<acknowledgements>
     <para>
       Quiero agradecer a las siguientes personas su ayuda con este proyecto y todo lo que le ha rodeado, ya que sin ellas, yo no podría haber hecho esto:
     </para>
@@ -60,6 +60,15 @@
       <listitem>
         <para>
           <personname>
+            <firstname>Francisco</firstname>
+            <surname>Marzal</surname>
+          </personname>
+          por su ayuda durante la carrera y el proyecto.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <personname>
             <firstname>Fernando</firstname>
             <surname>Rodríguez Sela</surname>
           </personname>
@@ -82,7 +91,7 @@
         </para>
       </listitem>
     </itemizedlist>
-  </acknowledgements>
+  </acknowledgements>-->
 
   <xi:include href="introduction.xml" />
   <xi:include href="state_art/main.xml" />
@@ -92,7 +101,7 @@
   <xi:include href="first_implementation/main.xml" />
   <xi:include href="performance/main.xml" />
   <xi:include href="deployment/main.xml" />
-  <xi:include href="comparision/main.xml" />
+  <xi:include href="comparision/main.xml" />-->
   <xi:include href="lessons_learned/main.xml" />
-  <xi:include href="future/main.xml" /> -->
+  <!-- <xi:include href="future/main.xml" /> -->
 </book>
