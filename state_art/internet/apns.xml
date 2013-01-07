@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="state_art_internet_apns"
+<section xml:id="state_art_Internet_apns"
       xmlns="http://docbook.org/ns/docbook"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title xml:id="state_art_internet_apns_title">APNS: Apple Push Notification Service</title>
+  <title xml:id="state_art_Internet_apns_title">APNS: Apple Push Notification Service</title>
   <para>
-    TODO
+    APNS o Apple Push Notification Service es otro de los sistemas creado por empresas creadoras de sistemas operativos para solventar el problema de notificaciones push, en este caso para dispositivos iOS, como el iPhone o el iPad.
   </para>
+  <para>
+    Este sistema es muy similar en comportamiento a GCM pero con alguna variación, sobre todo en los tipos de mensajes que puede enviar los desarrolladores y cómo se tratan las notificaciones por el usuario.
+  </para>
+  <formalpara>
+    <title>Historia</title>
+    <para>
+      Fue lanzado con la versión 3.0 de iOS, el 17 de junio de 2009, que correspondía . Ha sido mejorado con el paso del tiempo e introducido en los equipos de escritorio con la versión 10.7 de MacOS usando el centro de notificaciones, también presente en iOS 5.
+    </para>
+  </formalpara>
 
 </section>

@@ -6,13 +6,13 @@
 
   <title>Introducción</title>
   <para>
-    Una de las grandes ventajas que ha dado internet al desarrollo de aplicaciones es, a parte de una distribución mucho más sencilla de dichas aplicaciones, es la posibilidad de poder obtener datos de forma dinámica, la mayoría de veces pudiendo cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar los datos a mostrar a los usuarios dependiendo del momento del día u otras características. Aplicaciones que nos muestran los resultados de nuestro equipo favorito de fútbol, el tiempo que va a realizar en nuestra ciudad, o incluso mensajería instantánea son uno de los grandes usos de las tecnologías de internet para aplicaciones locales.
+    Una de las grandes ventajas que ha dado Internet al desarrollo de aplicaciones es, a parte de una distribución mucho más sencilla, la posibilidad de poder obtener datos de forma dinámica, la mayoría de veces pudiendo cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar la información a mostrar a los usuarios dependiendo del momento del día u otras características: nos muestran los resultados de nuestro equipo favorito de fútbol, el tiempo que va a hacer en nuestra ciudad, o incluso mensajería instantánea son algunos de los usos de las tecnologías de Internet para aplicaciones locales.
   </para>
   <para>
-    A lo largo de los años, las tecnologías sobre cómo descargar estos datos han ido variando, acomodándose a los momentos puntuales que han sucedido en internet, desde redes de módem lentas para lo que conocemos hoy en día hasta redes de fibra óptica capaces de descargar un gran flujo de datos pasando por las olvidadas redes móviles, que son aquellas que más han sufrido esta descarga de datos de una manera, en muchas veces, incontrolada.
+    A lo largo de los años, las tecnologías para descargar estos datos han ido variando, acomodándose a los momentos puntuales que han sucedido en Internet, desde redes de módem lentas que conocemos hoy en día hasta redes de fibra óptica capaces de descargar un gran flujo de datos pasando por las olvidadas redes móviles, que son aquellas que más han sufrido esta descarga de datos de una manera, en muchas veces, incontrolada.
   </para>
   <para>
-    Así pues, la descarga de estos datos de internet puede realizarse de diferentes maneras, ya sea de forma síncrona o asíncrona, pero se pueden agrupar en dos grandes grupos para conseguir esta información:
+    Así pues, la descarga de toda comunicación puede realizarse de diferentes maneras, ya sea de forma síncrona o asíncrona, pero se pueden agrupar en dos grandes grupos para conseguir esta información:
   </para>
   <para>
     <itemizedlist>
@@ -35,13 +35,13 @@
     </itemizedlist>
   </para>
   <para>
-    Estos dos grandes paradigmas son los grandes usados a lo largo de la historia de internet y de las aplicaciones. Durante mucho tiempo sólo se usó las soluciones de polling y ahora cada vez más se usan las soluciones de push, sin embargo, su uso siempre ha sido dispar y, dependiendo de qué tipo de aplicaciones y cómo necesiten los datos, el uso de una o de otra es más importante.
+    Estos dos principales paradigmas son los más usados a lo largo de la historia de Internet y de las aplicaciones. Durante mucho tiempo sólo se usó las soluciones de polling, debido a que no se había desarrollado una tecnología de push eficiente y que era más fácil de implementar (preguntar cada cierto tiempo al servidor si había datos nuevos, manteniendo un pequeño intervalo en el cual cliente y servidor no estaban en sincronía. Sin embargo, ahora que la tecnología se ha ido desarrollando y se han creado nuevos paradigmas, el uso de notificaciones push está en auge, sobre todo gracias a los sistemas operativos móviles (como Android o iOS), así como con nuevos estándares Web que permiten mantener sockets abiertos entre dos equipos diferentes para enviar datos, como WebSockets<footnote><para>http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-17</para></footnote> y Server-sent Events<footnote><para>http://dev.w3.org/html5/eventsource/</para></footnote>.
   </para>
   <para>
-    Sin embargo, el primer método está desaconsejado por varios motivos que hacen que las redes se colapsen con su uso. El primero de ellos es porque usa un alto número de conexiones hacia el servidor de terceros, muchas de las cuales no tienen una utilidad real puesto que no siempre que se pregunta si tienen datos realmente se poseen.
+    Sin embargo, el primer método está desaconsejado por varios motivos que hacen que las redes se colapsen con su uso, o bien que sea muy ineficiente. El primero de ellos es porque usa un alto número de conexiones hacia el servidor de terceros para preguntar si hay datos. En segundo lugar, porque esas conexiones no siempre son interesantes de realizar, ya que puede que realmente no haya datos, pero nosotros preguntamos si los hay, colapsando tanto el servidor como la red con paquetes "inútiles". Y es la conjunción de estos dos problemas (realizar conexiones y que sean para nada) lo que indica que debería haber otra tecnología de recogida de información más eficaz y amigable con las redes.
   </para>
   <para>
-    Es por esto que los métodos de recogida de información basados en tecnologías Push son ampliamente usados para actualizar la información. Sin embargo, aunque estos métodos a primera vista puedan verse como más eficientes que los de polling, son realmente válidos para conexiones estables y sin limitaciones, pero muy poco efectivos y muy perjudiciales para las redes móviles, como las de telefonía.
+    Es por esto que los métodos de recogida de información basados en tecnologías push son ampliamente usados para la descarga de datos de forma asíncrona, ya que sólo piden los datos cuando realmente son necesarios. Sin embargo, aunque estos métodos a primera vista puedan verse como más eficientes que los de polling, también tienen varias desventajas y son realmente válidos para conexiones estables y sin limitaciones, pero muy poco efectivos y muy perjudiciales para las redes móviles, como las de telefonía.
   </para>
 
   <section>
@@ -61,7 +61,7 @@
       </listitem>
       <listitem>
         <para>
-          Creación de una plataforma de mensajería push que sea amigable para los dispositivos móviles con las consideraciones expuestas en el punto anterior: que no use demasiada batería, que sea interesante para las operadoras móviles y que reduzca el consumo de ancho de banda y de señalización en la red móvil.
+          Creación de una plataforma de mensajería push que sea amigable para los dispositivos móviles con las consideraciones expuestas en el punto anterior: que no use demasiada batería, que sea interesante para las operadoras móviles y que reduzca el consumo de ancho de banda y de señalización en la red celular.
         </para>
       </listitem>
       <listitem>
@@ -71,7 +71,7 @@
       </listitem>
       <listitem>
         <para>
-          Estandarización al organismo W3C, para que sea implantado por todos los navegadores y que haya una mejor unión entre las redes de telefonía móvil y el mundo de internet, para el intercambio de datos de forma eficiente.
+          Estandarización al organismo W3C, para que sea implantado por todos los navegadores y que haya una mejor unión entre las redes de telefonía móvil y el mundo de Internet, para el intercambio de datos de forma eficiente.
         </para>
       </listitem>
     </itemizedlist>

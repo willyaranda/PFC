@@ -41,7 +41,7 @@
         <formalpara>
           <title>Servidor de aplicaciones (Application Server: AS)</title>
           <para>
-            Es la parte servidora de la WA. Normalmente se podría definir como la presencia en internet de la WA, que es la que recibe las URLs a las que tiene que hacer push y la que los realiza.
+            Es la parte servidora de la WA. Normalmente se podría definir como la presencia en Internet de la WA, que es la que recibe las URLs a las que tiene que hacer push y la que los realiza.
           </para>
         </formalpara>
       </listitem>

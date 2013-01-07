@@ -4,9 +4,9 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0" xml:lang="es">
 
-  <title>Notification Server Performance</title>
+  <title>Rendimiento</title>
   <para>
-    This chapter shows some performance test done to the notification server
+    En este capítulo se va a hablar del rendimiento del servidor y del cliente, y la señalización teórica (a falta de pruebas reales) que se ahorra con nuestra solución.
   </para>
 
 </chapter>

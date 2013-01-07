@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="state_art_internet_thialfi"
+<section xml:id="state_art_Internet_thialfi"
       xmlns="http://docbook.org/ns/docbook"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title xml:id="state_art_internet_thialfi_title">Thialfi: el futuro de Google</title>
+  <title xml:id="state_art_Internet_thialfi_title">Thialfi: el futuro de Google</title>
   <para>
     Thialfi es un nuevo protocolo diseñado y publicado por Google<footnote><para>http://research.google.com/pubs/pub37474.html</para></footnote> que intenta arreglar algunos de los problemas que tienen los sistemas de notificaciones que pasan mensajes completos a través de la red, y el consiguiente problema de infraestructura y escalabilidad que podría resultar de tener millones de terminales conectados a la vez mandando muchos mensajes a través de la red y en espera de ser entregados.
   </para>
