@@ -109,7 +109,7 @@ token.prototype = {
       </listitem>
     </orderedlist>
     <para>
-      Así pues, se puede observar que el token puede ser comprobado mediante la verificación con la función <code>verify(token)</code>, esto es, descifrando el token y comprobando su CRC. En primer lugar, si el descifrado no es correcto, el token recibido no es válido, por lo que podemos rechazarlo. Pero además, y en segundo lugar, podemos comprobar si el CRC, esto es, separando por el caracter <code>@</code> que habrá después de descifrar y comprobando si la segunda parte (el llamado CRC, o hash MD5) concuerda con la primera parte, habiéndole aplicado la función de hash.
+      Así pues, se puede observar que el token puede ser comprobado mediante la verificación con la función <code>verify(token)</code>, esto es, descifrando el token y comprobando su CRC. En primer lugar, si el descifrado no es correcto, el token recibido no es válido, por lo que podemos rechazarlo. Pero además, y en segundo lugar, podemos comprobar si el CRC (el hash MD5 calculado en la figura anterior) es válido, separando por el caracter <code>@</code> que habrá después de descifrar y comprobando si la segunda parte concuerda con la primera parte, habiéndole aplicado la misma función de hash.
       <figure>
         <title>Verificación de tokens</title>
         <programlisting language="JavaScript">
@@ -133,7 +133,7 @@ verify: function(token) {
   <section>
     <title>Registro con clave pública-privada</title>
     <para>
-      Todas las aplicaciones que quieran recibir notificaciones tienen que registrarse con una clave pública, que es la encargada de la verificación de las firmas de cada notificación. Esto se realiza desde la propia aplicación web, con el API que hay entre la WA y el UA, mediante la función:
+      Todas las aplicaciones que quieran recibir notificaciones tienen que registrarse con dos parámetros: el primero es un identificador único y el segundo una clave pública codificada en base64<footnote><para>RFC4648, página 5, punto 4, "Base 64 Encoding": http://tools.ietf.org/html/rfc4648#page-5</para></footnote>, que es la encargada de la verificación de las firmas de cada notificación. Esto se realiza desde la propia aplicación web, con el API que hay entre la WA y el UA, mediante la función:
       <figure>
         <title>Registro de WA en el UA</title>
         <programlisting language="javascript">
@@ -144,31 +144,90 @@ verify: function(token) {
     <para>
       Así pues, es obligatorio que haya un par de claves públicas-privadas (soportando sólo <code>RSA-SHA256</code> en la primera versión) para poder registrarse y posteriormente enviar y recibir correctamente notificaciones.
     </para>
-    <para>
-
-    </para>
   </section>
 
   <section>
     <title>Notificaciones firmadas</title>
     <para>
-      Como se ha comentado en la sección anterior, es obligatorio que se registren las aplicaciones con una clave pública-privada con <code>RSA-SHA256</code>. Esto no se hace sólo por añadir un nivel más de seguridad, si no por proteger a los dispositivos que están dentro de la red móvil. Así, esta idea se ha desarrollado para permitir notificaciones sólo desde lugares a los que se haya permitido mandar notificaciones, esto es, aquellos registrados con una clave pública que puede verificar la firma de la notificación enviada con la clave privada.
+      Como se ha comentado en la sección anterior, en el registro es obligatorio contar con una clave pública-privada basada en <code>RSA-SHA256</code>. Esto no se hace simplemente por añadir un atributo más al registro, si no por proteger a los dispositivos que están dentro de la red móvil. Así, esta idea se ha implementado para permitir notificaciones sólo desde lugares a los que se haya aceptado mandar notificaciones, esto es, aquellos registrados con una clave pública que puede verificar la firma de la notificación enviada con la clave privada que sólo tendrán los servidores de la aplicación (servidor <code>AS</code>).
     </para>
     <para>
-      El funcionamiento es el mismo que el sistema PGP con el correo cifrado o firmado, ya que del contenido se crea una firma con la llave privada (que sólo la tendrá el servidor que envía la notificación), que se manda al servidor de notificaciones (a una URL determinada, que es capaz de saber la clave pública que verifica dicha firma) y comprueba si es correcta o no. Si lo es, deja pasar la notificación al sistema y, eventualmente, se entregará. Si no es válida, por la razón que sea, la notificación es rechazada y ni siquiera entra al sistema.
+      El funcionamiento es el mismo que el sistema PGP con el correo firmado, ya que del contenido (atributo <code>message</code> de la notificación <code>JSON</code> enviada por <code>POST</code>) se crea una firma con la llave privada (que sólo la tendrá el servidor que envía la notificación, o <code>AS</code>), que se manda al servidor de notificaciones (a una URL determinada, que es capaz de saber la clave pública que verifica dicha firma) y comprueba si es correcta o no. Si lo es, deja pasar la notificación al sistema y, eventualmente, se entregará. Si no es válida, por la razón que sea, la notificación es rechazada y ni siquiera entra al sistema.
+    </para>
+    <figure>
+      <title>Verificación de firma (en <filename>src/common/crypto.js</filename>)</title>
+      <programlisting language="JavaScript">
+<![CDATA[
+verifySignature: function(data, signature, publicKey) {
+  var algorithm = 'RSA-SHA256';
+  var verifier = crypto.createVerify(algorithm);
+  verifier.update(data);
+  return verifier.verify(publicKey, signature, 'hex');
+},
+]]>
+      </programlisting>
+    </figure>
+    <figure>
+      <title>Comprobación de firma (en <filename>src/ns_as/ns_as_server.js</filename>)</title>
+      <programlisting language="JavaScript">
+<![CDATA[
+//Get the PbK for the apptoken in the database
+dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
+  if (error) {
+    return callback(errorcodesAS.BAD_MESSAGE_BAD_SIGNATURE);
+  }
+  var pbk = new Buffer(pbkbase64 || '', 'base64').toString('ascii');
+  if (!crypto.verifySignature(normalizedNotification.message,
+                              json.signature, pbk)) {
+    log.debug('NS_AS::onNewPushMessage --> Rejected. Bad signature');
+    return callback(errorcodesAS.BAD_MESSAGE_BAD_SIGNATURE);
+  }
+  ...
+  // La firma es válida, continuar el flujo normal
+  ...
+]]>
+      </programlisting>
+    </figure>
+    <para>
+      Pero, ¿qué se consigue con esto? En primer lugar mantener acotados los servicios que pueden mandar notificaciones puesto que un desarrollador tiene control sobre la llave pública, puesto que es la que concuerda con su llave privada. Si pierde la llave privada, no podrá hacer nada, por lo que no podrá volver a mandar notificaciones. Pero además, si la recoge una persona malintencionada y decide empezar a mandar notificaciones causando una riada de mensajes, puede rápidamente actualizar su aplicación, poniendo su nueva clave pública en sus ficheros de configuración y la privada en sus servidores, y todos los dispositivos con esta nueva instalación se registrarán de nuevo (los dispositivos comprueban entre actualizaciones de la aplicación si la llave pública de la aplicación ha cambiado, y si es así, se registran de nuevo) por lo que no recibirán mensajes desde la llave robada, si no desde la nueva, ya que el sistema ni las dejará pasar.
     </para>
     <para>
-      Pero, ¿qué se consigue con esto? En primer lugar mantener acotados los servicios que pueden mandar notificaciones. Un desarrollador tiene control sobre la llave pública, puesto que es la que concuerda con su llave privada. Si pierde la llave privada, no podrá hacer nada, por lo que no podrá volver a mandar notificaciones. Pero además, si pierde esa llave pero la recoge una persona malintencionada y decide empezar a mandar notificaciones causando una riada de mensajes, puede rápidamente actualizar su aplicación, configurar su nueva clave pública y privada, y todos los dispositivos con esta nueva instalación se registrarán de nuevo (los dispositivos comprueban entre actualizaciones de la aplicación si la llave pública de la aplicación ha cambiado, y si es así, se registran de nuevo) por lo que no recibirán mensajes desde la llave robada, si no desde la nueva, ya que el sistema ni las dejará pasar.
-    </para>
-    <para>
-      Y en segundo lugar, se puede verificar el origen e internamente hacer un control de abuso llegado el caso. Por ejemplo, si un servicio no hace más que enviar mensajes de broadcast hacia el interior, se puede revocar todas los registros de aplicaciones que tienen dicha clave y se protegerá de forma fácil al usuario, y por supuesto al desarrollador.
+      Y en segundo lugar, se puede hacer un control de abuso llegado el caso. Por ejemplo, si un servicio no hace más que enviar mensajes de broadcast hacia el interior, se puede revocar todas los registros de aplicaciones que tienen dicha clave y se protegerá de forma fácil al usuario.
     </para>
   </section>
 
   <section>
     <title>Verificación de notificaciones</title>
     <para>
-      …
+      En cuanto llega una notificación, o dicho de otra manera, cualquier mensaje mediante una petición <code>POST</code> a la interfaz que expone el servidor de notificaciones hacia el exterior (en este caso se habla del <code>API</code> hacia el Application Server o <code>AS</code>), hay que comprobar una serie de criterios para verificar que la notificación es correcta.
+    </para>
+    <para>
+      En primer lugar, se comprueba que el mensaje enviado es un mensaje <code>JSON</code> bien formado, con la función <code>JSON.parse(notification)</code> nativa de JavaScript. Si es así, se pasa a comprobar el resto de campos, de la forma:
+    </para>
+    <para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Que el atributo <code>messageType</code> de la notificación es igual a la cadena <code>notification</code>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Que esté correctamente firmado, como se explica en la sección anterior.
+          </para>
+        </listitem>
+      <listitem>
+          <para>
+            Que tenga un identificador externo, esto es, que el atributo <code>id</code> no puede estar sin definir (<code>undefined</code> al parsear el <code>JSON</code>) o ser nulo, puesto que en un futuro se podría agregar la opción de sobreescribir notificaciones y poder preguntar por el estado de la entrega de una notificación a través de este identificador único para el servicio de terceros o <code>AS</code>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Que el atributo <code>message</code> e <code>id</code> no superen los 4KiB. Esto es debido a que la longitud máxima que se peryo smite en el servidor es de 4KiB. Probablemente en el futuro se cambie la restricción de tamaño para la parte de <code>id</code> y se obligue a un tamaño más pequeño, ya que 4096 bytes de identificación suficiente para cualquier aplicación.
+          </para>
+        </listitem>
+      </itemizedlist>
+      holas
     </para>
   </section>
 
