@@ -30,7 +30,7 @@
   </info>
 
   <!-- Agradecimientos -->
-  <xi:include href="acknowledges.xml" />
+  <xi:include href="acknowledgements.xml" />
 
   <!-- Prefacio -->
   <xi:include href="preface.xml" />
