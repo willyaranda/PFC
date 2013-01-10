@@ -12,7 +12,7 @@
     Es uno de los sistemas más grandes, puesto que está presente en todos los dispositivos Android que tengan una cuenta de Google asociada, los cuales son prácticamente la mayoría. El número de usuarios de este servicio no es especificado por Google, pero podría ser similar o inferior al número de dispositivos Android en el mercado, que supera los 600 millones de dispositivos<footnote><para>XXXX FALTA REFERENCIA</para></footnote>.
   </para>
   <blockquote>
-    <attribution>GCM: Google Cloud Messaging for Android<footnote><para>http://developer.android.com/google/gcm/index.html</para></footnote></attribution>
+    <attribution>GCM: Google Cloud Messaging for Android</attribution>
     <para>
       Google Cloud Messaging for Android (GCM) es un servicio que te permite enviar datos desde tu servidor a los usuarios con dispositivos Android. Esto puede ser un pequeño mensaje que dice a la aplicación que hay nuevos datos para ser descargados desde el servidor (por ejemplo, que un amigo ha subido un nuevo vídeo) o un mensaje que puede contener hasta 4KiB de información (por lo que las aplicaciones como las de mensajería instantánea pueden consumirlo directamente).
     </para>
@@ -22,7 +22,7 @@
   </blockquote>
   <formalpara>
     <title>Características</title>
-    <para>GCM tiene como características más interesantes:</para>
+    <para>GCM tiene como características más interesantes:
     <itemizedlist>
       <listitem>
         <para>
@@ -55,25 +55,28 @@
         </para>
       </listitem>
     </itemizedlist>
+    </para>
   </formalpara>
   <para>
     Así pues, el diagrama principal del envío y entrega de un mensaje de una forma muy abstracta es:
-    <note>
-      Suponemos que la aplicación instalada tiene un ID de registro que permite recibir notificaciones, además de que el servidor de terceros ha guardado ese ID y que el servidor tiene una clave de API que le permite identificarse como emisor de notificaciones.
-    </note>
   </para>
+    <note>
+      
+      <para>Suponemos que la aplicación instalada tiene un ID de registro que permite recibir notificaciones, además de que el servidor de terceros ha guardado ese ID y que el servidor tiene una clave de API que le permite identificarse como emisor de notificaciones.</para>
+    </note>
+
   <orderedlist>
     <listitem>
-      El servidor de aplicación envía un mensaje a los servidores de GCM.
+      <para>El servidor de aplicación envía un mensaje a los servidores de GCM.</para>
     </listitem>
     <listitem>
-      El servicio GCM encola el mensaje y lo guarda en el caso de que el dispositivo al que se tiene que entregar esté desconectado.
+      <para>El servicio GCM encola el mensaje y lo guarda en el caso de que el dispositivo al que se tiene que entregar esté desconectado.</para>
     </listitem>
     <listitem>
-      Cuando el dispositivo se encuentre online (puede que ya lo esté, o puede que no), el mensaje es mandado por un canal al dispositivo, que lo parsea el sistema operativo (Android, en este caso), y despierta a la aplicación destino en el caso que esté cerrada o la entrega directamente.
+      <para>Cuando el dispositivo se encuentre online (puede que ya lo esté, o puede que no), el mensaje es mandado por un canal al dispositivo, que lo parsea el sistema operativo (Android, en este caso), y despierta a la aplicación destino en el caso que esté cerrada o la entrega directamente.</para>
     </listitem>
     <listitem>
-      La aplicación procesa el mensaje y realiza cualquier tipo de evento relacionado con ella: sincronizar datos de fondo, mostrar una alerta…
+      <para>La aplicación procesa el mensaje y realiza cualquier tipo de evento relacionado con ella: sincronizar datos de fondo, mostrar una alerta…</para>
     </listitem>
   </orderedlist>
   <para>
@@ -87,6 +90,7 @@
     <para>
       GCM tiene una serie de ventajas sobre su predecesor CD2M (no explicado puesto que ha sido sustituido por esta versión) de las cuales habría que destacar:
     </para>
+  </formalpara>
     <itemizedlist>
       <listitem>
         <para>
@@ -134,7 +138,6 @@
         </para>
       </listitem>
     </itemizedlist>
-  </formalpara>
   <para>
     A pesar de la enorme capacidad que tiene este sistema, con todas sus ventajas que se han mostrado anteriormente, sigue teniendo pequeños fallos que hacen que no sea ampliamente usado, por ejemplo:
     <orderedlist>
@@ -158,13 +161,14 @@
   </para>
   <figure>
     <title>Funcionamiento de GCM</title>
-    <imagedata fileref="../../resources/apns-gcm.png" align="left" width="17cm"  />
+    <mediaobject><imageobject><imagedata fileref="../../resources/apns-gcm.png" align="left" width="17cm"  /></imageobject></mediaobject>
   </figure>
   <formalpara>
     <title>Arquitectura</title>
     <para>
       Así pues, podemos observar el flujo completo de trabajo de GCM:
     </para>
+  </formalpara>
     <orderedlist>
       <listitem>
         <para>
@@ -197,12 +201,12 @@
         </para>
       </listitem>
     </orderedlist>
-  </formalpara>
   <formalpara>
     <title>Problemas</title>
     <para>
       Sin embargo, a pesar de todas las nuevas características y todo lo que ha trabajado Google en este sistema, hay varios problemas que pueden ser bastante graves y que harían que no confiáramos en este sistema
     </para>
+  </formalpara>
     <itemizedlist>
       <listitem>
         <para>
@@ -230,5 +234,4 @@
         </para>
       </listitem>
     </itemizedlist>
-  </formalpara>
 </section>

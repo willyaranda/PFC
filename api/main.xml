@@ -48,7 +48,7 @@
     </itemizedlist>
   </para>
   <para>
-    <imagedata fileref="../resources/actors_and_channels.png" align="center" width="5in" />
+    <mediaobject><imageobject><imagedata fileref="../resources/actors_and_channels.png" align="center" width="5in" /></imageobject></mediaobject>
   </para>
 
   <xi:include href="wa_ua.xml" />
@@ -68,6 +68,8 @@
       <para>
         Sin embargo, hay una serie de pautas que deberían seguir los desarrolladores para pasar la información de una forma segura a través de la red.
       </para>
+    </formalpara>
+    <para>
       <itemizedlist>
         <listitem>
           <para>
@@ -85,7 +87,7 @@
           </para>
         </listitem>
       </itemizedlist>
-    </formalpara>
+    </para>
   </section>
 
   <xi:include href="tokens.xml" />

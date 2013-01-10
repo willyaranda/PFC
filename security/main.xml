@@ -305,7 +305,7 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
       </orderedlist>
     </para>
     <note>
-      Probablemente en el futuro se añada algún mecanismo de información de cambio de puerto, por ejemplo: como es fácil mandar un paquete UDP a los diferenes dispositivos para que se despierten a un puerto por defecto (como es el caso de la primera versión, que está fijado en el <code>5000</code>), estos automáticamente se conectan al servidor de notificaciones para descargar los mensajes, pero que, al ser un ataque, no habría. La idea es que si esto sucede, el dispositivo se re-registre de nuevo en el servicio indicando otro puerto, para que haya menos posibilidades de inundar el servidor.
+      <para>Probablemente en el futuro se añada algún mecanismo de información de cambio de puerto, por ejemplo: como es fácil mandar un paquete UDP a los diferenes dispositivos para que se despierten a un puerto por defecto (como es el caso de la primera versión, que está fijado en el <code>5000</code>), estos automáticamente se conectan al servidor de notificaciones para descargar los mensajes, pero que, al ser un ataque, no habría. La idea es que si esto sucede, el dispositivo se re-registre de nuevo en el servicio indicando otro puerto, para que haya menos posibilidades de inundar el servidor.</para>
     </note>
   </section>
 
@@ -318,7 +318,7 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
       Así pues, el dilema viene cuando una aplicación es la verdadera y la otra es una que la intente suplantar. Esto quiere decir que la aplicación web verdadera genera un token de aplicación (o <code>WAToken</code>) de una manera poco aletoria y que es fácilmente adivinable. En este caso, si alguien sabe cuál es el algoritmo de generación de dicho token, podría replicarlo y registrarse de nuevo en el sistema como la aplicación "original". La duda en este caso surge de saber cuál es la aplicación original, cuál es la copia e incluso cuál se ha registrado en primer lugar. Así pues, la decisión es la de mandar la notificación sólo a la primera aplicación que se haya registrado con un token determinado, y rechazar el registro de sucesivas aplicaciones con igual identificador.
     </para>
     <note>
-      Sin embargo, esto podría cambiar en un futuro, pero como se comenta, hay demasiadas variables para poder elegir la aplicación real, puesto que no hay manera de discernir ahora mismo cuál es, o si una aplicación que intente suplantar a otra se haya registrado antes que la real.
+      <para>Sin embargo, esto podría cambiar en un futuro, pero como se comenta, hay demasiadas variables para poder elegir la aplicación real, puesto que no hay manera de discernir ahora mismo cuál es, o si una aplicación que intente suplantar a otra se haya registrado antes que la real.</para>
     </note>
   </section>
 

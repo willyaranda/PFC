@@ -2,7 +2,7 @@
 <book xmlns="http://docbook.org/ns/docbook"
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0" xml:lang="es"
-      id="push_notification_server_pfc">
+      xml:id="push_notification_server_pfc">
 
   <info>
     <title>Notificaciones Push</title>
@@ -23,8 +23,7 @@
         <revnumber>1.0</revnumber>
         <date>Enero 2013</date>
         <authorinitials>gll</authorinitials>
-        <revremark>Presentado</revremark>
-        <revdescription>Documento según presentado al tribunal del PFC</revdescription>
+        <revremark>Documento según presentado al tribunal del PFC</revremark>
       </revision>
     </revhistory>
   </info>

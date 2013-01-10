@@ -90,8 +90,6 @@
             <title>Cell_DCH (Canal dedicado)</title>
             <para>
               Cuando el teléfono está en este estado radio es porque está transmitiendo una gran cantidad de datos y la red le ha puesto en un canal dedicado.
-            </para>
-            <para>
               El tiempo de inactividad es muy corto para este estado, conocido como el temporizador T1, y suele variar entre 5 y 20 segundos. Esto quiere decir que si se alcanza este temporizador, el teléfono cambiará su estado radio a Cell_FACH.
             </para>
           </formalpara>
@@ -101,8 +99,6 @@
             <title>Cell_FACH</title>
             <para>
               En este estado, el teléfono está conectado a la red móvil y usa un canal compartido con otros terminales. Suele estar transmitiendo un pequeño número de paquetes, que normalmente son keep-alives.
-            </para>
-            <para>
               El temporizador de inactividad en este estado es un poco mayor (del orden de los 30 segundos) y es conocido como el temporizador T2. Cuando es disparado, el dispositivo es movido por la radio del al estado Cell_PCH o URA_PCH (dependiendo del tipo de red).
             </para>
           </formalpara>
@@ -112,11 +108,7 @@
             <title>Cell_PCH o URA_PCH (PCH: Paging CHannel) (URA: UTRAN Registration Area)</title>
             <para>
               En este estado, el teléfono no puede mandar ningún dato, excepto información de señalización para poder localizar el dispositivo dentro de la red móvil. En este caso, la conexión RRC está establecida y abierta, pero apenas es usada.
-            </para>
-            <para>
               En este estado, el dispositivo informa a la red cada cierto tiempo que el dispositivo cambia de una celda (o sector) a otra, para que la red sea capaz de conocer exactamente en qué BTS (Base Transceiver Station, o nodo B) se encuentra ofreciendo servicio al dispositivo.
-            </para>
-            <para>
               El temporizador T3 define el tiempo máximo que un terminal puede estar en un estado PCH. Este temporizador es mayor que T1 y T2 y depende de cada operador de red. Cuando se dispara, el dispositivo se mueve al estado IDLE, por lo que cualquier dato que quiera transmitir el dispositivo le llevará unos dos segundos para restablecer el canal y un montón de mensajes de señalización.
             </para>
           </formalpara>
@@ -126,11 +118,7 @@
             <title>RRC_IDLE</title>
             <para>
               Es el estado más económico en el que puede estar la radio, ya que prácticamente está dormida.
-            </para>
-            <para>
               También, hay que decir que el modem está escuchando a los datos de célula por lo que cada vez que detecta que el usuario cambia de un LAC (Localization Area Code, un grupo de múltiples BTS o NodosB) a otro, el dispositivo cambiará el estado PCH para informar a la red de su nueva ubicación.
-            </para>
-            <para>
               Así pues, cuando el dispositivo está en este estado, puede ser despierto a un estado más activo de red y también la red sabe en qué LAC se encuentra moviéndose el dispositivo, por lo que si la red necesita informar al dispositivo de que está ocurriendo algo en la red (una llamada, un SMS, alguien quiere mandarle datos), se manda un mensaje de broadcast, llamado Paging por toda la red LAC de BTS para localizar el dispositivo.
             </para>
           </formalpara>
@@ -142,7 +130,11 @@
     </para>
     <figure>
       <title>Esquema de estados radio</title>
-      <imagedata fileref="../../resources/rcc_states.png" align="center" width="5in" />
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../../resources/rcc_states.png" align="center" width="5in" />
+        </imageobject>
+      </mediaobject>
     </figure>
     <para>
       Así pues, como se puede ver, el estado más interesante para mantener un dispositivo móvil en la red celular es el modo Idle, puesto que no tiene una conexión de red abierta constantemente, y el uso de recursos es de alrededor 100 veces menos entre este modo y el de máxima excitación (CELL_DCH), lo que hará que la batería dure más tiempo, tengamos menos señalización de red, y estemos ocupando menos recursos, tanto en nuestro dispositivo como en la red.

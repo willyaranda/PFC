@@ -30,40 +30,48 @@
   <para>
     <figure>
       <title>Funcionamiento WAP Push</title>
-      <imagedata align="center" width="14cm" fileref="../../resources/WAP_Push_Process.jpg" />
+      <mediaobject>
+        <imageobject>
+          <imagedata align="center" width="14cm" fileref="../../resources/WAP_Push_Process.jpg" />
+        </imageobject>
+      </mediaobject>
     </figure>
-    <para>
-      Podemos explicar el funcionamiento de WAP push:
-      <orderedlist>
-        <listitem>
+  </para>
+  <para>
+    Podemos explicar el funcionamiento de WAP push:
+    <orderedlist>
+      <listitem>
+        <para>
           PI (Push Initiator), que es normalmente una aplicación que corre en un servidor web, se comunica usando el protocolo PAP (Push Access Protocol), que no es más que un XML usado para expresar las instrucciones de entrega del mensaje.
-        </listitem>
-        <listitem>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           Este protocolo hace que el PI se entienda con el PPG (Push Proxy Gateway), que es el encargado de recibir el mensaje inicial. Este PPG es el principal actor para WAP Push, del que se han recogido varias de sus ideas para el servidor de push que se desarrolla en este proyecto. Aparte de recibir el mensaje, es necesario que lo transforme o adapte para el receptor en concreto, guarde el mensaje por si el usuario no está conectado e incluso una conversión entre la dirección de recepción y el destinatario final.
-        </listitem>
-        <listitem>
-          Una vez procesado el mensaje, el PPG se comunica mediante PushOTA (Push On-The-Air) con el servidor central de SMS-C para pasar el mensaje (o mensajes) SMS que compondrán el contenido final. El protocolo PushOTA puede ser de varios tipos: una interfaz OTA-HTTP, una conexión OTA-WSP…
-        </listitem>
-        <listitem>
-          El mensaje es recibido por el SMS-C, que mirará a qué número va dirigido, cómo tiene que enrutarlo…
-        </listitem>
-        <listitem>
-          El mensaje se envía al dispositivo móvil del cliente usando la especificación normal de entrega de mensajes cortos SMS. Después, el sistema operativo del móvil interpreta el mensaje, viendo que es un mensaje WAP push y abre la página web que contiene el paquete binario que el proveedor quiere entregar. Esta apertura del navegador puede ser automática o bien aceptada por el usuario.
-        </listitem>
-        <listitem>
-          El navegador carga la dirección (que puede pasar por el PPG, pero no es obligatorio).
-        </listitem>
-        <listitem>
-          (el mismo paso que el anterior, en el caso de que exista proxy)
-        </listitem>
-        <listitem>
-          El servidor de terceros donde realmente está alojado el contenido devuelve la información requerida por la dirección que ha abierto el navegador del cliente. Este es el paso final, y el momento en que el usuario tiene los datos requeridos en un primer momento.
-        </listitem>
-        <listitem>
-          (pasando por el proxy intermedio si hiciera falta).
-        </listitem>
-      </orderedlist>
-    </para>
+        </para>
+      </listitem>
+      <listitem>
+<para>        Una vez procesado el mensaje, el PPG se comunica mediante PushOTA (Push On-The-Air) con el servidor central de SMS-C para pasar el mensaje (o mensajes) SMS que compondrán el contenido final. El protocolo PushOTA puede ser de varios tipos: una interfaz OTA-HTTP, una conexión OTA-WSP…
+</para>      </listitem>
+      <listitem>
+<para>        El mensaje es recibido por el SMS-C, que mirará a qué número va dirigido, cómo tiene que enrutarlo…
+</para>      </listitem>
+      <listitem>
+<para>        El mensaje se envía al dispositivo móvil del cliente usando la especificación normal de entrega de mensajes cortos SMS. Después, el sistema operativo del móvil interpreta el mensaje, viendo que es un mensaje WAP push y abre la página web que contiene el paquete binario que el proveedor quiere entregar. Esta apertura del navegador puede ser automática o bien aceptada por el usuario.
+</para>      </listitem>
+      <listitem>
+<para>        El navegador carga la dirección (que puede pasar por el PPG, pero no es obligatorio).
+</para>      </listitem>
+      <listitem>
+<para>        (el mismo paso que el anterior, en el caso de que exista proxy)
+</para>      </listitem>
+      <listitem>
+<para>        El servidor de terceros donde realmente está alojado el contenido devuelve la información requerida por la dirección que ha abierto el navegador del cliente. Este es el paso final, y el momento en que el usuario tiene los datos requeridos en un primer momento.
+</para>      </listitem>
+      <listitem>
+<para>        (pasando por el proxy intermedio si hiciera falta).
+</para>      </listitem>
+    </orderedlist>
   </para>
   <para>
     Así pues, podemos observar que el mecanismo de WAP push está diseñado para funcionar muy en sintonía con la propia red móvil. Esto hace que la transmisión sea muy sencilla y con un bajo coste para las operadoras, utilizando las redes de forma nativa para transmitir los datos necesarios para llegar al contenido final. Además, hace que los dispositivos puedan estar en modo de espera, con un poco uso de batería para ser despertados en el caso de que tengan notificaciones, de la misma manera que se hacen los SMS y las llamadas.
