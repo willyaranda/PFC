@@ -29,70 +29,13 @@
     </revhistory>
   </info>
 
-  <acknowledgements>
-    <para>
-      Quiero agradecer a las siguientes personas su ayuda con este proyecto ya que sin ellas no podría haber hecho esto:
-    </para>
-    <itemizedlist>
-      <listitem>
-        <para>
-          <personname>
-            <firstname>Bernardo</firstname>
-            <surname>López</surname>
-          </personname>
-          y 
-          <personname>
-            <firstname>Carmen</firstname>
-            <surname>Leal</surname>
-          </personname>
-           por todo lo que han hecho siempre por mi. Gracias.
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          <personname>
-            <firstname>Leticia</firstname>
-            <surname>Núñez</surname>
-          </personname>
-          por aguantarme. Gracias.
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          <personname>
-            <firstname>Francisco</firstname>
-            <surname>Marzal</surname>
-          </personname>
-          por su inestimable ayuda durante la carrera y el proyecto.
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          <personname>
-            <firstname>Fernando</firstname>
-            <surname>Rodríguez Sela</surname>
-          </personname>
-          , 
-          <personname>
-            <firstname>Fernando</firstname>
-            <surname>Jiménez Moreno</surname>
-          </personname>
-          , 
-          <personname>
-            <firstname>José Antonio</firstname>
-            <surname>Olivera Ortega</surname>
-          </personname>
-          , 
-          <personname>
-            <firstname>Ignacio Eliseo</firstname>
-            <surname>Barandalla Torregrosa</surname>
-          </personname>
-          y al resto de gente de Telefónica I+D, ya sea del grupo de Open Web Device o de otros, que me ha enseñado un montón de cosas durante mi año allí. Gracias a todos.
-        </para>
-      </listitem>
-    </itemizedlist>
-  </acknowledgements>
+  <!-- Agradecimientos -->
+  <xi:include href="acknowledges.xml" />
 
+  <!-- Prefacio -->
+  <xi:include href="preface.xml" />
+
+  <!-- Contenido -->
   <xi:include href="introduction.xml" />
   <xi:include href="state_art/main.xml" />
   <xi:include href="api/main.xml" />
@@ -104,4 +47,8 @@
   <xi:include href="comparision/main.xml" />-->
   <xi:include href="lessons_learned/main.xml" />
   <!-- <xi:include href="future/main.xml" /> -->
+
+  <!-- Glosario y bibliografía -->
+  <xi:include href="glossary.xml" />
+
 </book>

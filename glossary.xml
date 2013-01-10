@@ -1,0 +1,15 @@
+<glossary xmlns='http://docbook.org/ns/docbook'>
+  <title>Glosario de términos</title>
+  <glossdiv>
+    <title>E</title>
+    <glossentry>
+      <glossterm>Notification Server</glossterm>
+      <acronym>NS</acronym>
+      <glossdef>
+        <para>
+          Servidor de notificaciones……. blah blah
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+</glossary>

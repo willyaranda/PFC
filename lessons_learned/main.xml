@@ -8,7 +8,7 @@
     Durante el concepto inicial, desarrollo e implementación del servidor de push, se encontraron muchas variables que han hecho cambiar ligeramente el rumbo tomado por el proyecto. Sin embargo, la idea general seguía presente y los cambios que se fueron realizando eran debidos a cosas que se creía que eran más interesantes de tener, como mensajes de deregistro, posibilidad de encolar mensajes y mandar sólo un mensaje final, añadir <code>ACK</code>s específicos de aplicación y no usar los propios de TCP…
   </para>
   <section>
-    <title>Olvidar muchas cosas</title>
+    <title>SQL contra NoSQL</title>
     <para>
       Una de las primeras decisiones que se tomó en el proyecto fue usar una base de datos no relacional, las llamadas No-SQL. En el caso del proyecto, se eligió MongoDB debido a que era la seleccionada por el plan tecnológico de la empresa. La decisión entre elegir una base de datos No-SQL frente a una SQL convencional (como puede ser MySQL u Oracle) fue simplemente la de no tener un esquema estricto para cada uno de los datos que íbamos a introducir, ya que se creía que el esquema cambiaría (así sucedió de hecho), y permitiría un prototipado de la plataforma mucho más rápido.
     </para>
@@ -21,48 +21,40 @@
   </section>
 
   <section>
-    <title>Investigar las alternativas. Siempre</title>
+    <title>Investigar las alternativas</title>
     <para>XXX: node.js y algoritmos</para>
   </section>
 
   <section>
-    <title>Hacer tests</title>
+    <title>Tener tests unitarios y funcionales</title>
     <para>
       …
     </para>
   </section>
 
   <section>
-    <title>Jugar, mucho</title>
+    <title>Priorizar y enfocarse en tareas</title>
     <para>
       …
     </para>
   </section>
 
   <section>
-    <title>Tener claro qué se quiere y enfocarse en prioridades</title>
+    <title>Conocer gente</title>
     <para>
       …
     </para>
   </section>
 
   <section>
-    <title>Conocer a gente que se haya pegado con las tecnologías</title>
+    <title>Trabajar en abierto</title>
     <para>
       …
     </para>
   </section>
 
   <section>
-    <title>Trabaja en abierto</title>
-    <para>
-      …
-    </para>
-  </section>
-
-  <section>
-    <title>El hardware es muy importante</title>
-    <subtitle>… y no siempre lo caro es lo mejor, o lo rápido…</subtitle>
+    <title>La importancia del hardware</title>
     <para>
       …
     </para>
