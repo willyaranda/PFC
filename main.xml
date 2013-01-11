@@ -22,7 +22,12 @@
       <revision>
         <revnumber>1.0</revnumber>
         <date>Enero 2013</date>
-        <authorinitials>gll</authorinitials>
+        <author>
+          <personname>
+            <firstname>Guillermo</firstname>
+            <surname>López Leal</surname>
+          </personname>
+        </author>
         <revremark>Documento según presentado al tribunal del PFC</revremark>
       </revision>
     </revhistory>
@@ -31,23 +36,22 @@
   <!-- Agradecimientos -->
   <xi:include href="acknowledgements.xml" />
 
-  <!-- Prefacio -->
-  <xi:include href="preface.xml" />
-
   <!-- Contenido -->
   <xi:include href="introduction.xml" />
   <xi:include href="state_art/main.xml" />
-  <xi:include href="api/main.xml" />
+  <!-- <xi:include href="api/main.xml" /> -->
+  <!-- <xi:include href="first_implementation/main.xml" /> -->
   <!-- <xi:include href="architecture/main.xml" /> -->
+  <!-- <xi:include href="technologies/main.xml" /> -->
   <xi:include href="security/main.xml" />
-  <!-- <xi:include href="first_implementation/main.xml" />
-  <xi:include href="performance/main.xml" />
-  <xi:include href="deployment/main.xml" />
-  <xi:include href="comparision/main.xml" />-->
+  <!-- <xi:include href="performance/main.xml" /> -->
+  <!-- <xi:include href="deployment/main.xml" /> -->
+  <!-- <xi:include href="comparision/main.xml" /> -->
   <xi:include href="lessons_learned/main.xml" />
   <!-- <xi:include href="future/main.xml" /> -->
 
   <!-- Glosario y bibliografía -->
-  <xi:include href="glossary.xml" />
+  <!-- <xi:include href="glossary.xml" /> -->
+  <!-- <xi:include href="bibliograpy.xml" /> -->
 
 </book>
