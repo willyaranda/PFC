@@ -42,7 +42,7 @@
   <!-- <xi:include href="api/main.xml" /> -->
   <!-- <xi:include href="first_implementation/main.xml" /> -->
   <!-- <xi:include href="architecture/main.xml" /> -->
-  <!-- <xi:include href="technologies/main.xml" /> -->
+  <xi:include href="technologies/main.xml" />
   <xi:include href="security/main.xml" />
   <!-- <xi:include href="performance/main.xml" /> -->
   <!-- <xi:include href="deployment/main.xml" /> -->
