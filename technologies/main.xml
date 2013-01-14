@@ -6,16 +6,16 @@
 
   <title>Tecnologías</title>
   <para>
-    Ahora, una vez hablado de cómo es la arquitectura y la primera implementación, hay que comentar sobre las tecnologías usadas y por qué se han escogido, comparando con otras soluciones similares.
+    Ahora, una vez hablado de cómo es la arquitectura y la primera implementación, hay que comentar sobre las tecnologías usadas y por qué se han escogido para la parse del servidor, comparando con otras soluciones similares.
   </para>
   <para>
-    Así pues………
+    Así pues, una de las grandes decisiones que hay que tomar al iniciar un proyecto de software son las tecnologías y lenguajes de programación que se van a utilizar, incluyendo a las herramientas, editores, gestores de bugs y de incidencias, método de comentarios en el código y un sin fin de características que harán derivar el proyecto hacia el éxito o el fracaso.
   </para>
 
   <section>
     <title>Node.js</title>
     <para>
-      Node.js<footnote><para>http://nodejs.org/</para></footnote> es un nuevo marco de programación para aplicaciones web en la parte del servidor, basado en JavaScript, muy rápido y con una serie de características muy importantes.
+      Node.js<footnote><para>http://nodejs.org/</para></footnote> es un nuevo paradigma de programación para aplicaciones web en la parte del servidor, basado en JavaScript, muy rápido y con una serie de características muy importantes, como se verá más adelante.
     </para>
     <blockquote>
       <attribution>Node.js</attribution>
@@ -34,7 +34,7 @@
         <formalpara>
           <title>Motor JavaScript V8 de Google Chrome</title>
           <para>
-            blahblah
+            Un intérprete creado ad-hoc para Google Chrome, que revolucionó a la competencia por ser el más rápido y usar unas ideas muy novedosas e inteligentes. Genera código máquina para varias plataformas, como 32-bits, 64-bits, ARM o MIPS antes de ejecutar el código, en vez de directamente interpretarlo como hacían otros motores JavaScript. Además, utiliza una serie de técnicas antes de ejecutar que permiten optimizar (en varios pasos) y cachear resultados de partes del código que se usan mucho, como bucles o algunas funciones.
           </para>
         </formalpara>
       </listitem>
@@ -42,9 +42,15 @@
         <formalpara>
           <title>La capa de abstracción libUV</title>
           <para>
-            blahblah
+            Node.js se basó en la librería <code>libev</code> de abstracción de plataforma que estaba solamente disponible para Linux. Una vez que el desarrollo continuó y fue necesario utilizar otras plataformas, como Windows, se decidió crear <code>libUV</code>, que no es más que la evolución de <code>libev</code> para soportar otras plataformas y dar un API estándar para los desarrolladores de forma transparente al sistema que lo está ejecutando.
           </para>
         </formalpara>
+        <para>
+          libUV contiene la mayoría de las características que luego definen a Node.js. Así pues, se implementan sockets TCP no bloqueantes, tuberías, el protocolo UDP, temporizadores, creación de procesos hijos e hilos, paso de mensajes vía IPC y sockets, varias funciones asíncronas como DNS o acceso a ficheros del disco…
+        </para>
+        <para>
+            Así pues, livuv obliga a un estilo de programación asíncrono y basado en eventos, y su trabajo principal es el de proveer un bucle de eventos y notificaciones basadas en callbacks para operaciones de entrada y salida y otras actividades.
+        </para>
       </listitem>
       <listitem>
         <formalpara>

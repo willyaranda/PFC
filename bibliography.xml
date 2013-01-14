@@ -1,0 +1,24 @@
+<bibliography xmlns="http://docbook.org/ns/docbook"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Bibliografía</title>
+  <bibliodiv>
+    <title>PDFs</title>
+    <biblioentry>
+      <abbrev>NikMar-libuv</abbrev>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Nikhil</firstname>
+            <surname>Marathe</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2012</year>
+        <holder>Nikhil Marathe</holder>
+      </copyright>
+      <title>An Introduction to libuv</title>
+      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro online</link>
+    </biblioentry>
+  </bibliodiv>
+</bibliography>

@@ -51,7 +51,7 @@
   <!-- <xi:include href="future/main.xml" /> -->
 
   <!-- Glosario y bibliografía -->
-  <!-- <xi:include href="glossary.xml" /> -->
-  <!-- <xi:include href="bibliograpy.xml" /> -->
+  <xi:include href="glossary.xml" />
+  <xi:include href="bibliography.xml" />
 
 </book>
