@@ -56,9 +56,12 @@
         <formalpara>
           <title>Núcleo</title>
           <para>
-            blahblah
+            Escrito principalmente en JavaScript haciendo uso de las API e interfaces que provee V8 y otros módulos para un trabajo comunitario, es el código principal que después, mediante otras APIs se expone al desarrollador que va a utilizar Node.js.
           </para>
         </formalpara>
+        <para>
+          Así pues, podemos encontrarnos módulos como el de criptografía<footnote><para>https://github.com/joyent/node/blob/master/src/node_crypto.cc</para></footnote> (<code>crypto</code>) escritos enteramente en C, haciendo uso de las extensiones de V8, mientras que por ejemplo el que provee la interfaz para el manejo de sistemas de ficheros<footnote><para>https://github.com/joyent/node/blob/master/lib/fs.js</para></footnote> (<code>fs</code>) está enteramente escrito en JavaScript, y su sintaxis es más fácil de entender y leer.
+        </para>
       </listitem>
     </itemizedlist>
     <para>
@@ -70,13 +73,136 @@
         Actualmente Node.js, a pesar de ser una tecnología muy reciente y joven, está siendo usada por muchas grandes empresas de internet para escalar sus sistemas. El hecho de que Yahoo! haya empezado a migrar algunos de sus sistemas desde PHP hacia Node.js, implementando diferenes frameworks y módulos mientras hacían la transición, hace pensar que el recorrido de esta plataforma es muy amplio y con muchas empresas grandes detrás interesadas en que siga siendo funcional, agregue más módulos y características y que sea líder en el mercado de los desarrollos de servicios de backend. Además, Microsoft, LinkedIn (para su aplicación móvil) o incluso Walmart también han decidido cambiar algunos de sus sistemas para hacer uso de Node.js.
       </para>
     </formalpara>
+    <section>
+      <title>Para qué se usa</title>
+        <para>
+          Node.js se utiliza en la parte del backend como la programación lógica del servidor de notificaciones. Esto quiere decir que es el que controla todo lo que está ocurriendo en el servicio, expone las APIs de terceros, mantiene las conexiones abiertas, hace intercambio de datos, guarda en la base de datos, monitoriza los mensajes por si hay que borrarles y un sin fín más de funcionalidades.
+        </para>
+        <para>
+          Así pues, es el componente principal del servicio, el que está en continuo contacto con el mensaje enviado, desde la entrada, incluyendo la verificación, hasta la entrega a los diferentes terminales a los que iba dirigido. Es el maestro de ceremonias que hace que todo funcione correctamente.
+        </para>
+    </section>
+    <section>
+      <title>Por qué se ha elegido</title>
+      <para>
+        Hay multitud de tecnologías para programar servicios web, pasando por cientos de diferentes lenguajes de programación que proveen miles de frameworks diferentes entre los que elegir. Sin embargo, una tecnología robusta, sencilla, con mucha comunidad detrás para buscar cualquier duda y tener un montón de módulos ha hecho que el proyecto se decantara por Node.js por las siguientes razones:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Es asíncrono y basado en eventos, lo que permite mucha más granularidad y no bloquear la ejecución. Además, no se tienen que lanzar hilos por cada petición (o varias), si no que está todo en un bucle de eventos al que se van añadiendo acciones.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Es JavaScript, y está alineado con la tecnología del proyecto que lo engloba, que es FirefoxOS.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Es muy rápido de programar y se pueden hacer pruebas de concepto de forma rápida, además, que sea JavaScript ayuda a detectar de forma más fácil los errores, y que el tiempo desde hacer un cambio hasta verlo reflejado sea mínimo, sin tener que esperar a grandes tiempos de compilación.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Despliegue muy sencillo y con multitud de opciones, ya que permite elegir si se quiere correr detrás de un balanceador de carga (como HAProxy), directamente conectado a la red y que sea Node.js el que responda…
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+        Así pues, aunque hay otras elecciones posibles, como podría ser PHP, o incluso Python con pyev<footnote><para>https://code.google.com/p/pyev/</para></footnote>, el que se creyó que tendría menos uso de CPU y memoria y tendría más posibilidades de ser "hackeado" por la comunidad, fue Node.js.
+      </para>
+    </section>
   </section>
 
   <section>
     <title>RabbitMQ</title>
     <para>
-      ....
+      RabbitMQ es una plataforma de mensajería para aplicaciones, fácil de usar, que funciona en la mayoría de los sistemas operativos, de código abierto y con multitud de wrappers para diferentes lenguajes de programación, como Node.JS, C++, Java, Python…
     </para>
+    <para>
+      Una plataforma de mensajería permite a las aplicaciones conectarse y escalar de forma sencilla y rápida. Las aplicaciones pueden conectarse con otras aplicaciones, o bien diferentes componentes pueden ser independientes y constituir entre todos una gran aplicación o incluso poder enviar o recibir datos. La mensajería es asíncrona, por lo que se desacoplan las aplicaciones y se basa en eventos (de recepción, de envío).
+    </para>
+    <para>
+      Algunas de las grandes características de RabbitMQ son:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>Confiabilidad</title>
+          <para>
+            RabbitMQ tiene una serie de funcionalidades que hace que la entrega de los mensajes pueda ser confiable, mediante la persistencia de mensajes (el mensaje no se guarda sólo en RAM, si no también en disco, recuperable en caso de que haya un error en el sistema), aceptaciones de entrega (puede ser automático o manual, por ejemplo, se quiere decir que un mensaje está recibido cuando se ha procesado correctamente), confirmación de publicación (si ha habido fallos al enviar mensajes a las colas) y alta escalabilidad.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Enrutado flexible</title>
+          <para>
+            Los mensajes son enrutados a través de intercambios antes de llegar a las colas, y RabbitMQ provee varias técnicas de enrutado, como hacer round-robin, el típico publicador-suscriptor o incluso se pueden mezclar técnicas simples con complejas para poder realizar cualquier enrutado imaginable.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Clustering</title>
+          <para>
+            Se pueden conectar varias instancias de RabbitMQ en una red local, haciendo un único y simple servidor.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Federación</title>
+          <para>
+            Es similar al modo cluster pero con mayor toleracia a fallos, usando redes que son más propensas a fallos, como en una red WAN, por ejemplo, teniendo las instancias en diferentes centros de datos distribuidos por el mundo.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Colas con alta disponibilidad</title>
+          <para>
+            Las colas pueden crearse en modo espejo en varias máquinas en un mismo cluster, por lo que si una máquina falla, la cola estará replicada en otra, y el fallo será transparente para los programas que usen este sistema de mensajería. Además, automáticamente se comprobará y se intentará unir de nuevo los nodos caídos.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Clientes múltiples</title>
+          <para>
+            Como se ha comentado más arriba, RabbitMQ ofrece muchos clientes para lenguajes de programación populares, ya sea para desarrollos de backend, como C++, Node.js, Python, Ruby o incluso Erlang, como para clientes frontend, como JavaScript en el navegador.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+    <section>
+      <title>Para qué se usa</title>
+      <para>
+        El uso principal en el servidor de notificaciones es la de pasar mensajes entre los diferentes actores que están en ejecución, de forma desacoplada y funcionando de forma independiente, esperando a eventos que desencadenen una reacción dependiendo de qué contengan y qué haya que realizar según el mensaje.
+      </para>
+      <para>
+        El uso más simple que se da es el de algunas intancias creando contenido, que son los que publican y envían los mensajes a las colas, y otros que son los consumidores, los que reciben los mensajes y realizan con ellos diferentes tareas. Así pues, los suscriptores están apuntados a determinadas colas o tópicos, esperando a que lleguen mensajes que alguien les mete por el otro extremo. Tenemos el caso de la cola <code>newMessages</code>, la cual es escrita por el servidor que provee la interfaz a los servidores de terceros, llamado Applicacion Server (<code>AS</code>), metiendo, bien los mensajes completos (cuando su tiempo de vida sea 0), o bien el identificador que él ha creado y ha guardado en la base de datos, para que el consumidor lo lea, y entienda que tiene que entregar los mensajes dependiendo de algunos parámetros que se pasan en dicho mensaje en la cola.
+      </para>
+    </section>
+    <section>
+      <title>Por qué se ha elegido</title>
+      <para>
+        En un primer momento el software de mensajería utilizado era ActiveMQ<footnote><para>http://activemq.apache.org/</para></footnote> ya que en el plan tecnológico se prefería el uso de esta tecnología, sin especificar las razones.
+      </para>
+      <para>
+        Sin embargo, dado el uso que se estaba dando en el servidor de notificaciones, en el cual no requeríamos que hubiera una persistencia de datos, que era uno de los puntos flojos de ActiveMQ, se empezó a usar el protocolo STOMP<footnote><para>http://stomp.github.com/</para></footnote>, que es el predeterminado de ActiveMQ.
+      </para>
+      <para>
+        El problema surgió cuando hubo que probar el despliegue, añadiendo pruebas de alta disponibilidad, tolerancia a fallos y durabilidad en el tiempo, momento en el que se descartó ActiveMQ debido a que era muy débil en cuando alguno de sus nodos fallaran, así que como el cluster no era como tal, si no que era solamente maestro-esclavo, lo que hacía que la escalabilidad fuera muy mala.
+      </para>
+      <para>
+        A partir de ese momento se buscaron otras soluciones de mensajería, viendo Apollo<footnote><para>http://activemq.apache.org/apollo/</para></footnote>, que es una nueva implementación de ActiveMQ basada en eventos y mucho más eficaz que su hermano mayor, ZeroMQ<footnote><para>http://www.zeromq.org/</para></footnote>, descartada por su gran curva de aprendizaje y su API a muy bajo nivel, y al final RabbitMQ, con el cual se hicieron más pruebas de carga, se decidió que sería la fundación final para los problemas de mensajería que necesitábamos, obligándonos a cambiar el protocolo de intercambio de datos, de STOMP a AMQP<footnote><para>http://www.amqp.org/</para></footnote>, nativo de RabbitMQ y estandarizado e implementado por la mayoría de los sistemas de colas (por lo que en un futuro se podría cambiar el software de mensajería sin que diera problemas el servidor de notificaciones).
+      </para>
+      <note>
+        Hay que destacar que debido a los problemas que se encontraron en ActiveMQ el plan tecnológico está siendo revisado y es muy probable que en un futuro cercano se prefiera la opción de RabbitMQ en vez de ActiveMQ.
+      </note>
+    </section>
   </section>
 
   <section>
@@ -84,6 +210,18 @@
     <para>
       ....
     </para>
+    <section>
+      <title>Para qué se usa</title>
+        <para>
+          …………
+        </para>
+    </section>
+    <section>
+      <title>Por qué se ha elegido</title>
+      <para>
+        …………
+      </para>
+    </section>
   </section>
 
   <section>
@@ -91,6 +229,18 @@
     <para>
       ....
     </para>
+    <section>
+      <title>Para qué se usa</title>
+        <para>
+          …………
+        </para>
+    </section>
+    <section>
+      <title>Por qué se ha elegido</title>
+      <para>
+        …………
+      </para>
+    </section>
   </section>
 
 </chapter>

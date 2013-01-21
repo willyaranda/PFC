@@ -1,13 +1,76 @@
 <glossary xmlns='http://docbook.org/ns/docbook'>
   <title>Glosario de términos</title>
   <glossdiv>
-    <title>E</title>
+    <title>M</title>
+    <glossentry>
+      <glossterm>MongoDB</glossterm>
+      <glossdef>
+        <para>
+          Base de datos no relacional que guarda sus datos en un formato BSON, similar a JSON, y cuyo lenguaje de consulta es JavaScript, teniendo funciones de reducción, mapeo…
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+  <glossdiv>
+    <title>N</title>
     <glossentry>
       <glossterm>Notification Server</glossterm>
       <acronym>NS</acronym>
       <glossdef>
         <para>
-          Servidor de notificaciones……. blah blah
+          Servidor de notificaciones. Es el conjunto general en la parte centralizada, está compuesto de diferentes partes.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Node.js</glossterm>
+      <glossdef>
+        <para>
+          Plataforma de desarrollo en la parte servidora escrita principalmente en JavaScript. Permite una programación rápida, basada en eventos y asíncrona.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+  <glossdiv>
+    <title>R</title>
+    <glossentry>
+      <glossterm>RabbitMQ</glossterm>
+      <glossdef>
+        <para>
+          Sistema de mensajería escrito en Erlang, muy rápido, con muchas configuraciones para las colas y preferencias para alta disponibilidad y alta carga.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Notification Server</glossterm>
+      <acronym>NS</acronym>
+      <glossdef>
+        <para>
+          Servidor de notificaciones. Es el conjunto general en la parte centralizada, está compuesto de diferentes partes.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+  <glossdiv>
+    <title>U</title>
+    <glossentry>
+      <glossterm>User Agent</glossterm>
+      <acronym>UA</acronym>
+      <glossdef>
+        <para>
+          Agente de usuario. Es el programa que ejecuta una instancia web. En este caso, podría ser el propio sistema operativo Firefox OS o el navegador Firefox.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+  <glossdiv>
+    <title>W</title>
+    <glossentry>
+      <glossterm>WebApp</glossterm>
+      <acronym>WA</acronym>
+      <glossdef>
+        <para>
+          Aplicación web. Programa instalado en el dispositivo, basado en tecnologías web.
         </para>
       </glossdef>
     </glossentry>

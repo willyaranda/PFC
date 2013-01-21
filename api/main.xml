@@ -7,7 +7,7 @@
 
   <title>Application Program Interface, API</title>
   <para>
-    El servidor de notificaciones tiene diferentes API que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">el estándar</link> que estaba proponiendo el W3C, se mantiene por compatibilidad hacia atrás, pero sin embargo, se sobreescriben algunos métodos para introducir mejoras de seguridad.
+    El servidor de notificaciones tiene diferentes API que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">el estándar</link> que propone el W3C, se mantiene por compatibilidad, pero sin embargo, se añaden algunos parámetros extras o se eliminan algunos métodos para añadir nuevas características y evitar redundancia.
   </para>
   <para>
     Para entender este capítulo, es necesario presentar a los diferentes actores que hacen aparición:

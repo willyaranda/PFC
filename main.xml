@@ -48,7 +48,7 @@
   <!-- <xi:include href="deployment/main.xml" /> -->
   <!-- <xi:include href="comparision/main.xml" /> -->
   <xi:include href="lessons_learned/main.xml" />
-  <!-- <xi:include href="future/main.xml" /> -->
+  <xi:include href="future/main.xml" />
 
   <!-- Glosario y bibliografía -->
   <xi:include href="glossary.xml" />

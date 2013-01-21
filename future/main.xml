@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter xml:id="future"
+      xmlns="http://docbook.org/ns/docbook"
+      version="5.0" xml:lang="es">
+
+  <title>Futuro: v2 y siguientes</title>
+  <para>
+    Este capítulo está dedicado a todas aquellas ideas que se han quedado por el camino o que no son tan importantes para implementar en la primera versión del servidor de notificaciones, pero que podrían ser interesantes para futuras versiones o que se han pedido por otros proyectos (como pueden ser de mensajería instantánea).
+  </para>
+  <para>
+    Así pues, algunos de ellos tienen más prioridad que otros, algunos pueden tener más capacidad real de ser usados que otros, pero es posible que muchos de ellos lleguen a implementarse finalmente, y formen parte de la especificación estandarizada por el W3C.
+  </para>
+
+  <section>
+    <title>Sobreescribir notificaciones</title>
+    <para>
+      Una de las características más interesantes que permiten otros servidores de notificaciones es la posibilidad de sobreescribir notificaciones enviadas previamente en el tiempo pero que además no hayan sido entregadas, por lo que podría añadir más información, o bien cancelarse.
+    </para>
+    <example>
+      <title>Notificación sobre el desarrollo de un partido de fútbol</title>
+      <para>
+        En el caso de una aplicación de resultados de fútbol, podría ser que cada notificación tuviera un estándar definido para indicar los goles, cambios de jugadores, tarjetas y demás incidencias. Podría ser que en un momento determinado, uno de los equipos marque un gol, y se requiera avisar a todos los usuarios para que la información se actualice. Sin embargo, se podría pensar en enviar un mensaje push con sólo la información determinada, pero, ¿y si alguien no ha recibido los anteriores? Requiere mucha más lógica por parte de la aplicación el recibir todos los mensajes, ordenarlos y pintarlos de una forma cronológica, cuando el orden de entrega no está garantizado.
+      </para>
+      <para>
+        Así entonces, la idea podría ser la de que el mensaje tuviera un identificador fijo para el partido, por ejemplo <code>valencia-madrid-liga-20130120</code> y que cada vez que hubiera un cambio que haya que enviar a los usuarios se añadiera más contenido, sobreescribiendo a los dispositivos que aún no hayan recibido la notificación con esta nueva (en vez de tener <code>N</code> mensajes, habría <code>1</code> mensaje con <code>N</code> eventos), y siempre tendrían lo último, independientemente del número de eventos que haya habido antes. En el caso de dispositivos que estén recibiendo notificaciones que ahora se sobreescriben, simplemente sería implementar la lógica de descartar la información anterior y pintar todo de nuevo, o bien hacer caso omiso de lo antiguo y utilizar sólo los nuevos eventos.
+      </para>
+    </example>
+  </section>
+
+  <section>
+    <title>Recepción segura de token de usuario</title>
+    <para>
+      Actualmente la recepción del token de dispositivo/usuario que se utiliza como primer paso para registrar a alguien en el servidor de notificaciones no es demasiado segura, ya que a todo el mundo que pide un token, se le asigna uno válido. Esto debería cambiar en un futuro e integrarse con otros sistemas de autenticación de usuarios, para dar tokens sólo a los usuarios autorizados.
+    </para>
+    <para>
+      Así pues, podría ser que en un futuro este token pudiera venir de forma pre-instalada en el propio dispositivo, que tenga que utilizarse una tecnología como OAuth2 para recoger el token o que incluso haya que identificarse como comprador del terminal y asignarlo a la cuenta de usuario para poder recibir notificaciones.
+    </para>
+    <para>
+      Sin embargo, este token depende mucho del entorno en el que se esté ejecutando el servidor de notificaciones, ya que este token no sale nunca del dispositivo, y podría asignarse de la mejor manera que el proveedor del servicio disponga, ya que la parte de cómo recibir el token no está estandarizada, ya que se supone que ha habido un intercambio seguro de información para recibirlo y el token que tiene el usuario/dispositivo es válido para todo el sistema.
+    </para>
+  </section>
+
+  <section>
+    <title>Cambio en el tamaño máximo</title>
+    <para>
+      En un primer momento, y como se comenta más atrás en el proyecto, el tamaño máximo de mensaje está restringido a simplemente 4KiB de información. Esta elección está hecha porque es la estándar de Google Cloud Messaging (GCM), y supone un tamaño aceptable para enviar datos a cualquier aplicación.
+    </para>
+    <para>
+      Sin embargo, esto podría cambiar en un futuro dependiendo del uso que se esté dando a la plataforma: si los desarrolladores prefieren mandar mensajes pequeños o grandes, si mandan el contenido cifrado, si existen otras características que aún no se están dando en las aplicaciones o en Internet…
+    </para>
+  </section>
+
+  <section>
+    <title>Poder enviar números de versión</title>
+    <para>
+      Este es una de las características fundacionales de Thialfi, el sistema definido por Google y que se usa en Google Chrome para la sincronización y los contactos. Sin embargo, el sistema actual del servidor de notificaciones tiene la opción de mandar números de versión, no de forma implícita, si no poniéndolo de forma explícita en el payload del mensaje enviado.
+    </para>
+    <para>
+      Así entonces en un futuro podría haber estas notificaciones:
+    </para>
+    <screen><![CDATA[{
+  messageType: "notification",
+  id: "<ID interno para el AS>",
+  version: "<Número de versión>",
+  signature: "<Firma>",
+  ttl: "<Tiempo de vida>",
+  timestamp: "<Desde EPOCH>",
+  priority: "<Prioridad 1-4>"
+}]]></screen>
+
+    <para>
+      De todas manenas, y como se puede comprobar viendo ambos mensajes, el segundo es un subconjunto del primero, ya que con el método actual, el servidor es capaz de enviar números de versión a las aplicaciones, construidas de tal manera que el mensaje que reciben no contiene un <code>payload</code> real, si no que es un puntero a algún sitio que debería ir a realizar una segunda conexión para traer los datos reales.
+    </para>
+
+    <example>
+      <title>Uso de números de versión en aplicación del banco</title>
+      <para>
+        Un uso real de números de versión podría ser la aplicación del banco, que quiere enviar que hay nuevos movimientos en la cuenta corriente, pero no quiere enviar ningún dato personal a través de la red no gestionada por ellos, por lo que podría mandar un número de versión para que la propia aplicación se conecte con los servidores del banco, sin dejar ningún resto de información personal en el servidor de notificaciones, y descargue la información requerida para estar actualizado.
+      </para>
+    </example>
+  </section>
+
+  <section>
+    <title>Implementar soporte para IPv6</title>
+    <para>
+      TODO
+    </para>
+  </section>
+
+  <section>
+    <title>Implementar prioridades</title>
+    <para>
+      Esto podría ser una de las grandes nuevas funcionalidades en la segunda versión del servidor de notificaciones, ya que permite a los desarrolladores no molestar a los usuarios constantemente y esperar a que estén mirando el dispositivo para poder mostrar las notificaciones. GCM tiene un sistema similar, con la propiedad <code>delay_while_idle</code> en el JSON enviado, que permite que no se entregue hasta que el dispositivo esté de nuevo conectado a la red y el usuario realizando algún tipo de transferencia de datos.
+    </para>
+    <para>
+      Sin embargo, tener sólo dos estados quizás es demasiado poco para los desarrolladores, porque se podrían necesitar otros valores para diferentes prioridades, encolarlas y poderlas enviar de forma instantánea o bien esperar a que haya varias, no teniendo que ser todas del mismo origen, para enviar a la vez.
+    </para>
+    <example>
+      <title>Información sobre lugares cercanos y ofertas</title>
+      <para>
+        Un uso interesante podría ser la posibilidad de tener una aplicación que informe a un servidor de cuál es la ubicación del dispositivo y quiera enviar ofertas de lugares cercanos a donde se encuentre, como bares, restaurantes o conciertos de música. Sin embargo, el recibir anuncios constantemente podría ser muy molesto para el usuario (incluso podría llegar a desinstalar la aplicación), por lo que se podría indicar al servidor cuál es la prioridad del mensaje: esto es, si se obliga a que se mande la notificación sea cual sea el estado del dispositivo, o que se pueda encolar y esperar hasta que el usuario esté de nuevo activo (por ejemplo, con la pantalla encendida o navegando por Internet) o se reciba una notificación de una prioridad superior, momento en que se enviarían todas.
+      </para>
+    </example>
+  </section>
+
+  <section>
+    <title>PINGs de backup</title>
+    <para>
+      Aunque la idea de este servidor de notificaciones es que no haga falta tener un canal abierto, constante, vacío, a la espera de hacer <code>PING</code> de vez en cuando para comprobar si hay datos, sí podría ser interesante en determinadas conexiones, como la de WebSockets.
+    </para>
+    <para>
+      La idea es tener este mecanismo de <code>PING</code> que se realice cada cierto tiempo (por definir, puede ser 10 minutos o media hora) y que aprovechando el <code>PONG</code> del servidor, pueda enviar la lista de registros de aplicaciones y los posibles mensajes, en el caso de que haya habido un fallo y no se haya podido entregar.
+    </para>
+    <para>
+      Sin embargo, esta es una de las tareas menos prioritarias porque se estaría volviendo a los sistemas anteriores que requerirían mantener un canal abierto para preguntar de vez en cuando, el famoso polling, o bien abrir un canal para exclusivamente decir que se está conectado.
+    </para>
+  </section>
+
+  <section>
+    <title>Soporte WAP push</title>
+    <para>
+      El soporte UDP que se da en el servidor es nativo de la red: se usa toda la infraestructura montada para despertar al teléfono, que reciba el paquete, vea que es un <code>PING</code> de notificación, se conecte al servidor y descargue los datos.
+    </para>
+    <para>
+      Pero puede mejorarse con la introducción de WAP push, aunque sólo sería en casos muy excepcionales, porque ya se ha visto cómo funciona esta tecnología, abriendo el navegador del usuario para descargar los datos, algo que haría que se sintiera extraño, a menos que se pudiera hacer de fondo y se pudiera pasar a la aplicación en concreto.
+    </para>
+    <para>
+      La prioridad es baja por los problemas que tiene este sistema como se comenta en el párrafo anterior y porque es un servicio de pago para los desarrolladores o servicios que quieran mandar notificaciones push, además de que los usuarios tengan que dar su número de teléfono para poder hacerlo funcionar.
+    </para>
+  </section>
+
+  <section>
+    <title>Control de abuso</title>
+    <para>
+      Actualmente no hay ningún control de abuso para la primera versión del servidor. Se controlan los orígenes frente a una base de datos que se puede ir rellenando, pero no hay nada automatizado que lidie con todo el proceso.
+    </para>
+    <para>
+      Lo que se quiere para la segunda versión es la posibilidad de que esto sea automático, para que cuando el servidor detecte un alto número de conexiones, normalmente erróneas, sea suficientemente inteligente de ir añadiendo las IPs de origen a una lista negra y no permita que vuelva a conectarse en un futuro.
+    </para>
+    <para>
+      Sin embargo, no sólo sería para el control de quién se está conectando, si no incluso para aplicaciones que inundan el sistema con mensajes no válidos o que nunca serán entregados, o incluso que se envíen una y otra vez sin control.
+    </para>
+  </section>
+
+  <section>
+    <title>Soporte a diferentes servidores de notificaciones</title>
+    <para>
+      Uno de los grandes pilares de Internet ha sido siempre la descentralización de los servicios, pero la interoperabilidad entre ellos. Así por ejemplo ocurre con el correo electrónico, ya que las personas son capaces de escribirse entre ellas aunque no sean del mismo proveedor (por ejemplo, esto no ocurre en los sistemas de mensajería instantánea de hoy día), ya que los protocolos están muy bien definidos y es capaz de enrutarse mensajes entre diferentes servicios, con la capacidad de que lleguen de unos a otros sin problemas.
+    </para>
+    <para>
+      Con esta misma idea ha nacido el servidor de notificaciones, queriendo que sea federado y que cualquier persona pueda instalarlo, incluso creando su propio servidor desde cero, mientras se respeten los estándares.
+    </para>
+    <para>
+      Así pues, la idea de que haya una red de servidores de notificaciones federado es algo lógico. Podría ser interesante que un servidor de Telefónica reciba alguna notificación que vaya a un servidor de Vodafone y sea suficientemente inteligente el enrutado para poder reencaminar la notificación sin molestar a la red interna de cada servidor.
+    </para>
+    <para>
+      Es por esto que quizás en versiones futuras se cambie la forma en que se da la URL de push (a la que el servidor de terceros tiene que enviar su notificación en formato JSON con un HTTP POST), de una URL normal, del estilo <code>http://push.telefonica.es/notify/abcdefghijklmnopqrstuvwxyz</code> a algo similar a una dirección de correo, y sea el propio sistema federado DNS el que sepa cómo reencaminar el paquete, del estilo de <code>abcdefghijklmnopqrstuvwxyz@push.telefonica.com</code> y que mediante DNS pueda resolver alguno de las entradas <code>SRV</code><footnote><para>http://www.ietf.org/rfc/rfc2782.txt</para></footnote> en el DNS donde se colocaría alguna información para enrutar el mensaje de forma correcta.
+    </para>
+  </section>
+
+  <section>
+    <title>Control de presencia</title>
+    <para>
+      Una de los principales argumentos de los desarrolladores de aplicaciones de mensajería instantánea es que requieren tener un control sobre si el usuario está conectado, desconectado o en estado ausente. Eso es sencillo para ellos si crean un propio socket contra sus servidores y mantienen la conexión y el estado ellos, sabiendo si se cae la conexión, usando APIs del sistema saber si la pantalla está encendida y avisar del estado…
+    </para>
+    <para>
+      Sin embargo, el principal problema es que los usuarios no suelen tener solo una aplicación de este tipo, si no que suelen tener varias, muchas veces dependiendo del círculo de amigos, o de donde tengan más contactos. Así pues, podría ocurrir que ese socket se multiplicara por dos, tres, o incluso 4, según el número de aplicaciones que lo requieran.
+    </para>
+    <para>
+      Es por esto que una de las ideas es la de proveer un API a los servicios para comprobar si alguien está conectado/desconectado o en estado ausente. Esto se podría hacer de una forma muy sencilla tal y como está montado el servidor de aplicaciones, ya que sería hacer una petición a la URL que queremos saber si se puede entregar, se miraría el estado del nodo o de los nodos que corresponden a dicha URL y se devolvería cuál es el estado actual: conectado, desconectado, ausente o indefinido (cuando estemos bajo UDP y no tengamos una conexión abierta)
+    </para>
+    <para>
+      Esto trasladaría la carga de la red desde los terminales y la red de telefonía al servidoe de notificaciones y a Internet, porque no tienen que estar respondiendo los terminales continuamente, ni manteniendo canales abiertos, si no que es el propio servidor el que sabe si el dispositivo puede ser alcanzable o no.
+    </para>
+  </section>
+
+  <section>
+    <title>Control de entrega de notificaciones</title>
+    <para>
+      Muchas de las aplicaciones de mensajería instantánea requieren saber si el mensaje enviado ha sido entregado o no. Podría ser para mostrar un pequeño icono al usuario para que sepa que el otro lado ha recibido el mensaje, o bien porque se quiere llevar el control de si se entrega el mensaje correctamente o si el dispositivo está conectado.
+    </para>
+    <para>
+      Así pues, este sistema proveería un API para poder preguntar sobre el estado de entrega de un mensaje, no sólamente si se ha entregado o no, si no quizás en qué momento, y si no se ha entregado, por qué razón: 2aplicación desintalada, el dispositivo está desconectado…
+    </para>
+    <example>
+      <title>Enviar mensajes sólo si los anteriores han llegado</title>
+      <para>
+        Un escenario típico para algunos servicios es la de que si no se han entregado los mensajes anteriores, no tiene sentido enviar mensajes posteriores. Esto podría ser válido en aplicaciones que manden un solo <code>PING</code> al usuario. Probablemente no sea interesante mandar varias notificaciones, si no saber si la anterior se ha entregado, y si es así, mandar un nuevo mensaje. En el caso de que no se haya entregado, en algún momento se entregará y el mensaje siguien sería el mismo, por lo que no se envía, no ocupa espacio en el servidor de notificaciones, y reduce la carga en la red móvil, al sólo tener que enviar un único mensaje.
+      </para>
+    </example>
+  </section>
+
+</chapter>
