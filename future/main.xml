@@ -68,14 +68,30 @@
   priority: "<Prioridad 1-4>"
 }]]></screen>
 
+    <note>
+      Como recordatorio, el formato actual es:
+    </note>
+
+    <screen><![CDATA[
+      {
+        messageType: "notification",
+        id: "<ID interno para el AS>",
+        payload: "<Número de versión>",
+        signature: "<Firma>",
+        ttl: "<Tiempo de vida>",
+        timestamp: "<Desde EPOCH>",
+        priority: "<Prioridad 1-4>"
+      }]]>
+    </screen>
+
     <para>
-      De todas manenas, y como se puede comprobar viendo ambos mensajes, el segundo es un subconjunto del primero, ya que con el método actual, el servidor es capaz de enviar números de versión a las aplicaciones, construidas de tal manera que el mensaje que reciben no contiene un <code>payload</code> real, si no que es un puntero a algún sitio que debería ir a realizar una segunda conexión para traer los datos reales.
+      Como se puede comprobar viendo ambos mensajes, el primero es un subconjunto del segundo, ya que con el método actual, el servidor es capaz de enviar números de versión a las aplicaciones, construidas de tal manera que el mensaje que reciben no contiene un <code>payload</code> real, si no que es una versión que tiene que estar sincronizada con el servidor de la aplicación, y que se encargará de ir a realizar una segunda conexión para traer los datos reales, ya manejables por la aplicación.
     </para>
 
     <example>
       <title>Uso de números de versión en aplicación del banco</title>
       <para>
-        Un uso real de números de versión podría ser la aplicación del banco, que quiere enviar que hay nuevos movimientos en la cuenta corriente, pero no quiere enviar ningún dato personal a través de la red no gestionada por ellos, por lo que podría mandar un número de versión para que la propia aplicación se conecte con los servidores del banco, sin dejar ningún resto de información personal en el servidor de notificaciones, y descargue la información requerida para estar actualizado.
+        Un uso real de números de versión podría ser la aplicación del banco, que quiere enviar que hay nuevos movimientos en la cuenta corriente, pero no desea enviar ningún dato personal a través de la red no gestionada por ellos, por lo que podría mandar un número de versión para que la propia aplicación se conecte con los servidores del banco, sin dejar ningún resto de información personal en el servidor de notificaciones, y descargue la información requerida para estar actualizado.
       </para>
     </example>
   </section>
@@ -83,7 +99,37 @@
   <section>
     <title>Implementar soporte para IPv6</title>
     <para>
-      TODO
+      El soporte de IPv6 debería ser una de las prioridades de la segunda versión del servidor, básicamente porque su uso es cada vez más extendido (más que por ser algo voluntario, por ser algo obligatorio), y puede tener características muy gratificantes para el servidor y de la manera que se envían las notificaciones.
+    </para>
+    <para>
+      La idea sobre IPv6 es la de aumentar el número de direcciones posibles para que cualquier dispositivo tenga una IP diferente a cualquier otro y por lo tanto sea único en la red, haciendo que pueda ser directamente accesible, sin tener que pasar por proxies intermedios que redirigan la petición hacia otras direcciones.
+    </para>
+    <para>
+      Esto es un gran avance que podría acabar directamente con la funcionalidad del servidor de notificaciones, ya que, al estar el dispositivo directamente en Internet, con una IP pública, y siendo accesible desde cualquier lado, no hay necesidad de un proxy intermedio (como es el servidor de notificaciones) o de mantener conexiones abiertas (como se hace en los otros sistemas) ya que los servicios que quieran enviar algo al teléfono lo podrían hacer directamente.
+    </para>
+    <para>
+      Sin embargo, hay un problema, y es que los proveedores de telefonía móvil pueden decidir varias cosas para que sus dispositivos no sean directamente accesibles por Internet:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>Cortafuegos</title>
+          <para>
+            Para evitar que los dispositivos que están realmente conectados en la red se protejan ante posibles ataques, podrían implementarse sistemas de cortafuegos o firewall que permitirían cortar algunos tipos de conexiones que puedan ser perjudiciales para los dispositivos, como peticiones de PING, posibles ataques DDoS, que haría que la radio móvil esté siempre en el estado de máxima excitación y la batería de los terminales se gaste de forma rápida.
+          </para>
+        </formalpara>
+      </listitem>
+       <listitem>
+        <formalpara>
+          <title>IP Privadas</title>
+          <para>
+            Aunque IPv6 provea miles de millones de diferentes direcciones y se pueda identificar a cada dispositivo por una IP diferente, las operadoras podrían decidir seguir creando redes privadas como ocurre ahora mismo en las redes IPv4, para proteger de la misma manera el acceso desde internet hacia los teléfonos de forma incontrolada. Sin embargo, cumpliría lo mismo que haría el cortafuegos propuesto anteriormente, pero además, al estar en un segmento de red que no se puede llegar por ser privado, tendría el problema de que estos dispositivos no podrían ser contactados directamente, por lo que necesitarían un proxy intermedio para poder hacer las peticiones.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+    <para>
+      Así pues, aunque IPv6 podría pensarse que podría matar al servidor de notificaciones, como se ha comentado anteriormente, es muy probable que no lo haga, ya que en ambos casos necesitaríamos reglas especiales en los firewall para permitir que sólo el rango de direcciones de funcionamiento del servidor de notificaciones pueda acceder a los dispositivos o bien tener una de las instancias dentro de la red móvil, como ocurre con el despliegue en IPv4, donde es necesario que haya algo dentro de la red móvil para poder hacer <code>PING</code> directamente a los terminales sin tener una conexión abierta y que sean capaces de responder a notificaciones.
     </para>
   </section>
 

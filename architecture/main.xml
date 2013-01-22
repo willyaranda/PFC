@@ -135,7 +135,7 @@
           NS_AS puts all the received messages), and finds in the database
           which nodes need to be notified, sending the message to the correct
           queue the node (user agent) is subscribed to.
-        </para>          
+        </para>
     </section>
     <section>
         <title>Message Queue (RabbitMQ)</title>

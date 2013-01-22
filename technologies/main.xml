@@ -208,37 +208,88 @@
   <section>
     <title>MongoDB</title>
     <para>
-      ....
+      Es una base de datos NoSQL escalable, orientada al almacén de documentos, con alto rendimiento, de código libre y escrita en C++. Es rápida y provee una flexibilidad que no dan las bases de datos relacionales, sobre todo en la manera como se guardan los datos, ya que no están ancladas a esquemas fijos que no pueden cambiarse.
     </para>
-    <section>
-      <title>Para qué se usa</title>
-        <para>
-          …………
-        </para>
-    </section>
-    <section>
-      <title>Por qué se ha elegido</title>
-      <para>
-        …………
-      </para>
-    </section>
-  </section>
-
-  <section>
-    <title>Linux</title>
     <para>
-      ....
+      Creado por la empresa 10gen<footnote><para>http://www.10gen.com/</para></footnote> en octubre de 2007, utiliza JavaScript para las consultas (el API es accesible y se escribe como JavaScript), usando el motor de renderizado SpiderMonkey de Mozilla.
     </para>
+    <para>
+      La forma de guardado de los datos es en formato BSON, o Binary JSON, por lo que es totalmente compatible con JavaScript y no hay que hacer un post-procesado de la información para utilizarla de forma agradable en el backend, ya que es un tipo de dato nativo más para JavaScript, que es el lenguaje de programación de la parte de backend, con Node.js.
+    </para>
+    <para>
+      Así pues, MongoDB es una base de datos muy rápida, muy flexible y con cientos de parámetros de configuración que hace que funcione desde una sola instancia hasta cientos de máquinas trabajando en paralelo en modo cluster, haciendo réplicas o muchas más maneras diferentes.
+    </para>
+    <para>
+      Algunas de sus características son:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>Esquemas libres</title>
+          <para>
+            Que se guardan en un formato JSON, por lo que son fácilmente parseables por la mayoría de los lenguajes de programación. Además, permite realizar cambios al vuelo a los documentos, agregando o eliminando contenido sin tener problemas con si el esquema se repite o no, porque no hay tal.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Soporte completo de índices</title>
+          <para>
+            Aunque se guarden los documentos sin esquema, se pueden crear índices en aquellos campos que vayan a estar siempre. Por defecto, el índice genérico se realiza sobre el campo <code>_id</code> que es como la clave primaria para MongoDB. Sin embargo, se puede indexar por cualquier campo, incluso haciéndoles combinados para buscar de forma más rápida.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Replicación y alta disponibilidad</title>
+          <para>
+            Una de las razones por las que MongoDB es muy usado es porque tiene multitud de opciones para replicar los datos entre diferentes servidores, ya sea en redes locales LAN o redes más grandes, WAN.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Sharding</title>
+          <para>
+            Más allá de poder replicar la base de datos entre diferentes instancias, se puede crear la opción de dividir la base de datos dependiendo de los datos de entrada, y dirigir las escrituras hacia un lado u otro. Esto es interesante por ejemplo si se necesita cumplir alguna ley que obligue que en un servicio mundial, los datos de los usuarios de algún determinado país esté en un centro de datos en concreto.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Modificaciones atómicas</title>
+          <para>
+            Algunas bases de datos NoSQL rompen las convenciones de las bases de datos SQL usadas desde hace tiempo, como la atomicidad (operaciones que o bien se ejecutan en su totalidad, o no se ejecutan), que podría llevar a pérdida de información e incongruencias. Así pues, MongoDB posee un motor que le permite realizar este tipo de opciones sin coste alguno.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Map-reduce</title>
+          <para>
+            El famoso algoritmo map-reduce, cada vez más utilizado para realizar operaciones sobre grandes conjuntos de datos, es un ciudadano de primer nivel en MongoDB, lo que permite realizar operaciones de agregación y procesado de datos de forma sencilla.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>GridFS</title>
+          <para>
+            Permite guardar ficheros de cualquier tamaño en la base de datos, y recogerlos de forma sencilla, incluyendo replicación, sharding y todas las características que tiene MongoDB descritas más arriba.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
     <section>
       <title>Para qué se usa</title>
         <para>
-          …………
+          Al ser una base de datos, se utiliza para guardar la información que envían los diferentes actores o instancias que están en ejecución en el servidor de notificaciones. Así por ejemplo, se guardan las notificaciones enviadas y correctas, los registros de los diferentes dispositivos con sus aplicaciones enlazadas y los posibles mensajes…
         </para>
     </section>
     <section>
       <title>Por qué se ha elegido</title>
       <para>
-        …………
+        Por proveer una flexibilidad mucho mayor que las bases de datos SQL tradicionales, y porque el formato de los mensajes, ya sean de los recibidos y los que se intercambian en las colas y de los datos entre las diferentes instancias tienen una característica en común: son JSON. Así pues, cualquier dato del sistema puede guardarse sin problemas en la base de datos, haciendo incluso de respaldo de los datos en caso de fallo del sistema.
       </para>
     </section>
   </section>
