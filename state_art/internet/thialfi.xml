@@ -10,10 +10,158 @@
   </para>
   <note>
     <para>
-      Sin embargo, cabe notar que este sistema no está funcionando en los terminales móviles que llevan Android, si no que se usa el ya explicado GCM, y este es sólo con la intención de explorar las posibilidades, y lo implementa Google Chrome en su versión de escritorio y móvil.
+      Sin embargo, cabe notar que este sistema no está funcionando en los terminales móviles que llevan Android, si no que se usa el ya explicado GCM, y este es sólo con la intención de explorar nuevas posibilidades, y lo implementa Google Chrome en su versión de escritorio y móvil, así como la sincronización de contactos de manera experimental.
     </para>
   </note>
   <para>
-    El principal cambio entre GCM y Thialfi es la vuelta de mensajes que no llevan contenido útil para la aplicación, si no que se basan en mandar números de versión sobre "topics" a los que el usuario y las aplicaciones se suscriben.
+    El principal cambio entre GCM y Thialfi es la vuelta de mensajes que no llevan contenido útil para la aplicación, si no que se basan en mandar números de versión sobre temas en concreto ("topics") a los que el usuario y las aplicaciones se suscriben para mantenerse en sincronía.
+  </para>
+  <formalpara>
+    <title>Características</title>
+    <para>
+      Así pues, Thialfi tiene una serie de mejoras con respecto a los otros sistemas, como son:
+    </para>
+  </formalpara>
+  <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title>Escalable</title>
+        <para>
+          Puede tener constancia de millones de clientes y de objetos, ya que el tamaño para ambos es pequeño, sin tener que guardar datos finales, si no simplemente números de versión.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Rápido</title>
+        <para>
+          Según las pruebas y el paper original, la entrega de los mensajes, en este caso mensajes con números de versión, se realizan en menos de 1 segundo desde que el servidor de terceros manda un mensaje hasta que el cliente lo recibe.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Seguro</title>
+        <para>
+          Incluso si un centro de datos se cae, el sistema es capaz de recuperarse, volviendo a registrar los diferentes dispositivos y enventualmente volviendo a un estado correcto.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Fácil de usar</title>
+        <para>
+          Las APIs son sencillas y ha sido implementadas en diferentes servicios usados por Google, como en la sincronización de datos de Chrome, contactos y en Google+.
+        </para>
+      </formalpara>
+    </listitem>
+  </itemizedlist>
+  <para>
+    Entonces, como se comenta en los puntos anteriores, todo son objetos que poseen identificadores (<code>ID</code>) únicos y números de versión que incrementan de forma monótona en cada actualización.
+  </para>
+  <formalpara>
+    <title>Ventajas</title>
+    <para>
+      ...
+    </para>
+  </formalpara>
+  <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title>Menor datos guardados</title>
+        <para>
+          Es una de las ventajas, pero a la vez es un gran inconveniente. Sólo hay que guardar los objetos que contienen un identificador y un número de versión, por lo que las bases de datos (BigTable, que usan en Google) necesitan menos espacio para poder funcionar, al no guardar mensajes (en GCM el <code>payload</code> máximo es de 4KiB). Además, sólo es necesario guardar el último mensaje para cada aplicación-objeto (básicamente es aumentar el número de versión), mientras que en un sistema como GCM hay que guardar múltiples mensajes.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>No hay fugas de datos privados</title>
+        <para>
+          Al no tener mensaje las notificaciones, no hay riesgo de fuga de datos privados, puesto que lo único que se transmite son números de versión, que no dicen nada sobre el contenido.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Entrega siempre actualizada</title>
+        <para>
+          La entrega de los mensajes está asegurada, no porque siempre se tenga la última versión en un momento determinado, si no porque seguro que se va a conocer esa versión en un momento futuro. Esto quiere decir que lo único que reciben los clientes es un número de versión de un determinado objeto, que siempre es el máximo posible, por lo que si tenemos un cliente que se ha quedado desactualizado en, digamos, la versión <code>17</code>, y ha llegado la <code>18</code> y no ha podido ser entregada, cuando llegue la versión <code>19</code> el cliente sabrá que tiene que pedir tanto la <code>18</code> como la <code>19</code>, para estar en sincronía con el servidor, por lo que en cualquier momento lo único que almacena un servidor o un cliente es un determinado objecto, con un <code>ID</code> en una versión <code>V</code> determinada.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Buena recuperación ante errores</title>
+        <para>
+          Thialfi tiene una serie de mensajes de control que permiten recuperar el estado de los registros en caso de fallo. Por ejemplo, si el servidor pierde todos los registros, se envía un mensaje a los clientes para que ejecuten <code>ReissueRegistrations()</code>, y se inicia un protocolo para devolver los registros.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Fácil implementación del cliente</title>
+        <para>
+          El número de líneas requeridas para la implementación en el cliente es muy bajo, debido a su uso basado en eventos y su fácil lógica, en la siguiente figura podemos ver algunos ejemplos:
+        </para>
+      </formalpara>
+      <figure>
+        <title>Líneas de código para implementar Thialfi</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../../resources/thialfi-sloc.png" align="left" width="13cm"  />
+          </imageobject>
+        </mediaobject>
+      </figure>
+      <para>
+        Como se puede observar, varía dependiendo del lenguaje de programación, desde las 40 u 80 en Google Contacts y Google+ hasta las 535 bajo un protocolo XMPP en Chrome Sync.
+      </para>
+      <para>
+        Además, lo interesante que se ve en esta figura anterior es que Thialfi no obliga un único protocolo de aplicación, si no que puede funcionar sobre varios, como conexiones HTTP, XMPP o incluso RPC.
+      </para>
+    </listitem>
+  </itemizedlist>
+  <formalpara>
+    <title>Problemas</title>
+    <para>
+      Sin embargo, aunque tiene muchas ventajas, como las están enumeradas anteriomente, tiene problemas para ser un buen servidor para datos en la red móvil
+    </para>
+  </formalpara>
+  <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title>Doble conexión para recuperar datos</title>
+        <para>
+          En un sistema en el que los servicios de terceros pueden enviar datos de payload, obliga a que el servidor de notificaciones sea más complejo, por el hecho de que tiene que guardar datos. Sin embargo, esto puede significar que los clientes no tengan que abrir una segunda conexión para recuperar los datos necesarios debido a que el propio mensaje de notificación ya lo tiene. Esto, a pesar de parecer un problema menor, es uno de los grandes problemas en las redes móviles, donde realizar una conexión es muy costoso (en términos de tiempo y de señalización) y la descarga de los datos lenta.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Mayor complejidad en el servidor</title>
+        <para>
+          Esto es debido a que requiere que se guarden los cambios o diferencias para cuando se conecten los diferentes clientes, puedan recuperar los datos que pidan, como por ejemplo, los datos de la versión <code>17</code>. Sin embargo, puede haber casos en que los clientes no vayan a pedir la última versión, si no que tengan que pedir la versión <code>16</code> y <code>17</code>. Por lo que el servidor tiene que mantener esas diferencias de algún modo (en formato delta o con mensajes completos).
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Mayor complejidad en las aplicaciones</title>
+        <para>
+          Esto es debido a que las aplicaciones no van a procesar el mensaje directamente, si no que tienen que discernir cuál es el número de versión, hacer una llamada al servidor de terceros y recibir los datos. Además, hay que tener en cuenta que pueden pedirse diferentes versiones para acabar en sincronía con el servidor, lo que aumenta la lógica para ver qué versión está dando el servidor y cómo se puede manejar con versiones más nuevas.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Servidores de aplicación más potentes</title>
+        <para>
+          El primer problema es la necesidad de que todos los clientes, una vez recibido un número de versión, tengan que obligatoriamente conectarse con el servidor de la aplicación para descargar los datos, lo que puede conllevar a muchísima capacidad de cálculo (si por ejempo los datos hay que calcularlos al vuelo y dependen de cada petición) y de ancho de banda, así como de medidas para evitar que muchos usuarios se conecten a la vez y puedan colapsar los sistemas.
+        </para>
+      </formalpara>
+    </listitem>
+  </itemizedlist>
+  <para>
+    Así pues, puede verse a Thialfi como un posible candidado a complementar, que no sustituir, a GCM, por los problemas mostrados más arriba. La necesidad de crear una segunda conexión, y los posibles problemas que puede acarrear a los servidores de aplicación el tener que trabajar con millones de peticiones, hace que no sea escalable para pequeñas empresas y malo para dispositivos móviles.
   </para>
 </section>

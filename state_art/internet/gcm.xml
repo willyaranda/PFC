@@ -9,7 +9,7 @@
     GCM o Google Cloud Messaging<footnote><para>http://developer.android.com/google/gcm/index.html</para></footnote> es un sistema de notificaciones push creado por la empresa Google para su sistema operativo Android. Su finalidad es la misma que los demás sistemas: entregar notificaciones o mensajes que un servicio de terceros (o incluso la misma plataforma de Google) a los usuarios usando un dispositivo de una manera fácil, ordenada y controlada.
   </para>
   <para>
-    Es uno de los sistemas más grandes, puesto que está presente en todos los dispositivos Android que tengan una cuenta de Google asociada, los cuales son prácticamente la mayoría. El número de usuarios de este servicio no es especificado por Google, pero podría ser similar o inferior al número de dispositivos Android en el mercado, que supera los 600 millones de dispositivos<footnote><para>XXXX FALTA REFERENCIA</para></footnote>.
+    Lanzado en julio de 2012, es uno de los sistemas más grandes, puesto que está presente en todos los dispositivos Android que tengan una cuenta de Google asociada, los cuales son prácticamente la mayoría. El número de usuarios de este servicio no es especificado por Google, pero podría ser similar o inferior al número de dispositivos Android en el mercado, que supera los 600 millones de dispositivos<footnote><para>XXXX FALTA REFERENCIA</para></footnote>.
   </para>
   <blockquote>
     <attribution>GCM: Google Cloud Messaging for Android</attribution>
@@ -82,9 +82,9 @@
   <para>
     GCM es un sistema que no es obligatorio para las aplicaciones Android publicadas en el Market de Google, sin embargo, su diseño hace que sea bastante eficiente para las redes móviles y haya un buen puñado de ventajas que hacen que los servicios de terceros tengan que tener menos lógica y preocuparse menos de la suerte que van a correr sus mensajes.
   </para>
-  <para>
+  <note>
     Cabe señalar, que antes de la introducción de GCM para los desarrolladores de Android (en julio de 2012), antes había un sistema muy similar para teléfonos Android, llamado Cloud to Device Messagging, o más conocido como C2DM<footnote><para>https://developers.google.com/android/c2dm/</para></footnote>
-  </para>
+  </note>
   <formalpara>
     <title>Ventajas</title>
     <para>
