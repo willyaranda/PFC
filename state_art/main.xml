@@ -7,10 +7,10 @@
 
   <title xml:id="state_art_title">Estado del arte</title>
   <para>
-    Este capítulo tiene como objetivo listar las diferentes tecnologías que se han usado a lo largo del tiempo para mandar mensajes push a los dispositivos móviles. Algunas de ellas han sido creadas por los operadores, por lo que tienen un carácter de buen uso de las redes móviles, sin embargo, ninguna de ellas se ha impuesto sobre las creadas por las empresas de software o de Internet por varias razones que mostraremos más adelante.
+    Este capítulo tiene como objetivo enumerar las diferentes tecnologías que se han usado a lo largo del tiempo para mandar mensajes push a los dispositivos móviles. Algunas de ellas han sido creadas por los operadores, por lo que tienen un carácter de buen uso de las redes móviles. Sin embargo, ninguna de ellas se ha impuesto sobre las creadas por las empresas de software o de Internet por varias razones que mostraremos más adelante.
   </para>
   <para>
-    Pero antes de comentar cuáles son las diferentes propuestas que se han realizado en los últimos años, necesitamos saber cómo funcionan las redes móviles a nivel radio, y cómo los operadores tienen montada su infraestructura móvil.
+    Pero antes de comentar las diferentes propuestas que se han realizado en los últimos años, es necesario saber cómo funcionan las redes móviles a nivel radio y cómo los operadores tienen montada su infraestructura móvil.
   </para>
 
   <xi:include href="mobile_networks/main.xml" />
