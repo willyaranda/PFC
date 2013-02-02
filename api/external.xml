@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="api_external"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      version="5.0" xml:lang="es">
+
+  <title>Externas</title>
+  <para>
+    Con estas APIs, los desarrolladores son capaces de hacer que los mensajes que quieran enviar desde un servidor externo lleguen correctamente hacia sus aplicaciones. La interfaz y el código es muy sencillo, para hacer que el desarrollo sea muy rápido.
+  </para>
+  <note>
+    Este API aún no está estandarizado por el W3C, por lo que lo aquí explicado es una proposición funcional.
+  </note>
+  <para>
+    Hay dos APIs principales externas expuestas para los desarrolladores de aplicaciones, que son:
+  </para>
+
+  <xi:include href="external_wa_ua.xml" />
+
+  <!--<xi:include href="external_as_ns.xml" />-->
+
+</section>

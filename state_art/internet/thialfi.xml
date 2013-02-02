@@ -162,6 +162,6 @@
     </listitem>
   </itemizedlist>
   <para>
-    Así pues, puede verse a Thialfi como un posible candidado a complementar, que no sustituir, a GCM, por los problemas mostrados más arriba. La necesidad de crear una segunda conexión, y los posibles problemas que puede acarrear a los servidores de aplicación el tener que trabajar con millones de peticiones, hace que no sea escalable para pequeñas empresas y malo para dispositivos móviles.
+    Así pues, puede verse a Thialfi como un posible candidado a complementar, que no sustituir, a GCM, por los problemas mostrados más arriba. La necesidad de crear una segunda conexión, y los posibles problemas que puede acarrear a los servidores de aplicación el tener que trabajar con millones de peticiones, hace que no sea escalable para pequeñas empresas y malo para dispositivos móviles. Sin embargo, en la práctica se ha demostrado que es competente, pero con grandes granjas de servidores como los centros de datos de Google.
   </para>
 </section>

@@ -41,9 +41,15 @@
         The names of each box follows this scheme:
         NS-&lt;type_of_client&gt;
     </para>
-    <para>
-      <imagedata fileref="resources/ns_servers.png" align="center" width="5in" />
-    </para>
+
+    <figure>
+      <title>Esquema general de la arquitectura</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../../resources/whole-arch.png" align="center" width="16cm" />
+        </imageobject>
+      </mediaobject>
+    </figure>
     <section>
         <title>NS-UA-WS</title>
         <para>

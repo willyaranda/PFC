@@ -7,10 +7,10 @@
 
   <title>Application Program Interface, API</title>
   <para>
-    El servidor de notificaciones tiene diferentes API que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">el estándar</link> que propone el W3C, se mantiene por compatibilidad, pero sin embargo, se añaden algunos parámetros extras o se eliminan algunos métodos para añadir nuevas características y evitar redundancia.
+    El servidor de notificaciones tiene diferentes API que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">el estándar</link> que propone el W3C se mantienen los métodos, pero sin embargo, se añaden algunos parámetros extras o se eliminan algunos métodos para añadir nuevas características, seguridad y evitar redundancia.
   </para>
   <para>
-    Para entender este capítulo, es necesario presentar a los diferentes actores que hacen aparición:
+    Pero para entender este capítulo, es necesario presentar a las diferentes instancias que forman parte del servidor de notificaciones:
     <itemizedlist>
       <listitem>
         <formalpara>
@@ -47,13 +47,41 @@
       </listitem>
     </itemizedlist>
   </para>
+  <figure>
+    <title>Instancias y comunicaciones</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../resources/actors_and_channels.png" align="center" width="14cm" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
   <para>
-    <mediaobject><imageobject><imagedata fileref="../resources/actors_and_channels.png" align="center" width="5in" /></imageobject></mediaobject>
+    Así pues, se dividen la API en dos grandes grupos:
   </para>
 
-  <xi:include href="wa_ua.xml" />
-  <xi:include href="ua_ns.xml" />
-  <xi:include href="as_ns.xml" />
+  <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title>Externas</title>
+        <para>
+          Son aquellas que se están expuestas en los extremos del servidor, refiriéndose a la comunicación que tienen que realizar las aplicaciones (<code>WA</code>) con el agente de usuario (<code>UA</code>) y el servidor de terceros (<code>AS</code>) hacia el servidor de notificaciones <code>NS</code>). Son las usadas por desarrolladores externos para que su aplicación sepa recibir notificaciones y su servidor pueda enviarlas.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Internas</title>
+        <para>
+          Son las que los desarrolladores de aplicaciones no tienen que usar, ya que son transparentes para ellos y están creadas para que el protocolo funcione correctamente, llevando mensajes de señalización y de registro. Están involucrados principalmente el agente de usuario (<code>UA</code>) y el servidor de notificaciones central (<code>NS</code>).
+        </para>
+      </formalpara>
+    </listitem>
+  </itemizedlist>
+
+  <xi:include href="external.xml" />
+
+  <xi:include href="internal.xml" />
 
   <section xml:id="api_wa_as">
     <title>API entre WA y AS</title>
