@@ -1,31 +1,28 @@
 <acknowledgements xmlns="http://docbook.org/ns/docbook">
-  <para>
-    Quiero agradecer a las siguientes personas su ayuda con este proyecto ya que sin ellas no podría haber hecho esto:
-  </para>
   <itemizedlist>
     <listitem>
       <para>
-        <personname><firstname>Bernardo</firstname><surname>López</surname></personname> y <personname><firstname>Carmen</firstname><surname>Leal</surname></personname> por todo lo que han hecho siempre por mi. Gracias.
+        <personname><firstname>Bernardo</firstname><surname>López</surname></personname> y <personname><firstname>Carmen</firstname><surname>Leal</surname></personname>, por todo lo que han hecho siempre por mi. Gracias.
       </para>
     </listitem>
     <listitem>
       <para>
-        <personname><firstname>Leticia</firstname><surname>Núñez</surname></personname> por aguantar mis peculiaridades.
+        <personname><firstname>Leticia</firstname><surname>Núñez</surname></personname>, por aguantar mis peculiaridades.
       </para>
     </listitem>
     <listitem>
       <para>
-        <personname><firstname>Francisco</firstname><surname>Marzal</surname></personname> por su inestimable ayuda durante la carrera y el proyecto.
+        <personname><firstname>Francisco</firstname><surname>Marzal</surname></personname>, por su inestimable ayuda durante la carrera y el proyecto.
       </para>
     </listitem>
     <listitem>
       <para>
-        <personname><firstname>Fernando</firstname><surname>Rodríguez Sela</surname></personname>, <personname><firstname>Fernando</firstname><surname>Jiménez Moreno</surname></personname>, <personname><firstname>José Antonio</firstname><surname>Olivera Ortega</surname></personname>, <personname><firstname>Ignacio Eliseo</firstname><surname>Barandalla Torregrosa</surname></personname> y al resto de gente de Telefónica I+D, ya sea de la iniciativa Open Web Device u otras, que me ha enseñado un montón de cosas durante mi año allí. Gracias a todos.
+        <personname><firstname>Fernando</firstname><surname>Rodríguez Sela</surname></personname>, <personname><firstname>Fernando</firstname><surname>Jiménez Moreno</surname></personname>, <personname><firstname>José Antonio</firstname><surname>Olivera Ortega</surname></personname>, <personname><firstname>Ignacio Eliseo</firstname><surname>Barandalla Torregrosa</surname></personname> y al resto de gente de Telefónica I+D, ya sea de la iniciativa Open Web Device u otras, por todo lo que me han durante el tiempo que pasé allí. Gracias a todos.
       </para>
     </listitem>
     <listitem>
       <para>
-        <personname><firstname>Manuel</firstname><surname>Touriño</surname></personname> y <personname><firstname>Francisco</firstname><surname>Sánchez</surname></personname> porque han hecho una revisión a fondo de este proyecto cuando se lo he pedido y porque siempre están ahí cuando se les necesita. Y por ser grandes compañeros de carrera.
+        <personname><firstname>Manuel</firstname><surname>Touriño</surname></personname> y <personname><firstname>Francisco</firstname><surname>Sánchez</surname></personname>, por la revisión a fondo de este proyecto, por estar cuando se les necesita y por ser grandes compañeros de carrera.
       </para>
     </listitem>
   </itemizedlist>
