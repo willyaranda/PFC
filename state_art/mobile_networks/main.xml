@@ -55,7 +55,7 @@
             <title>LAN privadas</title>
             <para>
               Nos encontramos dentro de un segmento de red que sólo es visible para otros equipos que lo compartan con nosotros. Esto hace que no tengamos una conexión directa con Internet y que haya que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a Internet no con nuestra dirección real, si no con la dirección que tenga dicho NAT y redirija nuestras peticiones hasta el exterior, a la vez que reconduce las respuestas desde el exterior hasta nuestro dispositivo.
-            </para
+            </para>
           </formalpara>
         </listitem>
       </itemizedlist>
