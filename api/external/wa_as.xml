@@ -27,5 +27,10 @@
         No pensar sólo en el envío HTTP, si no que otros sistemas podrían ser correctos, como XMPP, correo electrónico o incluso un mensaje SMS si fuera necesario.
       </para>
     </listitem>
+    <listitem>
+      <para>
+        Por supuesto, asociar algún número que no permita saber a quién corresponde la URL enviada con qué usuario para un atacante externo, pero que el servicio pueda identificarlo de forma unívoca.
+      </para>
+    </listitem>
   </itemizedlist>
 </section>

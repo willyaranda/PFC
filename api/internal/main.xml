@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="api_internal"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      version="5.0" xml:lang="es">
+
+  <title>Internas</title>
+  <para>
+    Estas APIs y comunicaciones son las que se producen internamente, de forma transparente a los desarrolladores de las aplicaciones y del servidor que envía la notificación. Así pues, tiene que ser tratada por los desarrolladores que quieran implementar el protocolo en su plataforma, o sistema operativo.
+  </para>
+  <para>
+    Hay dos canales de comunicación diferentes, que son:
+  </para>
+
+  <xi:include href="ua_ns.xml" />
+
+  <xi:include href="ua_udp.xml" />
+
+</section>

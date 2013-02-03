@@ -79,60 +79,8 @@
     </listitem>
   </itemizedlist>
 
-  <xi:include href="external.xml" />
+  <xi:include href="external/main.xml" />
 
-  <xi:include href="internal.xml" />
+  <xi:include href="internal/main.xml" />
 
-  <section xml:id="api_wa_as">
-    <title>API entre WA y AS</title>
-    <para>
-      Este es el API que es independiente del protocolo de push propuesto, por lo que está fuera del alcance de este proyecto.
-    </para>
-    <para>
-      Sin embargo, a través de este API la publicURL recibida por la aplicación a través del API entre la WA y el UA, debería ser mandada al servidor de terceros.
-    </para>
-    <formalpara>
-      <title>Recomendaciones</title>
-      <para>
-        Sin embargo, hay una serie de pautas que deberían seguir los desarrolladores para pasar la información de una forma segura a través de la red.
-      </para>
-    </formalpara>
-    <para>
-      <itemizedlist>
-        <listitem>
-          <para>
-            Usar un canal seguro de envío de datos, como puede ser una conexión SSL con su servidor.
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            Cifrar el contenido de la URL con algún algoritmo que permita descifrarlo en la parte servidora.
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            Por supuesto, asociar algún número que no permita saber a quién corresponde la URL enviada con qué usuario para un atacante externo, pero que el servicio pueda identificarlo de forma unívoca.
-          </para>
-        </listitem>
-      </itemizedlist>
-    </para>
-  </section>
-
-  <xi:include href="tokens.xml" />
-
-  <section>
-    <title>WakeUp</title>
-    <para>
-      When the handset is inside a mobile operator network, we can close the
-      websocket to reduce battery comsuption and also network resources.
-    </para>
-    <para>
-      So, when the NS has messages to the WA installed on a concrete UA it will
-      send a UDP Datagram to the handset.
-    </para>
-    <para>
-      When the mobile receives this datagram, it SHALL connect to the websocket
-      interfaces in order to pull all pending messages.
-    </para>
-  </section>
 </chapter>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="api_external_as_ns"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="5.0" xml:lang="es">
+
+  <title>Entre el AS y NS</title>
+  <para>
+    Este es el API que tienen que utilizar los servidores web para enviar las notificaciones de una forma estándar hacia el servidor de notificaciones para que éste las mande correctamente hacia los clientes.
+  </para>
+  <para>
+    El API se basa en protocolos estándar de la web y bien conocidos, como son los HTTP Post, mensajes JSON (JavaScript Object Notation) y las cabeceras de respuesta HTTP estándar, por lo que es muy sencilla la implementación y el protocolo, a parte de ser muy ligero y de haber cientos de programas software o librerías que implementan los métodos necesarios para poder enviar estas notificaciones.
+  </para>
+  <para>
+    Así pues, el servidor de terceros (<code>AS</code>: Application Server), necesita varios elementos antes de poder enviar su notificación, como son:
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>
+        Una clave privada, para poder firmas las notificaciones. Tiene que ser la correspondiente a la clave privada que tienen las aplicaciones guardada y con la que se han registrado.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Una URL (o recurso unificado) a la que enviar las notificaciones. Habrá sido enviada por la aplicación en un paso anterior por algún método elegido por el desarrollador.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Un mensaje que enviar (ya sea un número de versión o un mensaje con poco contenido o hasta 4KiB).
+      </para>
+    </listitem>
+  </itemizedlist>
+  <para>
+    Entonces, una vez que el servidor de terceros tenga estos datos, es capaz de empezar a mandar notificaciones para que sean entregadas a las aplicaciones finales, siempre dependiendo de la URL y de la firma con la que se mandan dichas notificaciones.
+  </para>
+  <note>
+    Este API se corresponde a una simple interfaz REST que será mejorada en futuras versiones para incluir más características.
+  </note>
+  <para>
+    Así pues, se acepta una peticíon HTTP Post usada para mandar la notificación con el mensaje real dentro. El siguiente esquema debe ser enviado la <code>publicURL</code> que defina a la instancia de la aplicación para un usuario determinado (explicado en los puntos anteriores), del estilo de: <code>https://push.telefonica.es/notify/SOME_RANDOM_TOKEN</code>
+  </para>
+  <figure>
+    <title>Notificación enviada</title>
+    <programlisting language="javascript">
+<![CDATA[{
+  messageType: "notification",
+  id: "<ID used by the Application Server>",
+  message: "<Message payload>",
+  signature: "<Signed message>",
+  ttl: "<time to live>",
+  timestamp: "<Since EPOCH Time>",
+  priority: "<prio>"
+}]]>
+    </programlisting>
+  </figure>
+  <para>
+    Así, como se puede ver la notificación tiene las siguientes características:
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>
+        Es una notificación con un estilo JSON, simple y sencillo, que es autocontenido y fácil de parsear y de crear.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        El tamaño de la notificación es mínimo, menor que si el sistema de intercambio de mensajes fuera un estricto XML.
+      </para>
+    </listitem>
+  </itemizedlist>
+  <para>
+    Y define los siguientes atributos (obligatorios si no se indica lo contrario):
+  </para>
+  <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title>messageType</title>
+        <para>
+          Tiene que ser igual al texto <code>notification</code>. En un futuro podría haber más <code>messageType</code> para pedir información sobre la entrega de los mensajes o más funcionalidades.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>id</title>
+        <para>
+          Identificador interno para el servidor de terceros, tiene que ser una cadena menor de 32 caracteres. Actualmente no tiene uso, pero en un futuro servirá para poder sobreescribir notificaciones (mandar otra notificación con el mismo <code>id</code> que el anterior y, si aún no se ha entregado, modificarla) y para poder preguntar cuál es el estado de la notificación: entregada, sin entregar, expirada…
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>message</title>
+        <para>
+          Es el texto que tiene que utilizar la aplicación y que el servidor de terceros envía. Tiene que ser un texto plano o bien estar en un formato JSON, pero convertido a cadena, por ejemplo, con la función <code>JSON.stringify</code> de JavaScript.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>signature</title>
+        <para>
+          La firma con la clave privada de lo que se manda dentro de <code>message</code>. Se firma con <code>RSA-SHA256</code> por defecto, o con el algoritmo que se haya definido en el atributo <code>algorithm</code> pasado a la función <code>requestRemotePermission</code> cuando la aplicación ha pedido permiso a su sistema operativo.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>ttl</title>
+        <para>
+          <optional>Opcional</optional> Tiempo de vida del mensaje. Está especificado en segundos, y puede ser desde 0, lo cual significaría que no se guarda en la base de datos, y si los destinatarios están desconectados, o no se puede entregar, la notificación se pierde; hasta 4 semanas (o 31 días, 2678400 segundos). El tiempo por defecto es de 4 semanas. Una vez superado ese tiempo, si aún sigue en el sistema (esto es, no se ha entregado), se elimina y no se entrega.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>timestamp</title>
+        <para>
+          <optional>Opcional</optional> Tiempo desde el inicio UNIX, en segundos, para indicar cuándo salió la notificación desde el servidor de terceros. A esto se le suma el <code>ttl</code> para el tiempo máximo de vida en el sistema. Por defecto, se pone el momento en el que se recibe, si no está indicado.
+        </para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>priority</title>
+        <para>
+          <optional>Opcional</optional> Prioridad del mensaje. Varía entre <code>1</code> y <code>4</code>, donde 1 es más prioritario, y 4 es menos prioritario. Por defecto el valor que se indica es 4. Usado para mostrar al servidor si tiene que entregar la notificación en el momento o puede retrasarla hasta que haya más o el terminal esté despierto.
+        </para>
+      </formalpara>
+    </listitem>
+  </itemizedlist>
+  <para>
+    Pero además, se definen una serie de respuestas por parte del servidor dependiendo de si las notificaciones han sido aceptadas o no:
+  </para>
+  <section>
+    <title>Mensajes sin códigos de error</title>
+    <para>
+      Sólo hay un mensaje de OK, que indica que la notificación se ha procesado correctamente y va a poderse entregar a los dispositivos que están vinculados a la URL a la que se ha hecho HTTP Post.
+    </para>
+    <screen>
+<![CDATA[Estado HTTP: 200
+{
+  status: "ACCEPTED"
+}]]>
+  </screen>
+  </section>
+  <section>
+    <title>Mensajes de error del servidor</title>
+    <para>
+      Pero los mensajes más interesantes son los de error, que son todos aquellos que sean diferentes al de la cabecera HTTP con respuesta <code>200</code>. Dependiendo de la cabecera HTTP, el error varía, dando la razón en un formato escrito en el atributo <code>reason</code> de la respuesta, que es un JSON.
+    </para>
+    <note>
+      Estos mensajes de error están definidos en el fichero <filename>/src/common/constants.js</filename> a partir de la línea 28<footnote><para>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L28</para></footnote>
+    </note>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>JSON inválido</title>
+          <para>
+            Se produce cuando la notificación no está correctamente formada, y no puede ser parseada como un JSON válido. Puede que sea debido a que no hay un atributo correctamente cerrado o contenga caracteres no parseables dentro del juego de caracteres de JavaScript (UTF-16).
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 450
+            {
+              status: "ERROR",
+              reason: "JSON not valid error"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>URL incorrecta</title>
+          <para>
+            No se ha reconocido el formato de la URL y no se puede identificar a quién va dirigido.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 404
+            {
+              status: "ERROR",
+              reason: "Bad URL"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>appToken inválido</title>
+          <para>
+            El appToken enviado no es válido o está vacío.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 451
+            {
+              status: "ERROR",
+              reason: "No valid appToken"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Se está usando un método HTTP no soportado</title>
+          <para>
+            No se está enviando una petición HTTP Post.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 405
+            {
+              status: "ERROR",
+              reason: "No valid HTTP method"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>No es una notificación</title>
+          <para>
+            El atributo <code>messageType</code> no contiene la cadena <code>notification</code>, por lo que no es válido.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 452
+            {
+              status: "ERROR",
+              reason: "Not messageType=notification"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>La notificación no está firmada</title>
+          <para>
+            La notificación no tiene una firma para poder verificar el origen.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 453
+            {
+              status: "ERROR",
+              reason: "Not signed"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Identificador no válido</title>
+          <para>
+            El identificador, que tiene que ser una cadena no nula, es inválido.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 454
+            {
+              status: "ERROR",
+              reason: "Bad id"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>La notificación es demasiado grande</title>
+          <para>
+            Supera el límite del servidor de notificaciones, que está en 4KiB ó 4096 bytes.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 413
+            {
+              status: "ERROR",
+              reason: "Body too big"
+            }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Firma incorrecta</title>
+          <para>
+            La notificación está firmada, pero no es correctamente válida, esto es, la comprobación de la firma con la clave pública con la que la aplicación se registró ha devuelto que el mensaje ha sido modificado o es inválido.
+          </para>
+        </formalpara>
+        <screen>
+            <![CDATA[Estado HTTP: 455
+            {
+              status: "ERROR",
+              reason: "Bad signature, dropping notification"
+            }]]>
+        </screen>
+      </listitem>
+    </itemizedlist>
+    <para>
+      A partir de estos errores, el servidor de terceros es capaz de determinar que problema tiene el servidor de notificaciones con las notificaciones que está intentando enviar.
+    </para>
+    <note>
+      Los mensajes de error pueden cambiar de un servidor a otro, sobre todo si se añaden extensiones o más características, pero estos son los básicos que debería responder en caso de algún problema.
+    </note>
+  </section>
+</section>

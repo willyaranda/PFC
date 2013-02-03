@@ -1,55 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xml:id="api_internal"
+<section xml:id="api_internal_ua_ns_websocket"
       xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0" xml:lang="es">
 
-  <title>API between the User Agent and the Notification Server</title>
+  <title>Interfaz WebSocket</title>
   <para>
-    With this API the client device is able to register his applications and
-    itself into the selected notification server.
+    API WebSockets: Este es el API bidireccional para el intercambio de datos, registros y notificaciones en algunos casos. Es el más complejo de todos ya que están involucrados muchos mensajes diferentes, pero todos son correctamente formados como JSON.
   </para>
-  <para>
-    This API isn't yet standarised, anyway the one explained here is an 
-    on working proposal.
-  </para>
-  <para>
-    The UA-NS API is divided in two transport protocols:
-    <itemizedlist>
-      <listitem>
-        POST API: Through the HTTP POST transport protocol the NS will deliver
-        valid UATokens to the device.
-      </listitem>
-      <listitem>
-        WebSocket API: This is the most important one since all the
-        communications (except to recover tokens) with the NS SHALL be driven
-        through this API.
-        <para>
-          On future releases will be supported another channels as Long-Polling
-          solutions in order to cover devices which don't support Web Sockets.
-        </para>
-      </listitem>
-    </itemizedlist>
-    <section>
-      <title>HTTP POST API</title>
-      <para>
-        This channel only offers one method to get a valid UAToken.
-      </para>
-      <section>
-        <title>GET UA TOKEN</title>
-        <para>
-          This method SHOULD be protected to avoid DoS attacks getting millions of
-          valid tokens, in any case, this is out of the scope of this protocol.
-        </para>
-        <para>
-          The TOKEN method is called with a simple URL:
-          <code>https://&lt;notification_server_base_URL&gt;/token</code>
-        </para>
-        <para>
-          The server will respond with an AES encrypted valid token.
-          This token SHALL be used to identify the device in future connections.
-        </para>
-      </section>
-    </section>
+<!-- 
     <section>
       <title>WebSocket API</title>
       <para>
@@ -281,5 +241,5 @@
           </programlisting>
       </section>
     </section>
-  </para>
+  </para> -->
 </section>

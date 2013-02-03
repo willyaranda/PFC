@@ -16,10 +16,12 @@
     Hay dos APIs principales externas expuestas para los desarrolladores de aplicaciones, que son:
   </para>
 
-  <xi:include href="external_wa_ua.xml" />
+  <xi:include href="wa_ua.xml" />
+  <xi:include href="wa_as.xml" />
+  <xi:include href="as_ns.xml" />
 
-  <xi:include href="external_as_ns.xml" />
-
-  <xi:include href="external_wa_as.xml" />
+  <para>
+    Así pues, las secciones anteriores son las APIs externas con las que tendrán que trabajar los desarrolladores de aplicaciones y gestores de servidores que intentan enviar notificaciones push.
+  </para>
 
 </section>

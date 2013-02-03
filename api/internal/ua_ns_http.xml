@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="api_internal_ua_ns_http"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      version="5.0" xml:lang="es">
+
+  <title>Interfaz HTTP</title>
+  <para>
+    API HTTP: A través de este API, se puede descargar el token inicial y único que será usado para el registro posterior y demás operaciones.
+  </para>
+  <note>
+    Este API puede cambiar en un futuro y entre diferentes servidores de notificaciones, puesto que el token podría venir predeterminado en el mismo dispositivo o ser recogido mediante
+  </note>
+  <para>
+    Así pues, la petición actual es:
+  </para>
+  <screen>
+    <![CDATA[Host: https://push.telefonica.com/
+    GET /token]]>
+  </screen>
+  <para>
+    Y la respuesta sería:
+  </para>
+  <screen>
+    <![CDATA[Status: 200
+    Body: a4b26ecbd961c673f3526a8cc747758...]]>
+  </screen>
+  <para>
+    Donde todo el cuerpo de la respuesta (<code>res.body</code>) sería el token de dispositivo que es el que se tendría que usar para realizar los registros de dispositivo y de aplicaciones.
+  </para>
+
+</section>
