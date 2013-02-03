@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xml:id="api_external_wa_as"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="5.0" xml:lang="es">
+
+  <title>Entre el WA y AS</title>
+  <para>
+    La comunicación entre la aplicación web (<code>WA</code>) y el servidor de terceros (<code>AS</code>: Application Server) está fuera del alcance del servidor de notificaciones, ya que depende de cada aplicación el cómo se implementa.
+  </para>
+  <para>
+    Sin embargo, sí hay una serie de medidas que se pueden tomar para que esta transmisión de un dato importante sea seguro y no pueda ser interceptado por terceros que, aunque después sea complicado su uso porque depende de poder firmar con la clave privada las notificaciones, puede llevar a conocer datos privados de los clientes o instancias si se conoce el método de generación del <code>appToken</code> (que está contenido en la URL) y la clave pública.
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>
+        Que el envío se realice de forma segura, mediante HTTPS, para que sólo los extremos puedan conocer el contenido de la comunicación.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Usar cifrado para evitar que un posible ataque de man-in-the-middle pueda recoger los datos y saber de qué se trata. Algo sencillo computacionalmente ya que el cifrado se lleva a cabo en el cliente, que suelen tener menor potencia de cálculo que los servidores a los que van dirigidos.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        No pensar sólo en el envío HTTP, si no que otros sistemas podrían ser correctos, como XMPP, correo electrónico o incluso un mensaje SMS si fuera necesario.
+      </para>
+    </listitem>
+  </itemizedlist>
+</section>
