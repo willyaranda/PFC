@@ -7,6 +7,18 @@
 
   <title>Interfaz UDP</title>
   <para>
-    Estas APIs y comunicaciones son las que se producen internamente, de forma transparente a los desarrolladores de las aplicaciones y del servidor que envía la notificación. Así pues, tiene que ser tratada por los desarrolladores que quieran implementar el protocolo en su plataforma, o sistema operativo.
+    Es una interfaz de un único sentido, en el cual el servidor de notificaciones informa a un dispositivo, o <code>UA</code> que tiene una notificación, y que debe conectarse al servidor para recogerla.
+  </para>
+  <para>
+    Es la parte más diferenciadora de este servidor de notificaciones con respecto al resto de opciones que hay ahora mismo en otros sistemas operativos, porque es la responsable de que el uso de batería sea menor y el número de puertos abiertos en el GGSN debido a aplicaciones intentando mantener sockets abiertos, disminuya drásticamente.
+  </para>
+  <para>
+    Así pues, este interfaz lo único que requiere es que el dispositivo tenga un puerto abierto de escucha, por el que recibirá pequeños paquetes de datos, o PINGs para indicar que tiene, e indicar en el registro del dispositivo cuál es su IP y su puerto, así como el MCC y MNC de su conexión móvil.
+  </para>
+  <para>
+    A partir del momento del registro, si todo es correcto, y el servidor tiene un proxy registrado para poder mandar dichos pings a los dispositivos que están en una red privada, la conexión WebSockets se cerrará y se utilizará dicho mecanismo de PING.
+  </para>
+  <para>
+    Los PINGs son de tipo UDP o TCP, pero nunca van a llevar un contenido que tenga que ser leído por el teléfono, si no que simplemente, al recibir este paquete, tiene que conectarse con el servidor y realizar un registro de nuevo para recibir las notificaciones en la respuesta.
   </para>
 </section>

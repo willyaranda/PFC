@@ -7,7 +7,7 @@
 
   <title>Interfaz WebSocket</title>
   <para>
-    API WebSockets: Este es el API bidireccional para el intercambio de datos, registros y notificaciones en algunos casos. Es el más complejo de todos ya que están involucrados muchos mensajes diferentes, pero todos son correctamente formados como JSON.
+    Este es el API bidireccional para el intercambio de datos, registros y notificaciones en algunos casos. Es el más complejo de todos ya que están involucrados muchos mensajes diferentes, pero todos son correctamente formados como JSON.
   </para>
   <para>
     En primer lugar, es necesario abrir una conexión WebSockets con el servidor de notificaciones (en concreto con la instancia <code>NS_UA_WS</code>) para poder empezar a intercambiar datos.
@@ -555,8 +555,44 @@
     }]]>
     </screen>
     <para>
-      Donde los atributos que hay que enviar son los siguientes… XXX
+      Donde los atributos que hay que enviar son los siguientes:
     </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>data</title>
+          <para>
+            Que contiene los datos siguientes:
+          </para>
+        </formalpara>
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title>watoken</title>
+              <para>
+                Que es el token de aplicación dado desde la aplicación que solicita el de-registro. Tiene que ser una cadena alfanumérica.
+              </para>
+            </formalpara>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title>pbkbase64</title>
+              <para>
+                La clave pública para el de-registro, tiene que estar codificada en base64 para evitar problemas en la transmisión con saltos de línea y otros símbolos no serializables.
+              </para>
+            </formalpara>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Tiene que ser igual a la cadena <code>unregisterWA</code>.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
     <para>
       Y la respuesta, de nuevo asíncrona, es como sigue:
     </para>

@@ -5,26 +5,95 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0" xml:lang="es">
 
-  <title>Internas</title>
+  <title>Interna: Entre el UA y el NS</title>
   <para>
     Estas APIs y comunicaciones son las que se producen internamente, de forma transparente a los desarrolladores de las aplicaciones y del servidor que envía la notificación. Así pues, tiene que ser tratada por los desarrolladores que quieran implementar el protocolo en su plataforma, o sistema operativo.
   </para>
+
   <para>
-    Hay dos canales de comunicación diferentes, que son:
+    Está divida en tres partes principales, una interfaz HTTP, para recoger el token, otra que usa el protocolo WebSockets, para el intercambio bidireccional de datos y una tercera, que es la interfaz UDP que tiene que tener el teléfono, así pues:
   </para>
 
+  <xi:include href="ua_ns_http.xml" />
+  <xi:include href="ua_ns_websocket.xml" />
+  <xi:include href="ua_udp.xml" />
+
   <section>
-    <title>Entre el UA y el NS</title>
+    <title>Flujo completo</title>
     <para>
-      Esta comunicación puede definirse como el estándar que tiene que seguir tanto el servidor de notificaciones como el sistema operativo o User Agent a la hora de implementar el protocolo para que puedan hablar entre ellos de forma correcta.
+      Para poner todo en orden, estos son los pasos que tiene que realizar el User Agent o sistema operativo para poder utilizar las notificaciones push y que terceros puedan avisarle:
     </para>
-    <para>
-      Está divida en dos partes principales, una interfaz HTTP, para recoger el token, y otra que usa el protocolo WebSockets, para el intercambio bidireccional de datos, así pues:
-    </para>
-
-    <xi:include href="ua_ns_http.xml" />
-    <xi:include href="ua_ns_websocket.xml" />
-    <xi:include href="ua_udp.xml" />
-
+    <orderedlist>
+      <listitem>
+        <para>
+          Si no tiene un token de dispositivo (<code>uaToken</code>), conseguir uno.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Abrir una conexión WebSockets con el servidor de notificaciones usando el protocolo <code>push-notification</code>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Registrar el dispositivo con el mensaje del tipo <code>registerUA</code>
+        </para>
+        <orderedlist>
+          <listitem>
+            <para>
+              Si es correcto, procesar los posibles mensajes que vengan en el atributo <code>messages</code> y continuar al paso siguiente.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Si es incorrecto, comprobar la causa, arreglarla, y reintentar.
+            </para>
+          </listitem>
+        </orderedlist>
+      </listitem>
+      <listitem>
+        <para>
+          Registrar una aplicación cuando sea pedido por las aplicaciones.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Si llega un mensaje de notificación:
+        </para>
+        <orderedlist>
+          <listitem>
+            <para>
+              Comprobar si se puede entregar a la aplicación (si aún existe).
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Entregarlo y mandar un mensaje de <code>ACK</code> al servidor para que no lo vuelva a mandar.
+            </para>
+          </listitem>
+        </orderedlist>
+      </listitem>
+      <listitem>
+        <para>
+          Aceptar y procesar cualquier mensaje de registro de aplicaciones, <code>registerWA</code>, mediante el guardado en el propio sistema de cuál es la aplicación que lo pide (guardando alguna referencia a ella, puesto que en un futuro hay que despertarla) y la URL que devuelve el servidor de notificaciones para poder identificar las notificaciones dirigidas a ella.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Cada vez que el sistema cambie su conexión, ya sea a red móvil o wifi, tiene que informarse al servidor de dicho cambio, incluyendo <code>IP</code>, <code>port</code>, <code>MCC</code> y <code>MNC</code> si corresponde.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          En caso de de-registro total, eliminar toda la base de datos local y pedir el de-registro del servidor mediante los mensajes <code>unregisterWA</code> y <code>unregisterUA</code>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Enviar mensajes de <code>PING</code> en el caso de que sea necesario o apropiado.
+        </para>
+      </listitem>
+    </orderedlist>
   </section>
+
 </section>
