@@ -9,105 +9,416 @@
   <para>
     API WebSockets: Este es el API bidireccional para el intercambio de datos, registros y notificaciones en algunos casos. Es el más complejo de todos ya que están involucrados muchos mensajes diferentes, pero todos son correctamente formados como JSON.
   </para>
-<!-- 
-    <section>
-      <title>WebSocket API</title>
-      <para>
-        Through this channel the device will register itself, his applications,
-        and also will be used to deliver PUSH notifications
-      </para>
-      <para>
-        All methods sent through this channel will have the same JSON structure:
-      </para>
-      <programlisting language="javascript">
-      <![CDATA[
-      {
-        messageType: "<type of message>",
-        ... other data ...
-      }
-      ]]>
-      </programlisting>
-      <para>
-        In which messageType defines one of these commands:
-      </para>
-      <section>
-        <title>registerUA</title>
-        <para>
-          With this method the device is able to register itself.
-        </para>
-        <para>
-          When a device is registering to a notification server, it SHALL send
-          his own valid UAToken and also the device can send additional information
-          that can be used to optimize the way the messages will be delivered
-          to this device.
-        </para>
-        <programlisting language="javascript">
-        <![CDATA[
-        {
-          messageType: "registerUA",
-          data: {
-            uatoken: "<a valid UAToken>",
-            interface: {
-              ip: "<current device IP address>",
-              port: "<TCP or UDP port in which the device is waiting for wake up notifications>"
-            },
-            mobilenetwork: {
-              mcc: "<Mobile Country Code>",
-              mnc: "<Mobile Network Code>"
-            }
+  <para>
+    En primer lugar, es necesario abrir una conexión WebSockets con el servidor de notificaciones (en concreto con la instancia <code>NS_UA_WS</code>) para poder empezar a intercambiar datos.
+  </para>
+  <section>
+    <title>Conexión WebSocket</title>
+    <para>
+      Así pues, hay que utilizar el recurso necesario para iniciar la conexión, del estilo de <code>wss://localhost:8080</code>, usando el protocolo <code>push-notification</code>.
+    </para>
+  </section>
+
+  <note>
+    A partir de este momento, los siguientes métodos y comunicaciones se realizan por el canal WebSocket que se ha abierto en la sección anterior.
+  </note>
+
+  <section>
+    <title>Registro de UA</title>
+    <para>
+      Es el primer paso que hay que realizar para empezar a recibir notificaciones. Este paso significa el registro del dispositivo en el servidor de notificaciones, y la manera de recibirlas. Se realiza enviando un mensaje al servidor por la conexión WebSocket de la manera:
+    </para>
+    <screen>
+      <![CDATA[{
+        messageType: "registerUA",
+        data: {
+          uatoken: "<a valid UAToken>",
+          interface: {
+            ip: "<current device IP address>",
+            port: "<TCP or UDP port to wake up>"
+          },
+          mobilenetwork: {
+            mcc: "<Mobile Country Code>",
+            mnc: "<Mobile Network Code>"
           }
         }
-        ]]>
-        </programlisting>
-        <para>
-          The interface and mobilenetwork optional data will be used by the server
-          to identify if it has the required infrastructure into the user's mobile
-          network in order to send wakeup messages to the IP and port indicated
-          in the interface data so it's able to close the WebSocket channel to reduce
-          signalling and battery consume.
-        </para>
-        <para>
-          The server response can be:
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            status: "REGISTERED",
-            statusCode: 200,
-            messageType: "registerUA"
-          }
-          ]]>
-          </programlisting>
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            status: "ERROR",
-            statusCode: 40x,
-            reason: "Data received is not a valid JSON package",
-            messageType: "registerUA"
-          }
-          ]]>
-          </programlisting>
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            status: "ERROR",
-            statusCode: 40x,
-            reason: "Token is not valid for this server",
-            messageType: "registerUA"
-          }
-          ]]>
-          </programlisting>
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            status: "ERROR",
-            statusCode: 40x,
-            reason: "...",
-            messageType: "registerUA"
-          }
-          ]]>
-          </programlisting>
-        </para>
+      }]]>
+    </screen>
+    <para>
+      Donde los diferentes atributos tienen que ser:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Tiene que ser siempre <code>registerUA</code>.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>data</title>
+          <para>
+            Otros datos, compuestos por uatoken, interface y mobilenetwork.
+          </para>
+        </formalpara>
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title>uatoken</title>
+              <para>
+                Es el token de dispositivo conseguido en las secciones anteriores.
+              </para>
+            </formalpara>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title>interface</title>
+              <para>
+                Contiene la IP y puerto en el que el dispositivo puede ser despertado. Por ahora, sólo se permite la escucha en puertos TCP o UDP.
+              </para>
+            </formalpara>
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>ip</title>
+                  <para>
+                    Dirección del dispositivo, ya sea con la IP privada o pública. En el caso de que sea pública, no hace falta que se rellene el dato de <code>mobilenetwork</code> y en el caso de privada, sí es necesario, puesto que se usará un proxy intermedio colocado dentro de la red móvil para poder encontrarle directamente.
+                  </para>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>port</title>
+                  <para>
+                    Puerto de escucha, puede ser TCP o UDP. No necesitará saber qué le llega, si no simplemente que algo ha llegado ahí.
+                  </para>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title>mobilenetwork</title>
+              <para>
+                Indica los dos valores necesarios para identificar una red móvil correctamente, <code>mcc</code> y <code>mnc</code>. Las listas completas pueden consultarse en Internet<footnote><para>http://en.wikipedia.org/wiki/Mobile_country_code</para></footnote>
+              </para>
+            </formalpara>
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>mcc</title>
+                  <para>
+                    Mobile Country Code.
+                  </para>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>mnc</title>
+                  <para>
+                    Mobile Network Code.
+                  </para>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+    <para>
+      Así pues, la respuesta del registro puede ser válida o no.
+    </para>
+    <note>
+      Hay que notar que las respuestas son asíncronas, y el envío de un mensaje de tipo <code>registerUA</code> no significa que su mensaje de respuesta sea el siguiente que llegue, por lo que hay que tratar cada mensaje por separado sin esperar una respuesta instantánea.
+    </note>
+    <para>
+      En el caso de una respuesta exitosa, se recibirá algo similar a:
+    </para>
+    <screen>
+      <![CDATA[{
+        "messageType": "registerUA",
+        "status": "REGISTERED",
+        "pushMode": "WS",
+        "WATokens": [],
+        "messages": []
+      }]]>
+    </screen>
+    <para>
+      Donde se pueden encontrar varios atributos diferentes, los cuales son:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Que tiene que ser igual a <code>registerUA</code>, ya que es la respuesta al tipo de mensaje enviado en un inicio.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>status</title>
+          <para>
+            Si el valor es <code>REGISTERED</code>, es que el registro ha sido correcto.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>pushMode</title>
+          <para>
+            Indica cuál es el modo en que las notificaciones van a llegar al dispositivo. Hay varios modos, los cuales pueden ser
+          </para>
+        </formalpara>
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title>WS</title>
+              <para>
+                WebSocket. La conexión debe mantenerse abierta para poder recibir las notificaciones.
+              </para>
+            </formalpara>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title>UDP</title>
+              <para>
+                La conexión puede ser cerrada, ya que el dispositivo va a ser informado de que tiene nuevas notificaciones usando el canal UDP y el puerto abierto en el dispositivo. Últil en redes móviles.
+              </para>
+            </formalpara>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title>wapPush</title>
+              <para>
+                Utilizará WAP Push para informar al dispositivo de que hay nuevas notificaciones. No implementado en la primera versión
+              </para>
+            </formalpara>
+          </listitem>
+        </itemizedlist>
+        <note>
+          No están contempladas todas las posibilidades, ya que se puede añadir más en el futuro, dependiendo de los dispositivos que estén funcionando.
+        </note>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>WATokens</title>
+          <para>
+            Array que indica todas las aplicaciones que están registradas en el dispositivo. Se mandan las URLs completas, por lo que se puede comprobar si falta alguna. En el caso de que el dispositivo tenga más de las recibidas, puede re-registrar la aplicación determinada o bien eliminarla, según el caso. Si no ha recibido una aplicación que debería estar registrada, simplemente deberá registrarla.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>messages</title>
+          <para>
+            Array con las diferentes notificaciones que están pendientes de recibir por el dispositivo. Por cada una de ellas, y si el procesado es correcto, se debe enviar un mensaje de confirmación, o <code>ACK</code> para indicar que se ha recibido correctamente y no enviar duplicados en un futuro.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+    <para>
+      En el caso de una respuesta incorrecta, la respuesta será<footnote><para>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L39</para></footnote>
+    </para>
+    <screen>
+      <![CDATA[{
+        "messageType": "registerUA",
+        "status": "ERROR",
+        "reason": "<razón>"
+      }]]>
+    </screen>
+    <para>
+      Donde la razón <code>&lt;razón&gt;</code> puede ser:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>Data received is not a valid JSON package</title>
+          <para>
+            El mensaje enviado no es válido.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>UAtoken not valid for this server. Get a new one</title>
+          <para>
+            El token no es válido para el servidor actual, lo que quiere decir que se rechazará hasta que no se consiga uno nuevo.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Failed registering UAtoken</title>
+          <para>
+            Hubo un fallo interno en el servidor al registrar el dispositivo.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+    <note>
+      Esta función de registro tiene que realizarse cada vez que cambie la conexión móvil o WiFi del dispositivo, para actualizar la información en el servidor.
+    </note>
+  </section>
+
+  <note>
+    A partir de este momento, los siguientes métodos y comunicaciones necesitan tener una conexión autorizada, esto es, que haya registrado anteriormente un dispositivo mediante el método <code>registerUA</code>
+  </note>
+
+  <section>
+    <title>Registro de WA</title>
+    <para>
+      Esta función es la usada para el registro de aplicaciones a partir de una clave pública y un token de aplicación. Es la capa inferior de la función <code>requestRemotePermission</code> del objeto <code>navigator.push</code> expuesto para los desarrolladores de aplicaciones.
+    </para>
+    <para>
+      El formato es como sigue:
+    </para>
+    <screen>
+      <![CDATA[{
+        "data":{
+          "watoken": "hola",
+          "pbkbase64": "hola"
+        },
+        "messageType":"registerWA"
+      }]]>
+    </screen>
+    <para>
+      Donde los diferentes atributos se definen como:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>data</title>
+          <para>
+            Contiene los datos necesarios para realizar el registro, los cuales son:
+          </para>
+        </formalpara>
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title>watoken</title>
+              <para>
+                Es el token de aplicación que hay que registrar.
+              </para>
+            </formalpara>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title>pbkbase64</title>
+              <para>
+                Es la clave pública, codificada en formato Base64 para evitar problemas con los saltos de línea u otro tipo de caracteres o símbolos extraños, que corresponde a la aplicación que ha solicitado el registro.
+              </para>
+            </formalpara>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Tiene que ser igual a la cadena <code>registerWA</code>.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      Con la posible respuesta, por el mismo canal y de forma asíncrona que puede ser:
+    </para>
+    <screen>
+      <![CDATA[{
+        "watoken": "<watoken>",
+        "messageType": "registerWA",
+        "status": "REGISTERED",
+        "url": "https://push.telefonica.com/notify/5819b005..."
+      }]]>
+    </screen>
+
+    <para>
+      Que se corresponden con los siguientes atributos:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>watoken</title>
+          <para>
+            Es el token que ha generado la respuesta actual. De nuevo, comentar que las respuestas son asíncronas, por lo que tiene que ir reflejado a qué petición inicial iba dirigida.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Tiene que ser igual al mensaje original, por lo tanto <code>registerWA</code>. Permite tratar al mensaje correctamente en el código.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>status</title>
+          <para>
+            Tiene que ser igual a la cadena <code>REGISTERED</code>. En caso contrario, o que venga el texto <code>ERROR</code>, el registro no ha sido correcto.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>url</title>
+          <para>
+            URL o recurso con la dirección única de notificación. Tiene que enviarse esta URL al objeto que ha originado la petición desde la aplicación.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+    <para>
+      También hay unos códigos de error similares a los del método <code>registerUA</code> respondiendo con un mensaje del estilo:
+    </para>
+    <screen>
+      <![CDATA[{
+        "messageType": "registerUA",
+        "status": "ERROR",
+        "reason": "<razón>"
+      }]]>
+    </screen>
+    <para>
+      Con el atributo <code>&lt;razón&gt;</code> dando una explicación del error en forma humana, con un claro mensaje descriptivo.
+    </para>
+  </section>
+
+  <section>
+    <title>Recepción de notificación</title>
+    <para>
+    </para>
+  </section>
+
+  <section>
+    <title>Confirmación de recepción, o ACK</title>
+    <para>
+    </para>
+  </section>
+
+  <section>
+    <title>De-registro de WA</title>
+    <para>
+    </para>
+  </section>
+
+  <section>
+    <title>De-registro de UA</title>
+    <para>
+    </para>
+  </section>
+
+  <section>
+    <title>Ping-Pong (o keepalives)</title>
+    <para>
+    </para>
+  </section>
+
+<!--
       </section>
       <section>
         <title>registerWA</title>

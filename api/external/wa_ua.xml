@@ -170,23 +170,23 @@ req.onerror = function(event) {
           </para>
         </formalpara>
         <itemizedlist>
-            <listitem>
-              <formalpara>
-                <title><code>event.detail.message</code></title>
-                <para>
-                  Mensaje completo. Es el <code>payload</code> que el servidor de las aplicaciones quería mandar desde un primer momento.
-                </para>
-              </formalpara>
-            </listitem>
-            <listitem>
-              <formalpara>
-                <title><code>event.detail.url</code></title>
-                <para>
-                   <optional>Opcional</optional> URL a la que la notificación iba dirigida. Añadido por la posibilidad de que en un futuro las aplicaciones puedan pedir varias veces el permiso remoto, por lo cual recibirán diferentes URL a la que el servidor podría hacer push.
-                </para>
-              </formalpara>
-            </listitem>
-          </itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><code>event.detail.message</code></title>
+              <para>
+                Mensaje completo. Es el <code>payload</code> que el servidor de las aplicaciones quería mandar desde un primer momento.
+              </para>
+            </formalpara>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><code>event.detail.url</code></title>
+              <para>
+                 <optional>Opcional</optional> URL a la que la notificación iba dirigida. Añadido por la posibilidad de que en un futuro las aplicaciones puedan pedir varias veces el permiso remoto, por lo cual recibirán diferentes URL a la que el servidor podría hacer push.
+              </para>
+            </formalpara>
+          </listitem>
+        </itemizedlist>
       </listitem>
     </itemizedlist>
     <note>
