@@ -49,6 +49,7 @@
   <!-- <xi:include href="comparision/main.xml" /> -->
   <xi:include href="lessons_learned/main.xml" />
   <xi:include href="future/main.xml" />
+  <xi:include href="conclusion.xml" />
 
   <!-- Glosario y bibliografía -->
   <xi:include href="glossary.xml" />

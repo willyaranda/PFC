@@ -13,8 +13,18 @@
     Hay dos canales de comunicación diferentes, que son:
   </para>
 
-  <xi:include href="ua_ns.xml" />
+  <section>
+    <title>Entre el UA y el NS</title>
+    <para>
+      Esta comunicación puede definirse como el estándar que tiene que seguir tanto el servidor de notificaciones como el sistema operativo o User Agent a la hora de implementar el protocolo para que puedan hablar entre ellos de forma correcta.
+    </para>
+    <para>
+      Está divida en dos partes principales, una interfaz HTTP, para recoger el token, y otra que usa el protocolo WebSockets, para el intercambio bidireccional de datos, así pues:
+    </para>
 
-  <xi:include href="ua_udp.xml" />
+    <xi:include href="ua_ns_http.xml" />
+    <xi:include href="ua_ns_websocket.xml" />
+    <xi:include href="ua_udp.xml" />
 
+  </section>
 </section>

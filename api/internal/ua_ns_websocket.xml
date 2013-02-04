@@ -15,7 +15,7 @@
   <section>
     <title>Conexión WebSocket</title>
     <para>
-      Así pues, hay que utilizar el recurso necesario para iniciar la conexión, del estilo de <code>wss://localhost:8080</code>, usando el protocolo <code>push-notification</code>.
+      Así pues, hay que utilizar el recurso necesario para iniciar la conexión, del estilo de <code>wss://push.telefonica.com</code>, usando el protocolo <code>push-notification</code>.
     </para>
   </section>
 
@@ -378,179 +378,314 @@
     </para>
     <screen>
       <![CDATA[{
-        "messageType": "registerUA",
+        "watoken": "<watoken>",
+        "messageType": "registerWA",
         "status": "ERROR",
         "reason": "<razón>"
       }]]>
     </screen>
     <para>
-      Con el atributo <code>&lt;razón&gt;</code> dando una explicación del error en forma humana, con un claro mensaje descriptivo.
+      Con el atributo <code>reason</code> dando una explicación del error en forma humana, con un claro mensaje descriptivo y un atributo <code>watoken</code> indicando qué aplicación ha fallado.
+    </para>
+    <para>
+      Una vez recibido un mensaje correcto de registro de WA, podemos estar seguros que las notificaciones que envíen los servidores de terceros eventualmente llegarán a la aplicación a la que se envía la notificación.
     </para>
   </section>
 
   <section>
     <title>Recepción de notificación</title>
     <para>
+      Las notificaciones pueden venir por dos medios diferentes
     </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>En respuesta a <code>registerUA</code></title>
+          <para>
+            Cuando un dispositivo se registra o actualiza sus datos, tiene que enviar un mensaje del tipo <code>registerUA</code>, el cual, si todo funciona correctamente, recibirá de forma asíncrona la respuesta, conteniendo un array de mensajes en el atributo <code>messages</code>.
+          </para>
+        </formalpara>
+        <screen>
+          <![CDATA[{
+            "messageType": "registerUA",
+            "status": "REGISTERED",
+            "pushMode": "WS",
+            "WATokens": [],
+            "messages": []
+          }]]>
+        </screen>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>Como mensaje independiente</title>
+          <para>
+            Sin embargo, si se está utilizando una conexión de WebSockets, las notificaciones llegan como mensajes independientes, de la manera siguiente:
+          </para>
+        </formalpara>
+        <screen>
+          <![CDATA[{
+            "messageType": "notification",
+            "id": 1234,
+            "message": "Hola",
+            "ttl": 2592000,
+            "timestamp": "1359984038",
+            "priority": 1,
+            "messageId": "aacf9ca0-6ecd-11e2-815f-551df8e4ba6a",
+            "url": "https://push.telefonica.com/notify/31387b27716acb88d336cda8858..."
+          }]]>
+        </screen>
+        <para>
+          Donde lo más importante son los dos últimos atributos:
+        </para>
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title>messageId</title>
+              <para>
+                Es el identificador único que le ha dado el servidor de notificaciones a la notificación. Es el usado para mandar el acuse de recepción.
+              </para>
+            </formalpara>
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title>url</title>
+              <para>
+                URL inicial a la que se envió la notificación, sirve para identificar en el User Agent (<code>UA</code>) la aplicación en concreto a la que va dirigida.
+              </para>
+            </formalpara>
+          </listitem>
+        </itemizedlist>
+        <para>
+          El UA que recibe este mensaje debe utilizar el atributo <code>url</code> para saber a qué aplicación en concreto va, y una vez encontrada. Debe eliminarse de la notificación entregada a la aplicación.
+        </para>
+        <para>
+          El UA también debe usar el atributo <code>messageId</code> para enviar la confirmación de recepción, una vez esté recibido correctamente por la aplicación. Debe eliminarse de la notificación entregada a la aplicación.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <note>
+      Para no volver a recibir los mensajes duplicados, hay que enviar un acuse de recibo, explicado en la siguiente sección.
+    </note>
   </section>
 
   <section>
     <title>Confirmación de recepción, o ACK</title>
     <para>
+      Una vez recibidas notificaciones, ya sea a a través de los mensajes de regitro de User Agent (a través del mensaje <code>registerUA</code>) o mediante la conexión WebSocket, una notificación directa, hay que mandar un mensaje de recepción al servidor, por varios motivos:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Al aceptar el mensaje, éste se borra de la base de datos, en concreto de la colección de mensajes dirigidos para determinado usuario, por lo que si no se informa de su recepción, el mensaje seguirá enviándose hasta que pase el tiempo de vida (especificado en el atributo <code>ttl</code>) o se de-registre la aplicación.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Los servicios que envíen la notificación, serán capaces de controlar si la notificación se ha entregado correctamente o con algún error a los diferentes dispositivos que la deberían recibir.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      Así pues, el mensaje que hay que enviar a través de la conexión WebSocket para informar de la recepción de los mensajes es el siguiente:
+    </para>
+    <screen>
+      <![CDATA[{
+        messageType: 'ack',
+        messageId: <msg.messageId>
+      }]]>
+    </screen>
+    <para>
+      Donde los diferentes atributos tienen que ser:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Tiene que ser igual a la cadena <code>ack</code>.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>messageId</title>
+          <para>
+            Tiene que ser igual al <code>messageId</code> que está contenido dentro del mensaje. No es el <code>id</code> que ha enviado el servidor de terceros, si no uno generado internamente para el guardado y búsqueda del mensaje en el servidor de notificaciones.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+    <para>
+      No hay ninguna respuesta a este mensaje y además tiene que enviarse uno por cada mensaje que haya que aceptar la recepción. Así pues, si en la respuesta a <code>registerUA</code> llega un array con 10 mensajes diferentes, hay que mandar 10 mensajes de recepción del estilo superior para que se borren de la base de datos.
     </para>
   </section>
 
   <section>
     <title>De-registro de WA</title>
     <para>
+      De la misma manera que se puede registrar una aplicación, también puede de-registrarse para que el dispositivo no siga recibiendo notificaciones continuamente en los siguientes casos:
     </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          El usuario ha desinstalado la aplicación, por lo que el gestor de aplicaciones, al eliminarla, también tiene que eliminar los permisos asociados y realizar las operaciones oportunas. En el caso de push, lo que se tiene que hacer es de-registrar la aplicación en local y en remoto, para que la URL no sea válida y pueda dejar de recibir notificaciones push.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          El usuario revoca el permiso en la aplicación de configuración, donde se le presenta una lista de aplicaciones que están utilizando el servicio de push.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          La aplicación pide la revocación programáticamente, porque no quiere seguir recibiendo nuevos mensajes push, o bien por algún cambio de usuario o de configuración que requiera que sea otra URL la de recepción push.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      Entonces, el mensaje que se tiene que enviar es el siguiente:
+    </para>
+    <screen>
+    <![CDATA[{
+      "data": {
+        "watoken": "<watoken>",
+        "pbkbase64": "<pbkbase64>"
+      },
+      "messageType":"unregisterWA"
+    }]]>
+    </screen>
+    <para>
+      Donde los atributos que hay que enviar son los siguientes… XXX
+    </para>
+    <para>
+      Y la respuesta, de nuevo asíncrona, es como sigue:
+    </para>
+    <screen>
+    <![CDATA[{
+      "url": "https://push.telefonica.com/notify/31387b27716acb88d336cda8858...",
+      "messageType": "unregisterWA",
+      "status": "UNREGISTERED"
+    }]]>
+    </screen>
+    <para>
+      Donde se indica, como en los mensajes anteriores, diferentes atributos:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>url</title>
+          <para>
+            Que se corresponde a la URL que ha sido de-registrada.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Tiene que ser igual a la cadena <code>unregisterWA</code> para especificar que es la respuesta a una petición similar anterior.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>status</title>
+          <para>
+            Si todo ha sido correcto, el atributo <code>status</code> contendrá una cadena igual a <code>UNREGISTERED</code>
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
   </section>
 
   <section>
     <title>De-registro de UA</title>
     <para>
+      De la misma manera que hay un método de registro de UA y un método de de-registro de WA, hay un método para de-registrar un dispositivo.
+    </para>
+    <note>
+      <emphasis>Peligro</emphasis>. Este método elimina todos los datos del dispositivo de la base de datos, invalidando cualquier URL y desechando cualquier notificación pendiente.
+    </note>
+    <para>
+      El mensaje que hay que enviar, es simplemente:
+    </para>
+    <screen>
+      <![CDATA[{
+        "messageType": "unregisterUA"
+      }]]>
+    </screen>
+    <para>
+      El cual es el único método síncrono, ya que si el de-registro es correcto, la conexión WebSocket por la que se ha enviado, se cierra de forma consensuada (esto es, el cierre viene acompañado por el código <code>1000</code> de las constantes de cierre de WebSocket)<footnote><para>http://tools.ietf.org/html/rfc6455#section-7.4.1</para></footnote>.
+    </para>
+    <para>
+      El mensaje de cierre, aunque sea nulo, podría ser en la consola JavaScript algo similar a:
+    </para>
+    <screen>
+      <![CDATA[Closed connection to push.telefonica.com with code 1000 and reason [undefined]]]>
+    </screen>
+    <para>
+      A partir de este momento, la conexión está cerrada, y el dispositivo no existe para el servidor de notificaciones. Para poder volver a registrarse, se tienen que repetir los pasos superiores.
     </para>
   </section>
 
   <section>
-    <title>Ping-Pong (o keepalives)</title>
+    <title>Pedir WA registradas</title>
     <para>
+      Este es un método para poder mantener una sincronía y el mismo estado entre el servidor y el cliente. La lógica de qué hacer con los datos recibidos la tiene que tener el cliente, por ejemplo:
     </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Si vienen más URLs de las que están en local, quizás haya que de-registrar alguna aplicación. Pero también puede ser que se haya perdido el registro local.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Si vienen menos URLs de las que debería haber, habría que registrar de nuevo una aplicación, puesto que el servidor no sabe nada de ella y no podría recibir notificaciones push.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      La petición se realiza por el canal abierto, y el mensaje a enviar es el siguiente:
+    </para>
+    <screen>
+      <![CDATA[{
+        "messageType": "getRegisteredWA"
+      }]]>
+    </screen>
+    <para>
+      Con una posible respuesta como esta:
+    </para>
+    <screen>
+      <![CDATA[{
+        "WATokens": [
+          "https://push.telefonica.com/notify/31387b27716acb88d336cda8858...",
+          "https://push.telefonica.com/notify/739a6ecd89f3e113ef443accd34...",
+          "https://push.telefonica.com/notify/835ea56dc561b3865bead53cb73..."
+        ],
+        "messageType": "getRegisteredWA"
+      }]]>
+    </screen>
+    <para>
+      Donde los atributos son los siguientes:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>WATokens</title>
+          <para>
+            Es un array con todas las URLs de aplicaciones registradas.
+          </para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>messageType</title>
+          <para>
+            Tiene que ser igual a la cadena <code>getRegisteredWA</code> puesto que es la respuesta a la petición anterior.
+          </para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
   </section>
-
-<!--
-      </section>
-      <section>
-        <title>registerWA</title>
-        <para>
-          This method is used to register installed applications on the device.
-          This shall be send to the notification server after a valid UA registration.
-        </para>
-        <para>
-          Normally, this method will be used each time an application requires a
-          new push notification URL (through the WA-UA API) or also each time the
-          device is powered on and is re-registering previously registered applications.
-        </para>
-        <para>
-          The required data for application registration is the WAToken and the
-          public key.
-        </para>
-        <programlisting language="javascript">
-        <![CDATA[
-        {
-          messageType: "registerWA",
-          data: {
-            uatoken: "<a valid UAToken>",
-            watoken: "<the WAToken>",
-            pbkbase64: "<BASE64 coded public key>"
-          }
-        }
-        ]]>
-        </programlisting>
-        <para>
-          The server response can be:
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            status: "REGISTERED",
-            statusCode: 200,
-            url: "<publicURL required to send notifications>",
-            messageType: "registerUA"
-          }
-          ]]>
-          </programlisting>
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            status: "ERROR",
-            statusCode: 40x,
-            reason: "...",
-            messageType: "registerWA"
-          }
-          ]]>
-          </programlisting>
-        </para>
-        <para>
-          The device service should redirect the received URL to the correct
-          application.
-        </para>
-      </section>
-      <section>
-        <title>getAllMessages</title>
-        <para>
-          This method is used to retrieve all pending messages for one device.
-        </para>
-        <para>
-          This will be used each time the device is Waked Up, so it's polling
-          pending messages.
-        </para>
-        <programlisting language="javascript">
-        <![CDATA[
-        {
-          messageType: "getAllMessages",
-          data: {
-            uatoken: "<a valid UAToken>"
-          }
-        }
-        ]]>
-        </programlisting>
-        <para>
-          The server response can be:
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            messageType: "getAllMessages",
-            [
-              <Array of notifications with the same format
-               as defined in the notification method>
-            ]
-          }
-          ]]>
-          </programlisting>
-        </para>
-      </section>
-      <section>
-        <title>notification</title>
-        <para>
-          This message will be used by the server to inform about new notification
-          to the device.
-        </para>
-        <para>
-          All recieved notification will have this structure:
-        </para>
-        <programlisting language="javascript">
-        <![CDATA[
-        {
-          messageType: "notification",
-          id: "<ID used by the Application Server>",
-          message: "<Message payload>",
-          timestamp: "<Since EPOCH Time>",
-          priority: "<prio>",
-          messageId: "<ID of the message>",
-          url: "<publicURL which identifies the final application>"
-        }
-        ]]>
-        </programlisting>
-      </section>
-      <section>
-        <title>ack</title>
-        <para>
-          For each received notification through notification or getAllMessages,
-          the server SHOULD be notified in order to free resources related to
-          this notifications.
-        </para>
-        <para>
-          This message is used to acknoledge the message reception.
-        </para>
-          <programlisting language="javascript">
-          <![CDATA[
-          {
-            messageType: "ack",
-            messageId: "<ID of the received message>"
-          }
-          ]]>
-          </programlisting>
-      </section>
-    </section>
-  </para> -->
 </section>
