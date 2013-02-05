@@ -61,8 +61,7 @@
     Así pues, el diagrama principal del envío y entrega de un mensaje de una forma muy abstracta es:
   </para>
     <note>
-      
-      <para>Suponemos que la aplicación instalada tiene un ID de registro que permite recibir notificaciones, además de que el servidor de terceros ha guardado ese ID y que el servidor tiene una clave de API que le permite identificarse como emisor de notificaciones.</para>
+      <para>Se supone que la aplicación instalada tiene un ID de registro que permite recibir notificaciones, además de que el servidor de terceros ha guardado ese ID y que el servidor tiene una clave de API que le permite identificarse como emisor de notificaciones.</para>
     </note>
 
   <orderedlist>
@@ -166,7 +165,7 @@
   <formalpara>
     <title>Arquitectura</title>
     <para>
-      Así pues, podemos observar el flujo completo de trabajo de GCM:
+      Así pues, se puede observar el flujo completo de trabajo de GCM:
     </para>
   </formalpara>
     <orderedlist>
@@ -182,7 +181,7 @@
       </listitem>
       <listitem>
         <para>
-          La aplicación manda, por su propio canal de comunicación que haya decidido, dicho token único a un servidor de terceros, con algún tipo de identificación de usuario o de instancia que permitirá enviar contenido personalizado. Por ejemplo, si una persona registrada desea recibir notificaciones sólo sobre su equipo favorito, tenemos que enviar el dato que identifique a esa persona/usuario con el identificador enviado.
+          La aplicación manda, por su propio canal de comunicación que haya decidido, dicho token único a un servidor de terceros, con algún tipo de identificación de usuario o de instancia que permitirá enviar contenido personalizado. Por ejemplo, si una persona registrada desea recibir notificaciones sólo sobre su equipo favorito, se tiene que enviar el dato que identifique a esa persona/usuario con el identificador enviado.
         </para>
       </listitem>
       <listitem>
@@ -215,7 +214,7 @@
       </listitem>
       <listitem>
         <para>
-          Esa única conexión requiere de keep-alives para mantenerse activa, por lo que cada cierto tiempo estaremos cambiando de estado radio, con su correspondiente señalización, para indicar simplemente que estamos conectados.
+          Esa única conexión requiere de keep-alives para mantenerse activa, por lo que cada cierto tiempo se estará cambiando de estado radio, con su correspondiente señalización, para indicar simplemente que estamos conectados.
         </para>
       </listitem>
       <listitem>

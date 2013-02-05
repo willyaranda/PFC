@@ -60,7 +60,7 @@
           </para>
         </formalpara>
         <para>
-          Así pues, podemos encontrarnos módulos como el de criptografía<footnote><para>https://github.com/joyent/node/blob/master/src/node_crypto.cc</para></footnote> (<code>crypto</code>) escritos enteramente en C, haciendo uso de las extensiones de V8, mientras que por ejemplo el que provee la interfaz para el manejo de sistemas de ficheros<footnote><para>https://github.com/joyent/node/blob/master/lib/fs.js</para></footnote> (<code>fs</code>) está enteramente escrito en JavaScript, y su sintaxis es más fácil de entender y leer.
+          Así pues, es posible encontrar módulos como el de criptografía<footnote><para>https://github.com/joyent/node/blob/master/src/node_crypto.cc</para></footnote> (<code>crypto</code>) escritos enteramente en C, haciendo uso de las extensiones de V8, mientras que por ejemplo el que provee la interfaz para el manejo de sistemas de ficheros<footnote><para>https://github.com/joyent/node/blob/master/lib/fs.js</para></footnote> (<code>fs</code>) está enteramente escrito en JavaScript, y su sintaxis es más fácil de entender y leer.
         </para>
       </listitem>
     </itemizedlist>
@@ -70,7 +70,7 @@
     <formalpara>
       <title>Usuarios</title>
       <para>
-        Actualmente Node.js, a pesar de ser una tecnología muy reciente y joven, está siendo usada por muchas grandes empresas de internet para escalar sus sistemas. El hecho de que Yahoo! haya empezado a migrar algunos de sus sistemas desde PHP hacia Node.js, implementando diferenes frameworks y módulos mientras hacían la transición, hace pensar que el recorrido de esta plataforma es muy amplio y con muchas empresas grandes detrás interesadas en que siga siendo funcional, agregue más módulos y características y que sea líder en el mercado de los desarrollos de servicios de backend. Además, Microsoft, LinkedIn (para su aplicación móvil) o incluso Walmart también han decidido cambiar algunos de sus sistemas para hacer uso de Node.js.
+        Actualmente Node.js, a pesar de ser una tecnología muy reciente y joven, está siendo usada por muchas grandes empresas de Internet para escalar sus sistemas. El hecho de que Yahoo! haya empezado a migrar algunos de sus sistemas desde PHP hacia Node.js, implementando diferenes frameworks y módulos mientras hacían la transición, hace pensar que el recorrido de esta plataforma es muy amplio y con muchas empresas grandes detrás interesadas en que siga siendo funcional, agregue más módulos y características y que sea líder en el mercado de los desarrollos de servicios de backend. Además, Microsoft, LinkedIn (para su aplicación móvil) o incluso Walmart también han decidido cambiar algunos de sus sistemas para hacer uso de Node.js.
       </para>
     </formalpara>
     <section>
@@ -182,7 +182,7 @@
         El uso principal en el servidor de notificaciones es la de pasar mensajes entre los diferentes actores que están en ejecución, de forma desacoplada y funcionando de forma independiente, esperando a eventos que desencadenen una reacción dependiendo de qué contengan y qué haya que realizar según el mensaje.
       </para>
       <para>
-        El uso más simple que se da es el de algunas intancias creando contenido, que son los que publican y envían los mensajes a las colas, y otros que son los consumidores, los que reciben los mensajes y realizan con ellos diferentes tareas. Así pues, los suscriptores están apuntados a determinadas colas o tópicos, esperando a que lleguen mensajes que alguien les mete por el otro extremo. Tenemos el caso de la cola <code>newMessages</code>, la cual es escrita por el servidor que provee la interfaz a los servidores de terceros, llamado Applicacion Server (<code>AS</code>), metiendo, bien los mensajes completos (cuando su tiempo de vida sea 0), o bien el identificador que él ha creado y ha guardado en la base de datos, para que el consumidor lo lea, y entienda que tiene que entregar los mensajes dependiendo de algunos parámetros que se pasan en dicho mensaje en la cola.
+        El uso más simple que se da es el de algunas intancias creando contenido, que son los que publican y envían los mensajes a las colas, y otros que son los consumidores, los que reciben los mensajes y realizan con ellos diferentes tareas. Así pues, los suscriptores están apuntados a determinadas colas o tópicos, esperando a que lleguen mensajes que alguien les mete por el otro extremo. Es el caso de la cola <code>newMessages</code>, la cual es escrita por el servidor que provee la interfaz a los servidores de terceros, llamado Applicacion Server (<code>AS</code>), metiendo, bien los mensajes completos (cuando su tiempo de vida sea 0), o bien el identificador que él ha creado y ha guardado en la base de datos, para que el consumidor lo lea, y entienda que tiene que entregar los mensajes dependiendo de algunos parámetros que se pasan en dicho mensaje en la cola.
       </para>
     </section>
     <section>

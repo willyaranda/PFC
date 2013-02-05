@@ -22,7 +22,7 @@
       Mientras que en las bases de datos SQL hay un montón de restricciones, los esquemas son muy fijos y hay que respetar todas las normas ACID, además de intentar normalizar la base de datos para poder cumplir las cuatro normas básicas, en NoSQL depende mucho de cuál sea la base de datos seleccionada el qué hacer, básicamente porque cada una tiene sus características y rompen las propiedades ACID de diferentes maneras.
     </para>
     <para>
-      Así pues, algunas de las características de la base de datos elegida, MongoDB, hacen que las consultas sean mucho más rápidas cuando esté todo en el mismo sitio, lo que quiere decir que es mejor duplicar datos a hacer varias consultas a la vez. De hecho, si hay que hacer varias consultas, es mejor que no sean complejas, y que se encargan los diferentes backend de unir los datos, ya que así liberamos de tareas pesadas a los mismos gestores. Por ejemplo, hacer un <code>JOIN</code> en MongoDB es muy pesado, pero sin embargo es muy rápido si hacemos dos consultas por separado y las unimos en el código del programa.
+      Así pues, algunas de las características de la base de datos elegida, MongoDB, hacen que las consultas sean mucho más rápidas cuando esté todo en el mismo sitio, lo que quiere decir que es mejor duplicar datos a hacer varias consultas a la vez. De hecho, si hay que hacer varias consultas, es mejor que no sean complejas, y que se encargan los diferentes backend de unir los datos, ya que así liberamos de tareas pesadas a los mismos gestores. Por ejemplo, hacer un <code>JOIN</code> en MongoDB es muy pesado, pero sin embargo es muy rápido si se hacen dos consultas por separado y las unimos en el código del programa.
     </para>
   </section>
 

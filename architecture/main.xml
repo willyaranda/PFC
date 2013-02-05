@@ -3,173 +3,299 @@
       xmlns="http://docbook.org/ns/docbook"
       version="5.0" xml:lang="es">
 
-  <title>Notification Server Architecture</title>
+  <title>Arquitectura interna</title>
   <para>
-    This chapter explains how is the server designed to be able to process
-    millions of messages per second.
+    Este capítulo tiene como finalidad la de explicar cómo se ha organizado internamente el servidor de notificaciones central y cómo interactúan las diferentes partes o instancias entre ellas para que las notificaciones sean tratadas correctamente, desde el momento en que son recibidas hasta cuando el teléfono va a procesarlas y tiene que dar la confirmación de recepción.
+  </para>
+  <para>
+    Pero antes de explicar el funcionamiento y los diferentes mensajes que se intercambian, se explicará los diferentes actores que están en funcionamiento repartidos por todo el servidor.
   </para>
 
+  <figure>
+    <title>Esquema general de la arquitectura</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../../resources/whole-arch.png" align="center" width="16cm" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
   <section>
-    <title>Technologies used</title>
+    <title>Tipos de servidor</title>
     <para>
-      The server infrastructure had been build using high performance languages
-      and also high performance database and message queuing systems.
+      Para poder escalar tanto horizontal como verticalmente sin tener ningún límite, la infraestructura del servidor de notificaciones central ha sido dividida en diferentes instancias o cajas, cada una dedicada a una función en particular, y que a su vez son independientes del resto, comunicándose sólo por mensajería.
     </para>
+    <note>
+      Los nombres de cada caja siguen la nomenclatura: <code>NS-&lt;tipo_de_cliente&gt;</code>.
+    </note>
+
     <section>
-        <title>MongoDB</title>
-        <para></para>
+      <title>NS-UA-WS</title>
+      <para>
+        Este servidor es el encargado de ejercer como frontend para los dispositivos móviles, exponiendo una serie de APIs para que los diferentes agentes de usuario (o <code>UA</code>) puedan utilizarlo. En concreto, posee dos interfaces, una HTTP y otra como WebSockets.
+      </para>
+      <para>
+        Las dos interfaces son:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>HTTP</title>
+            <para>
+              Sirve para pedir un token válido para el agente de usuario, único, que sirve para identificar a cada dispositivo. Este token puede ser recogido llamando al método <code>HTTP Get</code> a la url <code>https://push.telefonica.com/token</code>
+            </para>
+          </formalpara>
+        </listitem>
+        <listitem>
+          <formalpara>
+            <title>WebSocket</title>
+            <para>
+              Diseñado para ejercer como canal de comunicación bidireccional entre el agente de usuario y el servidor de notificaciones. Es la conexión por la cual se realizan los registros y se envían las notificaciones.
+            </para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+      <para>
+        Y sus principales cometidos son:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Guardar en la base de datos de MongoDB todos los nodos registrados y las aplicaciones, además de tener que recogerlos en determinado momento.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Suscribirse a una cola de mensajes creada específicamente para él, por el cual le llegan las notificaciones de que tiene que enviar un mensaje a un dispositivo.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Proveer las dos interfaces explicadas anteriormente, que sirven como nexo de comunicación entre los dispositivos y el servidor de notificaciones.
+          </para>
+        </listitem>
+      </itemizedlist>
     </section>
+
     <section>
-        <title>RabbitMQ</title>
-        <para></para>
+      <title>NS-UA-UDP</title>
+      <para>
+        Este servidor es el responsable de intermediar entre el servidor de notificaciones central y el servidor de wakeup, o <code>NS_Proxy_UDP</code> que está desplegado en el interior de cada operadora móvil.
+      </para>
+      <para>
+        Al igual que el servidor anterior, el <code>NS-UA-WS</code>, este también está escuchando una cola determinada, llamada <code>UDP</code>, para que cada vez que llegue un mensaje, lo procese, recupere de la base de datos MongoDB la información necesaria y pueda enviar al servidor <code>NS_Proxy_UDP</code> un mensaje HTTP para que éste último despierte al teléfono con un pequeño paquete UDP.
+      </para>
     </section>
+
     <section>
-        <title>Node.js</title>
-        <para></para>
+      <title>NS_Proxy_UDP</title>
+      <para>
+        Este servidor es un proxy entre el complejo central del servidor de notificaciones y los clientes. Este servicio recibe peticiones a través de un puerto HTTP estándar, y manda datagramas UDP o paquetes TCP a los dispositivos dentro de la red móvil con el propósito de despertarles y que se conecten a la infraestructura central. Esta instancia debe estar instalada dentro de la zona privada de la operadora, y tener visión directa de todos los terminales móviles en dicha red.
+      </para>
+    </section>
+
+    <section>
+      <title>NS-AS</title>
+      <para>
+        Esta instancia, es el front-end para los servidores de aplicaciones. Proporciona una interfaz HTTP Post para poder recibir notificaciones.
+      </para>
+      <para>
+        La interfaz expone la ruta <code>/notify</code>, en la cual una vez recibido, se procesan los mensajes, comprobando si son correctos, si están firmados y son válidos (recogiendo la clave pública desde la base de datos central) y realizando dos pasos diferentes:
+      </para>
+      <orderedlist>
+        <listitem>
+          <para>
+            Introducir el mensaje en la base de datos MongoDB para mantener una persistencia y no perder el mensaje por si ocurre algún error.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Enviar una notificación a la cola <code>newMessages</code>, que indica que se ha recibido una nueva notificación.
+          </para>
+        </listitem>
+      </orderedlist>
+    </section>
+
+    <section>
+      <title>NS-MSG-Monitor</title>
+      <para>
+        Es el responsable de recibir los mensajes a través de la cola <code>newMessages</code>, procesarlos, encontrar a quién están dirigidos, y enviarlo a la cola de los servidores que dan servicio a los diferentes dispositivos de forma correcta. Se podría decir que por esta instancia pasan todos los mensajes que tienen que moverse por dentro del complejo sistema del servidor. Además, monitoriza el estado de los mensajes y los re-encola si fuera necesario, así como eliminarlos en un futuro si sobrepasan su tiempo de vida máximo
+      </para>
+    </section>
+
+    <section>
+      <title>Colas de mensajes, o Message Queue</title>
+      <para>
+        Son varias instancias del sistema de mensajería RabbitMQ que actúa como transportista de mensajes entre todos los diferentes servidores que lo componen.
+      </para>
+      <para>
+        En primer lugar, su función es la de creación de colas, que son alimentadas por un extremo, y consumidas por el otro. La configuración varía según las colas y cuál sea su cometido, pero por ejemplo, se puede encontrar:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>/newMessages</title>
+            <para>
+              Recibe todos los nuevos mensajes a partir del servidor <code>NS-AS</code>. Los lee el monitor <code>NS-MSG-Monitor</code>.
+            </para>
+          </formalpara>
+        </listitem>
+        <listitem>
+          <formalpara>
+            <title>/UDP</title>
+            <para>
+              Una cola que leen todos los servidores de UDP, <code>NS-UA-UDP</code> y que es escrita por el monitor <code>NS-MSG-Monitor</code>.
+            </para>
+          </formalpara>
+        </listitem>
+        <listitem>
+          <formalpara>
+            <title>/(serverId)</title>
+            <para>
+              Muy similar a la cola <code>/UDP</code>, pero con la diferencia que es leída por los diferentes servidores de WebSockets que hay en la infraestructura, o <code>NS-UA-WS</code>.
+            </para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+      <para>
+        Debido a la alta carga, este servidor se despliega en modo cluster, con alta disponibilidad y mirroring de colas entre las diferentes intancias.
+      </para>
+    </section>
+
+    <section>
+      <title>Base de datos, NO-SQL (MongoDB)</title>
+      <para>
+        Un cluster de instancias de MongoDB es usado para mantener todos los datos persistentes que haya que guardar, como los registros de dispositivos y de aplicaciones, así como mensajes recibidos y los diferentes servidores de wakeup disponibles en las diferentes redes móviles.
+      </para>
     </section>
   </section>
-
   <section>
-    <title>Types of servers</title>
+    <title>Flujos de trabajo</title>
     <para>
-      In order to be able to scale horizontally and vertically with no limits
-      all the server platform infrastructure had been splitted in several boxes
-      one of them dedicated to a particular task and also independent of the
-      rest so it can be scalled independently of the rest ones.
+      Así que una vez que están presentados los diferentes actores que contribuyen al funcionamiento correcto del servidor, se puede hablar de cómo se gestionan internamente los diferentes escenarios que pueden suceder. Así pues:
     </para>
-    <para>
-        The names of each box follows this scheme:
-        NS-&lt;type_of_client&gt;
-    </para>
-
-    <figure>
-      <title>Esquema general de la arquitectura</title>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="../../resources/whole-arch.png" align="center" width="16cm" />
-        </imageobject>
-      </mediaobject>
-    </figure>
     <section>
-        <title>NS-UA-WS</title>
-        <para>
-          The NS_UA_WS server is the frontend for mobile devices.
-          This server will attend the clients using HTTP protocols
-          (HTTP GET and WebSockets)  
-        </para>
-        <para>
-          This server offers to channels:
-          <itemizedlist>
-            <listitem>
-              Retrieve a valid User Agent token used to identify each handset.
-              This token will be delivered via HTTP GET method to
-              the /token URL.
-            </listitem>
-            <listitem>
-              <para>
-                Maintain a Websocket connection with the clients.
-                This WebSocket will be maintained open in order to deliver push
-                messages through it.
-              </para>
-              <para>
-                This server will store on the MongoDB all registered nodes and
-                applications. Also will receive from the Message Queue all the
-                messages to be delivered to the connected handsets.
-              </para>
-            </listitem>
-          </itemizedlist>
-        </para>
+      <title>Registros de dispositivos/aplicaciones</title>
+      <para>
+        Una vez hay disponible una conexión abierta, es flujo de registro es el siguiente:
+      </para>
+      <figure>
+        <title>Flujo de registro</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../../resources/register-flow.png" align="center" width="14cm" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+      <para>
+        Como se puede observar, sólo actúan dos componentes del servidor de notificaciones, y es como sigue:
+      </para>
+      <orderedlist>
+        <listitem>
+          <para>
+            El registro es recibido por el servidor <code>NS-UA-WS</code>, que lo procesa.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Una vez procesado y aceptado, los datos necesarios, como la IP, puerto y demás información, como el token de usuario o de aplicación, es guardado en la base de datos para posterior uso.
+          </para>
+        </listitem>
+      </orderedlist>
     </section>
     <section>
-        <title>NS-UA-UDP</title>
-        <para>
-          The NS_UA_UDP server is the responsible to intermediate between the
-          central Notification Server infrastructure and each NS_WakeUp
-          deployed in each OB.
-        </para>
-        <para>
-          As told before, this server will be connected to the message queue
-          and for each received wake-up petition this server will retrieve from
-          the MongoDB the NS_WakeUp server address and send a HTTP message to
-          it querying to wake-up a handset.
-        </para>
+      <title>Aceptación de notificación</title>
+      <figure>
+        <title>Flujo de notificación</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../../resources/notification-flow.png" align="center" width="14cm" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+      <para>
+        Según la figura anterior, los únicos puntos que se ponen en marcha son el 1, 2 y 3.
+      </para>
+      <orderedlist>
+        <listitem>
+          <para>
+            La notificación es recibida por el servidor <code>NS-AS</code>, que la procesa y verifica si es válida. Para ello, tiene que buscar si la URL a la que está destinada existe o no, haciendo una consulta a la base de datos. Además, también tiene que traer la llave pública de dicha URL para comprobar si la firma de la notificación es correcta o no.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Una vez verificada, se envía a la base de datos para que se guarde como método de backup, y para mantener la persistencia.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            A la vez, se envía a la cola de mensajes, en concreto a <code>/newMessages</code>, indicando que ha entrado una nueva notificación en el sistema. Esta cola es leída por el servidor <code>NS-MSG-Monitor</code>.
+          </para>
+        </listitem>
+      </orderedlist>
     </section>
     <section>
-        <title>NS-WakeUp</title>
-        <para>
-          The NS_WakeUp server is a proxy between the central NS servers and
-          the client equipment (device). This service will receive petitions
-          through a standard HTTP port and will send UDP datagrams or TCP packets
-          (for pinging purposes) inside the OB private network to the private
-          IP of the client equipment. This server must be placed inside the OB
-          private network or in a zone that must see that private IPs.
-        </para>
-        <para>
-          The Wake-Up Proxy server is responsible to ping to the correct
-          client inside each OB (using UDP datagrams). It must be placed inside
-          the OB or in a zone that can see the devices inside that
-          private network.
-        </para>
-        <para>
-          This server will receive the ping orders through a standard HTTP
-          port which will be connected to InterNodo network to receive the
-          data from the VDC inside Telefónica network.
-        </para>
+      <title>Envío de notificación al dispositivo: WebSocket</title>
+      <para>
+        Aqui ocurre el paso 4 de la figura anterior.
+      </para>
+      <orderedlist startingnumber="4">
+        <listitem>
+          <para>
+            El <code>NS-MSG-Monitor</code> lee la cola <code>/newMessages</code>, preguntando a la base de datos la información necesaria sobre los nodos (o dispositivos) que tienen que recibir el mensaje. Dicha consulta devuelve una lista de colas a las que hay que enviar el mensaje.
+          </para>
+          <para>
+            Este paso comienza realmente cuando el mensaje ha sido enviado a la cola determinada que es leída por un servidor de WebSockets (<code>NS-UA-WS</code>) determinado.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Ahora que la notificación está en el servidor en concreto, se tiene que buscar en la base de datos quién es el dispositivo en concreto al que hay mandar.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Una vez recogida la información, se busca en memoria el conector que sea el que corresponda a los datos recibidos, y mediante el canal WebSocket abierto se manda la notificación.
+          </para>
+        </listitem>
+      </orderedlist>
     </section>
     <section>
-        <title>NS-AS</title>
-        <para>
-          The NS_AS server is the frontend for application servers. This server
-          will attend the third party servers through HTTPS POST petitions.
-        </para>
-        <para>
-          This server will expose a HTTPS POST in /notify method in order to
-          receive messages from the third party application servers.
-          The received messages will be stored on the MongoDB and will notify
-          other servers through the Message Queue.
-        </para>
+      <title>Envío de notificación al dispositivo: UDP</title>
+      <orderedlist startingnumber="4">
+        <listitem>
+          <para>
+            El mensaje es recibido por la cola UDP, junto a una serie de datos que venían ya en la notificación, que le permite discernir a qué servidor de WakeUp tiene que enviar la petición para poder despertar al teléfono.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            El servidor de WakeUp recibe una petición HTTP GET con dos parámetros: <code>ip</code> y <code>port</code>, que serán usados para enviar un datagrama UDP a dicha dirección para despertar al teléfono.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Una vez enviada dicho datagrama UDP, el teléfono se despierta y abre una conexión WebSocket con el servidor de notificaciones, enviando un mensaje de tipo <code>registerUA</code>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            El servidor responderá con el mensaje especificado en capítulos anteriores, que incluirá un array con los diferentes mensajes que tienen que ser entregados.
+          </para>
+        </listitem>
+      </orderedlist>
     </section>
-    <section>
-        <title>NS-Monitor</title>
-        <para>
-          The NS_Monitor is the responsible to deliver messages to the correct
-          recipient. So this server will be monitoring all inbound messages,
-          deliver them and verify if re-deliver is needed.
-        </para>
-        <para>
-          The monitor reads the /newMessage queue (which frontends from the
-          NS_AS puts all the received messages), and finds in the database
-          which nodes need to be notified, sending the message to the correct
-          queue the node (user agent) is subscribed to.
-        </para>
-    </section>
-    <section>
-        <title>Message Queue (RabbitMQ)</title>
-        <para>
-          A Message Queue cluster is used to act as a message dispatcher
-          between all the other servers. RabbitMQ or ActiveMQ will be used.
-        </para>
-        <para>
-          This is a standard Message Queue which supports STOMP or AMQP protocol.
-        </para>
-        <para>
-          Because huge load, this server will be deployed in cluster mode.
-        </para>
-    </section>
-    <section>
-        <title>NO-SQL Database (MongoDB)</title>
-        <para>
-          A MongoDB cluster is needed to use as persistent storage system.
-          It is used to save the registered devices, registered apps and
-          received messages.
-        </para>
-        <para>
-          This is a non relational database.
-        </para>
-        <para>
-          Because huge load, this server will be deployed in cluster mode.
-        </para>
-          
+     <section>
+      <title>Confirmación de recepción</title>
+      <para>
+        La confirmación de recepción la realiza el servidor <code>NS-UA-WS</code> a través de una conexión de WebSocket que tenga abierta con algún cliente.
+      </para>
+      <para>
+        Para ello, se emplea el token de la conexión, ya que se guarda la primera vez que se hace el <code>registerUA</code>, y se espera un mensaje de tipo (<code>messageType</code>) <code>ack</code>. En este momento, el servidor pide a la base de datos que elimine de la colección de dispositivos, en el <code>uatoken</code> concreto, el mensaje con el id recién recibido. En términos de MongoDB, es hacer un <code>pull</code> de un elemento en una colección.
+      </para>
+      <para>
+        A partir de este momento, el mensaje ha desaparecido del servidor de notificaciones.
+      </para>
     </section>
   </section>
 </chapter>

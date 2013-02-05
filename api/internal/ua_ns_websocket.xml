@@ -388,7 +388,7 @@
       Con el atributo <code>reason</code> dando una explicación del error en forma humana, con un claro mensaje descriptivo y un atributo <code>watoken</code> indicando qué aplicación ha fallado.
     </para>
     <para>
-      Una vez recibido un mensaje correcto de registro de WA, podemos estar seguros que las notificaciones que envíen los servidores de terceros eventualmente llegarán a la aplicación a la que se envía la notificación.
+      Una vez recibido un mensaje correcto de registro de WA, se puede estar seguro de que las notificaciones que envíen los servidores de terceros eventualmente llegarán a la aplicación a la que se envía la notificación.
     </para>
   </section>
 

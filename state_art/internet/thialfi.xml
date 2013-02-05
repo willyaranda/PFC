@@ -62,13 +62,12 @@
   <formalpara>
     <title>Ventajas</title>
     <para>
-      ...
     </para>
   </formalpara>
   <itemizedlist>
     <listitem>
       <formalpara>
-        <title>Menor datos guardados</title>
+        <title>Menos datos guardados</title>
         <para>
           Es una de las ventajas, pero a la vez es un gran inconveniente. Sólo hay que guardar los objetos que contienen un identificador y un número de versión, por lo que las bases de datos (BigTable, que usan en Google) necesitan menos espacio para poder funcionar, al no guardar mensajes (en GCM el <code>payload</code> máximo es de 4KiB). Además, sólo es necesario guardar el último mensaje para cada aplicación-objeto (básicamente es aumentar el número de versión), mientras que en un sistema como GCM hay que guardar múltiples mensajes.
         </para>
@@ -86,7 +85,7 @@
       <formalpara>
         <title>Entrega siempre actualizada</title>
         <para>
-          La entrega de los mensajes está asegurada, no porque siempre se tenga la última versión en un momento determinado, si no porque seguro que se va a conocer esa versión en un momento futuro. Esto quiere decir que lo único que reciben los clientes es un número de versión de un determinado objeto, que siempre es el máximo posible, por lo que si tenemos un cliente que se ha quedado desactualizado en, digamos, la versión <code>17</code>, y ha llegado la <code>18</code> y no ha podido ser entregada, cuando llegue la versión <code>19</code> el cliente sabrá que tiene que pedir tanto la <code>18</code> como la <code>19</code>, para estar en sincronía con el servidor, por lo que en cualquier momento lo único que almacena un servidor o un cliente es un determinado objecto, con un <code>ID</code> en una versión <code>V</code> determinada.
+          La entrega de los mensajes está asegurada, no porque siempre se tenga la última versión en un momento determinado, si no porque seguro que se va a conocer esa versión en un momento futuro. Esto quiere decir que lo único que reciben los clientes es un número de versión de un determinado objeto, que siempre es el máximo posible, por lo que si se tiene un cliente que se ha quedado desactualizado en, digamos, la versión <code>17</code>, y ha llegado la <code>18</code> y no ha podido ser entregada, cuando llegue la versión <code>19</code> el cliente sabrá que tiene que pedir tanto la <code>18</code> como la <code>19</code>, para estar en sincronía con el servidor, por lo que en cualquier momento lo único que almacena un servidor o un cliente es un determinado objecto, con un <code>ID</code> en una versión <code>V</code> determinada.
         </para>
       </formalpara>
     </listitem>
@@ -102,7 +101,7 @@
       <formalpara>
         <title>Fácil implementación del cliente</title>
         <para>
-          El número de líneas requeridas para la implementación en el cliente es muy bajo, debido a su uso basado en eventos y su fácil lógica, en la siguiente figura podemos ver algunos ejemplos:
+          El número de líneas requeridas para la implementación en el cliente es muy bajo, debido a su uso basado en eventos y su fácil lógica, en la siguiente figura se pueden ver algunos ejemplos:
         </para>
       </formalpara>
       <figure>

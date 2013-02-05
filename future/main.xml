@@ -123,7 +123,7 @@
         <formalpara>
           <title>IP Privadas</title>
           <para>
-            Aunque IPv6 provea miles de millones de diferentes direcciones y se pueda identificar a cada dispositivo por una IP diferente, las operadoras podrían decidir seguir creando redes privadas como ocurre ahora mismo en las redes IPv4, para proteger de la misma manera el acceso desde internet hacia los teléfonos de forma incontrolada. Sin embargo, cumpliría lo mismo que haría el cortafuegos propuesto anteriormente, pero además, al estar en un segmento de red que no se puede llegar por ser privado, tendría el problema de que estos dispositivos no podrían ser contactados directamente, por lo que necesitarían un proxy intermedio para poder hacer las peticiones.
+            Aunque IPv6 provea miles de millones de diferentes direcciones y se pueda identificar a cada dispositivo por una IP diferente, las operadoras podrían decidir seguir creando redes privadas como ocurre ahora mismo en las redes IPv4, para proteger de la misma manera el acceso desde Internet hacia los teléfonos de forma incontrolada. Sin embargo, cumpliría lo mismo que haría el cortafuegos propuesto anteriormente, pero además, al estar en un segmento de red que no se puede llegar por ser privado, tendría el problema de que estos dispositivos no podrían ser contactados directamente, por lo que necesitarían un proxy intermedio para poder hacer las peticiones.
           </para>
         </formalpara>
       </listitem>
@@ -213,7 +213,7 @@
       Sin embargo, el principal problema es que los usuarios no suelen tener solo una aplicación de este tipo, si no que suelen tener varias, muchas veces dependiendo del círculo de amigos, o de donde tengan más contactos. Así pues, podría ocurrir que ese socket se multiplicara por dos, tres, o incluso 4, según el número de aplicaciones que lo requieran.
     </para>
     <para>
-      Es por esto que una de las ideas es la de proveer un API a los servicios para comprobar si alguien está conectado/desconectado o en estado ausente. Esto se podría hacer de una forma muy sencilla tal y como está montado el servidor de aplicaciones, ya que sería hacer una petición a la URL que queremos saber si se puede entregar, se miraría el estado del nodo o de los nodos que corresponden a dicha URL y se devolvería cuál es el estado actual: conectado, desconectado, ausente o indefinido (cuando estemos bajo UDP y no tengamos una conexión abierta)
+      Es por esto que una de las ideas es la de proveer un API a los servicios para comprobar si alguien está conectado/desconectado o en estado ausente. Esto se podría hacer de una forma muy sencilla tal y como está montado el servidor de aplicaciones, ya que sería hacer una petición a la URL que se quiere saber si se puede entregar, se miraría el estado del nodo o de los nodos que corresponden a dicha URL y se devolvería cuál es el estado actual: conectado, desconectado, ausente o indefinido (cuando se esté bajo UDP y no tengamos una conexión abierta)
     </para>
     <para>
       Esto trasladaría la carga de la red desde los terminales y la red de telefonía al servidoe de notificaciones y a Internet, porque no tienen que estar respondiendo los terminales continuamente, ni manteniendo canales abiertos, si no que es el propio servidor el que sabe si el dispositivo puede ser alcanzable o no.

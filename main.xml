@@ -43,10 +43,9 @@
   <xi:include href="architecture/main.xml" />
   <xi:include href="technologies/main.xml" />
   <xi:include href="security/main.xml" />
-  <!-- <xi:include href="comparision/main.xml" /> -->
   <xi:include href="lessons_learned/main.xml" />
   <xi:include href="future/main.xml" />
-  <!-- <xi:include href="conclusions.xml" /> -->
+  <xi:include href="conclusions.xml" />
 
   <!-- Glosario y bibliografía -->
   <xi:include href="glossary.xml" />

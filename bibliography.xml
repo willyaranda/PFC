@@ -6,7 +6,8 @@
   <bibliodiv>
     <title>PDFs</title>
     <biblioentry>
-      <abbrev>NikMar-libuv</abbrev>
+      <abbrev>MAR12</abbrev>
+      <title>An Introduction to libuv</title>
       <authorgroup>
         <author>
           <personname>
@@ -19,16 +20,17 @@
         <year>2012</year>
         <holder>Nikhil Marathe</holder>
       </copyright>
-      <title>An Introduction to libuv</title>
       <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro online</link>
     </biblioentry>
   </bibliodiv>
 
   <!-- Libros -->
+  <!-- [XXX99A] “Título del Libro”. Apellidos y nombre del autor. Lugar, editorial y año de publicación. -->
   <bibliodiv>
     <title>Libros</title>
     <biblioentry>
-      <abbrev>NikMar-libuv</abbrev>
+      <abbrev>MAR12</abbrev>
+      <title>An Introduction to libuv</title>
       <authorgroup>
         <author>
           <personname>
@@ -41,16 +43,16 @@
         <year>2012</year>
         <holder>Nikhil Marathe</holder>
       </copyright>
-      <title>An Introduction to libuv</title>
       <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro online</link>
     </biblioentry>
   </bibliodiv>
 
   <!-- Artículos -->
+  <!-- “Título del Artículo”. Apellidos y nombre del autor. Nombre de la Revista, Año, Número, Volumen, Editor. -->
   <bibliodiv>
     <title>Artículos</title>
     <biblioentry>
-      <abbrev>NikMar-libuv</abbrev>
+      <abbrev>MAR12</abbrev>
       <authorgroup>
         <author>
           <personname>

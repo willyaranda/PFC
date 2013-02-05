@@ -6,7 +6,7 @@
 
   <title>Seguridad</title>
   <para>
-    La seguridad es uno de los puntos más importantes en cualquier sistema informático, y por supuesto no ha podido obviarse en este proyecto. Tener un sistema seguro es una tarea complicada, que requiere de mucho esfuerzo y dedicación, y sobre todo, de investigar cuáles pueden ser los fallos del sistema que pueden ser abusados. Aún así, cualquier sistema, por muy seguro que sea, siempre puede ser mejorado, y debe serlo, puesto que en el servidor de notificaciones estamos moviendo mensajes, que pueden ir en claro, e identificando quién los manda y hacia qué terminales, por lo que puede ser un grave problema si tenemos algún fallo de seguridad.
+    La seguridad es uno de los puntos más importantes en cualquier sistema informático, y por supuesto no ha podido obviarse en este proyecto. Tener un sistema seguro es una tarea complicada, que requiere de mucho esfuerzo y dedicación, y sobre todo, de investigar cuáles pueden ser los fallos del sistema que pueden ser abusados. Aún así, cualquier sistema, por muy seguro que sea, siempre puede ser mejorado, y debe serlo, puesto que en el servidor de notificaciones estamos moviendo mensajes, que pueden ir en claro, e identificando quién los manda y hacia qué terminales, por lo que puede ser un grave problema si se tiene algún fallo de seguridad.
   </para>
   <para>
     Así pues, ha habido diferentes elementos del sistema que ha habido que poner más énfasis en la seguridad, bien porque eran susceptibles de mostrar información personal, bien porque se creía que podrían recibir ataques por fuerza bruta o de denegación de servicio o incluso porque son aquellos que están expuestos tanto a los terminales como a Internet, y siempre son un dulce muy apetitoso para personas con no buenas intenciones.
@@ -73,7 +73,7 @@ token.prototype = {
       </figure>
     </para>
     <para>
-      Así, en la figura anterior, podemos ver cómo está generado el token de dispositivo:
+      Así, en la figura anterior, se puede ver cómo está generado el token de dispositivo:
     </para>
     <orderedlist>
       <listitem>
@@ -103,12 +103,12 @@ token.prototype = {
       </listitem>
       <listitem>
         <para>
-          Devolvemos el token generado cifrado con AES y la clave <code>cryptoKey</code> que está configurada en el fichero <filename>config.js</filename> que deben obligatoriamente compartir todos las instancias del servidor de notificaciones que generen tokens, pues es el principal medio para descifrar el token para realizar las operaciones y se usa para comprobar si es válido en el sistema.
+          Se devuelve el token generado cifrado con AES y la clave <code>cryptoKey</code> que está configurada en el fichero <filename>config.js</filename> que deben obligatoriamente compartir todos las instancias del servidor de notificaciones que generen tokens, pues es el principal medio para descifrar el token para realizar las operaciones y se usa para comprobar si es válido en el sistema.
         </para>
       </listitem>
     </orderedlist>
     <para>
-      Así pues, se puede observar que el token puede ser comprobado mediante la verificación con la función <code>verify(token)</code>, esto es, descifrando el token y comprobando su CRC. En primer lugar, si el descifrado no es correcto, el token recibido no es válido, por lo que podemos rechazarlo. Pero además, y en segundo lugar, podemos comprobar si el CRC (el hash MD5 calculado en la figura anterior) es válido, separando por el caracter <code>@</code> que habrá después de descifrar y comprobando si la segunda parte concuerda con la primera parte, habiéndole aplicado la misma función de hash.
+      Así pues, se puede observar que el token puede ser comprobado mediante la verificación con la función <code>verify(token)</code>, esto es, descifrando el token y comprobando su CRC. En primer lugar, si el descifrado no es correcto, el token recibido no es válido, por lo que se puede rechazar. Pero además, y en segundo lugar, es posible comprobar si el CRC (el hash MD5 calculado en la figura anterior) es válido, separando por el caracter <code>@</code> que habrá después de descifrar y comprobando si la segunda parte concuerda con la primera parte, habiéndole aplicado la misma función de hash.
       <figure>
         <title>Verificación de tokens</title>
         <programlisting language="JavaScript">
