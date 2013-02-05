@@ -20,6 +20,14 @@
       El servicio GCM maneja todos los aspectos del encolamiento de los mensajes y entrega a la aplicación Android determinada que se puede ejecutar en el dispositivo.
     </para>
   </blockquote>
+  <figure>
+    <title>GCM logo</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../../resources/gcm-logo.png" align="justify" width="10cm" />
+      </imageobject>
+    </mediaobject>
+  </figure>
   <formalpara>
     <title>Características</title>
     <para>GCM tiene como características más interesantes:

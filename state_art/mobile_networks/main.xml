@@ -132,7 +132,7 @@
       <title>Esquema de estados radio</title>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="../../resources/rcc_states.png" align="center" width="5in" />
+          <imagedata fileref="../../resources/rcc_states.png" align="justify" width="5in" />
         </imageobject>
       </mediaobject>
     </figure>
@@ -141,6 +141,57 @@
     </para>
     <para>
       Entonces, como se puede ver, se quiere mantener el dispositivo durante el máximo tiempo posible en este estado, por todas las razones expuestas anteriormente.
+    </para>
+    <para>
+      En las figuras siguientes, se muestran combinaciones de aplicaciones muy conocidas actualmente (como mensajería instantánea o VoIP) junto a las pruebas realizadas en diferentes terminales móviles, con los sistemas operativos más usados en estos momentos.
+    </para>
+    <note>
+      Por cuestiones legales, no pueden mostrarse los nombres de las aplicaciones y los terminales usados para generar estas gráfcias. Pruebas realizadas por los laboratorios de Telefónica de España, S.A.
+    </note>
+    <figure>
+      <title>Aplicación con demasiado tráfico de control, 1</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../../resources/apps-example-1.png" align="justify" width="15cm" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+    <para>
+      En la figura anterior, se puede ver el caso de una aplicación que utiliza muy mal los recursos de la red. Abre una conexión que mantiene de forma permanente con los servidores de su aplicación, ya sea para indicar actividad o presencia, recepción de mensajes de control u otras funciones.
+    </para>
+    <para>
+      Cada color es un terminal diferente, que pueden tener diferentes sistemas operativos y versiones, y se puede observar el comportamiento tan errático que tiene a lo largo del tiempo. Manda mensajes en tiempos totalmente aleatorios, pero próximos en el tiempo, incluso del órden de kilobytes.
+    </para>
+    <para>
+      El problema principal es que el modem radio no puede quedarse en un estado de bajo consumo energético, debido a estos cambios totalmente aleatorios. Cada vez que una aplicación quiere enviar datos, tiene que restaurar la conexión de radio móvil, actualizar hasta el estado necesario para poder empezar a transmisitir, y empezar a enviar y recibir datos.
+    </para>
+    <figure>
+      <title>Aplicación con demasiado tráfico de control, 2</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../../resources/apps-example-2.png" align="justify" width="15cm" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+    <para>
+      Si la primera gráfica indicaba un comportamiento errático de una aplicación, con unos envíos de datos totalmente aleatorio, esta indica todo lo contrario, con un comportamiento muy estable, pero tremendamente perjudicial para la red.
+    </para>
+    <para>
+      Está todo el rato enviando datos de control, del orden de unos 256 bytes, y durante intervalos muy cortos de tiempo, del orden de segundos. Esto lo que provoca es que el modem radio del terminal sea incapaz de llegar a los temporizadores mostrados anteriormente para bajar su nivel de actividad, y por tanto, su nivel de uso de batería. Es probablemente mucho más perjudicial para las redes y las baterías de los móviles que la aplicación anterior.
+    </para>
+    <figure>
+      <title>Aplicación con poco tráfico de control</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../../resources/apps-example-3.png" align="justify" width="15cm" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+    <para>
+      En esta gráfica, se puede ver una aplicación que hace un uso más coherente de los recursos de las redes móviles, haciendo <code>PING</code>s cada 10 minutos (o 600 segundos) para informar de presencia o cualquier otro dato de control.
+    </para>
+    <para>
+      Sin embargo, también tiene un problema, y es el uso de <code>PING</code>s para informar de diferentes hechos en la aplicación. Podría ser aceptable tener una sola aplicación en el móvil que haga esto, pero sin embargo, los usuarios suelen tener varias instaladas: alguna aplicación de mensajería instantánea, otras de VoIP, clientes de lectura de RSS, información sobre correos nuevos… El problema viene cuando cada una realiza exactamente esto, que al final se está haciendo <code>PING</code>s cada minuto o menos, por lo que la suma de todas las aplicaciones hace que cualquier precaución tomada de forma independiente por cada una de ellas, se evapore.
     </para>
   </section>
 

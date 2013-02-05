@@ -15,7 +15,7 @@
     <title>Esquema general de la arquitectura</title>
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../../resources/whole-arch.png" align="center" width="16cm" />
+        <imagedata fileref="../../resources/whole-arch.png" align="justify" width="16cm" />
       </imageobject>
     </mediaobject>
   </figure>
@@ -183,7 +183,7 @@
         <title>Flujo de registro</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="../../resources/register-flow.png" align="center" width="14cm" />
+            <imagedata fileref="../../resources/register-flow.png" align="justify" width="14cm" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -209,7 +209,7 @@
         <title>Flujo de notificación</title>
         <mediaobject>
           <imageobject>
-            <imagedata fileref="../../resources/notification-flow.png" align="center" width="14cm" />
+            <imagedata fileref="../../resources/notification-flow.png" align="justify" width="14cm" />
           </imageobject>
         </mediaobject>
       </figure>

@@ -6,35 +6,137 @@
 
   <title xml:id="state_art_Internet_apns_title">APNS: Apple Push Notification Service</title>
   <para>
-    TODO XXX
-    APNS o Apple Push Notification Service es otro de los sistemas creado por empresas creadoras de sistemas operativos para solventar el problema de notificaciones push, en este caso para dispositivos iOS, como el iPhone o el iPad.
+    APNS o Apple Push Notification Service es otro de los sistemas creado por empresas fabricantes de sistemas operativos para solventar el problema de notificaciones push, en este caso para dispositivos iOS, como el iPhone o el iPad.
   </para>
   <para>
-    Este sistema es muy similar en comportamiento a GCM pero con alguna variación, sobre todo en los tipos de mensajes que puede enviar los desarrolladores y cómo se tratan las notificaciones por el usuario.
+    Este sistema es muy similar en comportamiento a GCM pero con alguna variación, sobre todo en los tipos de mensajes que puede enviar los desarrolladores y cómo se tratan las notificaciones por el usuario, que se verá más adelante.
   </para>
   <formalpara>
     <title>Historia</title>
     <para>
-      Fue lanzado con la versión 3.0 de iOS, el 17 de junio de 2009, que correspondía . Ha sido mejorado con el paso del tiempo e introducido en los equipos de escritorio con la versión 10.7 de MacOS usando el centro de notificaciones, también presente en iOS 5.
+      Fue lanzado con la versión 3.0 de iOS, el 17 de junio de 2009, que correspondía . Ha sido mejorado con el paso del tiempo e introducido en los equipos de escritorio con la versión 10.7 de MacOS usando el centro de notificaciones, también presente en iOS 5 y posteriores.
+    </para>
+    <para>
+      Su primera versión fue retrasada algunos meses debido a los problemas de escalabilidad que se estaban teniendo en el sistema por la gran avalancha de peticiones y uso que estaban dando los desarrolladores a este sistema<footnote><para>http://www.engadget.com/2008/06/09/iphone-push-notification-service-for-devs-announced/</para></footnote>
     </para>
   </formalpara>
   <formalpara>
     <title>Características</title>
     <para>
-
+      Este sistema posee una serie de características que no tienen los demás métodos de notificaciones push, los cuales son:
     </para>
   </formalpara>
+  <itemizedlist>
+    <listitem>
+      <para>
+        Usa un protocolo binario para el envío de datos, bajo una conexión TCP cruda. Esto hace que el tamaño de las notificaciones y de los mensajes de control sea más pequeño, pero a la vez sea más difícil de descifrar, puesto que el protocolo es cerrado.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Su uso es muy amplio, y obligatorio para todas las aplicaciones certificadas por Apple (todas aquellas que estén en su tienda de aplicaciones) en vez de implementar servicios de polling.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Hay un canal de escucha de feedback, por lo que se puede saber si las notificaciones se han enviado correctamente o no. Además, también informa sobre de-registros de aplicaciones y dispositivos.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Está controlado absolutamente por Apple, pudiendo censurar y eliminar a dispositivos y servidores que estén haciendo un uso indebido de su infraestructura.
+      </para>
+    </listitem>
+  </itemizedlist>
   <formalpara>
     <title>Ventajas</title>
     <para>
-
+      En primer lugar, se van a listar las diferentes ventajas que tiene sobre sus competidores, como son:
     </para>
   </formalpara>
+  <itemizedlist>
+    <listitem>
+      <para>
+        Tiene mayor seguridad, puesto que las notificaciones recibidas para aplicaciones que están en segundo plano o cerradas, no son enviadas directamente, si no que se muestran en la barra de estado, y hasta que el usuario no pulsa y acepta en ellas, no se envían a la aplicación, añadiendo un nivel más de seguridad: la aceptación del usuario.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Funcional tanto en los dispositivos móviles, como iPad o iPhone y en los sistemas de escritorio, como MacOS X, a partir de su versión 10.7, siendo el API el mismo para ambos sistemas.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Permite tres tipos diferentes de notificaciones, que se adecuán a diferentes opciones visuales y sonoras:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>Badges</title>
+            <para>
+              Muestra una imagen o número en el icono de la aplicación.
+            </para>
+          </formalpara>
+        </listitem>
+        <listitem>
+          <formalpara>
+            <title>Alerta/Banners</title>
+            <para>
+              Muestra un aviso en el centro de la pantalla.
+            </para>
+          </formalpara>
+        </listitem>
+        <listitem>
+          <formalpara>
+            <title>Sonido</title>
+            <para>
+              Reproduce un sonido determinado.
+            </para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
   <formalpara>
     <title>Problemas</title>
     <para>
-
+      Sin embargo, hay una serie de problemas con este sistema que merece la pena reseñar, como son:
     </para>
   </formalpara>
+  <itemizedlist>
+    <listitem>
+      <para>
+        Procolo muy cerrado y sin posibilidad de implementaciones de terceros, en ningún sistema operativo.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        El payload que pueden llevar las notificaciones es como mucho de 256 KiB, lo que hace que muchas aplicaciones necesiten una segunda conexión para recoger los datos reales, ya que pueden ocupar más que lo permitido.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        El servidor que envía las notificaciones tiene que tener abierta otra conexión con un servidor de feedback de Apple para recibir el estado de las entregas.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Demasiada burocracia: creación de certificados ad-hoc, certificados SSL, es necesario registro, para probar se tienen que utilizar un dispositivo en concreto registrado con Apple…
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Sistema centralizado, y propenso a que si hay un fallo, ningún dispositivo de Apple pueda recibir notificaciones.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Cuotas muy estrictas: un mensaje por aplicación, y hasta un máximo de 100 por dispositivo.
+      </para>
+    </listitem>
+  </itemizedlist>
+  <para>
+    Como se puede observar, es un sistema bastante más limitado que GCM, con menores opciones, mayor control sobre lo que pueden hacer las aplicaciones y los desarrolladores pero con la ventaja de que funciona en todos los sistemas operativos de Apple.
+  </para>
 
 </section>

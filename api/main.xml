@@ -51,7 +51,7 @@
     <title>Instancias y comunicaciones</title>
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../resources/actors_and_channels.png" align="center" width="14cm" />
+        <imagedata fileref="../resources/actors_and_channels.png" align="justify" width="14cm" />
       </imageobject>
     </mediaobject>
   </figure>

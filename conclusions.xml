@@ -6,25 +6,34 @@
 
   <title>Conclusiones</title>
   <para>
-    Durante el desarrollo de este proyecto, se ha explicado cuál es el problema principal de las actuales soluciones de notificaciones push que están disponible en los diferentes sistemas operativos móviles, viendo que la sobrecarga en las redes por usar conexiones permanentes es muy perjudicial, así como debido al alto número de mensajes de señalización que son necesarios para que funcione el protocolo GSM correctamente. Esto repercute negativamente a la salud de las redes, debido a que se congestionan con facilidad, y al final se están transmitiendo más datos de control que reales, lo que puede llevar a que no haya ningún dato usable por las aplicaciones en estas comunicaciones.
+    Durante el desarrollo de este proyecto, se ha explicado cuál es el problema principal de las actuales soluciones de notificaciones push que están disponibles en los diferentes sistemas operativos móviles, viendo que la sobrecarga en las redes por usar conexiones permanentes es muy perjudicial, así como debido al alto número de mensajes de señalización que son necesarios para que funcione el protocolo GSM correctamente. Esto repercute negativamente en la salud de las redes, debido a que se congestionan con facilidad, y al final se están transmitiendo más datos de control que reales, lo que puede llevar a que no haya ningún dato usable por las aplicaciones en estas comunicaciones.
   </para>
   <para>
     Así pues, la idea es la de usar todos los beneficios que proporcionan las redes móviles y los dispositivos que hacen uso de ellas, para realizar un sistema push más eficiente y amigable con la red, pensado para que incluso cualquier sistema operativo moderno pueda implementarlo y sea usable e interoperable.
   </para>
   <para>
-    Para ello, se han discutido los diferentes sistemas actuales de push en las plataformas móviles más conocidas, como son Android y iOS, viendo cuáles son sus puntos débiles y sus virtudes, para evitar tener los mismos problemas y a la vez coger lo más positivo para enriquecer el sistema aquí propuesto. Se ha visto que los sistemas son muy similares en su uso, y al final siempre mantienen una conexión abierta, con PINGs periódicos para hacer que no se caiga dicha conexión y poder mantener siempre un canal abierto entre los dos extremos.
+    Para ello, se han discutido los diferentes sistemas actuales de push en las plataformas móviles más conocidas, como son Android y iOS, viendo cuáles son sus puntos débiles y sus virtudes, para evitar tener los mismos problemas y a la vez coger lo más positivo para enriquecer el sistema aquí propuesto. Se ha visto que los sistemas son muy similares en su uso y concepción, y al final siempre mantienen una conexión abierta, con PINGs periódicos para hacer que no se caiga dicha conexión y poder mantener siempre un canal abierto entre los dos extremos.
   </para>
   <para>
     Así pues, el aprovechar todas las posibilidades que tienen las redes móviles, conocer su funcionamiento y sus peculiaridades, ha ayudado a crear esta solución que ahorra en costes para las operadoras, puesto que tienen menos carga en su red (medida en mensajes de señalización y en conexiones abiertas), y repercute en los usuarios en un menor uso de batería y de datos, lo que influye en una mejor calidad del servicio y en un ahorro económico.
   </para>
   <para>
-    Además, el trabajo se ha realizado con vistas a la estandarización por parte del W3C, por lo que el ánimo es que esté disponible en todos los navegadores, tanto de escritorio como móviles, y que, dado su protocolo simple, también pueda implementarse en sistemas operativos, principalmente móviles, para tener ventaja sobre el resto, pero también en sistemas de escritorio, y permitir a los desarrolladores tener una única API con la que trabajar, realizando desarrollos más rápidos, eficientes y multiplataforma.
+    Además, el trabajo se ha realizado con vistas a la estandarización por parte del W3C, por lo que el ánimo es que esté disponible en todos los navegadores y que, dado su protocolo simple, también pueda implementarse en sistemas operativos, principalmente móviles, para tener ventaja sobre el resto, pero también en sistemas de escritorio, y permitir a los desarrolladores tener una única API con la que trabajar, realizando desarrollos más rápidos, eficientes y multiplataforma.
   </para>
   <para>
-    Un dato muy importante es la capacidad de que las notificaciones planteadas pueden transmitir datos, lo que influye en que las aplicaciones que las reciban puedan usarlas directamente, sin tener que hacer una segunda conexión a su servidor, lo que repercutiría muy negativamente en las redes y en la batería, eliminando cualquier mejora planteada por las soluciones al no mantener canales abiertos con mensajes de keep-alives.
+    Un dato muy importante es la capacidad de que las notificaciones planteadas pueden transmitir datos, lo que influye en que las aplicaciones que las reciban puedan usarlas directamente, sin tener que hacer una segunda conexión a su servidor, lo que repercutiría muy negativamente en las redes y en la batería, eliminando cualquier mejora planteada por las soluciones al no mantener canales abiertos con mensajes de <code>keep-alives</code>.
   </para>
   <para>
-    La primera implementación se ha realizado con éxito en los dispositivos con FirefoxOS, pudiendo realizar todo lo que se puede hacer con otros sistemas de push, como el de Android o el de iOS, incluso despertando a aplicaciones que están cerradas y tienen que ser abiertas para que dichas aplicaciones procesen las notificaciones.
+    La primera implementación se ha realizado con éxito en los dispositivos con FirefoxOS, pudiendo realizar todo lo que se puede hacer con otros sistemas de push, como el de Android o el de iOS, incluso despertando a aplicaciones que están cerradas y tienen que ser abiertas para que procesen las notificaciones.
+  </para>
+  <para>
+    Como se ha demostrado, este servidor es tanto continuista como innovador, ya que utiliza algunas de las ideas de otros sistemas, como cuánto temaño se permite en cada mensaje y el tipo de conexión, pero sin embargo, se añade la posibilidad de que el terminal no tenga conexiones abiertas continuamente y pueda ser despertado utilizando las diferentes ventajas que nos permite la red móvil.
+  </para>
+  <para>
+    Es por eso que puede suponer un gran cambio en el uso de los servicios de push en los diferentes sistemas operativos, debido a que es muy fácil de implementar y ayuda enormemente a las operadoras a que no tengan sus redes colapsadas y que los usuarios no gasten tantos datos en paquetes de control y batería por tener que mantener conexiones abiertas sin utilidad clara.
+  </para>
+  <para>
+    Por tanto, el futuro de esta tecnología es prometedor, puesto que ayuda a todas las partes implicadas en las comunicaciones móviles con intereses en las notificaciones push, a tener un mejor sistema que elimina mensajes redundantes, haciendo que las redes se comporten de manera más óptima, utilizando un sistema estándar para todos los sistemas, y que repercutirá muy positivamente en los usuarios, puesto que verán que la batería de sus dispositivos portátiles aumentará en tiempo y los datos descargardos serán menores.
   </para>
 
 </chapter>
