@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Flujos de trabajo</title><link rel="stylesheet" type="text/css" href="docbook.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/><link rel="prev" href="ch04.xhtml" title="Capítulo 4. Arquitectura interna"/><link rel="next" href="ch05.xhtml" title="Capítulo 5. Tecnologías"/></head><body><header><div class="navheader"><table style="width: 100%; "><tr><th style="text-align: center; " colspan="3">Flujos de trabajo</th></tr><tr><td style="width: 20%; text-align: left; "><a accesskey="p" href="ch04.xhtml">Anterior</a> </td><th style="width: 60%; text-align: center; ">Capítulo 4. Arquitectura interna</th><td style="width: 20%; text-align: right; "> <a accesskey="n" href="ch05.xhtml">Siguiente</a></td></tr></table><hr/></div></header><section class="section" id="idp329936"><div class="titlepage"><div><div><h2 class="title" style="clear: both">Flujos de trabajo</h2></div></div></div><p>
+      Así que una vez que están presentados los diferentes actores que contribuyen al funcionamiento correcto del servidor, se puede hablar de cómo se gestionan internamente los diferentes escenarios que pueden suceder. Así pues:
+    </p><section class="section" id="idp331200"><div class="titlepage"><div><div><h3 class="title">Registros de dispositivos/aplicaciones</h3></div></div></div><p>
+        Una vez hay disponible una conexión abierta, es flujo de registro es el siguiente:
+      </p><div class="figure" id="idp332336"><div class="figure-title">Figura 4.2. Flujo de registro</div><div class="figure-contents"><div style="text-align: center; " class="mediaobject"><table style="border: 0; width: 496; cellpadding: 0; cellspacing: 0;"><tr><td style="text-align: center; "><img style="text-align: middle; width: 496; " src="../../resources/register-flow.png" alt="Flujo de registro"/></td></tr></table></div></div></div><br class="figure-break"/><p>
+        Como se puede observar, sólo actúan dos componentes del servidor de notificaciones, y es como sigue:
+      </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+            El registro es recibido por el servidor <code class="code">NS-UA-WS</code>, que lo procesa.
+          </p></li><li class="listitem"><p>
+            Una vez procesado y aceptado, los datos necesarios, como la IP, puerto y demás información, como el token de usuario o de aplicación, es guardado en la base de datos para posterior uso.
+          </p></li></ol></div></section><section class="section" id="idp338224"><div class="titlepage"><div><div><h3 class="title">Aceptación de notificación</h3></div></div></div><div class="figure" id="idp338928"><div class="figure-title">Figura 4.3. Flujo de notificación</div><div class="figure-contents"><div style="text-align: center; " class="mediaobject"><table style="border: 0; width: 496; cellpadding: 0; cellspacing: 0;"><tr><td style="text-align: center; "><img style="text-align: middle; width: 496; " src="../../resources/notification-flow.png" alt="Flujo de notificación"/></td></tr></table></div></div></div><br class="figure-break"/><p>
+        Según la figura anterior, los únicos puntos que se ponen en marcha son el 1, 2 y 3.
+      </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+            La notificación es recibida por el servidor <code class="code">NS-AS</code>, que la procesa y verifica si es válida. Para ello, tiene que buscar si la URL a la que está destinada existe o no, haciendo una consulta a la base de datos. Además, también tiene que traer la llave pública de dicha URL para comprobar si la firma de la notificación es correcta o no.
+          </p></li><li class="listitem"><p>
+            Una vez verificada, se envía a la base de datos para que se guarde como método de backup, y para mantener la persistencia.
+          </p></li><li class="listitem"><p>
+            A la vez, se envía a la cola de mensajes, en concreto a <code class="code">/newMessages</code>, indicando que ha entrado una nueva notificación en el sistema. Esta cola es leída por el servidor <code class="code">NS-MSG-Monitor</code>.
+          </p></li></ol></div></section><section class="section" id="idp347088"><div class="titlepage"><div><div><h3 class="title">Envío de notificación al dispositivo: WebSocket</h3></div></div></div><p>
+        Aqui ocurre el paso 4 de la figura anterior.
+      </p><div class="orderedlist"><ol class="orderedlist" start="4" type="1"><li class="listitem"><p>
+            El <code class="code">NS-MSG-Monitor</code> lee la cola <code class="code">/newMessages</code>, preguntando a la base de datos la información necesaria sobre los nodos (o dispositivos) que tienen que recibir el mensaje. Dicha consulta devuelve una lista de colas a las que hay que enviar el mensaje.
+          </p><p>
+            Este paso comienza realmente cuando el mensaje ha sido enviado a la cola determinada que es leída por un servidor de WebSockets (<code class="code">NS-UA-WS</code>) determinado.
+          </p></li><li class="listitem"><p>
+            Ahora que la notificación está en el servidor en concreto, se tiene que buscar en la base de datos quién es el dispositivo en concreto al que hay mandar.
+          </p></li><li class="listitem"><p>
+            Una vez recogida la información, se busca en memoria el conector que sea el que corresponda a los datos recibidos, y mediante el canal WebSocket abierto se manda la notificación.
+          </p></li></ol></div></section><section class="section" id="idp538736"><div class="titlepage"><div><div><h3 class="title">Envío de notificación al dispositivo: UDP</h3></div></div></div><div class="orderedlist"><ol class="orderedlist" start="4" type="1"><li class="listitem"><p>
+            El mensaje es recibido por la cola UDP, junto a una serie de datos que venían ya en la notificación, que le permite discernir a qué servidor de WakeUp tiene que enviar la petición para poder despertar al teléfono.
+          </p></li><li class="listitem"><p>
+            El servidor de WakeUp recibe una petición HTTP GET con dos parámetros: <code class="code">ip</code> y <code class="code">port</code>, que serán usados para enviar un datagrama UDP a dicha dirección para despertar al teléfono.
+          </p></li><li class="listitem"><p>
+            Una vez enviada dicho datagrama UDP, el teléfono se despierta y abre una conexión WebSocket con el servidor de notificaciones, enviando un mensaje de tipo <code class="code">registerUA</code>
+          </p></li><li class="listitem"><p>
+            El servidor responderá con el mensaje especificado en capítulos anteriores, que incluirá un array con los diferentes mensajes que tienen que ser entregados.
+          </p></li></ol></div></section><section class="section" id="idp545536"><div class="titlepage"><div><div><h3 class="title">Confirmación de recepción</h3></div></div></div><p>
+        La confirmación de recepción la realiza el servidor <code class="code">NS-UA-WS</code> a través de una conexión de WebSocket que tenga abierta con algún cliente.
+      </p><p>
+        Para ello, se emplea el token de la conexión, ya que se guarda la primera vez que se hace el <code class="code">registerUA</code>, y se espera un mensaje de tipo (<code class="code">messageType</code>) <code class="code">ack</code>. En este momento, el servidor pide a la base de datos que elimine de la colección de dispositivos, en el <code class="code">uatoken</code> concreto, el mensaje con el id recién recibido. En términos de MongoDB, es hacer un <code class="code">pull</code> de un elemento en una colección.
+      </p><p>
+        A partir de este momento, el mensaje ha desaparecido del servidor de notificaciones.
+      </p></section></section><footer><div class="navfooter"><hr/><table style="width: 100%; "><tr><td style="width: 40%; text-align: left; "><a accesskey="p" href="ch04.xhtml">Anterior</a> </td><td style="width: 20%; text-align: center; "><a accesskey="u" href="ch04.xhtml">Subir</a></td><td style="width: 40%; text-align: right; "> <a accesskey="n" href="ch05.xhtml">Siguiente</a></td></tr><tr><td style="width: 40%; text-align: left; vertical-align: top; ">Capítulo 4. Arquitectura interna </td><td style="width: 20%; text-align: center; "><a accesskey="h" href="index.xhtml">Inicio</a></td><td style="width: 40%; text-align: right; vertical-align: top; "> Capítulo 5. Tecnologías</td></tr></table></div></footer></body></html>
