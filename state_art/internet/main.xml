@@ -7,10 +7,10 @@
 
   <title xml:id="state_art_Internet_title">Internet</title>
   <para>
-    Una vez visto las diferentes plataformas push creadas por los organismos de los operadores de telefonía móvil, y que seguir explicando otros mecanismos, yendo hacia tecnologías más modernas y que han sido creadas por empresas radicadas principalmente en Internet. Estas tecnologías son relativamente similares entre ellas, pero se difieren en las cuotas, autenticación… pero la idea sobre cómo mantener el canal de comunicación entre los dispositivos y el servidor de notificaciones es muy similar.
+    Una vez vistas las diferentes plataformas push creadas por los organismos de los operadores de telefonía móvil, el siguiente paso es explicar otros mecanismos, caminando hacia tecnologías más modernas creadas por empresas radicadas principalmente en Internet. Estas tecnologías son relativamente guardan importantes similitudes entre ellas, pero difieren en las cuotas, autenticación… Sin embargo, la idea de cómo mantener el canal de comunicación entre los dispositivos y el servidor de notificaciones es muy semejante.
   </para>
   <para>
-    Así pues, a continuación se ven cada una de estas tecnologías y a explicarlas brevemente.
+    A continuación se procede a una breve explicación de cada una de estas tecnologías.
   </para>
 
   <xi:include href="gcm.xml" />
