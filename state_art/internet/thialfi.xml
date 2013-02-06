@@ -6,11 +6,11 @@
 
   <title xml:id="state_art_Internet_thialfi_title">Thialfi: el futuro de Google</title>
   <para>
-    Thialfi es un nuevo protocolo diseñado y publicado por Google<footnote><para>http://research.google.com/pubs/pub37474.html</para></footnote> que intenta arreglar algunos de los problemas que tienen los sistemas de notificaciones que pasan mensajes completos a través de la red, y el consiguiente problema de infraestructura y escalabilidad que podría resultar de tener millones de terminales conectados a la vez mandando muchos mensajes a través de la red y en espera de ser entregados.
+    Thialfi es un nuevo protocolo diseñado y publicado por Google<footnote><para>http://research.google.com/pubs/pub37474.html</para></footnote> que trata de arreglar algunos de los problemas de los sistemas de notificaciones: el paso de mensajes completos a través de la red y el consiguiente inconveniente de infraestructura y escalabilidad que podría resultar de tener millones de terminales conectados a la vez mandando muchos mensajes a través de la red y en espera para ser entregados.
   </para>
   <note>
     <para>
-      Sin embargo, cabe notar que este sistema no está funcionando en los terminales móviles que llevan Android, si no que se usa el ya explicado GCM, y este es sólo con la intención de explorar nuevas posibilidades, y lo implementa Google Chrome en su versión de escritorio y móvil, así como la sincronización de contactos de manera experimental.
+      Sin embargo, cabe notar que este sistema no está funcionando en los terminales móviles que llevan Android, si no que se usa el ya explicado GCM, sólo con la intención de explorar nuevas posibilidades, así como la sincronización de contactos de manera experimental. Lo implementa Google Chrome en su versión de escritorio y móvil.
     </para>
   </note>
   <para>
@@ -19,7 +19,7 @@
   <formalpara>
     <title>Características</title>
     <para>
-      Así pues, Thialfi tiene una serie de mejoras con respecto a los otros sistemas, como son:
+      Por consiguiente, Thialfi guarda una serie de mejoras con respecto a los otros sistemas:
     </para>
   </formalpara>
   <itemizedlist>
@@ -27,7 +27,7 @@
       <formalpara>
         <title>Escalable</title>
         <para>
-          Puede tener constancia de millones de clientes y de objetos, ya que el tamaño para ambos es pequeño, sin tener que guardar datos finales, si no simplemente números de versión.
+          Puede tener constancia de millones de clientes y de objetos, ya que el tamaño para ambos es pequeño, sin necesidad de guardar datos finales, si no simplemente números de versión.
         </para>
       </formalpara>
     </listitem>
@@ -35,7 +35,7 @@
       <formalpara>
         <title>Rápido</title>
         <para>
-          Según las pruebas y el paper original, la entrega de los mensajes, en este caso mensajes con números de versión, se realizan en menos de 1 segundo desde que el servidor de terceros manda un mensaje hasta que el cliente lo recibe.
+          Según las pruebas y el paper original, la entrega de los mensajes, en este caso mensajes con números de versión, se realiza en menos de 1 segundo desde que el servidor de terceros manda un mensaje hasta que el cliente lo recibe.
         </para>
       </formalpara>
     </listitem>
@@ -43,7 +43,7 @@
       <formalpara>
         <title>Seguro</title>
         <para>
-          Incluso si un centro de datos se cae, el sistema es capaz de recuperarse, volviendo a registrar los diferentes dispositivos y enventualmente volviendo a un estado correcto.
+          Incluso si un centro de datos se cae, el sistema es capaz de recuperarse, volviendo a registrar los diferentes dispositivos y eventualmente regresando a un estado correcto.
         </para>
       </formalpara>
     </listitem>
@@ -51,13 +51,13 @@
       <formalpara>
         <title>Fácil de usar</title>
         <para>
-          Las APIs son sencillas y ha sido implementadas en diferentes servicios usados por Google, como en la sincronización de datos de Chrome, contactos y en Google+.
+          Las APIs son sencillas y han sido implementadas en diferentes servicios utilizados por Google, como la sincronización de datos de Chrome, contactos y en Google+.
         </para>
       </formalpara>
     </listitem>
   </itemizedlist>
   <para>
-    Entonces, como se comenta en los puntos anteriores, todo son objetos que poseen identificadores (<code>ID</code>) únicos y números de versión que incrementan de forma monótona en cada actualización.
+    Entonces, tal y como se ha expuesto en los puntos anteriores, todo son objetos que poseen identificadores (<code>ID</code>) únicos y números de versión que incrementan de forma monótona en cada actualización.
   </para>
   <formalpara>
     <title>Ventajas</title>
@@ -69,7 +69,7 @@
       <formalpara>
         <title>Menos datos guardados</title>
         <para>
-          Es una de las ventajas, pero a la vez es un gran inconveniente. Sólo hay que guardar los objetos que contienen un identificador y un número de versión, por lo que las bases de datos (BigTable, que usan en Google) necesitan menos espacio para poder funcionar, al no guardar mensajes (en GCM el <code>payload</code> máximo es de 4KiB). Además, sólo es necesario guardar el último mensaje para cada aplicación-objeto (básicamente es aumentar el número de versión), mientras que en un sistema como GCM hay que guardar múltiples mensajes.
+          Es una de las ventajas, pero a la vez es un gran inconveniente. Sólo hay que guardar los objetos que contienen un identificador y un número de versión, por lo que las bases de datos (BigTable, que usan en Google) necesitan menos espacio para poder funcionar, al no guardar mensajes (en GCM el <code>payload</code> máximo es de 4KiB). Además, sólo es necesario guardar el último mensaje para cada aplicación-objeto (básicamente es aumentar el número de versión), mientras que en un sistema como GCM se requiere guardar múltiples mensajes.
         </para>
       </formalpara>
     </listitem>
@@ -77,7 +77,7 @@
       <formalpara>
         <title>No hay fugas de datos privados</title>
         <para>
-          Al no tener mensaje las notificaciones, no hay riesgo de fuga de datos privados, puesto que lo único que se transmite son números de versión, que no dicen nada sobre el contenido.
+          Dado que las notificaciones no tienen mensaje, no hay riesgo de fuga de datos privados, puesto que lo único que se transmite son números de versión, que no dicen nada sobre el contenido.
         </para>
       </formalpara>
     </listitem>
@@ -85,7 +85,7 @@
       <formalpara>
         <title>Entrega siempre actualizada</title>
         <para>
-          La entrega de los mensajes está asegurada, no porque siempre se tenga la última versión en un momento determinado, si no porque seguro que se va a conocer esa versión en un momento futuro. Esto quiere decir que lo único que reciben los clientes es un número de versión de un determinado objeto, que siempre es el máximo posible, por lo que si se tiene un cliente que se ha quedado desactualizado en, digamos, la versión <code>17</code>, y ha llegado la <code>18</code> y no ha podido ser entregada, cuando llegue la versión <code>19</code> el cliente sabrá que tiene que pedir tanto la <code>18</code> como la <code>19</code>, para estar en sincronía con el servidor, por lo que en cualquier momento lo único que almacena un servidor o un cliente es un determinado objecto, con un <code>ID</code> en una versión <code>V</code> determinada.
+          La entrega de los mensajes está asegurada, no porque siempre se tenga la última versión en un momento determinado, si no porque seguro que se va a conocer esa versión en un momento futuro. Esto quiere decir que lo único que reciben los clientes es un número de versión de un determinado objeto, que siempre es el máximo posible. Así pues, si un cliente se ha quedado desactualizado en, por ejemplo, la versión <code>17</code>, y ha llegado la <code>18</code> y no ha podido ser entregada, cuando llegue la versión <code>19</code> el cliente sabrá que tiene que pedir tanto la <code>18</code> como la <code>19</code>, para así estar en sincronía con el servidor, de manera que en cualquier momento lo único que almacena un servidor o un cliente es un determinado objeto, con un <code>ID</code> en una versión <code>V</code> determinada.
         </para>
       </formalpara>
     </listitem>
@@ -123,7 +123,7 @@
   <formalpara>
     <title>Problemas</title>
     <para>
-      Sin embargo, aunque tiene muchas ventajas, como las están enumeradas anteriomente, tiene problemas para ser un buen servidor para datos en la red móvil
+      Sin embargo, aunque aporta muchas ventajas, como las que están enumeradas anteriormente, cuenta con problemas de cara a ser un buen servidor para datos en la red móvil
     </para>
   </formalpara>
   <itemizedlist>
@@ -131,7 +131,7 @@
       <formalpara>
         <title>Doble conexión para recuperar datos</title>
         <para>
-          En un sistema en el que los servicios de terceros pueden enviar datos de payload, obliga a que el servidor de notificaciones sea más complejo, por el hecho de que tiene que guardar datos. Sin embargo, esto puede significar que los clientes no tengan que abrir una segunda conexión para recuperar los datos necesarios debido a que el propio mensaje de notificación ya lo tiene. Esto, a pesar de parecer un problema menor, es uno de los grandes problemas en las redes móviles, donde realizar una conexión es muy costoso (en términos de tiempo y de señalización) y la descarga de los datos lenta.
+          En un sistema en el que los servicios de terceros pueden enviar datos de payload, obliga a que el servidor de notificaciones sea más complejo, por el hecho de guardar datos. Sin embargo, esto puede significar que los clientes no tengan que abrir una segunda conexión para recuperar los datos necesarios debido a que el propio mensaje de notificación ya lo tiene. Esto, a pesar de parecer un problema menor, constituye uno de los grandes inconvenientes en las redes móviles, donde realizar una conexión es una operación muy costosa (en términos de tiempo y de señalización) y la descarga de los datos es lenta.
         </para>
       </formalpara>
     </listitem>
@@ -139,7 +139,7 @@
       <formalpara>
         <title>Mayor complejidad en el servidor</title>
         <para>
-          Esto es debido a que requiere que se guarden los cambios o diferencias para cuando se conecten los diferentes clientes, puedan recuperar los datos que pidan, como por ejemplo, los datos de la versión <code>17</code>. Sin embargo, puede haber casos en que los clientes no vayan a pedir la última versión, si no que tengan que pedir la versión <code>16</code> y <code>17</code>. Por lo que el servidor tiene que mantener esas diferencias de algún modo (en formato delta o con mensajes completos).
+          Esto se debe a que requiere guardar los cambios o diferencias para que cuando se conecten los diferentes clientes, puedan recuperar los datos que pidan, como por ejemplo, los datos de la versión <code>17</code>. Sin embargo, puede haber casos en los que los clientes no vayan a pedir la última versión, si no la versión <code>16</code> y <code>17</code>. Por lo que el servidor debe mantener esas diferencias de algún modo (en formato delta o con mensajes completos).
         </para>
       </formalpara>
     </listitem>
@@ -147,7 +147,7 @@
       <formalpara>
         <title>Mayor complejidad en las aplicaciones</title>
         <para>
-          Esto es debido a que las aplicaciones no van a procesar el mensaje directamente, si no que tienen que discernir cuál es el número de versión, hacer una llamada al servidor de terceros y recibir los datos. Además, hay que tener en cuenta que pueden pedirse diferentes versiones para acabar en sincronía con el servidor, lo que aumenta la lógica para ver qué versión está dando el servidor y cómo se puede manejar con versiones más nuevas.
+          Esto es debido a que las aplicaciones no van a procesar el mensaje directamente, si no que tienen que discernir cuál es el número de versión, hacer una llamada al servidor de terceros y recibir los datos. Además, se ha de tener en cuenta que pueden solicitarse diferentes versiones para acabar en sincronía con el servidor, lo que aumenta la lógica para ver qué versión está dando el servidor y cómo se puede manejar con versiones más nuevas.
         </para>
       </formalpara>
     </listitem>
@@ -155,12 +155,12 @@
       <formalpara>
         <title>Servidores de aplicación más potentes</title>
         <para>
-          El primer problema es la necesidad de que todos los clientes, una vez recibido un número de versión, tengan que obligatoriamente conectarse con el servidor de la aplicación para descargar los datos, lo que puede conllevar a muchísima capacidad de cálculo (si por ejempo los datos hay que calcularlos al vuelo y dependen de cada petición) y de ancho de banda, así como de medidas para evitar que muchos usuarios se conecten a la vez y puedan colapsar los sistemas.
+          El primer problema es la necesidad de que todos los clientes, una vez recibido un número de versión, tengan que conectarse obligatoriamente con el servidor de la aplicación para descargar los datos, lo que podría conllevar muchísima capacidad de cálculo (si por ejemplo los datos hay que calcularlos al vuelo y dependen de cada petición) y de ancho de banda, así como de medidas para evitar que muchos usuarios se conecten a la vez y puedan colapsar los sistemas.
         </para>
       </formalpara>
     </listitem>
   </itemizedlist>
   <para>
-    Así pues, puede verse a Thialfi como un posible candidado a complementar, que no sustituir, a GCM, por los problemas mostrados más arriba. La necesidad de crear una segunda conexión, y los posibles problemas que puede acarrear a los servidores de aplicación el tener que trabajar con millones de peticiones, hace que no sea escalable para pequeñas empresas y malo para dispositivos móviles. Sin embargo, en la práctica se ha demostrado que es competente, pero con grandes granjas de servidores como los centros de datos de Google.
+    En definitiva, Thialfi puede considerarse como un posible candidato a complementar y no a sustituir a GCM, por las desventajas ya explicadas. La necesidad de crear una segunda conexión y los posibles problemas que puede acarrear a los servidores de aplicación trabajar con millones de peticiones, hace que no sea escalable para pequeñas empresas y malo para dispositivos móviles. Sin embargo, en la práctica se ha demostrado que es competente, aunque con grandes granjas de servidores como los centros de datos de Google.
   </para>
 </section>
