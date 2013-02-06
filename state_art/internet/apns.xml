@@ -9,7 +9,7 @@
     APNS o Apple Push Notification Service es otro de los sistemas creado por empresas fabricantes de sistemas operativos para solventar el problema de notificaciones push, en este caso para dispositivos iOS, como el iPhone o el iPad.
   </para>
   <para>
-    Este sistema es muy similar en comportamiento a GCM pero con alguna variación, sobre todo en los tipos de mensajes que puede enviar los desarrolladores y cómo se tratan las notificaciones por el usuario, que se verá más adelante.
+    Este sistema es muy similar en comportamiento a GCM pero con alguna variación, sobre todo en los tipos de mensajes que puede enviar los desarrolladores y en el tratamiento de las notificaciones por el usuario, que se expondrá más adelante.
   </para>
   <formalpara>
     <title>Historia</title>
@@ -23,7 +23,7 @@
   <formalpara>
     <title>Características</title>
     <para>
-      Este sistema posee una serie de características que no tienen los demás métodos de notificaciones push, los cuales son:
+      Este sistema posee una serie de características que no tienen los demás métodos de notificaciones push, las cuales son:
     </para>
   </formalpara>
   <itemizedlist>
@@ -34,7 +34,7 @@
     </listitem>
     <listitem>
       <para>
-        Su uso es muy amplio, y obligatorio para todas las aplicaciones certificadas por Apple (todas aquellas que estén en su tienda de aplicaciones) en vez de implementar servicios de polling.
+        Su uso es muy amplio y obligatorio para todas las aplicaciones certificadas por Apple (todas aquellas que estén en su tienda de aplicaciones) en vez de implementar servicios de polling.
       </para>
     </listitem>
     <listitem>
@@ -44,30 +44,30 @@
     </listitem>
     <listitem>
       <para>
-        Está controlado absolutamente por Apple, pudiendo censurar y eliminar a dispositivos y servidores que estén haciendo un uso indebido de su infraestructura.
+        Está controlado absolutamente por Apple, pudiendo censurar y eliminar dispositivos y servidores que estén haciendo un uso indebido de su infraestructura.
       </para>
     </listitem>
   </itemizedlist>
   <formalpara>
     <title>Ventajas</title>
     <para>
-      En primer lugar, se van a listar las diferentes ventajas que tiene sobre sus competidores, como son:
+      En primer lugar, se van a enumerar las diferentes ventajas que tiene sobre sus competidores:
     </para>
   </formalpara>
   <itemizedlist>
     <listitem>
       <para>
-        Tiene mayor seguridad, puesto que las notificaciones recibidas para aplicaciones que están en segundo plano o cerradas, no son enviadas directamente, si no que se muestran en la barra de estado, y hasta que el usuario no pulsa y acepta en ellas, no se envían a la aplicación, añadiendo un nivel más de seguridad: la aceptación del usuario.
+        Mayor seguridad: las notificaciones recibidas para aplicaciones que están en segundo plano o cerradas, no son enviadas directamente, si no que se muestran en la barra de estado, y hasta que el usuario no pulsa y las acepta, no se envían a la aplicación, añadiendo un nivel más de seguridad, la aceptación del usuario.
       </para>
     </listitem>
     <listitem>
       <para>
-        Funcional tanto en los dispositivos móviles, como iPad o iPhone y en los sistemas de escritorio, como MacOS X, a partir de su versión 10.7, siendo el API el mismo para ambos sistemas.
+        Funcional tanto en los dispositivos móviles, como iPad o iPhone, como en los sistemas de escritorio, tipo MacOS X, a partir de su versión 10.7, siendo el API el mismo para ambos sistemas.
       </para>
     </listitem>
     <listitem>
       <para>
-        Permite tres tipos diferentes de notificaciones, que se adecuán a diferentes opciones visuales y sonoras:
+        Permite tres tipos diferentes de notificaciones, que se adecuan a diferentes opciones visuales y sonoras:
       </para>
       <itemizedlist>
         <listitem>
@@ -100,23 +100,23 @@
   <formalpara>
     <title>Problemas</title>
     <para>
-      Sin embargo, hay una serie de problemas con este sistema que merece la pena reseñar, como son:
+      Sin embargo, hay una serie de desventajas que merece la pena reseñar:
     </para>
   </formalpara>
   <itemizedlist>
     <listitem>
       <para>
-        Procolo muy cerrado y sin posibilidad de implementaciones de terceros, en ningún sistema operativo.
+        Protocolo muy cerrado y sin posibilidad de implementaciones de terceros, en ningún sistema operativo.
       </para>
     </listitem>
     <listitem>
       <para>
-        El payload que pueden llevar las notificaciones es como mucho de 256 KiB, lo que hace que muchas aplicaciones necesiten una segunda conexión para recoger los datos reales, ya que pueden ocupar más que lo permitido.
+        El payload que pueden llevar las notificaciones es como mucho de 256 KiB, lo que hace que muchas aplicaciones necesiten una segunda conexión para recoger los datos reales, ya que pueden ocupar más de lo permitido.
       </para>
     </listitem>
     <listitem>
       <para>
-        El servidor que envía las notificaciones tiene que tener abierta otra conexión con un servidor de feedback de Apple para recibir el estado de las entregas.
+        El servidor que envía las notificaciones debe tener abierta otra conexión con un servidor de feedback de Apple para recibir el estado de las entregas.
       </para>
     </listitem>
     <listitem>
@@ -126,17 +126,17 @@
     </listitem>
     <listitem>
       <para>
-        Sistema centralizado, y propenso a que si hay un fallo, ningún dispositivo de Apple pueda recibir notificaciones.
+        Sistema centralizado y propenso a que si hay un fallo, ningún dispositivo de Apple pueda recibir notificaciones.
       </para>
     </listitem>
     <listitem>
       <para>
-        Cuotas muy estrictas: un mensaje por aplicación, y hasta un máximo de 100 por dispositivo.
+        Cuotas muy estrictas: un mensaje por aplicación y hasta un máximo de 100 por dispositivo.
       </para>
     </listitem>
   </itemizedlist>
   <para>
-    Como se puede observar, es un sistema bastante más limitado que GCM, con menores opciones, mayor control sobre lo que pueden hacer las aplicaciones y los desarrolladores pero con la ventaja de que funciona en todos los sistemas operativos de Apple.
+    Como se puede observar, es un sistema bastante más limitado que GCM, con menores opciones, mayor control sobre lo que pueden hacer las aplicaciones y los desarrolladores, pero con la ventaja de que funciona en todos los sistemas operativos de Apple.
   </para>
 
 </section>
