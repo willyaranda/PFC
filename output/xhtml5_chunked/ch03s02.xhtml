@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Interna: Entre el UA y el NS</title><link rel="stylesheet" type="text/css" href="docbook.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/><link rel="prev" href="ch03.xhtml" title="Capítulo 3. Application Program Interface, API"/><link rel="next" href="ch04.xhtml" title="Capítulo 4. Arquitectura interna"/></head><body><header><div class="navheader"><table style="width: 100%; "><tr><th style="text-align: center; " colspan="3">Interna: Entre el UA y el NS</th></tr><tr><td style="width: 20%; text-align: left; "><a accesskey="p" href="ch03.xhtml">Anterior</a> </td><th style="width: 60%; text-align: center; ">Capítulo 3. Application Program Interface, API</th><td style="width: 20%; text-align: right; "> <a accesskey="n" href="ch04.xhtml">Siguiente</a></td></tr></table><hr/></div></header><section xml:lang="es" class="section" id="api_internal"><div class="titlepage"><div><div><h2 class="title" style="clear: both">Interna: Entre el UA y el NS</h2></div></div></div><p>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Interna: Entre el UA y el NS</title><link rel="stylesheet" type="text/css" href="docbook.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/><link rel="prev" href="ch03.xhtml" title="Capítulo 3. API"/><link rel="next" href="ch04.xhtml" title="Capítulo 4. Arquitectura interna"/></head><body><header><div class="navheader"><table style="width: 100%; "><tr><th style="text-align: center; " colspan="3">Interna: Entre el UA y el NS</th></tr><tr><td style="width: 20%; text-align: left; "><a accesskey="p" href="ch03.xhtml">Anterior</a> </td><th style="width: 60%; text-align: center; ">Capítulo 3. API</th><td style="width: 20%; text-align: right; "> <a accesskey="n" href="ch04.xhtml">Siguiente</a></td></tr></table><hr/></div></header><section xml:lang="es" class="section" id="api_internal"><div class="titlepage"><div><div><h2 class="title" style="clear: both">Interna: Entre el UA y el NS</h2></div></div></div><p>
     Estas APIs y comunicaciones son las que se producen internamente, de forma transparente a los desarrolladores de las aplicaciones y del servidor que envía la notificación. Así pues, tiene que ser tratada por los desarrolladores que quieran implementar el protocolo en su plataforma, o sistema operativo.
   </p><p>
     Está divida en tres partes principales, una interfaz HTTP, para recoger el token, otra que usa el protocolo WebSockets, para el intercambio bidireccional de datos y una tercera, que es la interfaz UDP que tiene que tener el teléfono, así pues:
   </p><section xml:lang="es" class="section" id="api_internal_ua_ns_http"><div class="titlepage"><div><div><h3 class="title">Interfaz HTTP</h3></div></div></div><p>
     A través de este API, se puede descargar el token inicial y único que será usado para el registro posterior y demás operaciones.
   </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3>
-    Este API puede cambiar en un futuro y entre diferentes servidores de notificaciones, puesto que el token podría venir predeterminado en el mismo dispositivo o ser recogido mediante
+    Este API puede cambiar en un futuro y entre diferentes servidores de notificaciones, puesto que el token podría venir predeterminado en el mismo dispositivo o ser recogido mediante otros mecanismos, como correo electrónico, respuesta a un registro web, etcétera.
   </div><p>
     Así pues, la petición actual es:
   </p><pre class="screen">
@@ -23,11 +23,11 @@
     Este es el API bidireccional para el intercambio de datos, registros y notificaciones en algunos casos. Es el más complejo de todos ya que están involucrados muchos mensajes diferentes, pero todos son correctamente formados como JSON.
   </p><p>
     En primer lugar, es necesario abrir una conexión WebSockets con el servidor de notificaciones (en concreto con la instancia <code class="code">NS_UA_WS</code>) para poder empezar a intercambiar datos.
-  </p><section class="section" id="idp740160"><div class="titlepage"><div><div><h4 class="title">Conexión WebSocket</h4></div></div></div><p>
+  </p><section class="section" id="idp785376"><div class="titlepage"><div><div><h4 class="title">Conexión WebSocket</h4></div></div></div><p>
       Así pues, hay que utilizar el recurso necesario para iniciar la conexión, del estilo de <code class="code">wss://push.telefonica.com</code>, usando el protocolo <code class="code">push-notification</code>.
     </p></section><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3>
     A partir de este momento, los siguientes métodos y comunicaciones se realizan por el canal WebSocket que se ha abierto en la sección anterior.
-  </div><section class="section" id="idp742960"><div class="titlepage"><div><div><h4 class="title">Registro de UA</h4></div></div></div><p>
+  </div><section class="section" id="idp788176"><div class="titlepage"><div><div><h4 class="title">Registro de UA</h4></div></div></div><p>
       Es el primer paso que hay que realizar para empezar a recibir notificaciones. Este paso significa el registro del dispositivo en el servidor de notificaciones, y la manera de recibirlas. Se realiza enviando un mensaje al servidor por la conexión WebSocket de la manera:
     </p><pre class="screen">
       {
@@ -49,7 +49,7 @@
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">messageType. </span>
             Tiene que ser siempre <code class="code">registerUA</code>.
           </p></li><li class="listitem"><p><span class="formalpara-title">data. </span>
-            Otros datos, compuestos por uatoken, interface y mobilenetwork.
+            Otros datos, compuestos por <code class="code">uatoken</code>, <code class="code">interface</code> y <code class="code">mobilenetwork</code>.
           </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p><span class="formalpara-title">uatoken. </span>
                 Es el token de dispositivo conseguido en las secciones anteriores.
               </p></li><li class="listitem"><p><span class="formalpara-title">interface. </span>
@@ -57,9 +57,9 @@
               </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem"><p><span class="formalpara-title">ip. </span>
                     Dirección del dispositivo, ya sea con la IP privada o pública. En el caso de que sea pública, no hace falta que se rellene el dato de <code class="code">mobilenetwork</code> y en el caso de privada, sí es necesario, puesto que se usará un proxy intermedio colocado dentro de la red móvil para poder encontrarle directamente.
                   </p></li><li class="listitem"><p><span class="formalpara-title">port. </span>
-                    Puerto de escucha, puede ser TCP o UDP. No necesitará saber qué le llega, si no simplemente que algo ha llegado ahí.
+                    Puerto de escucha, puede ser TCP o UDP. No necesitará saber qué le llega, sino simplemente que algo ha llegado ahí.
                   </p></li></ul></div></li><li class="listitem"><p><span class="formalpara-title">mobilenetwork. </span>
-                Indica los dos valores necesarios para identificar una red móvil correctamente, <code class="code">mcc</code> y <code class="code">mnc</code>. Las listas completas pueden consultarse en Internet<a href="#ftn.idp786832" class="footnote"><sup class="footnote" id="idp786832">[14]</sup></a>
+                Indica los dos valores necesarios para identificar una red móvil correctamente, <code class="code">mcc</code> y <code class="code">mnc</code>. Las listas completas pueden consultarse en Internet<a href="#ftn.idp835200" class="footnote"><sup class="footnote" id="idp835200">[15]</sup></a>.
               </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem"><p><span class="formalpara-title">mcc. </span>
                     Mobile Country Code.
                   </p></li><li class="listitem"><p><span class="formalpara-title">mnc. </span>
@@ -99,7 +99,7 @@
           </p></li><li class="listitem"><p><span class="formalpara-title">messages. </span>
             Array con las diferentes notificaciones que están pendientes de recibir por el dispositivo. Por cada una de ellas, y si el procesado es correcto, se debe enviar un mensaje de confirmación, o <code class="code">ACK</code> para indicar que se ha recibido correctamente y no enviar duplicados en un futuro.
           </p></li></ul></div><p>
-      En el caso de una respuesta incorrecta, la respuesta será<a href="#ftn.idp813120" class="footnote"><sup class="footnote" id="idp813120">[15]</sup></a>
+      En el caso de una respuesta incorrecta, la respuesta será<a href="#ftn.idp861504" class="footnote"><sup class="footnote" id="idp861504">[16]</sup></a>:
     </p><pre class="screen">
       {
         "messageType": "registerUA",
@@ -117,7 +117,7 @@
           </p></li></ul></div><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3>
       Esta función de registro tiene que realizarse cada vez que cambie la conexión móvil o WiFi del dispositivo, para actualizar la información en el servidor.
     </div></section><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3>
-    A partir de este momento, los siguientes métodos y comunicaciones necesitan tener una conexión autorizada, esto es, que haya registrado anteriormente un dispositivo mediante el método <code class="code">registerUA</code></div><section class="section" id="idp822800"><div class="titlepage"><div><div><h4 class="title">Registro de WA</h4></div></div></div><p>
+    A partir de este momento, los siguientes métodos y comunicaciones necesitan tener una conexión autorizada, esto es, que haya registrado anteriormente un dispositivo mediante el método <code class="code">registerUA</code></div><section class="section" id="idp871184"><div class="titlepage"><div><div><h4 class="title">Registro de WA</h4></div></div></div><p>
       Esta función es la usada para el registro de aplicaciones a partir de una clave pública y un token de aplicación. Es la capa inferior de la función <code class="code">requestRemotePermission</code> del objeto <code class="code">navigator.push</code> expuesto para los desarrolladores de aplicaciones.
     </p><p>
       El formato es como sigue:
@@ -171,7 +171,7 @@
       Con el atributo <code class="code">reason</code> dando una explicación del error en forma humana, con un claro mensaje descriptivo y un atributo <code class="code">watoken</code> indicando qué aplicación ha fallado.
     </p><p>
       Una vez recibido un mensaje correcto de registro de WA, se puede estar seguro de que las notificaciones que envíen los servidores de terceros eventualmente llegarán a la aplicación a la que se envía la notificación.
-    </p></section><section class="section" id="idp848864"><div class="titlepage"><div><div><h4 class="title">Recepción de notificación</h4></div></div></div><p>
+    </p></section><section class="section" id="idp897248"><div class="titlepage"><div><div><h4 class="title">Recepción de notificación</h4></div></div></div><p>
       Las notificaciones pueden venir por dos medios diferentes
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">En respuesta a <code class="code">registerUA</code>. </span>
             Cuando un dispositivo se registra o actualiza sus datos, tiene que enviar un mensaje del tipo <code class="code">registerUA</code>, el cual, si todo funciona correctamente, recibirá de forma asíncrona la respuesta, conteniendo un array de mensajes en el atributo <code class="code">messages</code>.
@@ -194,7 +194,7 @@
             "timestamp": "1359984038",
             "priority": 1,
             "messageId": "aacf9ca0-6ecd-11e2-815f-551df8e4ba6a",
-            "url": "https://push.telefonica.com/notify/31387b27716acb88d336cda8858..."
+            "url": "https://push.telefonica.com/notify/31387b27716ac..."
           }
         </pre><p>
           Donde lo más importante son los dos últimos atributos:
@@ -208,7 +208,7 @@
           El UA también debe usar el atributo <code class="code">messageId</code> para enviar la confirmación de recepción, una vez esté recibido correctamente por la aplicación. Debe eliminarse de la notificación entregada a la aplicación.
         </p></li></ul></div><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3>
       Para no volver a recibir los mensajes duplicados, hay que enviar un acuse de recibo, explicado en la siguiente sección.
-    </div></section><section class="section" id="idp864400"><div class="titlepage"><div><div><h4 class="title">Confirmación de recepción, o ACK</h4></div></div></div><p>
+    </div></section><section class="section" id="idp912768"><div class="titlepage"><div><div><h4 class="title">Confirmación de recepción, o ACK</h4></div></div></div><p>
       Una vez recibidas notificaciones, ya sea a a través de los mensajes de regitro de User Agent (a través del mensaje <code class="code">registerUA</code>) o mediante la conexión WebSocket, una notificación directa, hay que mandar un mensaje de recepción al servidor, por varios motivos:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           Al aceptar el mensaje, éste se borra de la base de datos, en concreto de la colección de mensajes dirigidos para determinado usuario, por lo que si no se informa de su recepción, el mensaje seguirá enviándose hasta que pase el tiempo de vida (especificado en el atributo <code class="code">ttl</code>) o se de-registre la aplicación.
@@ -226,10 +226,10 @@
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">messageType. </span>
             Tiene que ser igual a la cadena <code class="code">ack</code>.
           </p></li><li class="listitem"><p><span class="formalpara-title">messageId. </span>
-            Tiene que ser igual al <code class="code">messageId</code> que está contenido dentro del mensaje. No es el <code class="code">id</code> que ha enviado el servidor de terceros, si no uno generado internamente para el guardado y búsqueda del mensaje en el servidor de notificaciones.
+            Tiene que ser igual al <code class="code">messageId</code> que está contenido dentro del mensaje. No es el <code class="code">id</code> que ha enviado el servidor de terceros, sino uno generado internamente para el guardado y búsqueda del mensaje en el servidor de notificaciones.
           </p></li></ul></div><p>
       No hay ninguna respuesta a este mensaje y además tiene que enviarse uno por cada mensaje que haya que aceptar la recepción. Así pues, si en la respuesta a <code class="code">registerUA</code> llega un array con 10 mensajes diferentes, hay que mandar 10 mensajes de recepción del estilo superior para que se borren de la base de datos.
-    </p></section><section class="section" id="idp877248"><div class="titlepage"><div><div><h4 class="title">De-registro de WA</h4></div></div></div><p>
+    </p></section><section class="section" id="idp941872"><div class="titlepage"><div><div><h4 class="title">De-registro de WA</h4></div></div></div><p>
       De la misma manera que se puede registrar una aplicación, también puede de-registrarse para que el dispositivo no siga recibiendo notificaciones continuamente en los siguientes casos:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           El usuario ha desinstalado la aplicación, por lo que el gestor de aplicaciones, al eliminarla, también tiene que eliminar los permisos asociados y realizar las operaciones oportunas. En el caso de push, lo que se tiene que hacer es de-registrar la aplicación en local y en remoto, para que la URL no sea válida y pueda dejar de recibir notificaciones push.
@@ -261,7 +261,7 @@
       Y la respuesta, de nuevo asíncrona, es como sigue:
     </p><pre class="screen">
     {
-      "url": "https://push.telefonica.com/notify/31387b27716acb88d336cda8858...",
+      "url": "https://push.telefonica.com/notify/31387b27716ac...",
       "messageType": "unregisterWA",
       "status": "UNREGISTERED"
     }
@@ -273,7 +273,7 @@
             Tiene que ser igual a la cadena <code class="code">unregisterWA</code> para especificar que es la respuesta a una petición similar anterior.
           </p></li><li class="listitem"><p><span class="formalpara-title">status. </span>
             Si todo ha sido correcto, el atributo <code class="code">status</code> contendrá una cadena igual a <code class="code">UNREGISTERED</code>
-          </p></li></ul></div></section><section class="section" id="idp900656"><div class="titlepage"><div><div><h4 class="title">De-registro de UA</h4></div></div></div><p>
+          </p></li></ul></div></section><section class="section" id="idp965264"><div class="titlepage"><div><div><h4 class="title">De-registro de UA</h4></div></div></div><p>
       De la misma manera que hay un método de registro de UA y un método de de-registro de WA, hay un método para de-registrar un dispositivo.
     </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><span class="emphasis"><em>Peligro</em></span>. Este método elimina todos los datos del dispositivo de la base de datos, invalidando cualquier URL y desechando cualquier notificación pendiente.
     </div><p>
@@ -283,14 +283,15 @@
         "messageType": "unregisterUA"
       }
     </pre><p>
-      El cual es el único método síncrono, ya que si el de-registro es correcto, la conexión WebSocket por la que se ha enviado, se cierra de forma consensuada (esto es, el cierre viene acompañado por el código <code class="code">1000</code> de las constantes de cierre de WebSocket)<a href="#ftn.idp904752" class="footnote"><sup class="footnote" id="idp904752">[16]</sup></a>.
+      El cual es el único método síncrono, ya que si el de-registro es correcto, la conexión WebSocket por la que se ha enviado, se cierra de forma consensuada (esto es, el cierre viene acompañado por el código <code class="code">1000</code> de las constantes de cierre de WebSocket)<a href="#ftn.idp969360" class="footnote"><sup class="footnote" id="idp969360">[17]</sup></a>.
     </p><p>
       El mensaje de cierre, aunque sea nulo, podría ser en la consola JavaScript algo similar a:
     </p><pre class="screen">
-      Closed connection to push.telefonica.com with code 1000 and reason [undefined]
+      Closed connection to push.telefonica.com with code 1000
+      and reason [undefined]
     </pre><p>
       A partir de este momento, la conexión está cerrada, y el dispositivo no existe para el servidor de notificaciones. Para poder volver a registrarse, se tienen que repetir los pasos superiores.
-    </p></section><section class="section" id="idp907248"><div class="titlepage"><div><div><h4 class="title">Pedir WA registradas</h4></div></div></div><p>
+    </p></section><section class="section" id="idp971872"><div class="titlepage"><div><div><h4 class="title">Pedir WA registradas</h4></div></div></div><p>
       Este es un método para poder mantener una sincronía y el mismo estado entre el servidor y el cliente. La lógica de qué hacer con los datos recibidos la tiene que tener el cliente, por ejemplo:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           Si vienen más URLs de las que están en local, quizás haya que de-registrar alguna aplicación. Pero también puede ser que se haya perdido el registro local.
@@ -307,9 +308,9 @@
     </p><pre class="screen">
       {
         "WATokens": [
-          "https://push.telefonica.com/notify/31387b27716acb88d336cda8858...",
-          "https://push.telefonica.com/notify/739a6ecd89f3e113ef443accd34...",
-          "https://push.telefonica.com/notify/835ea56dc561b3865bead53cb73..."
+          "https://push.telefonica.com/notify/31387b27716ac...",
+          "https://push.telefonica.com/notify/739a6ecd89f3e...",
+          "https://push.telefonica.com/notify/113ef443accd3..."
         ],
         "messageType": "getRegisteredWA"
       }
@@ -328,8 +329,8 @@
   </p><p>
     A partir del momento del registro, si todo es correcto, y el servidor tiene un proxy registrado para poder mandar dichos pings a los dispositivos que están en una red privada, la conexión WebSockets se cerrará y se utilizará dicho mecanismo de PING.
   </p><p>
-    Los PINGs son de tipo UDP o TCP, pero nunca van a llevar un contenido que tenga que ser leído por el teléfono, si no que simplemente, al recibir este paquete, tiene que conectarse con el servidor y realizar un registro de nuevo para recibir las notificaciones en la respuesta.
-  </p></section><section class="section" id="idp924704"><div class="titlepage"><div><div><h3 class="title">Flujo completo</h3></div></div></div><p>
+    Los PINGs son de tipo UDP o TCP, pero nunca van a llevar un contenido que tenga que ser leído por el teléfono, sino que simplemente, al recibir este paquete, tiene que conectarse con el servidor y realizar un registro de nuevo para recibir las notificaciones en la respuesta.
+  </p></section><section class="section" id="idp989296"><div class="titlepage"><div><div><h3 class="title">Flujo completo</h3></div></div></div><p>
       Para poner todo en orden, estos son los pasos que tiene que realizar el User Agent o sistema operativo para poder utilizar las notificaciones push y que terceros puedan avisarle:
     </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
           Si no tiene un token de dispositivo (<code class="code">uaToken</code>), conseguir uno.
@@ -357,4 +358,4 @@
           En caso de de-registro total, eliminar toda la base de datos local y pedir el de-registro del servidor mediante los mensajes <code class="code">unregisterWA</code> y <code class="code">unregisterUA</code>.
         </p></li><li class="listitem"><p>
           Enviar mensajes de <code class="code">PING</code> en el caso de que sea necesario o apropiado.
-        </p></li></ol></div></section><div class="footnotes"><br/><hr class="footnote-hr"/><div id="ftn.idp786832" class="footnote"><p><a href="#idp786832" class="para"><sup class="para">[14] </sup></a>http://en.wikipedia.org/wiki/Mobile_country_code</p></div><div id="ftn.idp813120" class="footnote"><p><a href="#idp813120" class="para"><sup class="para">[15] </sup></a>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L39</p></div><div id="ftn.idp904752" class="footnote"><p><a href="#idp904752" class="para"><sup class="para">[16] </sup></a>http://tools.ietf.org/html/rfc6455#section-7.4.1</p></div></div></section><footer><div class="navfooter"><hr/><table style="width: 100%; "><tr><td style="width: 40%; text-align: left; "><a accesskey="p" href="ch03.xhtml">Anterior</a> </td><td style="width: 20%; text-align: center; "><a accesskey="u" href="ch03.xhtml">Subir</a></td><td style="width: 40%; text-align: right; "> <a accesskey="n" href="ch04.xhtml">Siguiente</a></td></tr><tr><td style="width: 40%; text-align: left; vertical-align: top; ">Capítulo 3. Application Program Interface, API </td><td style="width: 20%; text-align: center; "><a accesskey="h" href="index.xhtml">Inicio</a></td><td style="width: 40%; text-align: right; vertical-align: top; "> Capítulo 4. Arquitectura interna</td></tr></table></div></footer></body></html>
+        </p></li></ol></div></section><div class="footnotes"><br/><hr class="footnote-hr"/><div id="ftn.idp835200" class="footnote"><p><a href="#idp835200" class="para"><sup class="para">[15] </sup></a>http://en.wikipedia.org/wiki/Mobile_country_code</p></div><div id="ftn.idp861504" class="footnote"><p><a href="#idp861504" class="para"><sup class="para">[16] </sup></a>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L39</p></div><div id="ftn.idp969360" class="footnote"><p><a href="#idp969360" class="para"><sup class="para">[17] </sup></a>http://tools.ietf.org/html/rfc6455#section-7.4.1</p></div></div></section><footer><div class="navfooter"><hr/><table style="width: 100%; "><tr><td style="width: 40%; text-align: left; "><a accesskey="p" href="ch03.xhtml">Anterior</a> </td><td style="width: 20%; text-align: center; "><a accesskey="u" href="ch03.xhtml">Subir</a></td><td style="width: 40%; text-align: right; "> <a accesskey="n" href="ch04.xhtml">Siguiente</a></td></tr><tr><td style="width: 40%; text-align: left; vertical-align: top; ">Capítulo 3. API </td><td style="width: 20%; text-align: center; "><a accesskey="h" href="index.xhtml">Inicio</a></td><td style="width: 40%; text-align: right; vertical-align: top; "> Capítulo 4. Arquitectura interna</td></tr></table></div></footer></body></html>
