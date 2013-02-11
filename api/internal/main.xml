@@ -7,11 +7,11 @@
 
   <title>Interna: Entre el UA y el NS</title>
   <para>
-    Estas APIs y comunicaciones son las que se producen internamente, de forma transparente a los desarrolladores de las aplicaciones y del servidor que envía la notificación. Así pues, tiene que ser tratada por los desarrolladores que quieran implementar el protocolo en su plataforma, o sistema operativo.
+    Estas APIs y comunicaciones son las que se producen internamente, de forma transparente a los desarrolladores de las aplicaciones y del servidor que envía la notificación. Así pues, tiene que ser tratada por los desarrolladores que quieran implementar el protocolo en su plataforma o sistema operativo.
   </para>
 
   <para>
-    Está divida en tres partes principales, una interfaz HTTP, para recoger el token, otra que usa el protocolo WebSockets, para el intercambio bidireccional de datos y una tercera, que es la interfaz UDP que tiene que tener el teléfono, así pues:
+    Está divida en tres partes principales, una interfaz HTTP para recoger el token, otra que usa el protocolo WebSockets para el intercambio bidireccional de datos y una tercera, que es la interfaz UDP que tiene que tener el teléfono, así pues:
   </para>
 
   <xi:include href="ua_ns_http.xml" />
@@ -46,7 +46,7 @@
           </listitem>
           <listitem>
             <para>
-              Si es incorrecto, comprobar la causa, arreglarla, y reintentar.
+              Si es incorrecto, comprobar la causa, arreglarla y reintentar.
             </para>
           </listitem>
         </orderedlist>
