@@ -26,7 +26,7 @@
       Para poder escalar tanto horizontal como verticalmente sin tener ningún límite, la infraestructura del servidor de notificaciones central ha sido dividida en diferentes instancias o cajas, cada una dedicada a una función en particular, y que a su vez son independientes del resto, comunicándose sólo por mensajería.
     </para>
     <note>
-      Los nombres de cada caja siguen la nomenclatura: <code>NS-&lt;tipo_de_cliente&gt;</code>.
+      <para>Los nombres de cada caja siguen la nomenclatura: <code>NS-&lt;tipo_de_cliente&gt;</code>.</para>
     </note>
 
     <section>

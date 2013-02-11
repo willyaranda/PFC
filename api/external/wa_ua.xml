@@ -9,7 +9,7 @@
     Este API, llamada <code>navigator.mozPush</code>, es la principal vía de comunicación entre las aplicaciones y el agente de usuario, o sistema operativo.
   </para>
   <note>
-    Este API está prefijada en la primera versión funcional con <code>moz</code> puesto que se ha implementado por primera vez en un dispositivo por parte del navegador Mozilla Firefox y es el que tienen establecido para estas funcionalidades experimentales.
+    <para>Este API está prefijada en la primera versión funcional con <code>moz</code> puesto que se ha implementado por primera vez en un dispositivo por parte del navegador Mozilla Firefox y es el que tienen establecido para estas funcionalidades experimentales.</para>
   </note>
   <para>
     Está basada en el estándar propuesto<footnote><para>http://dvcs.w3.org/hg/push/raw-file/default/index.html</para></footnote> por el W3C, pero sin embargo tiene una serie de adiciones para añadir seguridad y eliminar la redundancia de alguno de sus métodos.
@@ -69,7 +69,7 @@
           </para>
         </formalpara>
         <note>
-          El desarrollador tiene la opción de hacer su <code>waToken</code> público y compartido, por lo que será usado para hacer broadcast de las notificaciones, o bien mantenerlo como un secreto para que sólo la instancia que contenga este token único sea la que reciba las notificaciones.
+          <para>El desarrollador tiene la opción de hacer su <code>waToken</code> público y compartido, por lo que será usado para hacer broadcast de las notificaciones, o bien mantenerlo como un secreto para que sólo la instancia que contenga este token único sea la que reciba las notificaciones.</para>
         </note>
       </listitem>
       <listitem>

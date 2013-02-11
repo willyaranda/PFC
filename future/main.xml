@@ -68,9 +68,9 @@
   priority: "<Prioridad 1-4>"
 }]]></screen>
 
-    <note>
+    <para>
       Como recordatorio, el formato actual es:
-    </note>
+    </para>
 
     <screen><![CDATA[
       {
@@ -184,7 +184,7 @@
       Lo que se quiere para la segunda versión es la posibilidad de que esto sea automático, para que cuando el servidor detecte un alto número de conexiones, normalmente erróneas, sea suficientemente inteligente de ir añadiendo las IPs de origen a una lista negra y no permita que vuelva a conectarse en un futuro.
     </para>
     <para>
-      Sin embargo, no sólo sería para el control de quién se está conectando, si no incluso para aplicaciones que inundan el sistema con mensajes no válidos o que nunca serán entregados, o incluso que se envíen una y otra vez sin control.
+      Sin embargo, no sólo sería para el control de quién se está conectando, sino incluso para aplicaciones que inundan el sistema con mensajes no válidos o que nunca serán entregados, o incluso que se envíen una y otra vez sin control.
     </para>
   </section>
 
@@ -207,16 +207,16 @@
   <section>
     <title>Control de presencia</title>
     <para>
-      Una de los principales argumentos de los desarrolladores de aplicaciones de mensajería instantánea es que requieren tener un control sobre si el usuario está conectado, desconectado o en estado ausente. Eso es sencillo para ellos si crean un propio socket contra sus servidores y mantienen la conexión y el estado ellos, sabiendo si se cae la conexión, usando APIs del sistema saber si la pantalla está encendida y avisar del estado…
+      Uno de los principales argumentos de los desarrolladores de aplicaciones de mensajería instantánea es que requieren tener un control sobre si el usuario está conectado, desconectado o en estado ausente. Eso es sencillo para ellos si crean un propio socket contra sus servidores y mantienen la conexión y el estado ellos, sabiendo si se cae la conexión, usando APIs del sistema saber si la pantalla está encendida y avisar del estado…
     </para>
     <para>
-      Sin embargo, el principal problema es que los usuarios no suelen tener solo una aplicación de este tipo, si no que suelen tener varias, muchas veces dependiendo del círculo de amigos, o de donde tengan más contactos. Así pues, podría ocurrir que ese socket se multiplicara por dos, tres, o incluso 4, según el número de aplicaciones que lo requieran.
+      Sin embargo, el principal problema es que los usuarios no suelen tener solo una aplicación de este tipo, sino que suelen tener varias, muchas veces dependiendo del círculo de amigos, o de donde tengan más contactos. Así pues, podría ocurrir que ese socket se multiplicara por dos, tres, o incluso 4, según el número de aplicaciones que lo requieran.
     </para>
     <para>
       Es por esto que una de las ideas es la de proveer un API a los servicios para comprobar si alguien está conectado/desconectado o en estado ausente. Esto se podría hacer de una forma muy sencilla tal y como está montado el servidor de aplicaciones, ya que sería hacer una petición a la URL que se quiere saber si se puede entregar, se miraría el estado del nodo o de los nodos que corresponden a dicha URL y se devolvería cuál es el estado actual: conectado, desconectado, ausente o indefinido (cuando se esté bajo UDP y no haya una conexión abierta)
     </para>
     <para>
-      Esto trasladaría la carga de la red desde los terminales y la red de telefonía al servidoe de notificaciones y a Internet, porque no tienen que estar respondiendo los terminales continuamente, ni manteniendo canales abiertos, si no que es el propio servidor el que sabe si el dispositivo puede ser alcanzable o no.
+      Esto trasladaría la carga de la red desde los terminales y la red de telefonía al servidoe de notificaciones y a Internet, porque no tienen que estar respondiendo los terminales continuamente, ni manteniendo canales abiertos, sino que es el propio servidor el que sabe si el dispositivo puede ser alcanzable o no.
     </para>
   </section>
 
@@ -226,12 +226,12 @@
       Muchas de las aplicaciones de mensajería instantánea requieren saber si el mensaje enviado ha sido entregado o no. Podría ser para mostrar un pequeño icono al usuario para que sepa que el otro lado ha recibido el mensaje, o bien porque se quiere llevar el control de si se entrega el mensaje correctamente o si el dispositivo está conectado.
     </para>
     <para>
-      Así pues, este sistema proveería un API para poder preguntar sobre el estado de entrega de un mensaje, no sólamente si se ha entregado o no, si no quizás en qué momento, y si no se ha entregado, por qué razón: 2aplicación desintalada, el dispositivo está desconectado…
+      Así pues, este sistema proveería un API para poder preguntar sobre el estado de entrega de un mensaje, no sólamente si se ha entregado o no, sino quizás en qué momento, y si no se ha entregado, por qué razón: aplicación desinstalada, el dispositivo está desconectado…
     </para>
     <example>
       <title>Enviar mensajes sólo si los anteriores han llegado</title>
       <para>
-        Un escenario típico para algunos servicios es la de que si no se han entregado los mensajes anteriores, no tiene sentido enviar mensajes posteriores. Esto podría ser válido en aplicaciones que manden un solo <code>PING</code> al usuario. Probablemente no sea interesante mandar varias notificaciones, si no saber si la anterior se ha entregado, y si es así, mandar un nuevo mensaje. En el caso de que no se haya entregado, en algún momento se entregará y el mensaje siguien sería el mismo, por lo que no se envía, no ocupa espacio en el servidor de notificaciones, y reduce la carga en la red móvil, al sólo tener que enviar un único mensaje.
+        Un escenario típico para algunos servicios es la de que si no se han entregado los mensajes anteriores, no tiene sentido enviar mensajes posteriores. Esto podría ser válido en aplicaciones que manden un solo <code>PING</code> al usuario. Probablemente no sea interesante mandar varias notificaciones, sino saber si la anterior se ha entregado, y si es así, mandar un nuevo mensaje. En el caso de que no se haya entregado, en algún momento se entregará y el mensaje siguien sería el mismo, por lo que no se envía, no ocupa espacio en el servidor de notificaciones, y reduce la carga en la red móvil, al sólo tener que enviar un único mensaje.
       </para>
     </example>
   </section>

@@ -54,7 +54,7 @@
           <formalpara>
             <title>LAN privadas</title>
             <para>
-              Se encuentran dentro de un segmento de red que sólo es visible para otros equipos que lo compartan con nosotros. Esto hace que no se tenga una conexión directa con Internet y que haya que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a Internet no con nuestra dirección real, si no con la dirección que tenga dicho NAT y redirija nuestras peticiones hasta el exterior, a la vez que reconduce las respuestas desde el exterior hasta nuestro dispositivo.
+              Se encuentran dentro de un segmento de red que sólo es visible para otros equipos que lo compartan con nosotros. Esto hace que no se tenga una conexión directa con Internet y que haya que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a Internet no con nuestra dirección real, sino con la dirección que tenga dicho NAT y redirija nuestras peticiones hasta el exterior, a la vez que reconduce las respuestas desde el exterior hasta nuestro dispositivo.
             </para>
           </formalpara>
         </listitem>
@@ -146,7 +146,9 @@
       En las figuras siguientes, se muestran combinaciones de aplicaciones muy conocidas actualmente (como mensajería instantánea o VoIP) junto a las pruebas realizadas en diferentes terminales móviles, con los sistemas operativos más usados en estos momentos.
     </para>
     <note>
-      Por cuestiones legales, no pueden mostrarse los nombres de las aplicaciones y los terminales usados para generar estas gráficas. Pruebas realizadas por los laboratorios de Telefónica de España, S.A.
+      <para>
+        Por cuestiones legales, no pueden mostrarse los nombres de las aplicaciones y los terminales usados para generar estas gráficas. Pruebas realizadas por los laboratorios de Telefónica de España, S.A.
+      </para>
     </note>
     <figure>
       <title>Aplicación con demasiado tráfico de control, 1</title>

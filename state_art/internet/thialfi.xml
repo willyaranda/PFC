@@ -14,7 +14,7 @@
     </para>
   </note>
   <para>
-    El principal cambio entre GCM y Thialfi es la vuelta de mensajes que no llevan contenido útil para la aplicación, si no que se basan en mandar números de versión sobre temas en concreto ("topics") a los que el usuario y las aplicaciones se suscriben para mantenerse en sincronía.
+    El principal cambio entre GCM y Thialfi es la vuelta de mensajes que no llevan contenido útil para la aplicación, sino que se basan en mandar números de versión sobre temas en concreto ("topics") a los que el usuario y las aplicaciones se suscriben para mantenerse en sincronía.
   </para>
   <formalpara>
     <title>Características</title>
@@ -27,7 +27,7 @@
       <formalpara>
         <title>Escalable</title>
         <para>
-          Puede tener constancia de millones de clientes y de objetos, ya que el tamaño para ambos es pequeño, sin necesidad de guardar datos finales, si no simplemente números de versión.
+          Puede tener constancia de millones de clientes y de objetos, ya que el tamaño para ambos es pequeño, sin necesidad de guardar datos finales, sino simplemente números de versión.
         </para>
       </formalpara>
     </listitem>
@@ -85,7 +85,7 @@
       <formalpara>
         <title>Entrega siempre actualizada</title>
         <para>
-          La entrega de los mensajes está asegurada, no porque siempre se tenga la última versión en un momento determinado, si no porque seguro que se va a conocer esa versión en un momento futuro. Esto quiere decir que lo único que reciben los clientes es un número de versión de un determinado objeto, que siempre es el máximo posible. Así pues, si un cliente se ha quedado desactualizado en, por ejemplo, la versión <code>17</code>, y ha llegado la <code>18</code> y no ha podido ser entregada, cuando llegue la versión <code>19</code> el cliente sabrá que tiene que pedir tanto la <code>18</code> como la <code>19</code>, para así estar en sincronía con el servidor, de manera que en cualquier momento lo único que almacena un servidor o un cliente es un determinado objeto, con un <code>ID</code> en una versión <code>V</code> determinada.
+          La entrega de los mensajes está asegurada, no porque siempre se tenga la última versión en un momento determinado, sino porque seguro que se va a conocer esa versión en un momento futuro. Esto quiere decir que lo único que reciben los clientes es un número de versión de un determinado objeto, que siempre es el máximo posible. Así pues, si un cliente se ha quedado desactualizado en, por ejemplo, la versión <code>17</code>, y ha llegado la <code>18</code> y no ha podido ser entregada, cuando llegue la versión <code>19</code> el cliente sabrá que tiene que pedir tanto la <code>18</code> como la <code>19</code>, para así estar en sincronía con el servidor, de manera que en cualquier momento lo único que almacena un servidor o un cliente es un determinado objeto, con un <code>ID</code> en una versión <code>V</code> determinada.
         </para>
       </formalpara>
     </listitem>
@@ -116,7 +116,7 @@
         Como se puede observar, varía dependiendo del lenguaje de programación, desde las 40 u 80 en Google Contacts y Google+ hasta las 535 bajo un protocolo XMPP en Chrome Sync.
       </para>
       <para>
-        Además, lo interesante que se ve en esta figura anterior es que Thialfi no obliga un único protocolo de aplicación, si no que puede funcionar sobre varios, como conexiones HTTP, XMPP o incluso RPC.
+        Además, lo interesante que se ve en esta figura anterior es que Thialfi no obliga un único protocolo de aplicación, sino que puede funcionar sobre varios, como conexiones HTTP, XMPP o incluso RPC.
       </para>
     </listitem>
   </itemizedlist>
@@ -139,7 +139,7 @@
       <formalpara>
         <title>Mayor complejidad en el servidor</title>
         <para>
-          Esto se debe a que requiere guardar los cambios o diferencias para que cuando se conecten los diferentes clientes, puedan recuperar los datos que pidan, como por ejemplo, los datos de la versión <code>17</code>. Sin embargo, puede haber casos en los que los clientes no vayan a pedir la última versión, si no la versión <code>16</code> y <code>17</code>. Por lo que el servidor debe mantener esas diferencias de algún modo (en formato delta o con mensajes completos).
+          Esto se debe a que requiere guardar los cambios o diferencias para que cuando se conecten los diferentes clientes, puedan recuperar los datos que pidan, como por ejemplo, los datos de la versión <code>17</code>. Sin embargo, puede haber casos en los que los clientes no vayan a pedir la última versión, sino la versión <code>16</code> y <code>17</code>. Por lo que el servidor debe mantener esas diferencias de algún modo (en formato delta o con mensajes completos).
         </para>
       </formalpara>
     </listitem>
@@ -147,7 +147,7 @@
       <formalpara>
         <title>Mayor complejidad en las aplicaciones</title>
         <para>
-          Esto es debido a que las aplicaciones no van a procesar el mensaje directamente, si no que tienen que discernir cuál es el número de versión, hacer una llamada al servidor de terceros y recibir los datos. Además, se ha de tener en cuenta que pueden solicitarse diferentes versiones para acabar en sincronía con el servidor, lo que aumenta la lógica para ver qué versión está dando el servidor y cómo se puede manejar con versiones más nuevas.
+          Esto es debido a que las aplicaciones no van a procesar el mensaje directamente, sino que tienen que discernir cuál es el número de versión, hacer una llamada al servidor de terceros y recibir los datos. Además, se ha de tener en cuenta que pueden solicitarse diferentes versiones para acabar en sincronía con el servidor, lo que aumenta la lógica para ver qué versión está dando el servidor y cómo se puede manejar con versiones más nuevas.
         </para>
       </formalpara>
     </listitem>

@@ -27,7 +27,7 @@
     La primera implementación se ha realizado con éxito en los dispositivos con FirefoxOS, pudiendo realizar todo lo que se puede hacer con otros sistemas de push, como el de Android o el de iOS, incluso despertando a aplicaciones que están cerradas y tienen que ser abiertas para que procesen las notificaciones.
   </para>
   <para>
-    Como se ha demostrado, este servidor es tanto continuista como innovador, ya que utiliza algunas de las ideas de otros sistemas, como cuánto temaño se permite en cada mensaje y el tipo de conexión, pero sin embargo, se añade la posibilidad de que el terminal no tenga conexiones abiertas continuamente y pueda ser despertado utilizando las diferentes ventajas que nos permite la red móvil.
+    Como se ha demostrado, este servidor es tanto continuista como innovador, ya que utiliza algunas de las ideas de otros sistemas, como cuánto tamaño se permite en cada mensaje y el tipo de conexión, pero sin embargo, se añade la posibilidad de que el terminal no tenga conexiones abiertas continuamente y pueda ser despertado utilizando las diferentes ventajas que nos permite la red móvil.
   </para>
   <para>
     Es por eso que puede suponer un gran cambio en el uso de los servicios de push en los diferentes sistemas operativos, debido a que es muy fácil de implementar y ayuda enormemente a las operadoras a que no tengan sus redes colapsadas y que los usuarios no gasten tantos datos en paquetes de control y batería por tener que mantener conexiones abiertas sin utilidad clara.

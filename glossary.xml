@@ -1,7 +1,125 @@
-<glossary xmlns='http://docbook.org/ns/docbook'>
+<?xml version="1.0" encoding="utf-8"?>
+<glossary xmlns='http://docbook.org/ns/docbook'
+  version="5.0" xml:lang="es">
   <title>Glosario de términos</title>
   <glossdiv>
+    <title>A</title>
+    <glossentry>
+      <glossterm>API</glossterm>
+      <glossdef>
+        <para>
+          Application Program Interface. Conjunto de funciones y procedimientos que ofrece cierta biblioteca o librería para ser utilizado por otro software como una capa de abstracción.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
+  <glossdiv>
+    <title>B</title>
+    <glossentry>
+      <glossterm>BTS</glossterm>
+      <glossdef>
+        <para>
+          Base Transceiver Station. Definida para comunicaciones radio, es una instalación fija para la comunicación media, baja o alta bidireccional. Se usa para comunicar con una o más radios móviles o teléfonos celulares. Dispone de equipos transmisores y receptores de radio, y en UMTS son los que realizan el enlace con el usuario que efectúa o recibe la llamada con un teléfono móvil.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
+  <glossdiv>
+    <title>D</title>
+    <glossentry>
+      <glossterm>DLNA</glossterm>
+      <glossdef>
+        <para>
+          Digital Living Network Alliance. Es una asociación de fabricantes de electrónica e informática cuyo principal cometido es definir directrices de interoperabilidad que permitan compartir medios digitales entre dispositivos de consumo como ordenadores, impresoras, teléfonos móviles y otros dispositivos multimedia.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>DOM</glossterm>
+      <glossdef>
+        <para>
+          Document Object Model. Es un API que proporciona un conjunto estándar de objetos para representar documentos HTML y XML, un modelo estándar sobre ´como cpueden combinarse dichos objetos y una interfaz estándar para acceder a ellos y manipularlos.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
+  <glossdiv>
+    <title>F</title>
+    <glossentry>
+      <glossterm>Flood</glossterm>
+      <glossdef>
+        <para>
+          Inundación. Referido a las redes, suele indicar que hay tal cantidad de paquetes, que se saturan y baja considerablemente la calidad del servicio.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
+  <glossdiv>
+    <title>I</title>
+    <glossentry>
+      <glossterm>IP</glossterm>
+      <glossdef>
+        <para>
+          Etiqueta numérica que identifica, de manera lógica y jerárquica, a un interfaz de un dispositivo dentro de una red que utilice el protocolo IP, que corresponde al nivel de red del modelo OSI. Hay dos tipos, IPv4 e IPv6, cuya diferencia más percibible es el rango de direccionamiento expuesto por cada una.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
+  <glossdiv>
+    <title>J</title>
+    <glossentry>
+      <glossterm>JSON</glossterm>
+      <glossdef>
+        <para>
+          JavaScript Object Notation<footnote><para>http://www.json.org/</para></footnote>. Formato ligero para el intercambio de datos. Es fácil de escribir y fácilmente entendible, siendo también rápido y sencillo de parsear.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
+  <glossdiv>
+    <title>L</title>
+    <glossentry>
+      <glossterm>LAN</glossterm>
+      <glossdef>
+        <para>
+          Local Area Network. Red de área local. Interconexión de una o varios ordenadores y dispositivos. Su principal cometido es la creación de redes privadas.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
+  <glossdiv>
     <title>M</title>
+    <glossentry>
+      <glossterm>MCC</glossterm>
+      <glossdef>
+        <para>
+          Mobile Country Code. Código numérico usado para identificar el país de una red móvil. Está formado por 3 cifras suele ir unido a MNC.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>MNC</glossterm>
+      <glossdef>
+        <para>
+          Mobile Network Code. Código numérico que identifica un operador móvil. Suele estar formado por 2 cifras y va unido al MCC.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>MD5</glossterm>
+      <glossdef>
+        <para>
+          Algoritmo de reducción criptográfico de 128 bits ampliamente usado. Suele representarse como un número de 32 dígitos hexadecimal.
+        </para>
+      </glossdef>
+    </glossentry>
     <glossentry>
       <glossterm>MongoDB</glossterm>
       <glossdef>
@@ -11,14 +129,23 @@
       </glossdef>
     </glossentry>
   </glossdiv>
+
   <glossdiv>
     <title>N</title>
+    <glossentry>
+      <glossterm>NAT</glossterm>
+      <glossdef>
+        <para>
+          Network Address Translation. Mecanismo usado por routers IP para intercambiar paquetes entre dos redes que asignan mutuamente direcciones incompatibles. Consiste en convertir, en tiempo real, las direcciones utilizadas en los paquetes transportados.
+        </para>
+      </glossdef>
+    </glossentry>
     <glossentry>
       <glossterm>Notification Server</glossterm>
       <acronym>NS</acronym>
       <glossdef>
         <para>
-          Servidor de notificaciones. Es el conjunto general en la parte centralizada, está compuesto de diferentes partes.
+          Servidor de notificaciones. Es el conjunto general en la parte centralizada, está compuesto de diferentes partes, como el NS_AS, NS_UA_WS…
         </para>
       </glossdef>
     </glossentry>
@@ -31,6 +158,19 @@
       </glossdef>
     </glossentry>
   </glossdiv>
+
+  <glossdiv>
+    <title>P</title>
+    <glossentry>
+      <glossterm>PID</glossterm>
+      <glossdef>
+        <para>
+          Process IDentifier. Identificador del proceso. Suele ser un número entero usado por el kernel de algunos sistemas operativos para identificarlo de forma unívoca.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
   <glossdiv>
     <title>R</title>
     <glossentry>
@@ -42,29 +182,57 @@
       </glossdef>
     </glossentry>
     <glossentry>
-      <glossterm>Notification Server</glossterm>
-      <acronym>NS</acronym>
+      <glossterm>RSS</glossterm>
       <glossdef>
         <para>
-          Servidor de notificaciones. Es el conjunto general en la parte centralizada, está compuesto de diferentes partes.
+          Really Simple Syndication. Formato X;L para indicar o compartir contenido en la web. Se suele utilizar para difundir información actualizada a usuarios que se han suscrito a la fuente de contenidos.
         </para>
       </glossdef>
     </glossentry>
   </glossdiv>
+
   <glossdiv>
     <title>U</title>
     <glossentry>
       <glossterm>User Agent</glossterm>
-      <acronym>UA</acronym>
       <glossdef>
         <para>
           Agente de usuario. Es el programa que ejecuta una instancia web. En este caso, podría ser el propio sistema operativo Firefox OS o el navegador Firefox.
         </para>
       </glossdef>
     </glossentry>
+    <glossentry>
+      <glossterm>UUID</glossterm>
+      <glossdef>
+        <para>
+          Universally Unique IDentifier. Es un identificador estándar usado en el edesarrollo de software y estandarizado. Se suele utilizar para crear identificadores únicos por diferentes dispositivos o módulos, con la cierta confianza de que no habrá otro igual (debido al amplio dominio).
+        </para>
+      </glossdef>
+    </glossentry>
   </glossdiv>
+
+  <glossdiv>
+    <title>V</title>
+    <glossentry>
+      <glossterm>VoIP</glossterm>
+      <glossdef>
+        <para>
+          Voz sobre IP. Grupo de recursos que hacen posible que la señal de voz viaje a través de internet empleando un protocolo IP. La señal de voz, se envía en forma digital, en contraste con el envío analógico de la mayoría de las redes de telefonía.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
   <glossdiv>
     <title>W</title>
+    <glossentry>
+      <glossterm>WAN</glossterm>
+      <glossdef>
+        <para>
+          Wide Area Network. Red de área amplia, es un tipo de red de ordenadores capaz de cubrir grandes distancias, proveyendo de servicio a un país o continente.
+        </para>
+      </glossdef>
+    </glossentry>
     <glossentry>
       <glossterm>WebApp</glossterm>
       <acronym>WA</acronym>
@@ -74,5 +242,26 @@
         </para>
       </glossdef>
     </glossentry>
+    <glossentry>
+      <glossterm>WebSocket</glossterm>
+      <glossdef>
+        <para>
+          Tecnología que proporciona un canal de comunicación bidireccional y full-duplex sobre un único socket TCP. Está diseñada para ser implementada en navegadores y servidores web.
+        </para>
+      </glossdef>
+    </glossentry>
   </glossdiv>
+
+  <glossdiv>
+    <title>X</title>
+    <glossentry>
+      <glossterm>XMPP</glossterm>
+      <glossdef>
+        <para>
+          eXtensible Messaging and Presence Protocol. Procolo abierto y extensible basado en XML, originalmente ideado para mensajería instantánea.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glossdiv>
+
 </glossary>

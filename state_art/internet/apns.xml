@@ -16,10 +16,10 @@
     <para>
       Fue lanzado con la versión 3.0 de iOS, el 17 de junio de 2009, que correspondía . Ha sido mejorado con el paso del tiempo e introducido en los equipos de escritorio con la versión 10.7 de MacOS usando el centro de notificaciones, también presente en iOS 5 y posteriores.
     </para>
-    <para>
-      Su primera versión fue retrasada algunos meses debido a los problemas de escalabilidad que se estaban teniendo en el sistema por la gran avalancha de peticiones y uso que estaban dando los desarrolladores a este sistema<footnote><para>http://www.engadget.com/2008/06/09/iphone-push-notification-service-for-devs-announced/</para></footnote>.
-    </para>
   </formalpara>
+  <para>
+    Su primera versión fue retrasada algunos meses debido a los problemas de escalabilidad que se estaban teniendo en el sistema por la gran avalancha de peticiones y uso que estaban dando los desarrolladores a este sistema<footnote><para>http://www.engadget.com/2008/06/09/iphone-push-notification-service-for-devs-announced/</para></footnote>.
+  </para>
   <formalpara>
     <title>Características</title>
     <para>
@@ -57,7 +57,7 @@
   <itemizedlist>
     <listitem>
       <para>
-        Mayor seguridad: las notificaciones recibidas para aplicaciones que están en segundo plano o cerradas, no son enviadas directamente, si no que se muestran en la barra de estado, y hasta que el usuario no pulsa y las acepta, no se envían a la aplicación, añadiendo un nivel más de seguridad, la aceptación del usuario.
+        Mayor seguridad: las notificaciones recibidas para aplicaciones que están en segundo plano o cerradas, no son enviadas directamente, sino que se muestran en la barra de estado, y hasta que el usuario no pulsa y las acepta, no se envían a la aplicación, añadiendo un nivel más de seguridad, la aceptación del usuario.
       </para>
     </listitem>
     <listitem>

@@ -90,7 +90,7 @@
       <itemizedlist>
         <listitem>
           <para>
-            Es asíncrono y basado en eventos, lo que permite mucha más granularidad y no bloquear la ejecución. Además, no se tienen que lanzar hilos por cada petición (o varias), si no que está todo en un bucle de eventos al que se van añadiendo acciones.
+            Es asíncrono y basado en eventos, lo que permite mucha más granularidad y no bloquear la ejecución. Además, no se tienen que lanzar hilos por cada petición (o varias), sino que está todo en un bucle de eventos al que se van añadiendo acciones.
           </para>
         </listitem>
         <listitem>
@@ -131,7 +131,7 @@
         <formalpara>
           <title>Confiabilidad</title>
           <para>
-            RabbitMQ tiene una serie de funcionalidades que hace que la entrega de los mensajes pueda ser confiable, mediante la persistencia de mensajes (el mensaje no se guarda sólo en RAM, si no también en disco, recuperable en caso de que haya un error en el sistema), aceptaciones de entrega (puede ser automático o manual, por ejemplo, se quiere decir que un mensaje está recibido cuando se ha procesado correctamente), confirmación de publicación (si ha habido fallos al enviar mensajes a las colas) y alta escalabilidad.
+            RabbitMQ tiene una serie de funcionalidades que hace que la entrega de los mensajes pueda ser confiable, mediante la persistencia de mensajes (el mensaje no se guarda sólo en RAM, sino también en disco, recuperable en caso de que haya un error en el sistema), aceptaciones de entrega (puede ser automático o manual, por ejemplo, se quiere decir que un mensaje está recibido cuando se ha procesado correctamente), confirmación de publicación (si ha habido fallos al enviar mensajes a las colas) y alta escalabilidad.
           </para>
         </formalpara>
       </listitem>
@@ -194,13 +194,13 @@
         Sin embargo, dado el uso que se estaba dando en el servidor de notificaciones, en el cual no era requerido que hubiera una persistencia de datos, que era uno de los puntos flojos de ActiveMQ, se empezó a usar el protocolo STOMP<footnote><para>http://stomp.github.com/</para></footnote>, que es el predeterminado de ActiveMQ.
       </para>
       <para>
-        El problema surgió cuando hubo que probar el despliegue, añadiendo pruebas de alta disponibilidad, tolerancia a fallos y durabilidad en el tiempo, momento en el que se descartó ActiveMQ debido a que era muy débil en cuando alguno de sus nodos fallaran, así que como el cluster no era como tal, si no que era solamente maestro-esclavo, lo que hacía que la escalabilidad fuera muy mala.
+        El problema surgió cuando hubo que probar el despliegue, añadiendo pruebas de alta disponibilidad, tolerancia a fallos y durabilidad en el tiempo, momento en el que se descartó ActiveMQ debido a que era muy débil en cuando alguno de sus nodos fallaran, así que como el cluster no era como tal, sino que era solamente maestro-esclavo, lo que hacía que la escalabilidad fuera muy mala.
       </para>
       <para>
         A partir de ese momento se buscaron otras soluciones de mensajería, viendo Apollo<footnote><para>http://activemq.apache.org/apollo/</para></footnote>, que es una nueva implementación de ActiveMQ basada en eventos y mucho más eficaz que su hermano mayor, ZeroMQ<footnote><para>http://www.zeromq.org/</para></footnote>, descartada por su gran curva de aprendizaje y su API a muy bajo nivel, y al final RabbitMQ, con el cual se hicieron más pruebas de carga, se decidió que sería la fundación final para los problemas de mensajería que se habían presentado, obligando a cambiar el protocolo de intercambio de datos, de STOMP a AMQP<footnote><para>http://www.amqp.org/</para></footnote>, nativo de RabbitMQ y estandarizado e implementado por la mayoría de los sistemas de colas (por lo que en un futuro se podría cambiar el software de mensajería sin que diera problemas el servidor de notificaciones).
       </para>
       <note>
-        Hay que destacar que debido a los problemas que se encontraron en ActiveMQ el plan tecnológico está siendo revisado y es muy probable que en un futuro cercano se prefiera la opción de RabbitMQ en vez de ActiveMQ.
+        <para>Hay que destacar que debido a los problemas que se encontraron en ActiveMQ el plan tecnológico está siendo revisado y es muy probable que en un futuro cercano se prefiera la opción de RabbitMQ en vez de ActiveMQ.</para>
       </note>
     </section>
   </section>

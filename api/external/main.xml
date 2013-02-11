@@ -10,7 +10,7 @@
     Con estas APIs, los desarrolladores son capaces de hacer que los mensajes que quieran enviar desde un servidor externo lleguen correctamente hacia sus aplicaciones. La interfaz y el código es muy sencillo, para hacer que el desarrollo sea muy rápido.
   </para>
   <note>
-    Este API aún no está estandarizado por el W3C, por lo que lo aquí explicado es una proposición funcional.
+    <para>Este API aún no está estandarizado por el W3C, por lo que lo aquí explicado es una proposición funcional.</para>
   </note>
   <para>
     Hay dos APIs principales externas expuestas para los desarrolladores de aplicaciones, que son:
@@ -19,9 +19,5 @@
   <xi:include href="wa_ua.xml" />
   <xi:include href="wa_as.xml" />
   <xi:include href="as_ns.xml" />
-
-  <para>
-    Así pues, las secciones anteriores son las APIs externas con las que tendrán que trabajar los desarrolladores de aplicaciones y gestores de servidores que intentan enviar notificaciones push.
-  </para>
 
 </section>

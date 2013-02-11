@@ -10,7 +10,7 @@
     A través de este API, se puede descargar el token inicial y único que será usado para el registro posterior y demás operaciones.
   </para>
   <note>
-    Este API puede cambiar en un futuro y entre diferentes servidores de notificaciones, puesto que el token podría venir predeterminado en el mismo dispositivo o ser recogido mediante otros mecanismos, como correo electrónico, respuesta a un registro web, etcétera.
+    <para>Este API puede cambiar en un futuro y entre diferentes servidores de notificaciones, puesto que el token podría venir predeterminado en el mismo dispositivo o ser recogido mediante otros mecanismos, como correo electrónico, respuesta a un registro web, etcétera.</para>
   </note>
   <para>
     Así pues, la petición actual es:

@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <bibliography xmlns="http://docbook.org/ns/docbook"
-              xmlns:xlink="http://www.w3.org/1999/xlink">
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="5.0" xml:lang="es">
   <title>Bibliografía</title>
 
   <!-- PDFs -->
@@ -20,7 +22,8 @@
         <year>2012</year>
         <holder>Nikhil Marathe</holder>
       </copyright>
-      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro online</link>
+      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro
+        online</link>
     </biblioentry>
   </bibliodiv>
 
@@ -43,7 +46,8 @@
         <year>2012</year>
         <holder>Nikhil Marathe</holder>
       </copyright>
-      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro online</link>
+      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro
+        online</link>
     </biblioentry>
   </bibliodiv>
 
@@ -66,7 +70,8 @@
         <holder>Nikhil Marathe</holder>
       </copyright>
       <title>An Introduction to libuv</title>
-      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro online</link>
+      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro
+        online</link>
     </biblioentry>
   </bibliodiv>
 </bibliography>

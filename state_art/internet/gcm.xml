@@ -44,7 +44,7 @@
       </listitem>
       <listitem>
         <para>
-          Requiere que la versión de Android instalada sea la 2.2 y además es necesario que posea la aplicación de Google Play (el antiguo Market) configurada correctamente, es decir, una cuenta de Google asociada. Pero no obliga a que la aplicación que reciba la notificación esté instalada por Google Play, si no que puede tener cualquier origen.
+          Requiere que la versión de Android instalada sea la 2.2 y además es necesario que posea la aplicación de Google Play (el antiguo Market) configurada correctamente, es decir, una cuenta de Google asociada. Pero no obliga a que la aplicación que reciba la notificación esté instalada por Google Play, sino que puede tener cualquier origen.
         </para>
       </listitem>
       <listitem>
@@ -92,7 +92,7 @@
     GCM es un sistema que no es obligatorio para las aplicaciones Android publicadas en el Market de Google. Sin embargo, su diseño le convierte en algo bastante eficaz para las redes móviles y le confiere una serie de ventajas que hacen que los servicios de terceros tengan que disponer de menos lógica y preocuparse en menor medida de la suerte que van a correr sus mensajes.
   </para>
   <note>
-    Cabe señalar, que antes de la introducción de GCM para los desarrolladores de Android (en julio de 2012), había un sistema muy similar para teléfonos Android, llamado Cloud to Device Messagging, o más conocido como C2DM<footnote><para>https://developers.google.com/android/c2dm/</para></footnote>
+    <para>Cabe señalar, que antes de la introducción de GCM para los desarrolladores de Android (en julio de 2012), había un sistema muy similar para teléfonos Android, llamado Cloud to Device Messagging, o más conocido como C2DM<footnote><para>https://developers.google.com/android/c2dm/</para></footnote></para>
   </note>
   <formalpara>
     <title>Ventajas</title>
@@ -103,7 +103,7 @@
     <itemizedlist>
       <listitem>
         <para>
-          Atesora un mejor uso de batería, ya que puede encolar mensajes para ser entregados cuando el dispositivo está con una conexión activa (y por lo tanto tiene la radio móvil activada). Además, no tiene por qué notificar al dispositivo siempre que le llegue una nueva notificación, si no que puede esperar a que pase a estar activo (por ejemplo, que se encienda la pantalla) para mandar los datos.
+          Atesora un mejor uso de batería, ya que puede encolar mensajes para ser entregados cuando el dispositivo está con una conexión activa (y por lo tanto tiene la radio móvil activada). Además, no tiene por qué notificar al dispositivo siempre que le llegue una nueva notificación, sino que puede esperar a que pase a estar activo (por ejemplo, que se encienda la pantalla) para mandar los datos.
         </para>
       </listitem>
       <listitem>

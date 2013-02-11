@@ -35,7 +35,7 @@
     Entonces, una vez que el servidor de terceros tenga estos datos, es capaz de empezar a mandar notificaciones para que sean entregadas a las aplicaciones finales, siempre dependiendo de la URL y de la firma con la que se mandan dichas notificaciones.
   </para>
   <note>
-    Este API se corresponde a una simple interfaz REST que será mejorada en futuras versiones para incluir más características.
+    <para>Este API se corresponde a una simple interfaz REST que será mejorada en futuras versiones para incluir más características.</para>
   </note>
   <para>
     Así pues, se acepta una peticíon HTTP Post usada para mandar la notificación con el mensaje real dentro. El siguiente esquema debe ser enviado la <code>publicURL</code> que defina a la instancia de la aplicación para un usuario determinado (explicado en los puntos anteriores), del estilo de: <code>https://push.telefonica.es/notify/SOME_RANDOM_TOKEN</code>
@@ -151,7 +151,7 @@
       Pero los mensajes más interesantes son los de error, que son todos aquellos que sean diferentes al de la cabecera HTTP con respuesta <code>200</code>. Dependiendo de la cabecera HTTP, el error varía, dando la razón en un formato escrito en el atributo <code>reason</code> de la respuesta, que es un JSON.
     </para>
     <note>
-      Estos mensajes de error están definidos en el fichero <filename>/src/common/constants.js</filename> a partir de la línea 28<footnote><para>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L28</para></footnote>
+      <para>Estos mensajes de error están definidos en el fichero <filename>/src/common/constants.js</filename> a partir de la línea 28<footnote><para>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L28</para></footnote></para>
     </note>
     <itemizedlist>
       <listitem>
@@ -294,7 +294,7 @@
       A partir de estos errores, el servidor de terceros es capaz de determinar que problema tiene el servidor de notificaciones con las notificaciones que está intentando enviar.
     </para>
     <note>
-      Los mensajes de error pueden cambiar de un servidor a otro, sobre todo si se añaden extensiones o más características, pero estos son los básicos que debería responder en caso de algún problema.
+      <para>Los mensajes de error pueden cambiar de un servidor a otro, sobre todo si se añaden extensiones o más características, pero estos son los básicos que debería responder en caso de algún problema.</para>
     </note>
   </section>
 </section>

@@ -17,11 +17,10 @@
     <para>
       Así pues, hay que utilizar el recurso necesario para iniciar la conexión, del estilo de <code>wss://push.telefonica.com</code>, usando el protocolo <code>push-notification</code>.
     </para>
+    <note>
+      <para>A partir de este momento, los siguientes métodos y comunicaciones se realizan por el canal WebSocket que se ha abierto en la sección anterior.</para>
+    </note>
   </section>
-
-  <note>
-    A partir de este momento, los siguientes métodos y comunicaciones se realizan por el canal WebSocket que se ha abierto en la sección anterior.
-  </note>
 
   <section>
     <title>Registro de UA</title>
@@ -131,7 +130,7 @@
       Así pues, la respuesta del registro puede ser válida o no.
     </para>
     <note>
-      Hay que notar que las respuestas son asíncronas, y el envío de un mensaje de tipo <code>registerUA</code> no significa que su mensaje de respuesta sea el siguiente que llegue, por lo que hay que tratar cada mensaje por separado sin esperar una respuesta instantánea.
+      <para>Hay que notar que las respuestas son asíncronas, y el envío de un mensaje de tipo <code>registerUA</code> no significa que su mensaje de respuesta sea el siguiente que llegue, por lo que hay que tratar cada mensaje por separado sin esperar una respuesta instantánea.</para>
     </note>
     <para>
       En el caso de una respuesta exitosa, se recibirá algo similar a:
@@ -199,7 +198,7 @@
           </listitem>
         </itemizedlist>
         <note>
-          No están contempladas todas las posibilidades, ya que se puede añadir más en el futuro, dependiendo de los dispositivos que estén funcionando.
+          <para>No están contempladas todas las posibilidades, ya que se puede añadir más en el futuro, dependiendo de los dispositivos que estén funcionando.</para>
         </note>
       </listitem>
       <listitem>
@@ -259,16 +258,15 @@
       </listitem>
     </itemizedlist>
     <note>
-      Esta función de registro tiene que realizarse cada vez que cambie la conexión móvil o WiFi del dispositivo, para actualizar la información en el servidor.
+      <para>Esta función de registro tiene que realizarse cada vez que cambie la conexión móvil o WiFi del dispositivo, para actualizar la información en el servidor.</para>
     </note>
   </section>
 
-  <note>
-    A partir de este momento, los siguientes métodos y comunicaciones necesitan tener una conexión autorizada, esto es, que haya registrado anteriormente un dispositivo mediante el método <code>registerUA</code>
-  </note>
-
   <section>
     <title>Registro de WA</title>
+    <note>
+      <para>A partir de este momento, los siguientes métodos y comunicaciones necesitan tener una conexión autorizada, esto es, que haya registrado anteriormente un dispositivo mediante el método <code>registerUA</code></para>
+    </note>
     <para>
       Esta función es la usada para el registro de aplicaciones a partir de una clave pública y un token de aplicación. Es la capa inferior de la función <code>requestRemotePermission</code> del objeto <code>navigator.push</code> expuesto para los desarrolladores de aplicaciones.
     </para>
@@ -464,7 +462,7 @@
       </listitem>
     </itemizedlist>
     <note>
-      Para no volver a recibir los mensajes duplicados, hay que enviar un acuse de recibo, explicado en la siguiente sección.
+      <para>Para no volver a recibir los mensajes duplicados, hay que enviar un acuse de recibo, explicado en la siguiente sección.</para>
     </note>
   </section>
 
@@ -640,7 +638,7 @@
       De la misma manera que hay un método de registro de UA y un método de de-registro de WA, hay un método para de-registrar un dispositivo.
     </para>
     <note>
-      <emphasis>Peligro</emphasis>. Este método elimina todos los datos del dispositivo de la base de datos, invalidando cualquier URL y desechando cualquier notificación pendiente.
+      <para><emphasis>Peligro</emphasis>. Este método elimina todos los datos del dispositivo de la base de datos, invalidando cualquier URL y desechando cualquier notificación pendiente.</para>
     </note>
     <para>
       El mensaje que hay que enviar, es simplemente:
