@@ -33,7 +33,6 @@
           <title>Servidor de notificaciones (Notification Server: NS)</title>
           <para>
             Es la infraestructura centralizada del servidor de notificaciones. Cualquiera puede desplegar una nueva instancia debido a que está <link xlink:href="https://github.com/telefonicaid/notification_server">liberado como código abierto</link>.
-            Como el proyecto se inició bajo el paraguas de Firefox OS, cuyo motor de renderizado de páginas web, equivalente a aplicaciones web es conocido como el Agente de usuario, que en nuestro caso es Gecko, el motor de Mozilla.
           </para>
         </formalpara>
       </listitem>
