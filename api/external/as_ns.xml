@@ -6,10 +6,10 @@
 
   <title>Entre el AS y NS</title>
   <para>
-    Este es el API que tienen que utilizar los servidores web para enviar las notificaciones de una forma estándar hacia el servidor de notificaciones para que éste las mande correctamente hacia los clientes.
+    Este es el API que tienen que utilizar los servidores web para enviar las notificaciones de una forma estándar hacia el servidor de notificaciones para que éste las mande correctamente a los clientes.
   </para>
   <para>
-    El API se basa en protocolos estándar de la web y bien conocidos, como son los HTTP Post, mensajes JSON (JavaScript Object Notation) y las cabeceras de respuesta HTTP estándar, por lo que es muy sencilla la implementación y el protocolo, a parte de ser muy ligero y de haber cientos de programas software o librerías que implementan los métodos necesarios para poder enviar estas notificaciones.
+    El API se basa en protocolos estándar de la web y bien conocidos, como son los HTTP Post, mensajes JSON (JavaScript Object Notation) y las cabeceras de respuesta HTTP estándar, por lo que su implementación es muy sencilla y el protocolo, a parte de ser muy ligero, cuenta con cientos de programas software o librerías que implementan los métodos necesarios para poder enviar estas notificaciones.
   </para>
   <para>
     Así pues, el servidor de terceros (<code>AS</code>: Application Server), necesita varios elementos antes de poder enviar su notificación, como son:
@@ -17,7 +17,7 @@
   <itemizedlist>
     <listitem>
       <para>
-        Una clave privada, para poder firmas las notificaciones. Tiene que ser la correspondiente a la clave privada que tienen las aplicaciones guardada y con la que se han registrado.
+        Una clave privada, para poder firmar las notificaciones. Tiene que ser la correspondiente a la clave privada que disponen las aplicaciones guardada y con la que se han registrado.
       </para>
     </listitem>
     <listitem>
@@ -38,7 +38,7 @@
     <para>Este API se corresponde a una simple interfaz REST que será mejorada en futuras versiones para incluir más características.</para>
   </note>
   <para>
-    Así pues, se acepta una peticíon HTTP Post usada para mandar la notificación con el mensaje real dentro. El siguiente esquema debe ser enviado la <code>publicURL</code> que defina a la instancia de la aplicación para un usuario determinado (explicado en los puntos anteriores), del estilo de: <code>https://push.telefonica.es/notify/SOME_RANDOM_TOKEN</code>
+    Así pues, se acepta una petición HTTP Post usada para mandar la notificación con el mensaje real dentro. El siguiente esquema debe ser enviado la <code>publicURL</code> que defina a la instancia de la aplicación para un usuario determinado (explicado en los puntos anteriores), del estilo de: <code>https://push.telefonica.es/notify/SOME_RANDOM_TOKEN</code>
   </para>
   <figure>
     <title>Notificación enviada</title>
@@ -55,7 +55,7 @@
     </programlisting>
   </figure>
   <para>
-    Así, como se puede ver la notificación tiene las siguientes características:
+    La notificación tiene las siguientes características:
   </para>
   <itemizedlist>
     <listitem>
@@ -109,7 +109,7 @@
       <formalpara>
         <title>ttl</title>
         <para>
-          <optional>Opcional</optional> Tiempo de vida del mensaje. Está especificado en segundos, y puede ser desde 0, lo cual significaría que no se guarda en la base de datos, y si los destinatarios están desconectados, o no se puede entregar, la notificación se pierde; hasta 4 semanas (o 31 días, 2678400 segundos). El tiempo por defecto es de 4 semanas. Una vez superado ese tiempo, si aún sigue en el sistema (esto es, no se ha entregado), se elimina y no se entrega.
+          <optional>Opcional</optional> Tiempo de vida del mensaje. Está especificado en segundos, y puede ser desde 0 hasta 4 semanas (o 31 días, 2678400 segundos). Si es 0 significaría que no se guarda en la base de datos, que los destinatarios están desconectados y si no se puede entregar, la notificación se pierde. El tiempo por defecto es de 4 semanas. Una vez superado ese tiempo, si aún sigue en el sistema (esto es, no se ha entregado), se elimina y no se entrega.
         </para>
       </formalpara>
     </listitem>
@@ -125,7 +125,7 @@
       <formalpara>
         <title>priority</title>
         <para>
-          <optional>Opcional</optional> Prioridad del mensaje. Varía entre <code>1</code> y <code>4</code>, donde 1 es más prioritario, y 4 es menos prioritario. Por defecto el valor que se indica es 4. Usado para mostrar al servidor si tiene que entregar la notificación en el momento o puede retrasarla hasta que haya más o el terminal esté despierto.
+          <optional>Opcional</optional> Prioridad del mensaje. Varía entre <code>1</code> y <code>4</code>, donde 1 es más prioritario y 4 es menos prioritario. Por defecto el valor que se indica es 4. Usado para mostrar al servidor si tiene que entregar la notificación en el momento o puede retrasarla hasta que haya más o el terminal esté despierto.
         </para>
       </formalpara>
     </listitem>
@@ -148,7 +148,7 @@
   <section>
     <title>Mensajes de error del servidor</title>
     <para>
-      Pero los mensajes más interesantes son los de error, que son todos aquellos que sean diferentes al de la cabecera HTTP con respuesta <code>200</code>. Dependiendo de la cabecera HTTP, el error varía, dando la razón en un formato escrito en el atributo <code>reason</code> de la respuesta, que es un JSON.
+      Sin embargo, los mensajes más interesantes son los de error, es decir, todos aquellos diferentes al de la cabecera HTTP con respuesta <code>200</code>. Dependiendo de la cabecera HTTP, el error varía, dando la razón en un formato escrito en el atributo <code>reason</code> de la respuesta, que es un JSON.
     </para>
     <note>
       <para>Estos mensajes de error están definidos en el fichero <filename>/src/common/constants.js</filename> a partir de la línea 28<footnote><para>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L28</para></footnote></para>
@@ -158,7 +158,7 @@
         <formalpara>
           <title>JSON inválido</title>
           <para>
-            Se produce cuando la notificación no está correctamente formada, y no puede ser parseada como un JSON válido. Puede que sea debido a que no hay un atributo correctamente cerrado o contenga caracteres no parseables dentro del juego de caracteres de JavaScript (UTF-16).
+            Se produce cuando la notificación no está correctamente formada y no puede ser parseada como un JSON válido. Puede que sea debido a que no hay un atributo correctamente cerrado o contenga caracteres no parseables dentro del juego de caracteres de JavaScript (UTF-16).
           </para>
         </formalpara>
         <screen>
@@ -291,7 +291,7 @@
       </listitem>
     </itemizedlist>
     <para>
-      A partir de estos errores, el servidor de terceros es capaz de determinar que problema tiene el servidor de notificaciones con las notificaciones que está intentando enviar.
+      A partir de estos errores, el servidor de terceros es capaz de determinar el problema que tiene el servidor de notificaciones con las notificaciones que está intentando enviar.
     </para>
     <note>
       <para>Los mensajes de error pueden cambiar de un servidor a otro, sobre todo si se añaden extensiones o más características, pero estos son los básicos que debería responder en caso de algún problema.</para>
