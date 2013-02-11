@@ -33,16 +33,16 @@
     Así pues, la interfaz que define a <code>PushManager</code> (que es el contenedor que se expone a las aplicaciones), quedará de la forma siguiente:
   </para>
   <figure>
-      <title>Interfaz <code>PushManager</code></title>
-      <programlisting language="JavaScript">
+    <title>Interfaz <code>PushManager</code></title>
+    <programlisting language="JavaScript">
 <![CDATA[interface PushManager {
   PushService requestRemotePermission (DOMString waToken,
                                        DOMString publicKey,
                                        optional DOMString algorithm);
-  PushService checkRemotePermission ();
+  PushService revokeRemotePermission ();
 };]]>
-      </programlisting>
-    </figure>
+    </programlisting>
+  </figure>
 
   <section>
     <title>Método requestRemotePermission</title>
@@ -54,8 +54,7 @@
       <programlisting language="JavaScript">
 <![CDATA[requestRemotePermission (DOMString waToken,
                          DOMString publicKey,
-                         optional DOMString algorithm);
-};]]>
+                         optional DOMString algorithm);]]>
       </programlisting>
     </figure>
     <para>
@@ -203,6 +202,12 @@ req.onerror = function(event) {
 
   <section>
     <title>Método revokeRemotePermission</title>
+    <figure>
+      <title>Función <code>revokeRemotePermission</code></title>
+      <programlisting language="JavaScript">
+<![CDATA[revokeRemotePermission ();]]>
+      </programlisting>
+    </figure>
     <para>
       Este método realiza el paso contrario que el anterior, puesto que pide al servidor de notificaciones que se dejen de enviar notificaciones, esto es, que se quiere eliminar la URL o recurso dado en el paso anterior. Es un de-registro de URL. Puede servir en múltiples casos, como por ejemplo:
     </para>

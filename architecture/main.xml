@@ -5,7 +5,7 @@
 
   <title>Arquitectura interna</title>
   <para>
-    Este capítulo tiene como finalidad la de explicar cómo se ha organizado internamente el servidor de notificaciones central y cómo interactúan las diferentes partes o instancias entre ellas para que las notificaciones sean tratadas correctamente, desde el momento en que son recibidas hasta cuando el teléfono va a procesarlas y tiene que dar la confirmación de recepción.
+    El capítulo tiene como finalidad explicar cómo se ha organizado internamente el servidor de notificaciones central y cómo interactúan las diferentes partes o instancias entre ellas para que las notificaciones sean tratadas correctamente, desde el momento en que son recibidas hasta cuando el teléfono va a procesarlas y tiene que dar la confirmación de recepción.
   </para>
   <para>
     Pero antes de explicar el funcionamiento y los diferentes mensajes que se intercambian, se explicará los diferentes actores que están en funcionamiento repartidos por todo el servidor.

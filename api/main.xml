@@ -5,9 +5,9 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0" xml:lang="es">
 
-  <title>Application Program Interface, API</title>
+  <title>API</title>
   <para>
-    El servidor de notificaciones tiene diferentes API que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">el estándar</link> que propone el W3C se mantienen los métodos, pero sin embargo, se añaden algunos parámetros extras o se eliminan algunos métodos para añadir nuevas características, seguridad y evitar redundancia.
+    El servidor de notificaciones tiene diferentes API (Application Program Interface) que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <link xlink:href="http://dvcs.w3.org/hg/push/raw-file/default/index.html">el estándar</link> que propone el W3C se mantienen los métodos, pero sin embargo, se añaden algunos parámetros extras o se eliminan algunos métodos para añadir nuevas características, seguridad y evitar redundancia.
   </para>
   <para>
     Pero para entender este capítulo, es necesario presentar a las diferentes instancias que forman parte del servidor de notificaciones:

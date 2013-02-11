@@ -24,7 +24,7 @@
     </listitem>
     <listitem>
       <para>
-        No pensar sólo en el envío HTTP, si no que otros sistemas podrían ser correctos, como XMPP, correo electrónico o incluso un mensaje SMS si fuera necesario.
+        No pensar sólo en el envío HTTP, sino que otros sistemas podrían ser correctos, como XMPP, correo electrónico o incluso un mensaje SMS si fuera necesario.
       </para>
     </listitem>
     <listitem>

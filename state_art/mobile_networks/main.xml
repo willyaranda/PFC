@@ -54,7 +54,7 @@
           <formalpara>
             <title>LAN privadas</title>
             <para>
-              Nos encontramos dentro de un segmento de red que sólo es visible para otros equipos que lo compartan con nosotros. Esto hace que no tengamos una conexión directa con Internet y que haya que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a Internet no con nuestra dirección real, si no con la dirección que tenga dicho NAT y redirija nuestras peticiones hasta el exterior, a la vez que reconduce las respuestas desde el exterior hasta nuestro dispositivo.
+              Se encuentran dentro de un segmento de red que sólo es visible para otros equipos que lo compartan con nosotros. Esto hace que no se tenga una conexión directa con Internet y que haya que pasar por un dispositivo intermedio (normalmente un NAT) que permite salir a Internet no con nuestra dirección real, si no con la dirección que tenga dicho NAT y redirija nuestras peticiones hasta el exterior, a la vez que reconduce las respuestas desde el exterior hasta nuestro dispositivo.
             </para>
           </formalpara>
         </listitem>
@@ -70,7 +70,7 @@
       También se podría pensar que debido a que IPv4 tiene un rango de direcciones muy limitado, el uso de redes privadas con NATing está muy extendido, algo que es correcta. Pero también podría pensarse que usando IPv6 todos los problemas estarían resueltos y que al haber tantas posibilidades de direccionar dispositivos, el uso de mecanismos de push se irá perdiendo. Sin embargo, hay que tener en cuenta, como queda expresado anteriormente, que las operadoras suelen desplegar sistemas de firewall, por lo que aunque sus clientes dispongan de terminales con IPv6 pública, y por lo tanto, visibles desde Internet, se bloquearían algunas conexiones para así evitar la congestión en la red y un uso elevado de batería. De esta forma, habría que crear reglas específicas en los firewall para permitir conexiones entrantes hacia los dispositivos por parte de determinados lugares.
     </para>
     <note>
-      <title>Redes fijas en el hogar</title>
+      <title>Nota: Redes fijas en el hogar</title>
       <para>
         No se ha hablado de redes en el hogar puesto que la diferencia no es tan apreciable y permiten mantener equipos fuera de Internet, como televisiones o sistemas DLNA. Además, es transparente para los usuarios, ya que el peso lo lleva el router, que además de proporcionar acceso a Internet, actúa como NAT, facilitando sistemas 2 en 1.
       </para>
@@ -146,7 +146,7 @@
       En las figuras siguientes, se muestran combinaciones de aplicaciones muy conocidas actualmente (como mensajería instantánea o VoIP) junto a las pruebas realizadas en diferentes terminales móviles, con los sistemas operativos más usados en estos momentos.
     </para>
     <note>
-      Por cuestiones legales, no pueden mostrarse los nombres de las aplicaciones y los terminales usados para generar estas gráfcias. Pruebas realizadas por los laboratorios de Telefónica de España, S.A.
+      Por cuestiones legales, no pueden mostrarse los nombres de las aplicaciones y los terminales usados para generar estas gráficas. Pruebas realizadas por los laboratorios de Telefónica de España, S.A.
     </note>
     <figure>
       <title>Aplicación con demasiado tráfico de control, 1</title>

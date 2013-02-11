@@ -10,7 +10,7 @@
   </para>
   <note>
     <para>
-      Sin embargo, cabe notar que este sistema no está funcionando en los terminales móviles que llevan Android, si no que se usa el ya explicado GCM, sólo con la intención de explorar nuevas posibilidades, así como la sincronización de contactos de manera experimental. Lo implementa Google Chrome en su versión de escritorio y móvil.
+      Sin embargo, cabe observar que este sistema no está funcionando en los terminales móviles que llevan Android, sino que se usa el ya explicado GCM, sólo con la intención de explorar nuevas posibilidades, así como la sincronización de contactos de manera experimental. Lo implementa Google Chrome en su versión de escritorio y móvil.
     </para>
   </note>
   <para>

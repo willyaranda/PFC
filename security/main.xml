@@ -6,10 +6,10 @@
 
   <title>Seguridad</title>
   <para>
-    La seguridad es uno de los puntos más importantes en cualquier sistema informático, y por supuesto no ha podido obviarse en este proyecto. Tener un sistema seguro es una tarea complicada, que requiere de mucho esfuerzo y dedicación, y sobre todo, de investigar cuáles pueden ser los fallos del sistema que pueden ser abusados. Aún así, cualquier sistema, por muy seguro que sea, siempre puede ser mejorado, y debe serlo, puesto que en el servidor de notificaciones estamos moviendo mensajes, que pueden ir en claro, e identificando quién los manda y hacia qué terminales, por lo que puede ser un grave problema si se tiene algún fallo de seguridad.
+    La seguridad es uno de los puntos más importantes en cualquier sistema informático, y por supuesto no ha podido obviarse en este proyecto. Tener un sistema seguro es una tarea complicada, que requiere de mucho esfuerzo y dedicación, y sobre todo, de investigar cuáles pueden ser los fallos del sistema que pueden ser abusados. Aún así, cualquier sistema, por muy seguro que sea, siempre puede ser mejorado, y debe serlo, puesto que en el servidor de notificaciones se están moviendo mensajes, que pueden ir en claro, e identificando quién los manda y hacia qué terminales, por lo que puede ser un grave problema si se tiene algún fallo de seguridad.
   </para>
   <para>
-    Así pues, ha habido diferentes elementos del sistema que ha habido que poner más énfasis en la seguridad, bien porque eran susceptibles de mostrar información personal, bien porque se creía que podrían recibir ataques por fuerza bruta o de denegación de servicio o incluso porque son aquellos que están expuestos tanto a los terminales como a Internet, y siempre son un dulce muy apetitoso para personas con no buenas intenciones.
+    Así pues, ha habido diferentes elementos del sistema en los que ha habido que poner más énfasis en la seguridad, bien porque eran susceptibles de mostrar información personal, bien porque se creía que podrían recibir ataques por fuerza bruta o de denegación de servicio o incluso porque son aquellos que están expuestos tanto a los terminales como a Internet, y siempre son un dulce muy apetitoso para personas con no buenas intenciones.
   </para>
   <section>
     <title>Tokens de dispositivo</title>
@@ -17,7 +17,7 @@
       El primer punto de entrada al sistema de notificaciones push es tener un token de dispositivo válido que permitirá que el UA (User Agent, explicado en el capítulo "API") se registre de forma correcta en el sistema.
     </para>
     <para>
-      Entonces, había que garantizar de algún modo que este token fuera tanto único como válido en nuestro sistema para poder controlar el abuso, y si los registros de dispositivos venían de donde nosotros queríamos, esto es: de dispositivos con Firefox OS en un primer lugar.
+      Entonces, había que garantizar de algún modo que este token fuera tanto único como válido en nuestro sistema para poder controlar el abuso, y si los registros de dispositivos venían de donde donde se quería, esto es: de dispositivos con Firefox OS en un primer lugar.
     </para>
     <para>
       A lo largo del tiempo, se han desarrollado muchos mecanismos de intercambio de información para realizar conexiones de usuario de forma controlada, o identificación de aplicaciones sin tener que dar los nombres de usuario y contraseñas a servicios de terceros, como OAuth<footnote><para>http://oauth.net/2/</para></footnote>. Sin embargo, en caso de la primera versión del servidor de notificaiones, se quería algo más sencillo, lo que se tradujo en los siguientes preceptos:
@@ -78,27 +78,27 @@ token.prototype = {
     <orderedlist>
       <listitem>
         <para>
-          Usamos un número de serie que aumenta en una unidad cada vez que hay una nueva petición.
+          Se usa un número de serie que aumenta en una unidad cada vez que hay una nueva petición.
         </para>
       </listitem>
       <listitem>
         <para>
-          Añadimos el momento de generación actual, en milisegundos (según el estándar de JavaScript).
+          Se añade el momento de generación actual, en milisegundos (según el estándar de JavaScript).
         </para>
       </listitem>
       <listitem>
         <para>
-          Añadimos el PID del proceso que lo ha generado.
+          Se agrega el PID del proceso que lo ha generado.
         </para>
       </listitem>
       <listitem>
         <para>
-          Y un UUID (versión 1) para añadir aleatoriedad
+          Y un UUID (versión 1) para añadir aleatoriedad.
         </para>
       </listitem>
       <listitem>
         <para>
-          Calculamos el hash MD5 del <code>rawToken</code> inicial, que se lo añadimos al token inicial con un <code>@</code> entre medias. Esto lo usamos como CRC.
+          Se calcula el hash MD5 del <code>rawToken</code> inicial, que se lo añadimos al token inicial con un <code>@</code> entre medias. Esto se usa como CRC.
         </para>
       </listitem>
       <listitem>

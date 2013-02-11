@@ -19,6 +19,6 @@
     A partir del momento del registro, si todo es correcto, y el servidor tiene un proxy registrado para poder mandar dichos pings a los dispositivos que están en una red privada, la conexión WebSockets se cerrará y se utilizará dicho mecanismo de PING.
   </para>
   <para>
-    Los PINGs son de tipo UDP o TCP, pero nunca van a llevar un contenido que tenga que ser leído por el teléfono, si no que simplemente, al recibir este paquete, tiene que conectarse con el servidor y realizar un registro de nuevo para recibir las notificaciones en la respuesta.
+    Los PINGs son de tipo UDP o TCP, pero nunca van a llevar un contenido que tenga que ser leído por el teléfono, sino que simplemente, al recibir este paquete, tiene que conectarse con el servidor y realizar un registro de nuevo para recibir las notificaciones en la respuesta.
   </para>
 </section>

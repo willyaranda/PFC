@@ -49,12 +49,12 @@
       </listitem>
       <listitem>
         <para>
-          Una vez procesado el mensaje, el PPG se comunica mediante PushOTA (Push On-The-Air) con el servidor central de SMS-C para pasar el mensaje (o mensajes) SMS que compondrán el contenido final. El protocolo PushOTA puede ser de varios tipos: una interfaz OTA-HTTP, una conexión OTA-WSP…
+          Una vez procesado el mensaje, el PPG se comunica mediante PushOTA (Push On-The-Air) con el servidor central de SMS-C para pasar el mensaje (o mensajes) SMS que compondrán el contenido final. El protocolo PushOTA puede ser de varios tipos: una interfaz OTA-HTTP o una conexión OTA-WSP.
         </para>
       </listitem>
       <listitem>
         <para>
-          El mensaje es recibido por el SMS-C, que mirará a qué número va dirigido, cómo tiene que enrutarlo…
+          El mensaje es recibido por el SMS-C, que mirará a qué número de teléfono va dirigido, se encarga de enrutarlo, etcétera.
         </para>
       </listitem>
       <listitem>
@@ -69,7 +69,7 @@
       </listitem>
       <listitem>
         <para>
-          (el mismo paso que el anterior, en el caso de que exista proxy)
+          (el mismo paso que el anterior, en el caso de que exista proxy).
         </para>
       </listitem>
       <listitem>

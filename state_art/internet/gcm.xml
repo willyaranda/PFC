@@ -68,9 +68,11 @@
   <para>
     El diagrama principal del envío y entrega de un mensaje de una forma muy abstracta es:
   </para>
-    <note>
-      <para>Se supone que la aplicación instalada tiene un ID de registro que permite recibir notificaciones, además de que el servidor de terceros ha guardado ese ID y el servidor tiene una clave de API que le permite identificarse como emisor de notificaciones.</para>
-    </note>
+  <note>
+    <para>
+      Se supone que la aplicación instalada tiene un ID de registro que permite recibir notificaciones, además de que el servidor de terceros ha guardado ese ID y el servidor tiene una clave de API que le permite identificarse como emisor de notificaciones.
+    </para>
+  </note>
 
   <orderedlist>
     <listitem>
@@ -211,7 +213,7 @@
   <formalpara>
     <title>Problemas</title>
     <para>
-      Sin embargo, a pesar de todas las nuevas características y todo lo que ha trabajado Google en este sistema, existen varios problemas que podrían llegar a ser bastante graves derivando en una no confianza hacia este sistema
+      Sin embargo, a pesar de todas las nuevas características y todo lo que ha trabajado Google en este sistema, existen varios problemas que podrían llegar a ser bastante graves derivando en una no confianza hacia este sistema.
     </para>
   </formalpara>
     <itemizedlist>
@@ -222,7 +224,7 @@
       </listitem>
       <listitem>
         <para>
-          Esa única conexión requiere de keep-alives para mantenerse activa, por lo que cada cierto tiempo se estará cambiando de estado radio, con su correspondiente señalización, indicando simplemente que estamos conectados.
+          Esa única conexión requiere de keep-alives para mantenerse activa, por lo que cada cierto tiempo se estará cambiando de estado radio, con su correspondiente señalización, indicando simplemente que se está conectado.
         </para>
       </listitem>
       <listitem>
@@ -232,7 +234,7 @@
       </listitem>
       <listitem>
         <para>
-          Todos los mensajes van por los servidores de Google, por lo que puede constituir un posible riesgo de seguridad, más aún viendo las diferentes leyes para regular Internet que han salido desde Estados Unidos, donde Google tiene su sede. 
+          Todos los mensajes van por los servidores de Google, por lo que puede constituir un posible riesgo de seguridad, más aún viendo las diferentes leyes para regular Internet que han salido desde Estados Unidos, donde Google tiene su sede.
         </para>
       </listitem>
       <listitem>

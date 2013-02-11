@@ -53,7 +53,7 @@
   <section>
     <title>Poder enviar números de versión</title>
     <para>
-      Este es una de las características fundacionales de Thialfi, el sistema definido por Google y que se usa en Google Chrome para la sincronización y los contactos. Sin embargo, el sistema actual del servidor de notificaciones tiene la opción de mandar números de versión, no de forma implícita, si no poniéndolo de forma explícita en el payload del mensaje enviado.
+      Este es una de las características fundacionales de Thialfi, el sistema definido por Google y que se usa en Google Chrome para la sincronización y los contactos. Sin embargo, el sistema actual del servidor de notificaciones tiene la opción de mandar números de versión, no de forma implícita, sino poniéndolo de forma explícita en el payload del mensaje enviado.
     </para>
     <para>
       Así entonces en un futuro podría haber estas notificaciones:
@@ -85,7 +85,7 @@
     </screen>
 
     <para>
-      Como se puede comprobar viendo ambos mensajes, el primero es un subconjunto del segundo, ya que con el método actual, el servidor es capaz de enviar números de versión a las aplicaciones, construidas de tal manera que el mensaje que reciben no contiene un <code>payload</code> real, si no que es una versión que tiene que estar sincronizada con el servidor de la aplicación, y que se encargará de ir a realizar una segunda conexión para traer los datos reales, ya manejables por la aplicación.
+      Como se puede comprobar viendo ambos mensajes, el primero es un subconjunto del segundo, ya que con el método actual, el servidor es capaz de enviar números de versión a las aplicaciones, construidas de tal manera que el mensaje que reciben no contiene un <code>payload</code> real, sino que es una versión que tiene que estar sincronizada con el servidor de la aplicación, y que se encargará de ir a realizar una segunda conexión para traer los datos reales, ya manejables por la aplicación.
     </para>
 
     <example>
@@ -129,7 +129,7 @@
       </listitem>
     </itemizedlist>
     <para>
-      Así pues, aunque IPv6 podría pensarse que podría matar al servidor de notificaciones, como se ha comentado anteriormente, es muy probable que no lo haga, ya que en ambos casos necesitaríamos reglas especiales en los firewall para permitir que sólo el rango de direcciones de funcionamiento del servidor de notificaciones pueda acceder a los dispositivos o bien tener una de las instancias dentro de la red móvil, como ocurre con el despliegue en IPv4, donde es necesario que haya algo dentro de la red móvil para poder hacer <code>PING</code> directamente a los terminales sin tener una conexión abierta y que sean capaces de responder a notificaciones.
+      Así pues, aunque IPv6 podría pensarse que podría matar al servidor de notificaciones, como se ha comentado anteriormente, es muy probable que no lo haga, ya que en ambos casos se necesitarían reglas especiales en los firewall para permitir que sólo el rango de direcciones de funcionamiento del servidor de notificaciones pueda acceder a los dispositivos o bien tener una de las instancias dentro de la red móvil, como ocurre con el despliegue en IPv4, donde es necesario que haya algo dentro de la red móvil para poder hacer <code>PING</code> directamente a los terminales sin tener una conexión abierta y que sean capaces de responder a notificaciones.
     </para>
   </section>
 
@@ -213,7 +213,7 @@
       Sin embargo, el principal problema es que los usuarios no suelen tener solo una aplicación de este tipo, si no que suelen tener varias, muchas veces dependiendo del círculo de amigos, o de donde tengan más contactos. Así pues, podría ocurrir que ese socket se multiplicara por dos, tres, o incluso 4, según el número de aplicaciones que lo requieran.
     </para>
     <para>
-      Es por esto que una de las ideas es la de proveer un API a los servicios para comprobar si alguien está conectado/desconectado o en estado ausente. Esto se podría hacer de una forma muy sencilla tal y como está montado el servidor de aplicaciones, ya que sería hacer una petición a la URL que se quiere saber si se puede entregar, se miraría el estado del nodo o de los nodos que corresponden a dicha URL y se devolvería cuál es el estado actual: conectado, desconectado, ausente o indefinido (cuando se esté bajo UDP y no tengamos una conexión abierta)
+      Es por esto que una de las ideas es la de proveer un API a los servicios para comprobar si alguien está conectado/desconectado o en estado ausente. Esto se podría hacer de una forma muy sencilla tal y como está montado el servidor de aplicaciones, ya que sería hacer una petición a la URL que se quiere saber si se puede entregar, se miraría el estado del nodo o de los nodos que corresponden a dicha URL y se devolvería cuál es el estado actual: conectado, desconectado, ausente o indefinido (cuando se esté bajo UDP y no haya una conexión abierta)
     </para>
     <para>
       Esto trasladaría la carga de la red desde los terminales y la red de telefonía al servidoe de notificaciones y a Internet, porque no tienen que estar respondiendo los terminales continuamente, ni manteniendo canales abiertos, si no que es el propio servidor el que sabe si el dispositivo puede ser alcanzable o no.

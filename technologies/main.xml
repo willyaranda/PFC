@@ -6,7 +6,7 @@
 
   <title>Tecnologías</title>
   <para>
-    Ahora, una vez hablado de cómo es la arquitectura y la primera implementación, hay que comentar sobre las tecnologías usadas y por qué se han escogido para la parse del servidor, comparando con otras soluciones similares.
+    Ahora, una vez se ha hablado de cómo es la arquitectura y la primera implementación, hay que comentar sobre las tecnologías usadas y por qué se han escogido para la parse del servidor, comparando con otras soluciones similares.
   </para>
   <para>
     Así pues, una de las grandes decisiones que hay que tomar al iniciar un proyecto de software son las tecnologías y lenguajes de programación que se van a utilizar, incluyendo a las herramientas, editores, gestores de bugs y de incidencias, método de comentarios en el código y un sin fin de características que harán derivar el proyecto hacia el éxito o el fracaso.
@@ -191,13 +191,13 @@
         En un primer momento el software de mensajería utilizado era ActiveMQ<footnote><para>http://activemq.apache.org/</para></footnote> ya que en el plan tecnológico se prefería el uso de esta tecnología, sin especificar las razones.
       </para>
       <para>
-        Sin embargo, dado el uso que se estaba dando en el servidor de notificaciones, en el cual no requeríamos que hubiera una persistencia de datos, que era uno de los puntos flojos de ActiveMQ, se empezó a usar el protocolo STOMP<footnote><para>http://stomp.github.com/</para></footnote>, que es el predeterminado de ActiveMQ.
+        Sin embargo, dado el uso que se estaba dando en el servidor de notificaciones, en el cual no era requerido que hubiera una persistencia de datos, que era uno de los puntos flojos de ActiveMQ, se empezó a usar el protocolo STOMP<footnote><para>http://stomp.github.com/</para></footnote>, que es el predeterminado de ActiveMQ.
       </para>
       <para>
         El problema surgió cuando hubo que probar el despliegue, añadiendo pruebas de alta disponibilidad, tolerancia a fallos y durabilidad en el tiempo, momento en el que se descartó ActiveMQ debido a que era muy débil en cuando alguno de sus nodos fallaran, así que como el cluster no era como tal, si no que era solamente maestro-esclavo, lo que hacía que la escalabilidad fuera muy mala.
       </para>
       <para>
-        A partir de ese momento se buscaron otras soluciones de mensajería, viendo Apollo<footnote><para>http://activemq.apache.org/apollo/</para></footnote>, que es una nueva implementación de ActiveMQ basada en eventos y mucho más eficaz que su hermano mayor, ZeroMQ<footnote><para>http://www.zeromq.org/</para></footnote>, descartada por su gran curva de aprendizaje y su API a muy bajo nivel, y al final RabbitMQ, con el cual se hicieron más pruebas de carga, se decidió que sería la fundación final para los problemas de mensajería que necesitábamos, obligándonos a cambiar el protocolo de intercambio de datos, de STOMP a AMQP<footnote><para>http://www.amqp.org/</para></footnote>, nativo de RabbitMQ y estandarizado e implementado por la mayoría de los sistemas de colas (por lo que en un futuro se podría cambiar el software de mensajería sin que diera problemas el servidor de notificaciones).
+        A partir de ese momento se buscaron otras soluciones de mensajería, viendo Apollo<footnote><para>http://activemq.apache.org/apollo/</para></footnote>, que es una nueva implementación de ActiveMQ basada en eventos y mucho más eficaz que su hermano mayor, ZeroMQ<footnote><para>http://www.zeromq.org/</para></footnote>, descartada por su gran curva de aprendizaje y su API a muy bajo nivel, y al final RabbitMQ, con el cual se hicieron más pruebas de carga, se decidió que sería la fundación final para los problemas de mensajería que se habían presentado, obligando a cambiar el protocolo de intercambio de datos, de STOMP a AMQP<footnote><para>http://www.amqp.org/</para></footnote>, nativo de RabbitMQ y estandarizado e implementado por la mayoría de los sistemas de colas (por lo que en un futuro se podría cambiar el software de mensajería sin que diera problemas el servidor de notificaciones).
       </para>
       <note>
         Hay que destacar que debido a los problemas que se encontraron en ActiveMQ el plan tecnológico está siendo revisado y es muy probable que en un futuro cercano se prefiera la opción de RabbitMQ en vez de ActiveMQ.

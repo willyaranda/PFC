@@ -9,7 +9,7 @@
     Una de las grandes ventajas que ha aportado Internet al desarrollo de aplicaciones es, aparte de una distribución mucho más sencilla, la posibilidad de poder obtener datos de forma dinámica.  La mayoría de las veces se permite cambiar el comportamiento del propio programa gracias a los datos descargados desde la red o incluso actualizar la información que se va a mostrar a los usuarios dependiendo del momento del día u otras variables:  los resultados de nuestro equipo favorito de fútbol, el tiempo que va a hacer en nuestra ciudad, o incluso mensajería instantánea, son algunos de los usos que se hacen de las tecnologías de Internet para aplicaciones locales.
   </para>
   <para>
-    A lo largo de los años, las tecnologías para descargar estos datos han ido variando, acomodándose a los cambios que han sucedido en Internet, desde las redes de módem lentas que usábamos hace un tiempo atrás, hasta redes de fibra óptica capaces de descargar un gran flujo de datos pasando por las olvidadas redes móviles, que son aquellas que más han sufrido esta descarga de datos de una manera, muchas veces, descontrolada.
+    A lo largo de los años, las tecnologías para descargar estos datos han ido variando, acomodándose a los cambios que han sucedido en Internet, desde las redes de módem lentas que se usaban hace un tiempo atrás, hasta redes de fibra óptica capaces de descargar un gran flujo de datos pasando por las olvidadas redes móviles, que son aquellas que más han sufrido esta descarga de datos de una manera, muchas veces, descontrolada.
   </para>
   <para>
     Así pues, la descarga de toda comunicación puede realizarse de diferentes maneras, ya sea de forma síncrona o asíncrona, pudiendo agruparse en dos grandes categorías para conseguir esta información:
@@ -66,7 +66,7 @@
       </listitem>
       <listitem>
         <para>
-          Implementación de este mecanismo de push, no sólo en su parte servidor si no en su parte cliente. Este desarrollo está englobado en la creación del sistema operativo para móviles Firefox OS.
+          Implementación de este mecanismo de push, no sólo en su parte servidor si no también en su parte cliente. Este desarrollo está englobado en la creación del sistema operativo para móviles Firefox OS.
         </para>
       </listitem>
       <listitem>

@@ -60,7 +60,7 @@
         <formalpara>
           <title>data</title>
           <para>
-            Otros datos, compuestos por uatoken, interface y mobilenetwork.
+            Otros datos, compuestos por <code>uatoken</code>, <code>interface</code> y <code>mobilenetwork</code>.
           </para>
         </formalpara>
         <itemizedlist>
@@ -92,7 +92,7 @@
                 <formalpara>
                   <title>port</title>
                   <para>
-                    Puerto de escucha, puede ser TCP o UDP. No necesitará saber qué le llega, si no simplemente que algo ha llegado ahí.
+                    Puerto de escucha, puede ser TCP o UDP. No necesitará saber qué le llega, sino simplemente que algo ha llegado ahí.
                   </para>
                 </formalpara>
               </listitem>
@@ -102,7 +102,7 @@
             <formalpara>
               <title>mobilenetwork</title>
               <para>
-                Indica los dos valores necesarios para identificar una red móvil correctamente, <code>mcc</code> y <code>mnc</code>. Las listas completas pueden consultarse en Internet<footnote><para>http://en.wikipedia.org/wiki/Mobile_country_code</para></footnote>
+                Indica los dos valores necesarios para identificar una red móvil correctamente, <code>mcc</code> y <code>mnc</code>. Las listas completas pueden consultarse en Internet<footnote><para>http://en.wikipedia.org/wiki/Mobile_country_code</para></footnote>.
               </para>
             </formalpara>
             <itemizedlist>
@@ -220,7 +220,7 @@
       </listitem>
     </itemizedlist>
     <para>
-      En el caso de una respuesta incorrecta, la respuesta será<footnote><para>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L39</para></footnote>
+      En el caso de una respuesta incorrecta, la respuesta será<footnote><para>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L39</para></footnote>:
     </para>
     <screen>
       <![CDATA[{
@@ -431,7 +431,7 @@
             "timestamp": "1359984038",
             "priority": 1,
             "messageId": "aacf9ca0-6ecd-11e2-815f-551df8e4ba6a",
-            "url": "https://push.telefonica.com/notify/31387b27716acb88d336cda8858..."
+            "url": "https://push.telefonica.com/notify/31387b27716ac..."
           }]]>
         </screen>
         <para>
@@ -510,7 +510,7 @@
         <formalpara>
           <title>messageId</title>
           <para>
-            Tiene que ser igual al <code>messageId</code> que está contenido dentro del mensaje. No es el <code>id</code> que ha enviado el servidor de terceros, si no uno generado internamente para el guardado y búsqueda del mensaje en el servidor de notificaciones.
+            Tiene que ser igual al <code>messageId</code> que está contenido dentro del mensaje. No es el <code>id</code> que ha enviado el servidor de terceros, sino uno generado internamente para el guardado y búsqueda del mensaje en el servidor de notificaciones.
           </para>
         </formalpara>
       </listitem>
@@ -598,7 +598,7 @@
     </para>
     <screen>
     <![CDATA[{
-      "url": "https://push.telefonica.com/notify/31387b27716acb88d336cda8858...",
+      "url": "https://push.telefonica.com/notify/31387b27716ac...",
       "messageType": "unregisterWA",
       "status": "UNREGISTERED"
     }]]>
@@ -657,7 +657,8 @@
       El mensaje de cierre, aunque sea nulo, podría ser en la consola JavaScript algo similar a:
     </para>
     <screen>
-      <![CDATA[Closed connection to push.telefonica.com with code 1000 and reason [undefined]]]>
+      <![CDATA[Closed connection to push.telefonica.com with code 1000
+      and reason [undefined]]]>
     </screen>
     <para>
       A partir de este momento, la conexión está cerrada, y el dispositivo no existe para el servidor de notificaciones. Para poder volver a registrarse, se tienen que repetir los pasos superiores.
@@ -695,9 +696,9 @@
     <screen>
       <![CDATA[{
         "WATokens": [
-          "https://push.telefonica.com/notify/31387b27716acb88d336cda8858...",
-          "https://push.telefonica.com/notify/739a6ecd89f3e113ef443accd34...",
-          "https://push.telefonica.com/notify/835ea56dc561b3865bead53cb73..."
+          "https://push.telefonica.com/notify/31387b27716ac...",
+          "https://push.telefonica.com/notify/739a6ecd89f3e...",
+          "https://push.telefonica.com/notify/113ef443accd3..."
         ],
         "messageType": "getRegisteredWA"
       }]]>
