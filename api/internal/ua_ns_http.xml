@@ -7,7 +7,7 @@
 
   <title>Interfaz HTTP</title>
   <para>
-    A través de este API, se puede descargar el token inicial y único que será usado para el registro posterior y demás operaciones.
+    A través de este API, se puede descargar el token inicial y único que será usado para el registro posterior y el resto de operaciones.
   </para>
   <note>
     <para>Este API puede cambiar en un futuro y entre diferentes servidores de notificaciones, puesto que el token podría venir predeterminado en el mismo dispositivo o ser recogido mediante otros mecanismos, como correo electrónico, respuesta a un registro web, etcétera.</para>
