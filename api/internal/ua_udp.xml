@@ -7,10 +7,10 @@
 
   <title>Interfaz UDP</title>
   <para>
-    Es una interfaz de un único sentido, en el cual el servidor de notificaciones informa a un dispositivo, o <code>UA</code> que tiene una notificación, y que debe conectarse al servidor para recogerla.
+    Es una interfaz de un único sentido, en el cual el servidor de notificaciones informa a un dispositivo, o <code>UA</code> que tiene una notificación y que debe conectarse al servidor para recogerla.
   </para>
   <para>
-    Es la parte más diferenciadora de este servidor de notificaciones con respecto al resto de opciones que hay ahora mismo en otros sistemas operativos, porque es la responsable de que el uso de batería sea menor y el número de puertos abiertos en el GGSN debido a aplicaciones intentando mantener sockets abiertos, disminuya drásticamente.
+    Es la parte más diferenciadora de este servidor de notificaciones con respecto al resto de opciones que hay ahora mismo en otros sistemas operativos, porque es la responsable de que el uso de batería sea menor y de que el número de puertos abiertos en el GGSN debido a aplicaciones intentando mantener sockets abiertos, disminuya drásticamente.
   </para>
   <para>
     Así pues, este interfaz lo único que requiere es que el dispositivo tenga un puerto abierto de escucha, por el que recibirá pequeños paquetes de datos, o PINGs para indicar que tiene, e indicar en el registro del dispositivo cuál es su IP y su puerto, así como el MCC y MNC de su conexión móvil.
