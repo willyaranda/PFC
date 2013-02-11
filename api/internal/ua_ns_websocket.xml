@@ -15,7 +15,7 @@
   <section>
     <title>Conexión WebSocket</title>
     <para>
-      Así pues, hay que utilizar el recurso necesario para iniciar la conexión, del estilo de <code>wss://push.telefonica.com</code>, usando el protocolo <code>push-notification</code>.
+      Por consiguiente, hay que utilizar el recurso necesario para iniciar la conexión, del estilo de <code>wss://push.telefonica.com</code>, usando el protocolo <code>push-notification</code>.
     </para>
     <note>
       <para>A partir de este momento, los siguientes métodos y comunicaciones se realizan por el canal WebSocket que se ha abierto en la sección anterior.</para>
@@ -25,7 +25,7 @@
   <section>
     <title>Registro de UA</title>
     <para>
-      Es el primer paso que hay que realizar para empezar a recibir notificaciones. Este paso significa el registro del dispositivo en el servidor de notificaciones, y la manera de recibirlas. Se realiza enviando un mensaje al servidor por la conexión WebSocket de la manera:
+      Es el primer paso que hay que realizar para empezar a recibir notificaciones. Este paso supone el registro del dispositivo en el servidor de notificaciones y la manera de recibirlas. Se realiza enviando un mensaje al servidor por la conexión WebSocket de la manera:
     </para>
     <screen>
       <![CDATA[{
@@ -130,7 +130,7 @@
       Así pues, la respuesta del registro puede ser válida o no.
     </para>
     <note>
-      <para>Hay que notar que las respuestas son asíncronas, y el envío de un mensaje de tipo <code>registerUA</code> no significa que su mensaje de respuesta sea el siguiente que llegue, por lo que hay que tratar cada mensaje por separado sin esperar una respuesta instantánea.</para>
+      <para>Hay que señalar que las respuestas son asíncronas y el envío de un mensaje de tipo <code>registerUA</code> no significa que su mensaje de respuesta sea el siguiente que llegue, por lo que hay que tratar cada mensaje por separado sin esperar una respuesta instantánea.</para>
     </note>
     <para>
       En el caso de una respuesta exitosa, se recibirá algo similar a:
@@ -168,7 +168,7 @@
         <formalpara>
           <title>pushMode</title>
           <para>
-            Indica cuál es el modo en que las notificaciones van a llegar al dispositivo. Hay varios modos, los cuales pueden ser
+            Indica cuál es el modo en que las notificaciones van a llegar al dispositivo. Hay varios modos:
           </para>
         </formalpara>
         <itemizedlist>
@@ -184,7 +184,7 @@
             <formalpara>
               <title>UDP</title>
               <para>
-                La conexión puede ser cerrada, ya que el dispositivo va a ser informado de que tiene nuevas notificaciones usando el canal UDP y el puerto abierto en el dispositivo. Últil en redes móviles.
+                La conexión puede ser cerrada, ya que el dispositivo va a ser informado de que tiene nuevas notificaciones usando el canal UDP y el puerto abierto en el dispositivo. Útil en redes móviles.
               </para>
             </formalpara>
           </listitem>
@@ -205,7 +205,7 @@
         <formalpara>
           <title>WATokens</title>
           <para>
-            Array que indica todas las aplicaciones que están registradas en el dispositivo. Se mandan las URLs completas, por lo que se puede comprobar si falta alguna. En el caso de que el dispositivo tenga más de las recibidas, puede re-registrar la aplicación determinada o bien eliminarla, según el caso. Si no ha recibido una aplicación que debería estar registrada, simplemente deberá registrarla.
+            Array que indica todas las aplicaciones que están registradas en el dispositivo. Se mandan las URLs completas, por lo que se puede comprobar si falta alguna. En caso de que el dispositivo tenga más de las recibidas, puede re-registrar la aplicación determinada o bien eliminarla, según el caso. Si no ha recibido una aplicación que debería estar registrada, simplemente deberá registrarla.
           </para>
         </formalpara>
       </listitem>
@@ -474,17 +474,17 @@
     <itemizedlist>
       <listitem>
         <para>
-          Al aceptar el mensaje, éste se borra de la base de datos, en concreto de la colección de mensajes dirigidos para determinado usuario, por lo que si no se informa de su recepción, el mensaje seguirá enviándose hasta que pase el tiempo de vida (especificado en el atributo <code>ttl</code>) o se de-registre la aplicación.
+          Al aceptar el mensaje, éste se borra de la base de datos, en concreto de la colección de mensajes dirigidos para un determinado usuario, por lo que si no se informa de su recepción, el mensaje seguirá enviándose hasta que pase el tiempo de vida (especificado en el atributo <code>ttl</code>) o se de-registre la aplicación.
         </para>
       </listitem>
       <listitem>
         <para>
-          Los servicios que envíen la notificación, serán capaces de controlar si la notificación se ha entregado correctamente o con algún error a los diferentes dispositivos que la deberían recibir.
+          Los servicios que envíen la notificación serán capaces de controlar si la notificación se ha entregado correctamente o con algún error a los diferentes dispositivos que la deberían recibir.
         </para>
       </listitem>
     </itemizedlist>
     <para>
-      Así pues, el mensaje que hay que enviar a través de la conexión WebSocket para informar de la recepción de los mensajes es el siguiente:
+      De esta manera, el mensaje que hay que enviar a través de la conexión WebSocket para informar de la recepción de los mensajes es el siguiente:
     </para>
     <screen>
       <![CDATA[{
@@ -649,7 +649,7 @@
       }]]>
     </screen>
     <para>
-      El cual es el único método síncrono, ya que si el de-registro es correcto, la conexión WebSocket por la que se ha enviado, se cierra de forma consensuada (esto es, el cierre viene acompañado por el código <code>1000</code> de las constantes de cierre de WebSocket)<footnote><para>http://tools.ietf.org/html/rfc6455#section-7.4.1</para></footnote>.
+      El cual es el único método síncrono, ya que si el de-registro es correcto, la conexión WebSocket por la que se ha enviado, se cierra de forma consensuada (es decir, el cierre viene acompañado por el código <code>1000</code> de las constantes de cierre de WebSocket)<footnote><para>http://tools.ietf.org/html/rfc6455#section-7.4.1</para></footnote>.
     </para>
     <para>
       El mensaje de cierre, aunque sea nulo, podría ser en la consola JavaScript algo similar a:
@@ -659,14 +659,14 @@
       and reason [undefined]]]>
     </screen>
     <para>
-      A partir de este momento, la conexión está cerrada, y el dispositivo no existe para el servidor de notificaciones. Para poder volver a registrarse, se tienen que repetir los pasos superiores.
+      A partir de este momento, la conexión está cerrada y el dispositivo no existe para el servidor de notificaciones. Para poder volver a registrarse, se tienen que repetir los pasos superiores.
     </para>
   </section>
 
   <section>
     <title>Pedir WA registradas</title>
     <para>
-      Este es un método para poder mantener una sincronía y el mismo estado entre el servidor y el cliente. La lógica de qué hacer con los datos recibidos la tiene que tener el cliente, por ejemplo:
+      Este es un método para poder mantener una sincronía y el mismo estado entre el servidor y el cliente. La lógica de qué hacer con los datos recibidos tiene que tenerla el cliente, por ejemplo:
     </para>
     <itemizedlist>
       <listitem>
@@ -676,12 +676,12 @@
       </listitem>
       <listitem>
         <para>
-          Si vienen menos URLs de las que debería haber, habría que registrar de nuevo una aplicación, puesto que el servidor no sabe nada de ella y no podría recibir notificaciones push.
+          Si vienen menos URLs de las que debería haber, se tendría que registrar de nuevo una aplicación, puesto que el servidor no sabe nada de ella y no podría recibir notificaciones push.
         </para>
       </listitem>
     </itemizedlist>
     <para>
-      La petición se realiza por el canal abierto, y el mensaje a enviar es el siguiente:
+      La petición se realiza por el canal abierto y el mensaje a enviar es el siguiente:
     </para>
     <screen>
       <![CDATA[{
