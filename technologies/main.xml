@@ -6,10 +6,10 @@
 
   <title>Tecnologías</title>
   <para>
-    Ahora, una vez se ha hablado de cómo es la arquitectura y la primera implementación, hay que comentar sobre las tecnologías usadas y por qué se han escogido para la parse del servidor, comparando con otras soluciones similares.
+    Ahora, una vez detallada la arquitectura y la primera implementación, se procede a comentar las tecnologías usadas y por qué se han escogido para la parse del servidor, comparando con otras soluciones similares.
   </para>
   <para>
-    Así pues, una de las grandes decisiones que hay que tomar al iniciar un proyecto de software son las tecnologías y lenguajes de programación que se van a utilizar, incluyendo a las herramientas, editores, gestores de bugs y de incidencias, método de comentarios en el código y un sin fin de características que harán derivar el proyecto hacia el éxito o el fracaso.
+    Así pues, una de las grandes decisiones que hay que tomar al iniciar un proyecto de software son las tecnologías y lenguajes de programación que se van a utilizar, incluyendo herramientas, editores, gestores de bugs y de incidencias, método de comentarios en el código y un sin fin de características que harán derivar el proyecto hacia el éxito o el fracaso.
   </para>
 
   <section>
@@ -24,10 +24,10 @@
       </para>
     </blockquote>
     <para>
-      Esta nueva plataforma surgió en el año 2009 por Ryan Dahl, y es patrocinada por la empresa Joyent, y su creación se debió a la necesidad de crear un sistema que pudiera trabajar correctamente con sitios web que aceptaran peticiones push para el intercambio de datos, por lo que la idea de esta tecnología era especialmente interesante para el proyecto del servidor de notificaciones.
+      Ryan Dahl creó esta nueva plataforma en el año 2009 y está patrocinada por la empresa Joyent. Su creación se debió a la necesidad de crear un sistema que pudiera trabajar correctamente con sitios web que aceptaran peticiones push para el intercambio de datos, por lo que la idea de esta tecnología era especialmente interesante para el proyecto del servidor de notificaciones.
     </para>
     <para>
-      Está compuesta de diferentes paquetes independientes, que son:
+      Está compuesta de diferentes paquetes independientes:
     </para>
     <itemizedlist>
       <listitem>
@@ -49,7 +49,7 @@
           libUV contiene la mayoría de las características que luego definen a Node.js. Así pues, se implementan sockets TCP no bloqueantes, tuberías, el protocolo UDP, temporizadores, creación de procesos hijos e hilos, paso de mensajes vía IPC y sockets, varias funciones asíncronas como DNS o acceso a ficheros del disco…
         </para>
         <para>
-            Así pues, livuv obliga a un estilo de programación asíncrono y basado en eventos, y su trabajo principal es el de proveer un bucle de eventos y notificaciones basadas en callbacks para operaciones de entrada y salida y otras actividades.
+            Así pues, livuv obliga a un estilo de programación asíncrono y basado en eventos. Su principal trabajo es proveer un bucle de eventos y notificaciones basadas en callbacks para operaciones de entrada y salida y otras actividades.
         </para>
       </listitem>
       <listitem>
@@ -60,23 +60,23 @@
           </para>
         </formalpara>
         <para>
-          Así pues, es posible encontrar módulos como el de criptografía<footnote><para>https://github.com/joyent/node/blob/master/src/node_crypto.cc</para></footnote> (<code>crypto</code>) escritos enteramente en C, haciendo uso de las extensiones de V8, mientras que por ejemplo el que provee la interfaz para el manejo de sistemas de ficheros<footnote><para>https://github.com/joyent/node/blob/master/lib/fs.js</para></footnote> (<code>fs</code>) está enteramente escrito en JavaScript, y su sintaxis es más fácil de entender y leer.
+          Es posible encontrar módulos como el de criptografía<footnote><para>https://github.com/joyent/node/blob/master/src/node_crypto.cc</para></footnote> (<code>crypto</code>) escritos enteramente en C, haciendo uso de las extensiones de V8, mientras que por ejemplo el que provee la interfaz para el manejo de sistemas de ficheros<footnote><para>https://github.com/joyent/node/blob/master/lib/fs.js</para></footnote> (<code>fs</code>) está enteramente escrito en JavaScript y su sintaxis es más fácil de entender y leer.
         </para>
       </listitem>
     </itemizedlist>
     <para>
-      Para su diseño se tomó ideas prestadas de otros sistemas similares, como es Twisted para Python, libevent para C o EventMachine par Ruby. La mayoría de los programas en JavaScript se ejecutan en el contexto del navegador, puesto que siempre han sido los mayores exponenentes y consumidores de este lenguaje, sin embargo, Node.js es ejecutado en la parte del servidor, e incluso puede ser usado como lenguaje de scripting (sustituyendo incluso a Bash o Python) y posee un REPL, una consola interactiva.
+      Para su diseño se tomó ideas prestadas de otros sistemas similares, como Twisted para Python, libevent para C o EventMachine par Ruby. La mayoría de los programas en JavaScript se ejecutan en el contexto del navegador, puesto que siempre han sido los mayores exponentes y consumidores de este lenguaje. Sin embargo, Node.js es ejecutado en la parte del servidor e incluso puede ser empleado como lenguaje de scripting (sustituyendo incluso a Bash o Python) y posee un REPL, una consola interactiva.
     </para>
     <formalpara>
       <title>Usuarios</title>
       <para>
-        Actualmente Node.js, a pesar de ser una tecnología muy reciente y joven, está siendo usada por muchas grandes empresas de Internet para escalar sus sistemas. El hecho de que Yahoo! haya empezado a migrar algunos de sus sistemas desde PHP hacia Node.js, implementando diferenes frameworks y módulos mientras hacían la transición, hace pensar que el recorrido de esta plataforma es muy amplio y con muchas empresas grandes detrás interesadas en que siga siendo funcional, agregue más módulos y características y que sea líder en el mercado de los desarrollos de servicios de backend. Además, Microsoft, LinkedIn (para su aplicación móvil) o incluso Walmart también han decidido cambiar algunos de sus sistemas para hacer uso de Node.js.
+        Actualmente Node.js, a pesar de ser una tecnología muy reciente y joven, está siendo usada por muchas grandes empresas de Internet para escalar sus sistemas. El hecho de que Yahoo! haya empezado a migrar algunos de sus sistemas desde PHP hacia Node.js, implementando diferentes frameworks y módulos mientras hacían la transición, hace pensar que el recorrido de esta plataforma es muy amplio y con muchas empresas grandes detrás interesadas en que siga siendo funcional, agregue más módulos y características y que sea líder en el mercado de los desarrollos de servicios de backend. Además, Microsoft, LinkedIn (para su aplicación móvil) o incluso Walmart también han decidido cambiar algunos de sus sistemas para hacer uso de Node.js.
       </para>
     </formalpara>
     <section>
       <title>Para qué se usa</title>
         <para>
-          Node.js se utiliza en la parte del backend como la programación lógica del servidor de notificaciones. Esto quiere decir que es el que controla todo lo que está ocurriendo en el servicio, expone las APIs de terceros, mantiene las conexiones abiertas, hace intercambio de datos, guarda en la base de datos, monitoriza los mensajes por si hay que borrarles y un sin fín más de funcionalidades.
+          Node.js se utiliza en la parte del backend como la programación lógica del servidor de notificaciones. Esto quiere decir que es el que controla todo lo que está ocurriendo en el servicio, expone las APIs de terceros, mantiene las conexiones abiertas, hace intercambio de datos, guarda en la base de datos, monitoriza los mensajes por si hay que borrarlos y un sinfín más de funcionalidades.
         </para>
         <para>
           Así pues, es el componente principal del servicio, el que está en continuo contacto con el mensaje enviado, desde la entrada, incluyendo la verificación, hasta la entrega a los diferentes terminales a los que iba dirigido. Es el maestro de ceremonias que hace que todo funcione correctamente.
@@ -85,22 +85,22 @@
     <section>
       <title>Por qué se ha elegido</title>
       <para>
-        Hay multitud de tecnologías para programar servicios web, pasando por cientos de diferentes lenguajes de programación que proveen miles de frameworks diferentes entre los que elegir. Sin embargo, una tecnología robusta, sencilla, con mucha comunidad detrás para buscar cualquier duda y tener un montón de módulos ha hecho que el proyecto se decantara por Node.js por las siguientes razones:
+        Hay multitud de tecnologías para programar servicios web, pasando por cientos de diferentes lenguajes de programación que proveen miles de frameworks diferentes entre los que elegir. Sin embargo, una tecnología robusta, sencilla, con mucha comunidad detrás para buscar cualquier duda y tener una gran cantidad de módulos ha hecho que el proyecto se decantara por Node.js por las siguientes razones:
       </para>
       <itemizedlist>
         <listitem>
           <para>
-            Es asíncrono y basado en eventos, lo que permite mucha más granularidad y no bloquear la ejecución. Además, no se tienen que lanzar hilos por cada petición (o varias), sino que está todo en un bucle de eventos al que se van añadiendo acciones.
+            Es asíncrono y basado en eventos, lo que permite mucha más granularidad y no bloquear la ejecución. Además, no es necesario lanzar hilos por cada petición (o varias), sino que está todo en un bucle de eventos al que se van añadiendo acciones.
           </para>
         </listitem>
         <listitem>
           <para>
-            Es JavaScript, y está alineado con la tecnología del proyecto que lo engloba, que es FirefoxOS.
+            Es JavaScript y está alineado con la tecnología del proyecto que lo engloba, FirefoxOS.
           </para>
         </listitem>
         <listitem>
           <para>
-            Es muy rápido de programar y se pueden hacer pruebas de concepto de forma rápida, además, que sea JavaScript ayuda a detectar de forma más fácil los errores, y que el tiempo desde hacer un cambio hasta verlo reflejado sea mínimo, sin tener que esperar a grandes tiempos de compilación.
+            Es muy rápido de programar y se pueden hacer pruebas de concepto de forma rápida, además, el hecho de que sea JavaScript ayuda a detectar de forma más fácil los errores y que el tiempo desde que se hace un cambio hasta que queda reflejado es mínimo, sin tener que esperar grandes tiempos de compilación.
           </para>
         </listitem>
         <listitem>
@@ -110,7 +110,7 @@
         </listitem>
       </itemizedlist>
       <para>
-        Así pues, aunque hay otras elecciones posibles, como podría ser PHP, o incluso Python con pyev<footnote><para>https://code.google.com/p/pyev/</para></footnote>, el que se creyó que tendría menos uso de CPU y memoria y tendría más posibilidades de ser "hackeado" por la comunidad, fue Node.js.
+        Así pues, aunque hay otras elecciones posibles, como podría ser PHP o incluso Python con pyev<footnote><para>https://code.google.com/p/pyev/</para></footnote>, el que se creyó que tendría menos uso de CPU y memoria y tendría más posibilidades de ser "hackeado" por la comunidad, fue Node.js.
       </para>
     </section>
   </section>
@@ -131,7 +131,7 @@
         <formalpara>
           <title>Confiabilidad</title>
           <para>
-            RabbitMQ tiene una serie de funcionalidades que hace que la entrega de los mensajes pueda ser confiable, mediante la persistencia de mensajes (el mensaje no se guarda sólo en RAM, sino también en disco, recuperable en caso de que haya un error en el sistema), aceptaciones de entrega (puede ser automático o manual, por ejemplo, se quiere decir que un mensaje está recibido cuando se ha procesado correctamente), confirmación de publicación (si ha habido fallos al enviar mensajes a las colas) y alta escalabilidad.
+            RabbitMQ tiene una serie de funcionalidades que hacen que la entrega de los mensajes pueda ser confiable, mediante la persistencia de mensajes (el mensaje no se guarda sólo en RAM, sino también en disco, recuperable en caso de que haya un error en el sistema), aceptaciones de entrega (puede ser automático o manual, por ejemplo, se quiere decir que un mensaje está recibido cuando se ha procesado correctamente), confirmación de publicación (si ha habido fallos al enviar mensajes a las colas) y alta escalabilidad.
           </para>
         </formalpara>
       </listitem>
@@ -155,7 +155,7 @@
         <formalpara>
           <title>Federación</title>
           <para>
-            Es similar al modo cluster pero con mayor toleracia a fallos, usando redes que son más propensas a fallos, como en una red WAN, por ejemplo, teniendo las instancias en diferentes centros de datos distribuidos por el mundo.
+            Es similar al modo cluster pero con mayor tolerancia a fallos, usando redes que son más propensas a fallos, como en una red WAN, por ejemplo, teniendo las instancias en diferentes centros de datos distribuidos por el mundo.
           </para>
         </formalpara>
       </listitem>
@@ -163,7 +163,7 @@
         <formalpara>
           <title>Colas con alta disponibilidad</title>
           <para>
-            Las colas pueden crearse en modo espejo en varias máquinas en un mismo cluster, por lo que si una máquina falla, la cola estará replicada en otra, y el fallo será transparente para los programas que usen este sistema de mensajería. Además, automáticamente se comprobará y se intentará unir de nuevo los nodos caídos.
+            Las colas pueden crearse en modo espejo en varias máquinas en un mismo cluster, por lo que si una máquina falla, la cola estará replicada en otra, y el fallo será transparente para los programas que usen este sistema de mensajería. Además, se comprobará automáticamente y se intentará unir de nuevo los nodos caídos.
           </para>
         </formalpara>
       </listitem>
@@ -171,7 +171,7 @@
         <formalpara>
           <title>Clientes múltiples</title>
           <para>
-            Como se ha comentado más arriba, RabbitMQ ofrece muchos clientes para lenguajes de programación populares, ya sea para desarrollos de backend, como C++, Node.js, Python, Ruby o incluso Erlang, como para clientes frontend, como JavaScript en el navegador.
+            Como se ha comentado anteriormente, RabbitMQ ofrece muchos clientes para lenguajes de programación populares, ya sea para desarrollos de backend, como C++, Node.js, Python, Ruby o incluso Erlang, como para clientes frontend, como JavaScript en el navegador.
           </para>
         </formalpara>
       </listitem>
@@ -182,7 +182,7 @@
         El uso principal en el servidor de notificaciones es la de pasar mensajes entre los diferentes actores que están en ejecución, de forma desacoplada y funcionando de forma independiente, esperando a eventos que desencadenen una reacción dependiendo de qué contengan y qué haya que realizar según el mensaje.
       </para>
       <para>
-        El uso más simple que se da es el de algunas intancias creando contenido, que son los que publican y envían los mensajes a las colas, y otros que son los consumidores, los que reciben los mensajes y realizan con ellos diferentes tareas. Así pues, los suscriptores están apuntados a determinadas colas o tópicos, esperando a que lleguen mensajes que alguien les mete por el otro extremo. Es el caso de la cola <code>newMessages</code>, la cual es escrita por el servidor que provee la interfaz a los servidores de terceros, llamado Applicacion Server (<code>AS</code>), metiendo, bien los mensajes completos (cuando su tiempo de vida sea 0), o bien el identificador que él ha creado y ha guardado en la base de datos, para que el consumidor lo lea, y entienda que tiene que entregar los mensajes dependiendo de algunos parámetros que se pasan en dicho mensaje en la cola.
+        El uso más simple que se da es el de algunas instancias creando contenido, que son los que publican y envían los mensajes a las colas, y otros que son los consumidores, los que reciben los mensajes y realizan con ellos diferentes tareas. De este modo, los suscriptores están apuntados a determinadas colas o tópicos, esperando que lleguen mensajes que alguien mete por el otro extremo. Es el caso de la cola <code>newMessages</code>, la cual es escrita por el servidor que provee la interfaz a los servidores de terceros, llamado Applicacion Server (<code>AS</code>), metiendo, bien los mensajes completos (cuando su tiempo de vida sea 0), o bien el identificador que él ha creado y ha guardado en la base de datos, para que el consumidor lo lea y entienda que tiene que entregar los mensajes dependiendo de algunos parámetros que se pasan en dicho mensaje en la cola.
       </para>
     </section>
     <section>
@@ -191,16 +191,16 @@
         En un primer momento el software de mensajería utilizado era ActiveMQ<footnote><para>http://activemq.apache.org/</para></footnote> ya que en el plan tecnológico se prefería el uso de esta tecnología, sin especificar las razones.
       </para>
       <para>
-        Sin embargo, dado el uso que se estaba dando en el servidor de notificaciones, en el cual no era requerido que hubiera una persistencia de datos, que era uno de los puntos flojos de ActiveMQ, se empezó a usar el protocolo STOMP<footnote><para>http://stomp.github.com/</para></footnote>, que es el predeterminado de ActiveMQ.
+        Sin embargo, teniendo en cuenta el uso que se estaba dando en el servidor de notificaciones, en el que no se requería que hubiera una persistencia de datos, uno de los puntos flojos de ActiveMQ, se empezó a usar el protocolo STOMP<footnote><para>http://stomp.github.com/</para></footnote>, el predeterminado de ActiveMQ.
       </para>
       <para>
-        El problema surgió cuando hubo que probar el despliegue, añadiendo pruebas de alta disponibilidad, tolerancia a fallos y durabilidad en el tiempo, momento en el que se descartó ActiveMQ debido a que era muy débil en cuando alguno de sus nodos fallaran, así que como el cluster no era como tal, sino que era solamente maestro-esclavo, lo que hacía que la escalabilidad fuera muy mala.
+        El problema surgió cuando hubo que probar el despliegue, añadiendo pruebas de alta disponibilidad, tolerancia a fallos y durabilidad en el tiempo, momento en el que se descartó ActiveMQ debido a que era muy débil en cuanto alguno de sus nodos fallaran. Entonces dado que el cluster era solamente maestro-esclavo, hacía que la escalabilidad fuera muy mala.
       </para>
       <para>
-        A partir de ese momento se buscaron otras soluciones de mensajería, viendo Apollo<footnote><para>http://activemq.apache.org/apollo/</para></footnote>, que es una nueva implementación de ActiveMQ basada en eventos y mucho más eficaz que su hermano mayor, ZeroMQ<footnote><para>http://www.zeromq.org/</para></footnote>, descartada por su gran curva de aprendizaje y su API a muy bajo nivel, y al final RabbitMQ, con el cual se hicieron más pruebas de carga, se decidió que sería la fundación final para los problemas de mensajería que se habían presentado, obligando a cambiar el protocolo de intercambio de datos, de STOMP a AMQP<footnote><para>http://www.amqp.org/</para></footnote>, nativo de RabbitMQ y estandarizado e implementado por la mayoría de los sistemas de colas (por lo que en un futuro se podría cambiar el software de mensajería sin que diera problemas el servidor de notificaciones).
+        A partir de ese momento se buscaron otras soluciones de mensajería, viendo Apollo<footnote><para>http://activemq.apache.org/apollo/</para></footnote>, que es una nueva implementación de ActiveMQ basada en eventos y mucho más eficaz que su hermano mayor, ZeroMQ<footnote><para>http://www.zeromq.org/</para></footnote>, descartada por su gran curva de aprendizaje y su API a muy bajo nivel. Al final se decidió que RabbitMQ, con el que se hicieron más pruebas de carga, fuera la fundación final para los problemas de mensajería que se habían presentado, obligando a cambiar el protocolo de intercambio de datos, de STOMP a AMQP<footnote><para>http://www.amqp.org/</para></footnote>, nativo de RabbitMQ y estandarizado e implementado por la mayoría de los sistemas de colas (por lo que en un futuro se podría cambiar el software de mensajería sin que diera problemas el servidor de notificaciones).
       </para>
       <note>
-        <para>Hay que destacar que debido a los problemas que se encontraron en ActiveMQ el plan tecnológico está siendo revisado y es muy probable que en un futuro cercano se prefiera la opción de RabbitMQ en vez de ActiveMQ.</para>
+        <para>Hay que destacar que debido a los problemas que se encontraron en ActiveMQ, el plan tecnológico está siendo revisado y es muy probable que en un futuro cercano se prefiera la opción de RabbitMQ en vez de ActiveMQ.</para>
       </note>
     </section>
   </section>
@@ -208,7 +208,7 @@
   <section>
     <title>MongoDB</title>
     <para>
-      Es una base de datos NoSQL escalable, orientada al almacén de documentos, con alto rendimiento, de código libre y escrita en C++. Es rápida y provee una flexibilidad que no dan las bases de datos relacionales, sobre todo en la manera como se guardan los datos, ya que no están ancladas a esquemas fijos que no pueden cambiarse.
+      Es una base de datos NoSQL escalable, orientada al almacén de documentos, con alto rendimiento, de código libre y escrita en C++. Es rápida y provee una flexibilidad que no dan las bases de datos relacionales, sobre todo en la manera de guardar los datos, ya que no están ancladas a esquemas fijos.
     </para>
     <para>
       Creado por la empresa 10gen<footnote><para>http://www.10gen.com/</para></footnote> en octubre de 2007, utiliza JavaScript para las consultas (el API es accesible y se escribe como JavaScript), usando el motor de renderizado SpiderMonkey de Mozilla.
@@ -235,7 +235,7 @@
         <formalpara>
           <title>Soporte completo de índices</title>
           <para>
-            Aunque se guarden los documentos sin esquema, se pueden crear índices en aquellos campos que vayan a estar siempre. Por defecto, el índice genérico se realiza sobre el campo <code>_id</code> que es como la clave primaria para MongoDB. Sin embargo, se puede indexar por cualquier campo, incluso haciéndoles combinados para buscar de forma más rápida.
+            Aunque se guarden los documentos sin esquema, se pueden crear índices en aquellos campos que vayan a estar siempre. Por defecto, el índice genérico se realiza sobre el campo <code>_id</code> que es como la clave primaria para MongoDB. Sin embargo, se puede indexar por cualquier campo, incluso haciéndolos combinados para buscar de forma más rápida.
           </para>
         </formalpara>
       </listitem>
@@ -243,7 +243,7 @@
         <formalpara>
           <title>Replicación y alta disponibilidad</title>
           <para>
-            Una de las razones por las que MongoDB es muy usado es porque tiene multitud de opciones para replicar los datos entre diferentes servidores, ya sea en redes locales LAN o redes más grandes, WAN.
+            Una de las razones por las que MongoDB es muy usado es porque cuenta con multitud de opciones para replicar los datos entre diferentes servidores, ya sea en redes locales LAN o redes más grandes, WAN.
           </para>
         </formalpara>
       </listitem>
@@ -251,7 +251,7 @@
         <formalpara>
           <title>Sharding</title>
           <para>
-            Más allá de poder replicar la base de datos entre diferentes instancias, se puede crear la opción de dividir la base de datos dependiendo de los datos de entrada, y dirigir las escrituras hacia un lado u otro. Esto es interesante por ejemplo si se necesita cumplir alguna ley que obligue que en un servicio mundial, los datos de los usuarios de algún determinado país esté en un centro de datos en concreto.
+            Más allá de poder replicar la base de datos entre diferentes instancias, se puede crear la opción de dividir la base de datos dependiendo de los datos de entrada y dirigir las escrituras hacia un lado u otro. Esto es interesante por ejemplo si se necesita cumplir alguna ley que obligue que en un servicio mundial, los datos de los usuarios de algún determinado país estén en un centro de datos en concreto.
           </para>
         </formalpara>
       </listitem>
@@ -259,7 +259,7 @@
         <formalpara>
           <title>Modificaciones atómicas</title>
           <para>
-            Algunas bases de datos NoSQL rompen las convenciones de las bases de datos SQL usadas desde hace tiempo, como la atomicidad (operaciones que o bien se ejecutan en su totalidad, o no se ejecutan), que podría llevar a pérdida de información e incongruencias. Así pues, MongoDB posee un motor que le permite realizar este tipo de opciones sin coste alguno.
+            Algunas bases de datos NoSQL rompen las convenciones de las bases de datos SQL usadas desde hace tiempo, como la atomicidad (operaciones que o bien se ejecutan en su totalidad o no se ejecutan), que podría llevar a pérdida de información e incongruencias. Así pues, MongoDB posee un motor que le permite realizar este tipo de opciones sin coste alguno.
           </para>
         </formalpara>
       </listitem>
@@ -275,7 +275,7 @@
         <formalpara>
           <title>GridFS</title>
           <para>
-            Permite guardar ficheros de cualquier tamaño en la base de datos, y recogerlos de forma sencilla, incluyendo replicación, sharding y todas las características que tiene MongoDB descritas más arriba.
+            Permite guardar ficheros de cualquier tamaño en la base de datos y recogerlos de forma sencilla, incluyendo replicación, sharding y todas las características que tiene MongoDB descritas con anterioridad.
           </para>
         </formalpara>
       </listitem>
@@ -289,7 +289,7 @@
     <section>
       <title>Por qué se ha elegido</title>
       <para>
-        Por proveer una flexibilidad mucho mayor que las bases de datos SQL tradicionales, y porque el formato de los mensajes, ya sean de los recibidos y los que se intercambian en las colas y de los datos entre las diferentes instancias tienen una característica en común: son JSON. Así pues, cualquier dato del sistema puede guardarse sin problemas en la base de datos, haciendo incluso de respaldo de los datos en caso de fallo del sistema.
+        Por proveer una flexibilidad mucho mayor que las bases de datos SQL tradicionales y porque el formato de los mensajes, ya sean de los recibidos y los que se intercambian en las colas y de los datos entre las diferentes instancias tienen una característica en común: son JSON. Así pues, cualquier dato del sistema puede guardarse sin problemas en la base de datos, haciendo incluso de respaldo de los datos en caso de fallo del sistema.
       </para>
     </section>
   </section>
