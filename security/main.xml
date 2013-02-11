@@ -6,10 +6,10 @@
 
   <title>Seguridad</title>
   <para>
-    La seguridad es uno de los puntos más importantes en cualquier sistema informático, y por supuesto no ha podido obviarse en este proyecto. Tener un sistema seguro es una tarea complicada, que requiere de mucho esfuerzo y dedicación, y sobre todo, de investigar cuáles pueden ser los fallos del sistema que pueden ser abusados. Aún así, cualquier sistema, por muy seguro que sea, siempre puede ser mejorado, y debe serlo, puesto que en el servidor de notificaciones se están moviendo mensajes, que pueden ir en claro, e identificando quién los manda y hacia qué terminales, por lo que puede ser un grave problema si se tiene algún fallo de seguridad.
+    La seguridad es uno de los puntos más importantes en cualquier sistema informático y por supuesto no se obvia en este proyecto. Tener un sistema seguro es una tarea complicada, que requiere de mucho esfuerzo y dedicación, y sobre todo, de investigar cuáles pueden ser los fallos del sistema. Aún así, cualquier sistema, por muy seguro que sea, siempre puede ser mejorado, y debe serlo, puesto que en el servidor de notificaciones se están moviendo mensajes, que pueden ir en claro, e identificando quién los manda y hacia qué terminales, por lo que puede ser un grave problema si se tiene algún fallo de seguridad.
   </para>
   <para>
-    Así pues, ha habido diferentes elementos del sistema en los que hay que poner más énfasis en la seguridad, bien porque eran susceptibles de mostrar información personal, bien porque se creía que podrían recibir ataques por fuerza bruta o de denegación de servicio o incluso porque son aquellos que están expuestos tanto a los terminales como a Internet, y siempre son un dulce muy apetitoso para personas con no buenas intenciones.
+    Ha habido diferentes elementos del sistema en los que hay que poner más énfasis en cuanto a seguridad, bien porque eran susceptibles de mostrar información personal, bien porque se creía que podrían recibir ataques por fuerza bruta o de denegación de servicio o incluso porque son aquellos que están expuestos tanto a los terminales como a Internet, y siempre son un dulce muy apetitoso para personas con no buenas intenciones.
   </para>
   <section>
     <title>Tokens de dispositivo</title>
@@ -17,10 +17,10 @@
       El primer punto de entrada al sistema de notificaciones push es tener un token de dispositivo válido que permitirá que el UA (User Agent, explicado en el capítulo "API") se registre de forma correcta en el sistema.
     </para>
     <para>
-      Entonces, había que garantizar de algún modo que este token fuera tanto único como válido en nuestro sistema para poder controlar el abuso, y si los registros de dispositivos venían de donde donde se quería, esto es: de dispositivos con Firefox OS en un primer lugar.
+      Entonces, había que garantizar de algún modo que este token fuera tanto único como válido en nuestro sistema para poder controlar el abuso y si los registros de dispositivos venían de donde donde se quería, es decir, de dispositivos con Firefox OS en un primer lugar.
     </para>
     <para>
-      A lo largo del tiempo, se han desarrollado muchos mecanismos de intercambio de información para realizar conexiones de usuario de forma controlada, o identificación de aplicaciones sin tener que dar los nombres de usuario y contraseñas a servicios de terceros, como OAuth<footnote><para>http://oauth.net/2/</para></footnote>. Sin embargo, en caso de la primera versión del servidor de notificaiones, se quería algo más sencillo, lo que se tradujo en los siguientes preceptos:
+      A lo largo del tiempo, se han desarrollado muchos mecanismos de intercambio de información para realizar conexiones de usuario de forma controlada, o identificación de aplicaciones sin tener que dar los nombres de usuario y contraseña a servicios de terceros, como OAuth<footnote><para>http://oauth.net/2/</para></footnote>. Sin embargo, en el caso de la primera versión del servidor de notificaciones, se quería algo más sencillo, lo que se tradujo en los siguientes preceptos:
     </para>
     <itemizedlist>
       <listitem>
@@ -35,19 +35,19 @@
         <formalpara>
           <title>Rápido de generar</title>
           <para>
-            Generación al vuelo, por lo que tendría que hacerse de forma rápida, ya que el cálculo era la respuesta a una petición HTTP y no se podía dejar dicha conexión HTTP abierta, por el uso de recursos en el sistema.
+            Generación al vuelo, por lo que tendría que hacerse de forma rápida, ya que el cálculo era la respuesta a una petición HTTP y no se podía dejar dicha conexión HTTP abierta, teniendo en cuenta el uso de recursos en el sistema.
           </para>
         </formalpara>
         <formalpara>
           <title>Posibilidad de cambiarse en un futuro</title>
           <para>
-            Si se decide a usar un nuevo sistema en el futuro, como pudiera ser OAuth, Mozilla Persona<footnote><para>https://support.mozilla.org/es/kb/que-es-y-como-funciona-browserid . Mozilla Persona es un sistema de identificación similar a OpenID, con la diferencia de que Persona usa direcciones de correo en vez de URLs, lo que resulta más natural para la identificación</para></footnote> (con lo que encajaría más aún en el sistema Firefox OS) o incluso que el token viniera preconfigurado desde fábrica no debería suponer un cambio drástico en la infraestructura.
+            Si se decide usar un nuevo sistema en el futuro, como pudiera ser OAuth, Mozilla Persona<footnote><para>https://support.mozilla.org/es/kb/que-es-y-como-funciona-browserid . Mozilla Persona es un sistema de identificación similar a OpenID, con la diferencia de que Persona usa direcciones de correo en vez de URLs, lo que resulta más natural para la identificación</para></footnote> (con lo que encajaría más aún en el sistema Firefox OS) o incluso si el token viniera preconfigurado desde fábrica, no debería suponer un cambio drástico en la infraestructura.
           </para>
         </formalpara>
       </listitem>
     </itemizedlist>
     <para>
-      Así pues, la decisión en la implementación de generar un token<footnote><para>Se puede ver el módulo que realiza esta generación y verificación en: https://github.com/telefonicaid/notification_server/blob/develop/src/common/token.js</para></footnote>, se quedó con el siguiente código:
+      Por consiguiente, la decisión en la implementación de generar un token<footnote><para>Se puede ver el módulo que realiza esta generación y verificación en: https://github.com/telefonicaid/notification_server/blob/develop/src/common/token.js</para></footnote>, se quedó con el siguiente código:
       <figure>
         <title>Generación de token</title>
           <programlisting language="JavaScript">
@@ -73,7 +73,7 @@ token.prototype = {
       </figure>
     </para>
     <para>
-      Así, en la figura anterior, se puede ver cómo está generado el token de dispositivo:
+      En la figura anterior, se puede ver cómo está generado el token de dispositivo:
     </para>
     <orderedlist>
       <listitem>
@@ -103,12 +103,12 @@ token.prototype = {
       </listitem>
       <listitem>
         <para>
-          Se devuelve el token generado cifrado con AES y la clave <code>cryptoKey</code> que está configurada en el fichero <filename>config.js</filename> que deben obligatoriamente compartir todos las instancias del servidor de notificaciones que generen tokens, pues es el principal medio para descifrar el token para realizar las operaciones y se usa para comprobar si es válido en el sistema.
+          Se devuelve el token generado cifrado con AES y la clave <code>cryptoKey</code> que está configurada en el fichero <filename>config.js</filename> que deben de forma obligatoria compartir todas las instancias del servidor de notificaciones que generen tokens, pues es el principal medio para descifrarlo de cara a realizar las operaciones. Se utiliza para comprobar si es válido en el sistema.
         </para>
       </listitem>
     </orderedlist>
     <para>
-      Así pues, se puede observar que el token puede ser comprobado mediante la verificación con la función <code>verify(token)</code>, esto es, descifrando el token y comprobando su CRC. En primer lugar, si el descifrado no es correcto, el token recibido no es válido, por lo que se puede rechazar. Pero además, y en segundo lugar, es posible comprobar si el CRC (el hash MD5 calculado en la figura anterior) es válido, separando por el caracter <code>@</code> que habrá después de descifrar y comprobando si la segunda parte concuerda con la primera parte, habiéndole aplicado la misma función de hash.
+      Así pues, se puede observar que el token puede ser comprobado mediante la verificación con la función <code>verify(token)</code>, es decir, descifrando el token y comprobando su CRC. En primer lugar, si el descifrado no es correcto, el token recibido no es válido, por lo que se puede rechazar. Pero además, y en segundo lugar, es posible comprobar si el CRC (el hash MD5 calculado en la figura anterior) es válido, separando por el caracter <code>@</code> que descifrará después y comprobando si la segunda parte concuerda con la primera, tras aplicar la misma función de hash.
       <figure>
         <title>Verificación de tokens</title>
         <programlisting language="JavaScript">
@@ -127,14 +127,14 @@ verify: function(token) {
       </figure>
     </para>
     <para>
-      Así pues, un posible ataque que podría intentarse es la suplantación de identidad, ya que sabiendo el token de dispositivo o <code>UAToken</code> es posible el registro de terceras partes como otro dispositivo. Sin embargo, esto no se considera un problema en el servidor de notificaciones y más en la parte cliente, aunque en todo caso, este token único tiene que estar gestionado por la seguridad que de el sistema operativo, o User Agent (<code>UA</code>) que implementa este protocolo.
+      Un ataque que podría intentarse es la suplantación de identidad. Sabiendo el token de dispositivo o <code>UAToken</code>, es posible el registro de terceras partes como otro dispositivo. Sin embargo, esto no se considera un problema en el servidor de notificaciones y más en la parte cliente, aunque en todo caso, este token único debe estar gestionado por la seguridad que dé el sistema operativo, o User Agent (<code>UA</code>) que implementa este protocolo.
     </para>
   </section>
 
   <section>
     <title>Registro con clave pública-privada</title>
     <para>
-      Todas las aplicaciones que quieran recibir notificaciones tienen que registrarse con dos parámetros: el primero es un identificador único y el segundo una clave pública codificada en base64<footnote><para>RFC4648, página 5, punto 4, "Base 64 Encoding": http://tools.ietf.org/html/rfc4648#page-5</para></footnote>, que es la encargada de la verificación de las firmas de cada notificación. Esto se realiza desde la propia aplicación web, con el API que hay entre la WA y el UA, mediante la función:
+      Todas las aplicaciones que quieran recibir notificaciones deben registrarse con dos parámetros: el primero es un identificador único y el segundo una clave pública codificada en base64<footnote><para>RFC4648, página 5, punto 4, "Base 64 Encoding": http://tools.ietf.org/html/rfc4648#page-5</para></footnote>, que es la encargada de la verificación de las firmas de cada notificación. Esto se realiza desde la propia aplicación web, con el API que hay entre la WA y el UA, mediante la función:
       <figure>
         <title>Registro de WA en el UA</title>
         <programlisting language="javascript">
@@ -143,17 +143,17 @@ verify: function(token) {
       </figure>
     </para>
     <para>
-      Así pues, es obligatorio que haya un par de claves públicas-privadas (soportando sólo <code>RSA-SHA256</code> en la primera versión) para poder registrarse y posteriormente enviar y recibir correctamente notificaciones.
+      Es obligatorio que haya un par de claves públicas-privadas (soportando sólo <code>RSA-SHA256</code> en la primera versión) para poder registrarse y posteriormente enviar y recibir correctamente notificaciones.
     </para>
   </section>
 
   <section>
     <title>Notificaciones firmadas</title>
     <para>
-      Como se ha comentado en la sección anterior, en el registro es obligatorio contar con una clave pública-privada basada en <code>RSA-SHA256</code>. Esto no se hace simplemente por añadir un atributo más al registro, sino por proteger a los dispositivos que están dentro de la red móvil. Así, esta idea se ha implementado para permitir notificaciones sólo desde lugares a los que se haya aceptado mandar notificaciones, esto es, aquellos registrados con una clave pública que puede verificar la firma de la notificación enviada con la clave privada que sólo tendrán los servidores de la aplicación (servidor <code>AS</code>).
+      Como se ha explicado en la sección anterior, en el registro es obligatorio contar con una clave pública-privada basada en <code>RSA-SHA256</code>. Esto no se hace simplemente para añadir un atributo más al registro, sino por proteger a los dispositivos que están dentro de la red móvil. Así, esta idea se ha implementado para permitir notificaciones sólo desde lugares a los que se haya aceptado mandar notificaciones, esto es, aquellos registrados con una clave pública que pueda verificar la firma de la notificación enviada con la clave privada que sólo tendrán los servidores de la aplicación (servidor <code>AS</code>).
     </para>
     <para>
-      El funcionamiento es el mismo que el sistema PGP con el correo firmado, ya que del contenido (atributo <code>message</code> de la notificación <code>JSON</code> enviada por <code>POST</code>) se crea una firma con la llave privada (que sólo la tendrá el servidor que envía la notificación, o <code>AS</code>), que se manda al servidor de notificaciones (a una URL determinada, que es capaz de saber la clave pública que verifica dicha firma) y comprueba si es correcta o no. Si lo es, deja pasar la notificación al sistema y, eventualmente, se entregará. Si no es válida, por la razón que sea, la notificación es rechazada y ni siquiera entra al sistema.
+      El funcionamiento es el mismo que el sistema PGP con el correo firmado, ya que del contenido (atributo <code>message</code> de la notificación <code>JSON</code> enviada por <code>POST</code>) se crea una firma con la llave privada (que sólo la tendrá el servidor que envía la notificación, o <code>AS</code>), que se manda al servidor de notificaciones (a una URL determinada, que es capaz de saber la clave pública que verifica dicha firma) y comprueba si es correcta o no. Si lo es, deja pasar la notificación al sistema y, finalmente, se entregará. Si no es válida, por la razón que sea, la notificación es rechazada y ni siquiera entra al sistema.
     </para>
     <figure>
       <title>Verificación de firma (en <filename>src/common/crypto.js</filename>)</title>
@@ -186,10 +186,10 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
       </programlisting>
     </figure>
     <para>
-      Pero, ¿qué se consigue con esto? En primer lugar mantener acotados los servicios que pueden mandar notificaciones puesto que un desarrollador tiene control sobre la llave pública, puesto que es la que concuerda con su llave privada. Si pierde la llave privada, no podrá hacer nada, por lo que no podrá volver a mandar notificaciones. Pero además, si la recoge una persona malintencionada y decide empezar a mandar notificaciones causando una riada de mensajes, puede rápidamente actualizar su aplicación, poniendo su nueva clave pública en sus ficheros de configuración y la privada en sus servidores, y todos los dispositivos con esta nueva instalación se registrarán de nuevo (los dispositivos comprueban entre actualizaciones de la aplicación si la llave pública de la aplicación ha cambiado, y si es así, se registran de nuevo) por lo que no recibirán mensajes desde la llave robada, sino desde la nueva, ya que el sistema ni las dejará pasar.
+      Pero, ¿qué se consigue con esto? En primer lugar mantener acotados los servicios que pueden mandar notificaciones puesto que un desarrollador tiene control sobre la llave pública,  que es la que concuerda con su llave privada. Si pierde la llave privada, no podrá volver a mandar notificaciones. Pero además, si la recoge una persona malintencionada y decide empezar a mandar notificaciones causando una riada de mensajes, puede rápidamente actualizar su aplicación, poniendo su nueva clave pública en sus ficheros de configuración y la privada en sus servidores. De esta forma, todos los dispositivos con la nueva instalación se registrarían de nuevo (los dispositivos comprueban entre actualizaciones de la aplicación si la llave pública de la aplicación ha cambiado, y si es así, se registran de nuevo) y no recibirían mensajes desde la llave robada, sino desde la nueva, ya que el sistema no las dejaría pasar.
     </para>
     <para>
-      Y en segundo lugar, se puede hacer un control de abuso llegado el caso. Por ejemplo, si un servicio no hace más que enviar mensajes de broadcast hacia el interior, se puede revocar todas los registros de aplicaciones que tienen dicha clave y se protegerá de forma fácil al usuario.
+      Y en segundo lugar, se puede hacer un control de abuso llegado el caso. Por ejemplo, si un servicio no hace más que enviar mensajes de broadcast hacia el interior, se pueden revocar todos los registros de aplicaciones que cuentan con dicha clave y se protegerá de forma fácil al usuario.
     </para>
   </section>
 
@@ -199,7 +199,7 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
       En cuanto llega una notificación, o dicho de otra manera, cualquier mensaje mediante una petición <code>POST</code> a la interfaz que expone el servidor de notificaciones hacia el exterior (en este caso se habla del <code>API</code> hacia el Application Server o <code>AS</code>), hay que comprobar una serie de criterios para verificar que la notificación es correcta.
     </para>
     <para>
-      En primer lugar, se comprueba que el mensaje enviado es un mensaje <code>JSON</code> bien formado, con la función <code>JSON.parse(notification)</code> nativa de JavaScript. Si es así, se pasa a comprobar el resto de campos, de la forma:
+      En primer lugar, se comprueba que el mensaje enviado es un mensaje <code>JSON</code> bien formado, con la función <code>JSON.parse(notification)</code> nativa de JavaScript. Si es así, se pasa a verificar el resto de campos, de la forma:
     </para>
     <para>
       <itemizedlist>
@@ -210,17 +210,17 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
         </listitem>
         <listitem>
           <para>
-            Que esté correctamente firmado, como se explica en la sección anterior. Esto significa que tenga el atributo <code>signature</code> y además sea válido.
+            Que esté correctamente firmado, como se explica en la sección anterior. Esto significa que tenga el atributo <code>signature</code> y que además sea válido.
           </para>
         </listitem>
       <listitem>
           <para>
-            Que tenga un identificador externo, esto es, que el atributo <code>id</code> no puede estar sin definir (<code>undefined</code> al parsear el <code>JSON</code>) o ser nulo, puesto que en un futuro se podría agregar la opción de sobreescribir notificaciones y poder preguntar por el estado de la entrega de una notificación a través de este identificador único para el servicio de terceros o <code>AS</code>.
+            Que tenga un identificador externo, es decir, que el atributo <code>id</code> no esté sin definir (<code>undefined</code> al parsear el <code>JSON</code>) o ser nulo, puesto que en un futuro se podría agregar la opción de sobreescribir notificaciones y poder preguntar por el estado de la entrega de una notificación a través de este identificador único para el servicio de terceros o <code>AS</code>.
           </para>
         </listitem>
         <listitem>
           <para>
-            Que el atributo <code>message</code> e <code>id</code> no superen los 4KiB. Esto es debido a que la longitud máxima que se permite en el servidor es de 4KiB. Probablemente en el futuro se cambie la restricción de tamaño para la parte de <code>id</code> y se obligue a un tamaño más pequeño, ya que 4096 bytes de identificación suficiente para cualquier aplicación.
+            Que el atributo <code>message</code> e <code>id</code> no supere los 4KiB, ya que la longitud máxima que se permite en el servidor es de 4KiB. Probablemente en el futuro se cambie la restricción de tamaño para la parte de <code>id</code> y se obligue a un tamaño más pequeño, ya que 4096 bytes de identificación es suficiente para cualquier aplicación.
           </para>
         </listitem>
       </itemizedlist>
@@ -246,29 +246,29 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
   <section>
     <title>Ataque DDoS: flooding y replay</title>
     <para>
-      Una manera muy fácil de colapsar sistemas informáticos expuestos a Internet es mediante ataques que inunden las comunicaciones y acaben con los recursos de forma rápida, mediante miles de ordenadores haciendo peticiones de forma continuada y de una manera distribuida, siendo imposible casi discernir cuáles bloquear porque la mayoría son peticiones válidas. Es por esto que hay que tener en cuenta muchas variables en el diseño de sistemas, a la vez que hay que minimizar el riesgo de lo que se deja abierto a terceras partes, y siempre monitorizar todo lo que está pasando para intentar identificar comportamientos extraños que pudieran entrañar un problema al sistema.
+      Una manera muy fácil de colapsar sistemas informáticos expuestos a Internet es a través de ataques que inunden las comunicaciones y acaben con los recursos de forma rápida, mediante miles de ordenadores haciendo peticiones de forma continuada y de una manera distribuida, siendo casi imposible discernir cuáles se han de bloquear porque la mayoría son peticiones válidas. Por esto hay que tener en cuenta muchas variables en el diseño de sistemas, a la vez que hay que minimizar el riesgo de lo que se deja abierto a terceras partes y siempre monitorizar todo lo que está pasando para tratar de identificar comportamientos extraños que pudieran entrañar un problema al sistema.
     </para>
     <para>
-      Una de las medidas tomadas es la normalización de las notificaciones (ver figura precedente), como se comenta en la sección anterior, eliminando la firma, ya que sería extremadamente fácil hacer ataques de repetición (replay) hacia el sistema, inundando todas las instancias con mensajes iguales pero totalmente válidos, al estar firmados. Así pues, aunque la notificación pueda ser enviada de nuevo, al no tener las aplicaciones o un servicio de terceros la firma del mensaje (que está compuesta gracias a la clave privada que sólo lo tiene el primer <code>AS</code>), el mensaje no se valida y es rechazado.
+      Una de las medidas tomadas es la normalización de las notificaciones (ver figura precedente), como se comenta en la sección anterior, eliminando la firma. Sería extremadamente fácil hacer ataques de repetición (replay) hacia el sistema, inundando todas las instancias con mensajes iguales pero totalmente válidos, al estar firmados. Aunque la notificación pueda ser enviada de nuevo, si la firma del mensaje (que está compuesta gracias a la clave privada que sólo lo tiene el primer <code>AS</code>) no tiene las aplicaciones o un servicio de terceros, el mensaje no se valida y es rechazado.
     </para>
   </section>
 
   <section>
     <title>Comunicación cifrada vía SSL</title>
     <para>
-      Una de las maneras más extendidas por Internet para intercambiar información de forma segura es el uso de certificados reconocidos por alguna de las CA (Certificate Authority) de confianza. A pesar de que este sistema es bastante frágil<footnote><para>BlackHat USA 2011: SSL And The Future Of Authenticity: http://www.youtube.com/watch?v=Z7Wl2FW2TcA</para></footnote> y ha tenido numerosas<footnote><para>Comodo creó certificados válidos para Google, Yahoo o Skype dirigidos a terceras partes: http://www.schneier.com/blog/archives/2011/03/comodo_group_is.html</para></footnote> debilidades<footnote><para>Detectado un certificado para dominios de Google emitido por una autoridad no competente: http://arstechnica.com/security/2013/01/turkish-government-agency-spoofed-google-certificate-accidentally/</para></footnote>, sigue siendo el más usado y el que soportan la mayoría de los navegadores.
+      Una de las maneras más extendidas por Internet para intercambiar información de forma segura es el uso de certificados reconocidos por alguna de las CA (Certificate Authority) de confianza. A pesar de que este sistema es bastante frágil<footnote><para>BlackHat USA 2011: SSL And The Future Of Authenticity: http://www.youtube.com/watch?v=Z7Wl2FW2TcA</para></footnote> y ha tenido numerosas<footnote><para>Comodo, creó certificados válidos para Google, Yahoo o Skype dirigidos a terceras partes: http://www.schneier.com/blog/archives/2011/03/comodo_group_is.html</para></footnote> debilidades<footnote><para>Detectado un certificado para dominios de Google emitido por una autoridad no competente: http://arstechnica.com/security/2013/01/turkish-government-agency-spoofed-google-certificate-accidentally/</para></footnote>, sigue siendo el más usado y el que soportan la mayoría de los navegadores.
     </para>
     <para>
-      Es por eso, que todas las interfaces que expone el servidor de notificaciones hacia terceras partes, ya sean a los dispositivos (<code>UA</code>) o a los servidores de aplicación (<code>AS</code>) usan SSL (Secure Sockets Layer) para evitar que una posible persona malintencionada (normalmente conocido como Man-In-The-Middle o MITM) pueda interceptar la información y la descifre, con la obvia pérdida de privacidad.
+      Es por eso, que todas las interfaces que expone el servidor de notificaciones hacia terceras partes, ya sean a los dispositivos (<code>UA</code>) o a los servidores de aplicación (<code>AS</code>), usan SSL (Secure Sockets Layer) para evitar que una posible persona malintencionada (normalmente conocido como Man-In-The-Middle o MITM) pueda interceptar la información y la descifre, con la consiguiente pérdida de privacidad.
     </para>
     <para>
-      Así pues, en la parte de los dispositivos se emplea dos métodos diferentes:
+      Así pues, en la parte de los dispositivos se emplean dos métodos diferentes:
       <itemizedlist>
         <listitem>
           <formalpara>
             <title>HTTPS</title>
             <para>
-              La descarga del token inicial, en la primera versión del servidor, se realiza mediante un método <code>GET</code> a una dirección HTTP, por ejemplo <code>https://push.telefonica.com/token</code>. Esto permite que sólo los extremos de la conexión, en este caso el UA y el NS conozcan el contenido.
+              La descarga del token inicial, en la primera versión del servidor, se realiza mediante un método <code>GET</code> a una dirección HTTP, por ejemplo <code>https://push.telefonica.com/token</code>. Esto permite que sólo los extremos de la conexión, en este caso el UA y el NS, conozcan el contenido.
             </para>
           </formalpara>
         </listitem>
@@ -276,7 +276,7 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
           <formalpara>
             <title>WSS (WebSockets Secure)</title>
             <para>
-              WebSockets también tiene una extensión segura para el intercambio de datos. Necesita un certificado SSL de la misma manera que una conexión HTTPS normal. De hecho, WebSockets se inicia mediante una petición HTTP, y después de hace un <code>Upgrade</code> para poder pasar el protocolo a WebSockets. Una vez negociada la conexión y actualizada a WebSockets, ya es posible transmitir información cifrada entre las dos partes. Por este canal se descargan las notificaciones, las llamadas de registro y confirmación de mensajes…
+              WebSockets también tiene una extensión segura para el intercambio de datos. Necesita un certificado SSL de la misma manera que una conexión HTTPS normal. De hecho, WebSockets se inicia mediante una petición HTTP y después se hace un <code>Upgrade</code> para poder pasar el protocolo a WebSockets. Una vez negociada la conexión y actualizada a WebSockets, ya es posible transmitir información cifrada entre las dos partes. Por este canal se descargan las notificaciones, las llamadas de registro y confirmación de mensajes, entre otras cuestiones.
             </para>
           </formalpara>
         </listitem>
@@ -290,32 +290,32 @@ dataStore.getPbkApplication(apptoken, function(error, pbkbase64) {
       Uno de los hechos diferenciadores del servidor de notificaciones, como se ha ido comentando durante todo el desarrollo de este proyecto, es que no es necesario mantener un socket o una conexión abierta entre el teléfono (<code>UA</code>) y el propio servidor para ser notificado de que hay información pendiente.
     </para>
     <para>
-      Así pues, se ha decidido que el paquete que se envía desde el servidor de notificaciones (<code>NS</code>) hacia el dispositivo (<code>UA</code>) sea del tipo UDP, por las siguientes cuestiones:
+      Por tanto, se ha decidido que el paquete que se envía desde el servidor de notificaciones (<code>NS</code>) hacia el dispositivo (<code>UA</code>) sea del tipo UDP, por las siguientes cuestiones:
       <orderedlist>
         <listitem>
           <para>
-            El paquete UDP, no llevará ningún tipo de contenido. Y si lo lleva, será descartado. Esto es debido a que no es necesario que haya corrección de errores, ni aceptación (también llamados <code>ACK</code>), no importa el orden (de hecho, no hay orden implícito), y tampoco es necesario un control de congestión.
+            El paquete UDP no llevará ningún tipo de contenido. Y si lo lleva, será descartado. Esto es debido a que no es necesario que haya corrección de errores, ni aceptación (también llamados <code>ACK</code>), no importa el orden (de hecho, no hay orden implícito) y tampoco es necesario un control de congestión.
           </para>
         </listitem>
         <listitem>
           <para>
-            Utilizar TCP hubiera hecho que la señalización en la red sea mucho mayor, ya que para hacer un simple "ping" para que el dispositivo (<code>UA</code>) se entere de que tiene una nueva notificación, sería necesario tener control de aceptación, retransmisión, temporizadores, orden, control de congestión… y en general demasiado cargado para algo que no requiere ningún <code>payload</code> para ser leído.
+            Utilizar TCP hubiera hecho que la señalización en la red sea mucho mayor, ya que para hacer un simple "ping" para que el dispositivo (<code>UA</code>) se entere de que tiene una nueva notificación, sería necesario tener control de aceptación, retransmisión, temporizadores, orden, control de congestión… Y en general, demasiada carga para algo que no requiere ningún <code>payload</code> para leerse.
           </para>
         </listitem>
       </orderedlist>
     </para>
     <note>
-      <para>Probablemente en el futuro se añada algún mecanismo de información de cambio de puerto, por ejemplo: como es fácil mandar un paquete UDP a los diferenes dispositivos para que se despierten a un puerto por defecto (como es el caso de la primera versión, que está fijado en el <code>5000</code>), estos automáticamente se conectan al servidor de notificaciones para descargar los mensajes, pero que, al ser un ataque, no habría. La idea es que si esto sucede, el dispositivo se re-registre de nuevo en el servicio indicando otro puerto, para que haya menos posibilidades de inundar el servidor.</para>
+      <para>Probablemente en el futuro se añada algún mecanismo de información de cambio de puerto. En este sentido un ejemplo tiene que ver con la facilidad a la hora de mandar un paquete UDP a los diferenes dispositivos para que se despierten a un puerto por defecto (como es el caso de la primera versión, que está fijado en el <code>5000</code>). Estos automáticamente se conectan al servidor de notificaciones para descargar los mensajes, sin embargo, al ser un ataque, no habría. La idea es que si esto sucede, el dispositivo se re-registre de nuevo en el servicio indicando otro puerto, para que haya menos posibilidades de inundar el servidor.</para>
     </note>
   </section>
 
   <section>
     <title>Entrega de notificaciones a las aplicaciones</title>
     <para>
-      Un problema de seguridad que podría ocurrir es que haya dos aplicaciones instaladas en el dispositivo del usuario, y que ambas tengan permiso para recibir notificaciones push, pero una de ellas sea una malintencionada que se quiera hacer pasar por la original.
+      Un problema de seguridad que podría ocurrir es que haya dos aplicaciones instaladas en el dispositivo del usuario y que ambas tengan permiso para recibir notificaciones push, pero una de ellas sea una malintencionada que pretenda hacerse pasar por la original.
     </para>
     <para>
-      Así pues, el dilema viene cuando una aplicación es la verdadera y la otra es una que la intente suplantar. Esto quiere decir que la aplicación web verdadera genera un token de aplicación (o <code>WAToken</code>) de una manera poco aletoria y que es fácilmente adivinable. En este caso, si alguien sabe cuál es el algoritmo de generación de dicho token, podría replicarlo y registrarse de nuevo en el sistema como la aplicación "original". La duda en este caso surge de saber cuál es la aplicación original, cuál es la copia e incluso cuál se ha registrado en primer lugar. Así pues, la decisión es la de mandar la notificación sólo a la primera aplicación que se haya registrado con un token determinado, y rechazar el registro de sucesivas aplicaciones con igual identificador.
+      El dilema llega cuando una aplicación es la verdadera y la otra es una que la intente suplantar. Esto quiere decir que la aplicación web verdadera genera un token de aplicación (o <code>WAToken</code>) de una manera poco aletoria y que es fácilmente adivinable. En este caso, si alguien sabe cuál es el algoritmo de generación de dicho token, podría replicarlo y registrarse de nuevo en el sistema como la aplicación "original". La duda en este caso surge a la hora de saber cuál es la aplicación original, cuál es la copia e incluso cuál se ha registrado en primer lugar. Así pues, la decisión es mandar la notificación sólo a la primera aplicación que se haya registrado con un token determinado y rechazar el registro de sucesivas aplicaciones con igual identificador.
     </para>
     <note>
       <para>Sin embargo, esto podría cambiar en un futuro, pero como se comenta, hay demasiadas variables para poder elegir la aplicación real, puesto que no hay manera de discernir ahora mismo cuál es, o si una aplicación que intente suplantar a otra se haya registrado antes que la real.</para>
