@@ -130,7 +130,7 @@
       Así pues, la respuesta del registro puede ser válida o no.
     </para>
     <note>
-      <para>Hay que señalar que las respuestas son asíncronas y el envío de un mensaje de tipo <code>registerUA</code> no significa que su mensaje de respuesta sea el siguiente que llegue, por lo que hay que tratar cada mensaje por separado sin esperar una respuesta instantánea.</para>
+      <para>Hay que observar que las respuestas son asíncronas, y el envío de un mensaje de tipo <code>registerUA</code> no significa que su mensaje de respuesta sea el siguiente que llegue, por lo que hay que tratar cada mensaje por separado sin esperar una respuesta instantánea.</para>
     </note>
     <para>
       En el caso de una respuesta exitosa, se recibirá algo similar a:

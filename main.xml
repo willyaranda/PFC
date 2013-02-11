@@ -36,6 +36,9 @@
   <!-- Agradecimientos -->
   <xi:include href="acknowledgements.xml" />
 
+  <!-- Contexto -->
+  <xi:include href="preface.xml" />
+
   <!-- Contenido -->
   <xi:include href="introduction.xml" />
   <xi:include href="state_art/main.xml" />

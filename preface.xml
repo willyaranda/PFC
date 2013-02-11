@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preface xmlns='http://docbook.org/ns/docbook'
+  version="5.0" xml:lang="es">
+  <title>Contexto del proyecto</title>
+  <para>
+    El desarrollo de este proyecto se ha realizado durante mi estancia como becario en el proyecto Open Web Device en Telefónica I+D, durante el año 2012 y principios de 2013.
+  </para>
+  <para>
+    Ha estado rodeado por la creación de un sistema operativo para dispositivos móviles por parte de una aventura de Telefónica y Mozilla, llamado FirefoxOS, o como nombre interno, Boot2Gecko (B2G).
+  </para>
+  <para>
+    blah
+  </para>
+
+</preface>
