@@ -5,76 +5,76 @@
 
   <title>Conocimientos adquiridos</title>
   <para>
-    Durante el concepto inicial, desarrollo e implementación del servidor de push, se encontraron muchas variables que han hecho cambiar ligeramente el rumbo tomado por el proyecto. Sin embargo, la idea general seguía presente y los cambios que se fueron realizando eran debidos a cosas que se creía que eran más interesantes de tener, como mensajes de deregistro, posibilidad de encolar mensajes y mandar sólo un mensaje final, añadir <code>ACK</code>s específicos de aplicación y no usar los propios de TCP…
+    Durante el concepto inicial, desarrollo e implementación del servidor de push, se encontraron muchas variables que han hecho cambiar ligeramente el rumbo tomado por el proyecto. Sin embargo, la idea general seguía presente y los cambios que se fueron realizando se hicieron en base a cuestiones que se consideraban más interesantes de tener, como mensajes de deregistro, posibilidad de encolar mensajes y mandar sólo un mensaje final, añadir <code>ACK</code>s específicos de aplicación y no usar los propios de TCP…
   </para>
   <section>
     <title>SQL contra NoSQL</title>
     <para>
-      Una de las primeras decisiones tomadas en el proyecto fue la de usar una base de datos no relacional, también llamadas No-SQL. En este caso se eligió MongoDB debido a que era la seleccionada por el plan tecnológico de la empresa. La decisión entre elegir una base de datos No-SQL frente a una SQL convencional (como puede ser MySQL u Oracle) fue simplemente la de no tener un esquema estricto para cada uno de los datos que se iban a introducir, ya que se creía que el esquema cambiaría en el futuro según se fuera iterando (y así sucedió de hecho), y permitiría un prototipado de la plataforma mucho más rápido.
+      Una de las primeras decisiones tomadas en el proyecto fue la de usar una base de datos no relacional, también llamada No-SQL. En este caso se eligió MongoDB porque era la seleccionada por el plan tecnológico de la empresa. La decisión de escoger una base de datos No-SQL frente a una SQL convencional (como puede ser MySQL u Oracle) fue simplemente con el propósito de no tener un esquema estricto para cada uno de los datos que se fueran a introducir, ya que se creía que el esquema cambiaría en el futuro según se fuera iterando (y así sucedió de hecho), y permitiría un prototipado de la plataforma mucho más rápido.
     </para>
     <para>
-      Sin embargo, el cambiar radicamente la mentalidad entre una solución SQL a algo No-SQL, muy relajado y sin un esquema fijo para todos los "elementos" de una misma "tabla" podría suponer un peligro, puesto que las nociones de SQL y muchas de las decisiones para estos sistemas se toman a partir de dichos conocimientos.
+      Sin embargo, cambiar radicalmente la mentalidad entre una solución SQL a una No-SQL, muy relajado y sin un esquema fijo para todos los "elementos" de una misma "tabla" podría suponer un peligro, puesto que las nociones de SQL y muchas de las decisiones para estos sistemas se toman a partir de dichos conocimientos.
     </para>
     <para>
       Debido a esta mentalidad, en primer lugar hay que "dejar de pensar de forma relacional", con todo lo que ello implica, como la pérdida de alguna de las propiedades ACID<footnote><para><acronym>ACID</acronym>: Atomicity, Consistency, Isolation y Durability</para></footnote>, e incluso la noción de tabla y de esquema.
     </para>
     <para>
-      Mientras que en las bases de datos SQL hay un montón de restricciones, los esquemas son muy fijos y hay que respetar todas las normas ACID, además de intentar normalizar la base de datos para poder cumplir las cuatro normas básicas, en NoSQL depende mucho de cuál sea la base de datos seleccionada el qué hacer, básicamente porque cada una tiene sus características y rompen las propiedades ACID de diferentes maneras.
+      Mientras que en las bases de datos SQL hay una gran cantidad de restricciones, los esquemas son muy fijos y hay que respetar todas las normas ACID, además de intentar normalizar la base de datos para poder cumplir las cuatro normas básicas, en NoSQL depende mucho de cuál sea la base de datos seleccionada, básicamente porque cada una tiene sus características y rompen las propiedades ACID de diferentes maneras.
     </para>
     <para>
-      Así pues, algunas de las características de la base de datos elegida, MongoDB, hacen que las consultas sean mucho más rápidas cuando esté todo en el mismo sitio, lo que quiere decir que es mejor duplicar datos a hacer varias consultas a la vez. De hecho, si hay que hacer varias consultas, es mejor que no sean complejas, y que se encargan los diferentes backend de unir los datos, ya que así se liberan de tareas pesadas a los mismos gestores. Por ejemplo, hacer un <code>JOIN</code> en MongoDB es muy pesado, pero sin embargo es muy rápido si se hacen dos consultas por separado y las unimos en el código del programa.
+      Algunas de las características de la base de datos elegida, MongoDB, hacen que las consultas sean mucho más rápidas cuando esté todo en el mismo sitio, lo que quiere decir que es mejor duplicar datos a hacer varias consultas a la vez. De hecho, si hay que hacer varias consultas, es mejor que no sean complejas y que se encarguen los diferentes backend de unir los datos, ya que así se libera de tareas pesadas a los propios gestores. Por ejemplo, hacer un <code>JOIN</code> en MongoDB es muy pesado, pero sin embargo, es muy rápido si se hacen dos consultas por separado y se unen posteriormente en el código del programa.
     </para>
   </section>
 
   <section>
     <title>Investigar nuevas tecnologías</title>
     <para>
-      Uno de los mayores retos del proyecto ha sido el uso de una tecnología nueva pero muy emergente y con una comunidad enorme detrás como es Node.js. Este lenguaje de programación permite hacer iteraciones muy rápidas, con muchos módulos para añadir características de una manera muy sencilla. Sin embargo, es JavaScript, lo que hace pensar a muchas personas que no es válido para desarrollo de backend, como sí lo podría ser PHP, Ruby o Python, expresamente diseñados para eso, ya que existe el concepto de que JavaScript sólo se ejecuta en el navegador de los usuarios, y su único cometido es el de manipular el DOM<footnote><para><acronym>DOM</acronym>: Document Object Model</para></footnote> de la página y poder hacer interacciones y cambios en tiempo real, incluso pudiendo hacer peticiones AJAX para agregar contenido de forma dinámica.
+      Uno de los mayores retos del proyecto ha sido el uso de una tecnología nueva pero muy emergente y con una comunidad enorme detrás como es Node.js. Este lenguaje de programación permite hacer iteraciones muy rápidas, con muchos módulos para añadir características de una manera muy sencilla. Sin embargo, es JavaScript, lo que hace pensar a muchas personas que no es válido para desarrollo de backend, como sí lo podría ser PHP, Ruby o Python, expresamente diseñados para eso, ya que existe el concepto de que JavaScript sólo se ejecuta en el navegador de los usuarios y su único cometido es manipular el DOM<footnote><para><acronym>DOM</acronym>: Document Object Model</para></footnote> de la página y poder hacer interacciones y cambios en tiempo real, incluso pudiendo hacer peticiones AJAX para agregar contenido de forma dinámica.
     </para>
     <para>
-      Sin embargo JavaScript es uno de los lenguajes más denostados y minusvalorados, ya que posee un montón de características que lo hacen especialmente rápido y, sobre todo, divertido de programar, amén de una velocidad de ejecución cada vez más rápida gracias a la competencia que se ha ido desarollando los últimos años entre los principales desarrolladores de navegadores de Internet, que al final son los principales valedores de crear intérpretes de JavaScript más complejos, rápidos y eficientes.
+      Sin embargo, JavaScript es uno de los lenguajes más denostados y minusvalorados, ya que posee un montón de características que lo hacen especialmente rápido y, sobre todo, divertido de programar, amén de una velocidad de ejecución cada vez más rápida gracias a la competencia que se ha ido desarrollando en los últimos años entre los principales desarrolladores de navegadores de Internet, que al final son los principales valedores de crear intérpretes de JavaScript más complejos, rápidos y eficientes.
     </para>
     <para>
-      La idea detrás de Node.js es que sea asíncrono y esté basado en un bucle de eventos, por lo que toda la programación hay que dirigirla hacia allí. Además, hay que tener en cuenta que JavaScript no tiene hilos, pero tampoco es necesario por la implementación del lenguaje (usando callbacks y eventos). Así pues, el cambio de mentalidad también es significativo, ya que es poco común en la programación estructurada tipo C o C++ el uso de eventos (aunque obviamente hay librerías para poder usarlos), mientras que en JavaScript, y en concreto en Node.js, lo son todo.
+      La idea detrás de Node.js es que es asíncrono y está basado en un bucle de eventos, por lo que toda la programación se ha de dirigir hacia allí. Además, hay que tener en cuenta que JavaScript no tiene hilos, pero tampoco es necesario por la implementación del lenguaje (usando callbacks y eventos). El cambio de mentalidad también es significativo puesto que el uso de eventos  es poco común en la programación estructurada tipo C o C++  (aunque obviamente hay librerías para poder usarlos), mientras que en JavaScript, y en concreto en Node.js, lo son todo.
     </para>
     <para>
-      Así pues, muchas veces el código queda poco ordenado, debido a que la programación no es lineal, sino que puede ocurrir que una entrada empiece por la primera función, pero que tenga que llamar a la tercera que a su vez llama a la continuación de la primera para devolver la ejecución a la inicial. Sin embargo, pasada la diversión final con callbacks y eventos, Node.js ha destacado como un lenguaje muy potente, versátil y sobre todo, rápido y eficiente.
+      Muchas veces el código queda poco ordenado, debido a que la programación no es lineal y puede ocurrir que una entrada empiece por la primera función, pero que tenga que llamar a la tercera que a su vez llama a la continuación de la primera para devolver la ejecución a la inicial. Sin embargo, pasada la diversión final con callbacks y eventos, Node.js ha destacado como un lenguaje muy potente, versátil y sobre todo, rápido y eficiente.
     </para>
   </section>
 
   <section>
     <title>Tener tests unitarios y funcionales</title>
     <para>
-      Crear test y pruebas es algo que debería estar obligado en todos los proyectos, pero que, por unas cuestiones u otras, no lo suele estar, y se suele llevar a un plano secundario, muchas veces con la documentación. Sin embargo, es una de las piezas fundamentales en un sistema que esté en desarrollo. Dada la naturaleza de la informática, quizás cambios que se piensen que no afectan a otras partes, sí lo podrían hacer, y ahí es donde entran los tests.
+      Crear test y pruebas es algo que debería estar obligado en todos los proyectos, pero, por unas cuestiones u otras, no lo suele estar, quedando relegado a un plano secundario, muchas veces con la documentación. Sin embargo, es una de las piezas fundamentales en un sistema que esté en desarrollo. Dada la naturaleza de la informática, quizás cambios que se piensen que no afectan a otras partes, sí lo podrían hacer y ahí es donde entran los tests.
     </para>
     <para>
-      Así pues, es fácil pensar en tener tests para prácticamente la totalidad del código y de las funciones que se van usando durante el programa. Simplemente es elegir la tecnología más fácil y sencilla para que dichos tests se ejecuten y que crearlos no sea algo que lleve más tiempo que el propio código que se quiere probar.
+      Es fácil pensar en tener tests para prácticamente la totalidad del código y de las funciones que se van usando durante el programa. Simplemente es elegir la tecnología más fácil y sencilla para que dichos tests se ejecuten y sean creados sin llevar más tiempo que el propio código que se quiere probar.
     </para>
     <para>
-      Así pues, en el caso del servidor de notificaciones, se ha empleado Node.js como lenguaje para crear los tests, tanto unitarios como funcionales, apoyándose en algunos casos de módulos específicamente diseñados para ello, como Vows, que permite ejecutar tests en paralelo, esperar a que unos terminen antes de que empiecen otros, y que se haga de forma muy sencilla y muy visual. Todo ello totalmente integrado en el fichero <filename>Makefile</filename> para ser ejecutado como <code>make tests</code> hace que la ejecución y comprobación de funcionalidades y de regresiones sea rápida y sencilla.
+      En el caso del servidor de notificaciones, se ha empleado Node.js como lenguaje para crear los tests, tanto unitarios como funcionales, apoyándose en algunos casos en módulos específicamente diseñados para ello, como Vows, que permite ejecutar tests en paralelo, esperar a que unos terminen antes de que empiecen otros y que se haga de forma muy sencilla y muy visual. Todo ello totalmente integrado en el fichero <filename>Makefile</filename> para ser ejecutado como <code>make tests</code>, hace que la ejecución y comprobación de funcionalidades y de regresiones sea rápida y sencilla.
     </para>
   </section>
 
   <section>
     <title>Priorización y enfoque en tareas</title>
     <para>
-      Uno de los principales enemigos de sacar adelante un proyecto es la falta de priorización de las tareas. Esto quiere decir que muchas veces lo más importante que hay que hacer para que un proyecto salga adelante no es lo mismo que lo que desarrolladores piensan. Quizas añadir una funcionalidad que va a usar el 5% de la gente y require el 20% del tiempo debido a su complejidad, podría priorizarse después de una que vaya a usar el 80% de la gente y que requiera ese 20% de tiempo.
+      Uno de los principales enemigos a la hora de sacar adelante un proyecto es la falta de priorización de las tareas. Es decir, muchas veces lo más importante que hay que hacer para que un proyecto progrese no coincide con lo que piensan los desarrolladores. Quizás añadir una funcionalidad que va a usar el 5% de la gente y requiere el 20% del tiempo debido a su complejidad, podría priorizarse después de una que vaya a usar el 80% de la gente y que requiera ese 20% de tiempo.
     </para>
     <para>
-      Así pues, alguna de las funcionalidades que el servidor de notificaciones se han dejado para una futura versión 2 han sido fruto de estos acuerdos: cosas que son muy interesantes de tener, y que ayudarán de una gran manera a los desarrolladores que lo usen, pero que requieren demasiado esfuerzo para programarse que podría concentrarse en otras partes más fundamentales y que, en general, afectarán a más gente y harán incluso que esas nuevas features interesantes sean más fáciles y rápidas de implementar en un futuro.
+      Alguna de las funcionalidades del servidor de notificaciones que se han dejado para una futura versión 2 han sido fruto de estos acuerdos. Aspectos muy interesantes de tener y que ayudarán en gran medida a los desarrolladores que lo usen, pero que por el momento requieren demasiado esfuerzo para programarse. Un esfuerzo que podría concentrarse en otras partes más fundamentales y que, en general, afectarán a más gente y harán incluso que esas nuevas características sean más fáciles y rápidas de implementar en un futuro.
     </para>
   </section>
 
   <section>
     <title>Trabajar en abierto</title>
     <para>
-      Como se ha comentado anteriormente, la naturaleza de este proyecto era que fuera abierto y que pudiera ser usado por todo el mundo, a la vez que esperar nuevos colaboradores o personas que encontraran problemas y ayudaran en su arreglo hasta otras que les gustaría añadir nuevas funcionalidades y se encarguen de dichos nuevos escenarios.
+      Como se ha comentado anteriormente, la naturaleza de este proyecto pasaba por ser abierto y que pudiera ser usado por todo el mundo, a la vez que nuevos colaboradores o personas encontraran problemas y ayudaran en su arreglo u otras que les gustaría añadir nuevas funcionalidades y se encargasen de nuevos escenarios.
     </para>
     <para>
-      Entonces, es sencillo entender que toda la tecnología, lenguajes de programación, compiladores, sistemas, programas sean abiertos. Pero es más, los sistemas donde se guarda el código fuente, los repositorios, también están abiertos, en la plataforma GitHub, lo que da mucha más visibilidad y facilidad a terceras personas de acercarse y ayudar.
+      Entonces, es sencillo entender que toda la tecnología, lenguajes de programación, compiladores, sistemas y programas sean abiertos. Pero es más, los sistemas donde se guarda el código fuente, los repositorios, también están abiertos en la plataforma GitHub, lo que da mucha más visibilidad y facilidad a terceras personas de acercarse y ayudar.
     </para>
     <para>
-      Como se ha comentado anteriormente, los tests es una parte fundamental del desarrollo de una aplicación o servicio, así pues, aprovechando la excelente integración entre GitHub (el servicio donde se sube el código fuente) y el sistema de integración continua TravisCI, se decidió usarlos en conjunción para que cada vez que alguien suba un cambio en el código, automáticamente se genere una compilación y se lancen los tests, enviando correos y avisos a las personas que están configuradas en caso de que algo haya ido mal o se encuentren regresiones.
+      Reiterando lo ya expuesto, los tests son una parte fundamental del desarrollo de una aplicación o servicio. De esta manera, aprovechando la excelente integración entre GitHub (el servicio donde se sube el código fuente) y el sistema de integración continua TravisCI, se decidió usarlos en conjunción para que cada vez que alguien suba un cambio en el código, se genere una compilación automáticamente y se lancen los tests, enviando correos y avisos a las personas que están configuradas en caso de que algo haya ido mal o se encuentren regresiones.
     </para>
   </section>
 
@@ -84,10 +84,10 @@
       Siempre se piensa que cuanto más capacidad y más rápido mejor, pero en el caso de sistemas reales también hay que tener en cuenta la ubicación de los servidores, la conectividad, la latencia y el presupuesto.
     </para>
     <para>
-      Lo más lógico es ver las diferentes necesidades de cada parte del sistema, y hacer pruebas de carga en diferentes escenarios: red congestionada, red disponible al 100%, red con fallos intermitentes, discos duros con poca velocidad, con mucha velocidad, poca RAM, mucha RAM…
+      Lo más lógico es ver las diferentes necesidades de cada parte del sistema y hacer pruebas de carga en diferentes escenarios: red congestionada, red disponible al 100%, red con fallos intermitentes, discos duros con poca velocidad, con mucha velocidad, poca RAM, mucha RAM…
     </para>
     <para>
-      Además, también es necesario probar de forma incesante todas las instancias. En el caso del servidor de notificaciones, se detectó que Node.js sólo permite que se ocupe 1.4GiB de memoria por cada proceso, por lo que sería necesario lanzar varios procesos a la vez del mismo servidor o usar otros sistemas para poder balancear la carga, como usando el módulo <code>cluster</code><footnote><para>http://nodejs.org/api/cluster.html</para></footnote> disponible de forma nativa.
+      También es necesario probar de forma incesante todas las instancias. En el caso del servidor de notificaciones, se detectó que Node.js sólo permite que se ocupe 1.4GiB de memoria por cada proceso, por lo que sería necesario lanzar varios procesos a la vez del mismo servidor o usar otros sistemas para poder balancear la carga, como usando el módulo <code>cluster</code><footnote><para>http://nodejs.org/api/cluster.html</para></footnote> disponible de forma nativa.
     </para>
     <para>
       En el caso de MongoDB, las pruebas indicaron que el rendimiento de la base de datos mejoraba de una forma drástica si las instancias tenían poca memoria RAM pero un disco duro SSD, cuyo rendimiento es unas 10 veces superior a los discos duros magnéticos tradicionales.
