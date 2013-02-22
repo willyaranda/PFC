@@ -3,7 +3,7 @@
       xmlns="http://docbook.org/ns/docbook"
       version="5.0" xml:lang="es">
 
-  <title>Lecciones aprendidas</title>
+  <title>Conocimientos adquiridos</title>
   <para>
     Durante el concepto inicial, desarrollo e implementación del servidor de push, se encontraron muchas variables que han hecho cambiar ligeramente el rumbo tomado por el proyecto. Sin embargo, la idea general seguía presente y los cambios que se fueron realizando eran debidos a cosas que se creía que eran más interesantes de tener, como mensajes de deregistro, posibilidad de encolar mensajes y mandar sólo un mensaje final, añadir <code>ACK</code>s específicos de aplicación y no usar los propios de TCP…
   </para>
@@ -16,7 +16,7 @@
       Sin embargo, el cambiar radicamente la mentalidad entre una solución SQL a algo No-SQL, muy relajado y sin un esquema fijo para todos los "elementos" de una misma "tabla" podría suponer un peligro, puesto que las nociones de SQL y muchas de las decisiones para estos sistemas se toman a partir de dichos conocimientos.
     </para>
     <para>
-      Así pues una de las primeras cosas fue "dejar de pensar de forma relacional", con todo lo que ello implica, como la pérdida de alguna de las propiedades ACID<footnote><para><acronym>ACID</acronym>: Atomicity, Consistency, Isolation y Durability</para></footnote>. E incluso la noción de tabla y de esquema.
+      Debido a esta mentalidad, en primer lugar hay que "dejar de pensar de forma relacional", con todo lo que ello implica, como la pérdida de alguna de las propiedades ACID<footnote><para><acronym>ACID</acronym>: Atomicity, Consistency, Isolation y Durability</para></footnote>, e incluso la noción de tabla y de esquema.
     </para>
     <para>
       Mientras que en las bases de datos SQL hay un montón de restricciones, los esquemas son muy fijos y hay que respetar todas las normas ACID, además de intentar normalizar la base de datos para poder cumplir las cuatro normas básicas, en NoSQL depende mucho de cuál sea la base de datos seleccionada el qué hacer, básicamente porque cada una tiene sus características y rompen las propiedades ACID de diferentes maneras.

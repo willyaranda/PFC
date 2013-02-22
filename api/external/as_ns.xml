@@ -4,7 +4,7 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title>Entre el AS y NS</title>
+  <title>Entre el servidor de aplicación y servidor de notificaciones</title>
   <para>
     Este es el API que tienen que utilizar los servidores web para enviar las notificaciones de una forma estándar hacia el servidor de notificaciones para que éste las mande correctamente a los clientes.
   </para>

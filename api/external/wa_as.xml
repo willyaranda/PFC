@@ -4,7 +4,7 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title>Entre el WA y AS</title>
+  <title>Entre la aplicación web y el servidor de aplicaciones</title>
   <para>
     La comunicación entre la aplicación web (<code>WA</code>) y el servidor de terceros (<code>AS</code>: Application Server) está fuera del alcance del servidor de notificaciones, ya que depende de cada aplicación el cómo se implementa.
   </para>

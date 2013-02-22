@@ -3,13 +3,52 @@
   version="5.0" xml:lang="es">
   <title>Contexto del proyecto</title>
   <para>
-    El desarrollo de este proyecto se ha realizado durante mi estancia como becario en el proyecto Open Web Device en Telefónica I+D, durante el año 2012 y principios de 2013.
+    El desarrollo de este proyecto se ha realizado durante mi estancia como becario en la iniciativa Open Web Device en Telefónica I+D, durante el año 2012 y principios de 2013.
   </para>
   <para>
-    Ha estado rodeado por la creación de un sistema operativo para dispositivos móviles por parte de una aventura de Telefónica y Mozilla, llamado FirefoxOS, o como nombre interno, Boot2Gecko (B2G).
+    El objetivo de la iniciativa Open Web Device es la creación de un dispositivo móvil, en concreto de un teléfono, de bajo coste, y que esté basado en tecnologías web, como HTML5, CSS y JavaScript, pensado específicamente para mercados emergentes como pueden ser Latinoamérica (Brasil, Colombia o México), además de países asiáticos como India o Singapur, teniendo un gran potencial a futuro. Para el desarrolo del teléfono, se ha contado con apoyo de la Fundación Mozilla debido a la similitud en los primeros momentos de una idea muy parecida y la convergencia en un solo grupo de trabajo.
+  </para>
+  <figure>
+    <title>Logo de FirefoxOS</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="./resources/firefoxOS-logo.png" align="center" width="14cm" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <para>
+    El apoyo de FirefoxOS por parte de la industria crece día a día. En un primer momento sólo Telefónica, Deutsche Telekom y Qualcomm apostaron por el proyecto, como una rama de sus iniciativas de investigación y desarrollo (I+D), pero se ha mostrado que es muy capaz y con mucho futuro, por lo que otras empresas desarrolladoras de hardware como Alcatel, Sony Ericsson, LG o ZTE han decidido lanzarse al mercado para poder tener terminales con este sistema operativo y la libertad que les provee.
   </para>
   <para>
-    blah
+    Pero además de los creadores de hardware, también es necesario que las operadoras sean parte del desarrollo y estén involucradas para su comercialización y distribución, bien por teléfonos subvencionados, o por querer un mayor control del sistema operativo, algo que Android o iOS no les permite. Entonces, varias operadoras se han sumado a lo largo del tiempo, como son América Móvil (251 millones de clientes), China Unicom (210 millones) o incluso la japonesa NTT DoCoMo, que posee una base de 61 millones de usuarios y es líder en el mercado nipón. A fecha de 24 de febrero de 2013, el número de usuarios que tenían las diferentes operadoras involucradas en FirefoxOS era de más de 2.200 millones de usuarios.
   </para>
+  <para>
+    Además, FirefoxOS va a proveer una libertad que actualmente no tienen los usuarios de dispositivos móviles, puesto que las aplicaciones que van a poder utilizar y comprar van a ser multiplataforma de forma predeterminada, y no estarán sólo para un dispositivo en concreto o un sistema determinado, si no que se podrán ejecutar en todo el software que implemente las diferentes APIs que se están estandarizando.
+  </para>
+  <para>
+    Y esto es un gran cambio para los usuarios, puesto que ahora mismo están obligados a no poder salir del silo del que depende su plataforma, como por ejemplo Apple con sus dispositivos, con su propia tienda, y su propio hardware, o incluso con Android que, a pesar de ser más abierto, sigue estando controlado por Google y son ellos los que deciden cuándo liberar el código y qué se puede instalar o no. Así pues, la idea de FirefoxOS es que sean los usuarios los que tengan el control total de su dispositivo y de las aplicaciones que han comprado, pudiéndolas utilizar en cualquier plataforma soportada, siempre haciendo uso de estándares, y que puedan elegir utilizarla en su dispositivo portátil con FirefoxOS, en su tablet con Android o incluso en su equipo de escritorio con Windows o Linux.
+  </para>
+  <figure>
+    <title>FirefoxOS, pantalla de inicio</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="./resources/firefoxOS-homescreen.png" align="center" width="6cm" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <para>
+    Programar para FirefoxOS es muy sencillo, debido a que los únicos lenguajes soportados son aquellos que han hecho que la web sea tan grande como es hoy, esto es, HTML, CSS y JavaScript, con alrededor de ocho millones de desarrolladores que ya tienen los conocimientos necesarios para realizar aplicaciones puesto que son desarrolladores web.
+  </para>
+  <para>
+    Sin embargo, la creación de esta plataforma que funciona en dispositivos móviles y que pretender entrar en un mercado móvil ya muy copado por Android e iOS es una tarea muy complicada, pero que ha obligado a crear infinidad de nuevas tecnologías y APIs para la plataforma web, que no sólo mejorará el mercado de los terminales móviles, si no también cualquier navegador de escritorio, pudiendo acceder cada vez más a diferente hardware del dispositivo que estaba totalmente oculto para la web, como la brújula, la geoposición, o incluso poder acceder a la música e imágenes, siempre manteniendo la elección y la privacidad del usuario.
+  </para>
+  <figure>
+    <title>Dispositivos de desarrollo de FirefoxOS</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="./resources/firefoxOS-devices.png" align="center" width="17cm" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
 </preface>

@@ -74,7 +74,7 @@
       </para>
     </formalpara>
     <section>
-      <title>Para qué se usa</title>
+      <title>Uso en el proyecto</title>
         <para>
           Node.js se utiliza en la parte del backend como la programación lógica del servidor de notificaciones. Esto quiere decir que es el que controla todo lo que está ocurriendo en el servicio, expone las APIs de terceros, mantiene las conexiones abiertas, hace intercambio de datos, guarda en la base de datos, monitoriza los mensajes por si hay que borrarles y un sin fín más de funcionalidades.
         </para>
@@ -83,7 +83,7 @@
         </para>
     </section>
     <section>
-      <title>Por qué se ha elegido</title>
+      <title>Argumentos para su elección</title>
       <para>
         Hay multitud de tecnologías para programar servicios web, pasando por cientos de diferentes lenguajes de programación que proveen miles de frameworks diferentes entre los que elegir. Sin embargo, una tecnología robusta, sencilla, con mucha comunidad detrás para buscar cualquier duda y tener un montón de módulos ha hecho que el proyecto se decantara por Node.js por las siguientes razones:
       </para>
@@ -177,7 +177,7 @@
       </listitem>
     </itemizedlist>
     <section>
-      <title>Para qué se usa</title>
+      <title>Cometido principal</title>
       <para>
         El uso principal en el servidor de notificaciones es la de pasar mensajes entre los diferentes actores que están en ejecución, de forma desacoplada y funcionando de forma independiente, esperando a eventos que desencadenen una reacción dependiendo de qué contengan y qué haya que realizar según el mensaje.
       </para>
@@ -186,7 +186,7 @@
       </para>
     </section>
     <section>
-      <title>Por qué se ha elegido</title>
+      <title>Comparativa frente a otras soluciones</title>
       <para>
         En un primer momento el software de mensajería utilizado era ActiveMQ<footnote><para>http://activemq.apache.org/</para></footnote> ya que en el plan tecnológico se prefería el uso de esta tecnología, sin especificar las razones.
       </para>
@@ -281,13 +281,13 @@
       </listitem>
     </itemizedlist>
     <section>
-      <title>Para qué se usa</title>
+      <title>Uso principal</title>
         <para>
           Al ser una base de datos, se utiliza para guardar la información que envían los diferentes actores o instancias que están en ejecución en el servidor de notificaciones. Así por ejemplo, se guardan las notificaciones enviadas y correctas, los registros de los diferentes dispositivos con sus aplicaciones enlazadas y los posibles mensajes…
         </para>
     </section>
     <section>
-      <title>Por qué se ha elegido</title>
+      <title>Elección</title>
       <para>
         Por proveer una flexibilidad mucho mayor que las bases de datos SQL tradicionales, y porque el formato de los mensajes, ya sean de los recibidos y los que se intercambian en las colas y de los datos entre las diferentes instancias tienen una característica en común: son JSON. Así pues, cualquier dato del sistema puede guardarse sin problemas en la base de datos, haciendo incluso de respaldo de los datos en caso de fallo del sistema.
       </para>

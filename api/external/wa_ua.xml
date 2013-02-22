@@ -4,7 +4,7 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="5.0" xml:lang="es">
 
-  <title>Entre la WA y UA</title>
+  <title>Entre la aplicación web y el agente de usuario</title>
   <para>
     Este API, llamada <code>navigator.mozPush</code>, es la principal vía de comunicación entre las aplicaciones y el agente de usuario, o sistema operativo.
   </para>

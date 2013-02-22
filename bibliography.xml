@@ -22,56 +22,275 @@
         <year>2012</year>
         <holder>Nikhil Marathe</holder>
       </copyright>
-      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro
+      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Paper
+        online</link>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>ADY12</abbrev>
+      <title>Thialfi: A Client Notification Service for Internet-Scale Applications</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Atul</firstname>
+            <surname>Adya</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Gregory</firstname>
+            <surname>Cooper</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Daniel</firstname>
+            <surname>Myers</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Michael</firstname>
+            <surname>Piatek</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2012</year>
+        <holder>Google Inc.</holder>
+      </copyright>
+      <link xlink:href="http://www.cs.columbia.edu/~lierranli/coms6998-11Fall2012/papers/thia_sosp2011.pdf">Paper
         online</link>
     </biblioentry>
   </bibliodiv>
+
+  http://www.cs.columbia.edu/~lierranli/coms6998-11Fall2012/papers/thia_sosp2011.pdf
 
   <!-- Libros -->
   <!-- [XXX99A] “Título del Libro”. Apellidos y nombre del autor. Lugar, editorial y año de publicación. -->
   <bibliodiv>
     <title>Libros</title>
-    <biblioentry>
-      <abbrev>MAR12</abbrev>
-      <title>"An Introduction to libuv"</title>
-      <authorgroup>
-        <author>
-          <personname>
-            <firstname>Nikhil</firstname>
-            <surname>Marathe</surname>
-          </personname>
-        </author>
-      </authorgroup>
-      <copyright>
-        <year>2012</year>
-        <holder>Nikhil Marathe</holder>
-      </copyright>
-      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro
-        online</link>
-    </biblioentry>
-  </bibliodiv>
 
-  <!-- Artículos -->
-  <!-- “Título del Artículo”. Apellidos y nombre del autor. Nombre de la Revista, Año, Número, Volumen, Editor. -->
-  <bibliodiv>
-    <title>Artículos</title>
     <biblioentry>
-      <abbrev>MAR12</abbrev>
+      <abbrev>CAR07</abbrev>
+      <title>"Sistemas operativos: una visión aplicada"</title>
       <authorgroup>
         <author>
           <personname>
-            <firstname>Nikhil</firstname>
-            <surname>Marathe</surname>
+            <firstname>Jesús</firstname>
+            <surname>Carretero Pérez</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Félix</firstname>
+            <surname>García Carballeira</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Pedro</firstname>
+            <surname>de Miguel Anasagasti</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Fernando</firstname>
+            <surname>Pérez Costoya</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2007</year>
+        <holder>McGraw-Hill/Interamericana de España, S.A.U.</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>GRA03</abbrev>
+      <title>"Introduction to Parallel Computing"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Ananth</firstname>
+            <surname>Grama</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Anshul</firstname>
+            <surname>Gupta</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>George</firstname>
+            <surname>Karypis</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Vipin</firstname>
+            <surname>Kumar</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2003</year>
+        <holder>Pearson Education Limited</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>HAL01</abbrev>
+      <title>"Multimedia Communications: Applications, Networks, Protocols and Standards"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Fred</firstname>
+            <surname>Halsal</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2001</year>
+        <holder>Pearson Education Limited</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>JUN99</abbrev>
+      <title>"Graphs, Networks and Algorithms"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Dieter</firstname>
+            <surname>Jungnickel</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>1999</year>
+        <holder>Springer-Verlag</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>KUR08</abbrev>
+      <title>"Computer Networking: A Top-Down Approach"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>James</firstname>
+            <surname>F. Kurose</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Keith</firstname>
+            <surname>W. Ross</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2008</year>
+        <holder>Pearson International</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>NEW10</abbrev>
+      <title>"Networks, an Introduction"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Mark</firstname>
+            <surname>Newman</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2010</year>
+        <holder>Oxford</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>PET11</abbrev>
+      <title>"Computer Networks: A Systems Approach"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Larry</firstname>
+            <surname>L. Peterson</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Bruce</firstname>
+            <surname>S. Davie</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2011</year>
+        <holder>The Morgan Kauffman</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>REE12</abbrev>
+      <title>"The REST API Desing Handbook"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>George</firstname>
+            <surname>Reese</surname>
           </personname>
         </author>
       </authorgroup>
       <copyright>
         <year>2012</year>
-        <holder>Nikhil Marathe</holder>
       </copyright>
-      <title>An Introduction to libuv</title>
-      <link xlink:href="http://nikhilm.github.com/uvbook/An%20Introduction%20to%20libuv.pdf">Libro
-        online</link>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>SIN06</abbrev>
+      <title>"Internet Communications Using SIP: Delivering VoIP and Multimedia Services with Session Initiation Protocol"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>Henry</firstname>
+            <surname>Sinnreich</surname>
+          </personname>
+        </author>
+        <author>
+          <personname>
+            <firstname>Alan</firstname>
+            <surname>B. Johnston</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2006</year>
+        <holder>Wiley</holder>
+      </copyright>
+    </biblioentry>
+
+    <biblioentry>
+      <abbrev>STA11</abbrev>
+      <title>"Operating Systems: Internals and Design Principles"</title>
+      <authorgroup>
+        <author>
+          <personname>
+            <firstname>William</firstname>
+            <surname>Stallings</surname>
+          </personname>
+        </author>
+      </authorgroup>
+      <copyright>
+        <year>2011</year>
+      </copyright>
     </biblioentry>
   </bibliodiv>
 </bibliography>

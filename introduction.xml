@@ -35,19 +35,19 @@
     </itemizedlist>
   </para>
   <para>
-    Estos dos principales paradigmas son los más usados en la historia de Internet y de las aplicaciones. Durante mucho tiempo sólo se utilizaron las soluciones de polling, ya que no se había desarrollado una tecnología de push eficiente y eran más fáciles de implementar (preguntar cada cierto tiempo al servidor si había datos nuevos, manteniendo un pequeño intervalo en el cual cliente y servidor no estaban en sincronía). Sin embargo, ahora que la tecnología se ha ido desarrollando y se han creado nuevos modelos, el uso de notificaciones push está en auge, sobre todo gracias a los sistemas operativos móviles como Android o iOS, así como con nuevos estándares Web que permiten mantener sockets abiertos entre dos equipos diferentes para el envío de datos de forma bidireccional, como WebSockets<footnote><para>http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-17</para></footnote> y Server-sent Events<footnote><para>http://dev.w3.org/html5/eventsource/</para></footnote>.
+    Estos dos principales paradigmas son los más usados en la historia de Internet y de las aplicaciones. Durante mucho tiempo sólo se utilizaron las soluciones de polling, ya que no se había desarrollado una tecnología de push eficiente y eran más fáciles de implementar (preguntar cada cierto tiempo al servidor si había datos nuevos, manteniendo un pequeño intervalo en el cual cliente y servidor no estaban en sincronía). Sin embargo, ahora que la tecnología se ha ido desarrollando y se han creado nuevos modelos, el uso de notificaciones push está en auge, sobre todo gracias a los sistemas operativos móviles como Android o iOS, así como con nuevos estándares web que permiten mantener sockets abiertos entre dos equipos diferentes para el envío de datos de forma bidireccional, como WebSockets<footnote><para>http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-17</para></footnote> y Server-sent Events<footnote><para>http://dev.w3.org/html5/eventsource/</para></footnote>.
   </para>
   <para>
     Sin embargo, el método de <emphasis>polling</emphasis> no es recomendable por varios motivos, debido a que hace que las redes se colapsen con su uso o bien que éste sea muy ineficiente. El primero de ellos es porque usa un elevado número de conexiones hacia el servidor de terceros para preguntar si hay datos. Además, esas conexiones no siempre son interesantes de realizar, puesto que puede que realmente no haya datos, pero al preguntar si los hay, se colapsa tanto el servidor como la red con paquetes innecesarios, que no tienen carga real alguna. Y es la combinación de estos dos factores (realizar conexiones periódicas, y que puede que no tengan nada) lo que indica que debería haber otra tecnología de recogida de información más eficaz y amigable con las redes.
   </para>
   <para>
-    Es por esto que los métodos de recogida de información basados en tecnologías push son ampliamente usados para la descarga de datos de forma asíncrona, ya que sólo piden los datos cuando realmente son necesarios. Sin embargo, aunque estos métodos a primera vista puedan verse como más eficientes que los de polling, también cuentan con varias desventajas y pese a ser realmente válidos para conexiones estables y sin limitaciones, son muy poco efectivos y muy perjudiciales para las redes móviles, como las de telefonía.
+    Es por esto que los métodos de recogida de información basados en tecnologías push son ampliamente usados para la descarga de datos de forma asíncrona, debido a que sólo piden los datos cuando realmente son necesarios. Sin embargo, aunque estos métodos a primera vista puedan verse como más eficientes que los de polling, también cuentan con varias desventajas y pese a ser realmente válidos para conexiones estables y sin limitaciones, son muy poco efectivos y muy perjudiciales para las redes móviles, como las de telefonía.
   </para>
 
   <section>
     <title>Resumen</title>
     <para>
-      La creación de un sistema de notificaciones push, con un API sencilla y fácil de utilizar, transparente para los desarrolladores de aplicaciones, con el objetivo de que funcione en diferentes tipos de redes de datos, como celulares o ADSL, en el dominio de paquetes o de circuitos, y haga un uso mínimo de recursos y de batería, utilizando todas las peculiaridades de cada servicio para que sea la mejor solución en cada situación.
+      El propósito de este proyecto es la creación de un sistema de notificaciones push, con un API sencilla y fácil de utilizar, transparente para los desarrolladores de aplicaciones, con el objetivo de que funcione en diferentes tipos de redes de datos, como celulares o ADSL, en el dominio de paquetes o de circuitos, y haga un uso mínimo de recursos y de batería, utilizando todas las peculiaridades de cada servicio para que sea la mejor solución en cada situación.
     </para>
   </section>
 
@@ -56,17 +56,17 @@
     <itemizedlist>
       <listitem>
         <para>
-          Explicar por qué es un problema usar cualquiera de las dos soluciones planteadas al inicio del capítulo en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de dichas redes móviles y cómo pueden mejorarse.
+          Explicar por qué es un problema usar cualquiera de las dos soluciones planteadas en la introducción del capítulo en dispositivos móviles y redes celulares, viendo cuál es el problema inicial, las singularidades de dichas redes móviles y cómo pueden mejorarse.
         </para>
       </listitem>
       <listitem>
         <para>
-          Creación de una plataforma de mensajería push que sea amigable para los dispositivos móviles con las consideraciones expuestas en el punto anterior: que no use demasiada batería, que sea interesante para las operadoras móviles y que reduzca el consumo de ancho de banda y de señalización en la red celular.
+          Crear una plataforma de mensajería push que sea amigable para los dispositivos móviles con las consideraciones expuestas en el punto anterior: que no use demasiada batería, que sea interesante para las operadoras móviles y que reduzca el consumo de ancho de banda y de señalización en la red celular.
         </para>
       </listitem>
       <listitem>
         <para>
-          Implementación de este mecanismo de push, no sólo en su parte servidor sino también en su parte cliente. Este desarrollo está englobado en la creación del sistema operativo para móviles Firefox OS.
+          Implementar este mecanismo de push, no sólo en su parte servidor sino también en su parte cliente. Este desarrollo está englobado en la creación del sistema operativo para móviles Firefox OS.
         </para>
       </listitem>
       <listitem>

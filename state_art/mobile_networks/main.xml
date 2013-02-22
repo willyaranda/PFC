@@ -22,7 +22,7 @@
           <formalpara>
             <title>IPv4</title>
             <para>
-              Son las direcciones IP más usadas en la actualidad y estandarizadas en el año 1981, en el RFC-791<footnote><para>http://tools.ietf.org/html/rfc791</para></footnote>. Se caracterizan por tener 2<superscript>32</superscript> direcciones disponibles para asignar, equivalentes a 4.294.967.296 equipos. Sin embargo, el principal problema es que son demasiado pocas para todos los diferentes dispositivos que hay conectados en la actualidad a Internet y requieren de técnicas (como el NATting) para poder acomodar más equipos, con problemas que se analizan más adelante.
+              Son las direcciones IP más usadas en la actualidad y estandarizadas en el año 1981, en el RFC-791<footnote><para>http://tools.ietf.org/html/rfc791</para></footnote>. Se caracterizan por tener <code>2<superscript>32</superscript></code> direcciones disponibles para asignar, equivalentes a <code>4.294.967.296</code> equipos. Sin embargo, el principal problema es que son demasiado pocas para todos los diferentes dispositivos que hay conectados en la actualidad a Internet y requieren de técnicas (como el NATing) para poder acomodar más equipos, con problemas que se analizan más adelante.
             </para>
           </formalpara>
         </listitem>
@@ -30,7 +30,7 @@
           <formalpara>
             <title>IPv6</title>
             <para>
-              Es la evolución directa de IPv4, estandarizada como RFC-2460<footnote><para>http://tools.ietf.org/html/rfc2460</para></footnote>, pero sin compatibilidad hacia atrás. De esta forma, los equipos que funcionan sólo con IPv6 no son capaces de llegar a dispositivos equipados sólo con IPv4 y para que puedan hablar entre ellos, hay que realizar túneles o conversiones entre ambos tipos de direcciones. Esto cuenta con una serie de ventajas sobre IPv4, la principal es que el número de dispositivos con IP distinta y no repetida aumenta de forma dramática (hasta el punto de llegar a 340 sextillones de direcciones, o 2<superscript>128</superscript>) y que, en un futuro, relegará a IPv4 a un segundo plano.
+              Es la evolución directa de IPv4, estandarizada como RFC-2460<footnote><para>http://tools.ietf.org/html/rfc2460</para></footnote>, pero sin compatibilidad hacia atrás. De esta forma, los equipos que funcionan sólo con IPv6 no son capaces de llegar a dispositivos equipados sólo con IPv4 y para que puedan hablar entre ellos, hay que realizar túneles o conversiones entre ambos tipos de direcciones. Esto cuenta con una serie de ventajas sobre IPv4, la principal es que el número de dispositivos con IP distinta y no repetida aumenta de forma dramática (hasta el punto de llegar a 340 sextillones de direcciones, o <code>2<superscript>128</superscript></code>) y que, en un futuro, relegará a IPv4 a un segundo plano.
             </para>
         </formalpara>
         </listitem>
@@ -61,7 +61,7 @@
       </itemizedlist>
     </para>
     <para>
-      Sin embargo, por diferentes motivos, ninguna de las soluciones es la panacea. En primer lugar, no contar con un control intermedio (normalmente un firewall) para protegerse de ataques, hace que tener una IP pública suponga una exposición de forma completa a cualquier dispositivo de Internet . Además, ser visible por todo el mundo, convierte en vulnerable cualquier petición que proceda del exterior, como escaneos de puertos, PINGs, o floods incontrolados. Es por esto, que la mayoría de operadores de telefonía móvil que disponen de servicios de datos, tratan de no dar IPs públicas a sus dispositivos para evitar estos problemas, que al final llevan a un mayor uso de batería debido ya que reciben más datos, detalle que se explicará en la siguiente sección.
+      Sin embargo, por diferentes motivos, ninguna de las soluciones es la panacea. En primer lugar, no contar con un control intermedio (normalmente un firewall) para protegerse de ataques, hace que tener una IP pública suponga una exposición de forma completa a cualquier dispositivo de Internet . Además, ser visible por todo el mundo, convierte en vulnerable cualquier petición que proceda del exterior, como escaneos de puertos, <code>PING</code>s, o floods incontrolados. Es por esto, que la mayoría de operadores de telefonía móvil que disponen de servicios de datos, tratan de no dar IPs públicas a sus dispositivos para evitar estos problemas, que al final llevan a un mayor uso de batería debido ya que reciben más datos, detalle que se explicará en la siguiente sección.
     </para>
     <para>
       Pero a su vez, tener un direccionamiento privado tampoco ayuda en demasía a las redes móviles. No ayuda puesto que, aunque en algunos casos sea útil como en el  momento de recibir notificaciones push, el inconveniente suelen ser problemas de seguridad o gasto de batería. Tener un direccionamiento privado nos convierte en visibles sólo para nuestros vecinos en nuestra red privada y dado que la IP interna es diferente a la externa, cualquier intento de conexión desde la red pública (Internet, por ejemplo) no llegaría a nuestra IP, ya que diferiría de la asignada para salir a Internet.
@@ -90,7 +90,7 @@
             <title>Cell_DCH (Canal dedicado)</title>
             <para>
               Cuando el teléfono se encuentra en este estado radio es porque está transmitiendo una gran cantidad de datos y la red le ha puesto en un canal dedicado.
-              El tiempo de inactividad es muy corto para este estado, conocido como el temporizador T1, y suele variar entre 5 y 20 segundos. Esto quiere decir que si se alcanza este temporizador, el teléfono cambiará su estado radio a Cell_FACH.
+              El tiempo de inactividad es muy corto para este estado, conocido como el temporizador <code>T1</code>, y suele variar entre 5 y 20 segundos. Esto quiere decir que si se alcanza este temporizador, el teléfono cambiará su estado radio a Cell_FACH.
             </para>
           </formalpara>
         </listitem>
@@ -99,7 +99,7 @@
             <title>Cell_FACH</title>
             <para>
               En este estado, el teléfono está conectado a la red móvil y usa un canal compartido con otros terminales. Suele transmitir un pequeño número de paquetes, que normalmente son keep-alives.
-              El temporizador de inactividad en este estado es un poco mayor (del orden de los 30 segundos) y es conocido como el temporizador T2. Cuando se dispara, el dispositivo se mueve por la radio al estado Cell_PCH o URA_PCH (dependiendo del tipo de red).
+              El temporizador de inactividad en este estado es un poco mayor (del orden de los 30 segundos) y es conocido como el temporizador <code>T2</code>. Cuando se dispara, el dispositivo se mueve por la radio al estado Cell_PCH o URA_PCH (dependiendo del tipo de red).
             </para>
           </formalpara>
         </listitem>
@@ -109,7 +109,7 @@
             <para>
               En este estado, el teléfono no puede mandar ningún dato, excepto información de señalización para poder localizar el dispositivo dentro de la red móvil. En este caso, la conexión RRC está establecida y abierta, pero apenas es usada.
               En dicho estado, el dispositivo informa a la red cada cierto tiempo de que el dispositivo cambia de una celda (o sector) a otra, para que la red sea capaz de conocer exactamente en qué BTS (Base Transceiver Station, o nodo B) se encuentra ofreciendo servicio al dispositivo.
-              El temporizador T3 define el tiempo máximo que un terminal puede estar en un estado PCH. Este temporizador es mayor que T1 y T2 y depende de cada operador de red. Cuando se dispara, el dispositivo se mueve al estado IDLE, por lo que cualquier dato que quiera transmitir el dispositivo le llevará unos dos segundos para restablecer el canal y una gran cantidad de mensajes de señalización.
+              El temporizador <code>T3</code> define el tiempo máximo que un terminal puede estar en un estado PCH. Este temporizador es mayor que <code>T1</code> y <code>T2</code> y depende de cada operador de red. Cuando se dispara, el dispositivo se mueve al estado IDLE, por lo que cualquier dato que quiera transmitir el dispositivo le llevará unos dos segundos para restablecer el canal y una gran cantidad de mensajes de señalización.
             </para>
           </formalpara>
         </listitem>
