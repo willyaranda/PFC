@@ -14,6 +14,9 @@
   <xsl:param name="admon.graphics">1</xsl:param>
   <xsl:param name="admon.graphics.path">resources/</xsl:param>
   <xsl:param name="admon.graphics.extension">.svg</xsl:param>
+  <xsl:param name="double.sided">1</xsl:param>
+  <xsl:param name="fop1.extensions">1</xsl:param>
+
 
   <xsl:attribute-set name="monospace.verbatim.properties">
     <xsl:attribute name="font-size">9pt</xsl:attribute>
@@ -61,5 +64,4 @@
       </fo:block>
     </fo:block>
   </xsl:template>
-
 </xsl:stylesheet>
