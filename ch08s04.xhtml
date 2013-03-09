@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Poder enviar números de versión</title><link rel="stylesheet" type="text/css" href="docbook.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/><link rel="prev" href="ch08s03.xhtml" title="Cambio en el tamaño máximo"/><link rel="next" href="ch08s05.xhtml" title="Implementar soporte para IPv6"/></head><body><header><div class="navheader"><table style="width: 100%; "><tr><th style="text-align: center; " colspan="3">Poder enviar números de versión</th></tr><tr><td style="width: 20%; text-align: left; "><a accesskey="p" href="ch08s03.xhtml">Anterior</a> </td><th style="width: 60%; text-align: center; ">Capítulo 8. Futuras líneas de investigación y desarrollo</th><td style="width: 20%; text-align: right; "> <a accesskey="n" href="ch08s05.xhtml">Siguiente</a></td></tr></table><hr/></div></header><section class="section" id="idp1049616"><div class="titlepage"><div><div><h2 class="title" style="clear: both">Poder enviar números de versión</h2></div></div></div><p>
+      Esta es una de las características fundacionales de Thialfi, el sistema definido por Google y que se emplea en Google Chrome para la sincronización y los contactos. Sin embargo, el sistema actual del servidor de notificaciones tiene la opción de mandar números de versión, no de forma implícita, sino poniéndolo explícitamente en el payload del mensaje enviado.
+    </p><p>
+      En el futuro podría haber algunas de estas notificaciones:
+    </p><pre class="screen">{
+  messageType: "notification",
+  id: "&lt;ID interno para el AS&gt;",
+  version: "&lt;Número de versión&gt;",
+  signature: "&lt;Firma&gt;",
+  ttl: "&lt;Tiempo de vida&gt;",
+  timestamp: "&lt;Desde EPOCH&gt;",
+  priority: "&lt;Prioridad 1-4&gt;"
+}</pre><p>
+      Como recordatorio, el formato actual es:
+    </p><pre class="screen">
+      {
+        messageType: "notification",
+        id: "&lt;ID interno para el AS&gt;",
+        payload: "&lt;Número de versión&gt;",
+        signature: "&lt;Firma&gt;",
+        ttl: "&lt;Tiempo de vida&gt;",
+        timestamp: "&lt;Desde EPOCH&gt;",
+        priority: "&lt;Prioridad 1-4&gt;"
+      }
+    </pre><p>
+      Como se puede comprobar viendo ambos mensajes, el primero es un subconjunto del segundo, ya que con el método actual, el servidor es capaz de enviar números de versión a las aplicaciones, construidas de tal manera que el mensaje que reciben no contiene un <code class="code">payload</code> real, sino que es una versión que tiene que estar sincronizada con el servidor de la aplicación. Este se encargará de realizar una segunda conexión para traer los datos reales, ya manejables por la aplicación.
+    </p><div class="example" id="idp1054672"><div class="example-title">Ejemplo 8.2. Uso de números de versión en aplicación del banco</div><div class="example-contents"><p>
+        Un uso real de números de versión podría ser la aplicación del banco, que quiere enviar los nuevos movimientos en la cuenta corriente, pero no desea enviar ningún dato personal a través de la red no gestionada por ellos. En su lugar, podría mandar un número de versión para que la propia aplicación se conecte con los servidores del banco, sin dejar ningún resto de información personal en el servidor de notificaciones y descargue la información requerida para estar actualizado.
+      </p></div></div><br class="example-break"/></section><footer><div class="navfooter"><hr/><table style="width: 100%; "><tr><td style="width: 40%; text-align: left; "><a accesskey="p" href="ch08s03.xhtml">Anterior</a> </td><td style="width: 20%; text-align: center; "><a accesskey="u" href="ch08.xhtml">Subir</a></td><td style="width: 40%; text-align: right; "> <a accesskey="n" href="ch08s05.xhtml">Siguiente</a></td></tr><tr><td style="width: 40%; text-align: left; vertical-align: top; ">Cambio en el tamaño máximo </td><td style="width: 20%; text-align: center; "><a accesskey="h" href="index.xhtml">Inicio</a></td><td style="width: 40%; text-align: right; vertical-align: top; "> Implementar soporte para IPv6</td></tr></table></div></footer></body></html>

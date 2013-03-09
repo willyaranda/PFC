@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Capítulo 3. API</title><link rel="stylesheet" type="text/css" href="docbook.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/><link rel="prev" href="ch02s03.xhtml" title="Internet"/><link rel="next" href="ch03s02.xhtml" title="Interna: Entre el UA y el NS"/></head><body><header><div class="navheader"><table style="width: 100%; "><tr><th style="text-align: center; " colspan="3">Capítulo 3. API</th></tr><tr><td style="width: 20%; text-align: left; "><a accesskey="p" href="ch02s03.xhtml">Anterior</a> </td><th style="width: 60%; text-align: center; "> </th><td style="width: 20%; text-align: right; "> <a accesskey="n" href="ch03s02.xhtml">Siguiente</a></td></tr></table><hr/></div></header><section xml:lang="es" class="chapter" id="api"><div class="titlepage"><div><div><h1 class="title">Capítulo 3. API</h1></div></div></div><div class="toc"><div class="toc-title">Tabla de contenidos</div><ul><li><span class="section"><a href="ch03.xhtml#api_external">Externas</a></span><ul><li><span class="section"><a href="ch03.xhtml#api_external_wa_ua">Entre la aplicación web y el agente de usuario</a></span></li><li><span class="section"><a href="ch03.xhtml#api_external_wa_as">Entre la aplicación web y el servidor de aplicaciones</a></span></li><li><span class="section"><a href="ch03.xhtml#api_external_as_ns">Entre el servidor de aplicación y servidor de notificaciones</a></span></li></ul></li><li><span class="section"><a href="ch03s02.xhtml">Interna: Entre el UA y el NS</a></span><ul><li><span class="section"><a href="ch03s02.xhtml#api_internal_ua_ns_http">Interfaz HTTP</a></span></li><li><span class="section"><a href="ch03s02.xhtml#api_internal_ua_ns_websocket">Interfaz WebSocket</a></span></li><li><span class="section"><a href="ch03s02.xhtml#api_internal_ua_udp">Interfaz UDP</a></span></li><li><span class="section"><a href="ch03s02.xhtml#idp1020336">Flujo completo</a></span></li></ul></li></ul></div><p>
+    El servidor de notificaciones tiene diferentes API (Application Program Interface) que expone hacia los elementos que hay en la arquitectura y que hacen que los mensajes se entreguen a los destinatarios correctos. En un primer momento, y para mantener la compatibilidad con <a class="link" href="http://dvcs.w3.org/hg/push/raw-file/default/index.html" target="_top">el estándar</a> que propone el W3C se mantienen los métodos, pero sin embargo, se añaden algunos parámetros extras o se eliminan algunos métodos para añadir nuevas características, seguridad y evitar redundancia.
+  </p><p>
+    Pero para entender este capítulo, es necesario presentar a las diferentes instancias que forman parte del servidor de notificaciones:
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">Aplicación web (WebApp: WA). </span>
+            La aplicación del usuario que es ejecutada en el dispositivo.
+          </p></li><li class="listitem"><p><span class="formalpara-title">Agente de usuario (User-Agent: UA). </span>
+            Como el proyecto se inició bajo el paraguas de Firefox OS, cuyo motor de renderizado de páginas web, equivalente a aplicaciones web es conocido como el Agente de usuario, que en nuestro caso es Gecko, el motor de Mozilla.
+          </p></li><li class="listitem"><p><span class="formalpara-title">Servidor de notificaciones (Notification Server: NS). </span>
+            Es la infraestructura centralizada del servidor de notificaciones. Cualquiera puede desplegar una nueva instancia debido a que está <a class="link" href="https://github.com/telefonicaid/notification_server" target="_top">liberado como código abierto</a>.
+          </p></li><li class="listitem"><p><span class="formalpara-title">Servidor de aplicaciones (Application Server: AS). </span>
+            Es la parte servidora de la WA. Normalmente se podría definir como la presencia en Internet de la WA, que es la que recibe las URLs a las que tiene que hacer push y la que los realiza.
+          </p></li></ul></div><p>
+  </p><div class="figure" id="idp103840"><div class="figure-title">Figura 3.1. Instancias y comunicaciones</div><div class="figure-contents"><div style="text-align: justify; " class="mediaobject"><table style="border: 0; width: 496; cellpadding: 0; cellspacing: 0;"><tr><td style="text-align: justify; "><img style="text-align: justify; width: 496; " src="../resources/actors_and_channels.png" alt="Instancias y comunicaciones"/></td></tr></table></div></div></div><br class="figure-break"/><p>
+    Así pues, se dividen la API en dos grandes grupos:
+  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">Externas. </span>
+          Son aquellas que se están expuestas en los extremos del servidor, refiriéndose a la comunicación que tienen que realizar las aplicaciones (<code class="code">WA</code>) con el agente de usuario (<code class="code">UA</code>) y el servidor de terceros (<code class="code">AS</code>) hacia el servidor de notificaciones <code class="code">NS</code>). Son las usadas por desarrolladores externos para que su aplicación sepa recibir notificaciones y su servidor pueda enviarlas.
+        </p></li><li class="listitem"><p><span class="formalpara-title">Internas. </span>
+          Son las que los desarrolladores de aplicaciones no tienen que usar, ya que son transparentes para ellos y están creadas para que el protocolo funcione correctamente, llevando mensajes de señalización y de registro. Están involucrados principalmente el agente de usuario (<code class="code">UA</code>) y el servidor de notificaciones central (<code class="code">NS</code>).
+        </p></li></ul></div><section xml:lang="es" class="section" id="api_external"><div class="titlepage"><div><div><h2 class="title" style="clear: both">Externas</h2></div></div></div><p>
+    Con estas APIs, los desarrolladores son capaces de hacer que los mensajes que quieran enviar desde un servidor externo lleguen correctamente hacia sus aplicaciones. La interfaz y el código es muy sencillo, para hacer que el desarrollo sea muy rápido.
+  </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><p>Este API aún no está estandarizado por el W3C, por lo que lo aquí explicado es una proposición funcional.</p></div><p>
+    Hay dos APIs principales externas expuestas para los desarrolladores de aplicaciones, que son:
+  </p><section xml:lang="es" class="section" id="api_external_wa_ua"><div class="titlepage"><div><div><h3 class="title">Entre la aplicación web y el agente de usuario</h3></div></div></div><p>
+    Este API, llamada <code class="code">navigator.mozPush</code>, es la principal vía de comunicación entre las aplicaciones y el agente de usuario, o sistema operativo.
+  </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><p>Este API está prefijada en la primera versión funcional con <code class="code">moz</code> puesto que se ha implementado por primera vez en un dispositivo por parte del navegador Mozilla Firefox y es el que tienen establecido para estas funcionalidades experimentales.</p></div><p>
+    Está basada en el estándar propuesto<a href="#ftn.idp669968" class="footnote"><sup class="footnote" id="idp669968">[13]</sup></a> por el W3C, pero sin embargo tiene una serie de adiciones para añadir seguridad y eliminar la redundancia de alguno de sus métodos.
+  </p><p>
+    Con esta API, la aplicación es capaz de realizar dos funciones principales:
+  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        Requerir permiso remoto para poder recibir una URI y comprobar si ya se tiene permiso, mediante la función <code class="code">requestRemotePermission</code>.
+      </p></li><li class="listitem"><p>
+        Revocar el recurso URI, para eliminar el registro de determinada aplicación, y no recibir más mensajes push, usando <code class="code">revokeRemotePermission</code>
+      </p></li></ul></div><p>
+    Así pues, la interfaz que define a <code class="code">PushManager</code> (que es el contenedor que se expone a las aplicaciones), quedará de la forma siguiente:
+  </p><div class="figure" id="idp675040"><div class="figure-title">Figura 3.2. Interfaz <code class="code">PushManager</code></div><div class="figure-contents"><pre class="programlisting">
+interface PushManager {
+  PushService requestRemotePermission (DOMString waToken,
+                                       DOMString publicKey,
+                                       optional DOMString algorithm);
+  PushService revokeRemotePermission ();
+};
+    </pre></div></div><br class="figure-break"/><section class="section" id="idp676944"><div class="titlepage"><div><div><h4 class="title">Método requestRemotePermission</h4></div></div></div><p>
+      Este método es el que tienen que llamar las aplicaciones para pedir permiso remoto para poder recibir las notificaciones. Así pues, es una petición que tiene dos resultados posibles, <code class="code">onsucess</code> y <code class="code">onerror</code>, dependiendo de si el resultado es satisfactorio o no. Como se he especificado más arriba, la signatura de la función es:
+    </p><div class="figure" id="idp679088"><div class="figure-title">Figura 3.3. Función <code class="code">requestRemotePermission</code></div><div class="figure-contents"><pre class="programlisting">
+requestRemotePermission (DOMString waToken,
+                         DOMString publicKey,
+                         optional DOMString algorithm);
+      </pre></div></div><br class="figure-break"/><p>
+      Donde se ven los diferentes parámetros necesarios para poder operar correctamente, como son:
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title"><code class="code">waToken</code>. </span>
+            Es el token único que tiene que generar la aplicación (ya sea en el servidor, o bien totalmente aleatorio) para identificarse de forma única junto a la clave pública en el servidor de notificaciones, que serán usados para crear una URL unívoca que servirá para mandar las notificaciones solamente a aquellas aplicaciones que hayan registrado ese par.
+          </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><p>El desarrollador tiene la opción de hacer su <code class="code">waToken</code> público y compartido, por lo que será usado para hacer broadcast de las notificaciones, o bien mantenerlo como un secreto para que sólo la instancia que contenga este token único sea la que reciba las notificaciones.</p></div></li><li class="listitem"><p><span class="formalpara-title"><code class="code">publicKey</code>. </span>
+            Es una llave pública que la aplicación tiene que tener guardada en el momento de su instalación (o bien transferida de forma segura por el servidor de terceros (<code class="code">AS</code>: Application Server)) para poder ser usada en la comprobación de la firma de los mensajes por parte del componente <code class="code">NS_AS</code> (Notification Server - Aplication Server) del servidor de notificaciones, para prevenir que en el sistema entren notificaciones y mensajes inválidos o maliciosos. Esta llave debe ser transmitida en Base64.
+          </p></li><li class="listitem"><p><span class="formalpara-title"><code class="code">algorithm</code>. </span>
+            [<span class="optional">Opcional</span>]. Este parámetro indica el método de firmado usado por el parámetro <code class="code">publicKey</code> para la comprobación de las notificaciones. El algoritmo predeterminado es el <code class="code">RSA-SHA256</code>.
+          </p></li></ul></div><p>
+      Además, los diferentes métodos serán llamados una vez se ejecute correctamente o con algún error la función, bien por un problema en la red, o bien por un problema en el servidor:
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title"><code class="code">onsuccess</code>. </span>
+            Este método es invocado cuando la petición <code class="code">requestRemotePermission</code> se ejecuta de forma satisfactoria. Lo que realmente hace es recoger un evento <code class="code">success</code> que lanza el objeto <code class="code">requestRemotePermission</code>. Así entonces, este evento tiene, como en la mayoría de los creados por objetos DOM en los navegadores, un atributo <code class="code">detail</code> que contiene el mensaje satisfactorio:
+          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p><span class="formalpara-title"><code class="code">event.detail.url</code>. </span>
+                URL recibida desde el servidor de notificaciones y que será, probablemente, única para la instancia actual de la aplicación. Esta URL debe ser notificada por el medio más conveniente por la aplicación hacia su servidor de terceros, ya que será la usada para poder recibir notificaciones push.
+              </p></li></ul></div></li><li class="listitem"><p><span class="formalpara-title"><code class="code">onerror</code>. </span>
+            Método invocado cuando sucede algo no esperado en la respuesta del objeto creado por <code class="code">requestRemotePermission</code>. Puede ser debido por múltiples factores, como fallo en la red (no disponible, o que se haya caído en medio de la tranmisión), fallo en el servidor de notificaciones (mensaje de error por no disponibilidad), o incluso por que el registro falle por tener un token incorrecto o duplicado.
+          </p><p>
+          El evento que se captura también tiene el mensaje de error, que si bien no es informativo para las aplicaciones (debería ser completamente transparente), se muestra en:
+        </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p><span class="formalpara-title"><code class="code">event.error</code>. </span>
+                  Mensaje de error. Bien generado por el propio sistema operativo o <code class="code">UA</code> (User Agent) o bien el que es enviado por el servidor de notificaciones.
+                </p></li></ul></div></li></ul></div><div class="example" id="idp703424"><div class="example-title">Ejemplo 3.1. Pedir permiso remoto y recibir URL</div><div class="example-contents"><pre class="programlisting">
+var watoken = 'mySecretWaToken';
+var pbk = '…';
+
+var push = navigator.mozPush;
+var req = push.requestRemotePermission(watoken,
+                                       encodeBase64(pbk));
+
+req.onsuccess = function(event) {
+  console.log('Yay! URL is: ' + event.detail.url);
+};
+
+req.onerror = function(event) {
+  console.log('Oops!! Error is: ' + event.error);
+};
+      </pre></div></div><br class="example-break"/><p>
+      Además, hay otro método, función o callback, llamado <code class="code">onmessage</code>, que es ejecutado cada vez que la aplicación recibe un mensaje de notificación. Sólo es ejecutado cuando ha habido un <code class="code">onsucess</code> previo, y no se ha producido ningún <code class="code">onerror</code>.
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title"><code class="code">onmessage</code>. </span>
+            Función que se llama una vez llega una notificación desde el sistema operativo. Hay que notar, que para que funcione esta opción, el objeto creado por <code class="code">requestRemotePermission</code> tiene que seguir vivo y no haber sido borrado por el recolector de basura de JavaScript, por lo que se puede interpretar con que la aplicación está abierta, o bien se crea un objeto con una referencia fuerte, que significa que si la aplicación se cierra, el objeto sigue abierto y puede ser notificado.
+          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p><span class="formalpara-title"><code class="code">event.detail.message</code>. </span>
+                Mensaje completo. Es el <code class="code">payload</code> que el servidor de las aplicaciones quería mandar desde un primer momento.
+              </p></li><li class="listitem"><p><span class="formalpara-title"><code class="code">event.detail.url</code>. </span>
+                 [<span class="optional">Opcional</span>] URL a la que la notificación iba dirigida. Añadido por la posibilidad de que en un futuro las aplicaciones puedan pedir varias veces el permiso remoto, por lo cual recibirán diferentes URL a la que el servidor podría hacer push.
+              </p></li></ul></div></li></ul></div><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><p>
+        En la primera versión implementada en FirefoxOS, se utiliza el futuro estándar <code class="code">setMessageHandler</code> del objeto <code class="code">navigator</code> para poder ser despertado a pesar de que la aplicación esté cerrada.
+      </p><pre class="programlisting">
+navigator.mozSetMessageHandler("push-notification", function(msg) {
+  alert("New Message with body: " + JSON.stringify(msg));
+});
+      </pre></div></section><section class="section" id="idp716752"><div class="titlepage"><div><div><h4 class="title">Método revokeRemotePermission</h4></div></div></div><div class="figure" id="idp717392"><div class="figure-title">Figura 3.4. Función <code class="code">revokeRemotePermission</code></div><div class="figure-contents"><pre class="programlisting">
+revokeRemotePermission ();
+      </pre></div></div><br class="figure-break"/><p>
+      Este método realiza el paso contrario que el anterior, puesto que pide al servidor de notificaciones que se dejen de enviar notificaciones, esto es, que se quiere eliminar la URL o recurso dado en el paso anterior. Es un de-registro de URL. Puede servir en múltiples casos, como por ejemplo:
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          Si la aplicación decide eliminar las notificaciones push por otro sistema y quiere dejar todo el sistema limpio, haciendo olvidar y eliminar todos los datos anteriores.
+        </p></li><li class="listitem"><p>
+          El usuario decide editar las preferencias de la aplicación desde la configuración global del sistema y desactiva la opción de notificaciones push para determinadas aplicaciones. El sistema puede decidir no mandar las notificaciones a la aplicación o bien de-registrarla del servidor.
+        </p></li><li class="listitem"><p>
+          El servidor de terceros ha sido comprometido y las aplicaciones tienen que re-registrarse para usar la nueva clave pública (<code class="code">PbK</code>), por lo que en primer lugar tienen que de-registrarse para evitar que futuras notificaciones de orígenes malignos puedan volver a llegar a la aplicación.
+        </p></li></ul></div><div class="example" id="idp723680"><div class="example-title">Ejemplo 3.2. Pedir revocación de permiso (revocar URL)</div><div class="example-contents"><pre class="programlisting">
+var push = navigator.mozPush;
+var req = push.revokeRemotePermission();
+
+req.onsuccess = function(event) {
+  console.log('Unregister successful');
+};
+
+req.onerror = function(event) {
+  console.log('Oops!! Error is: ' + event.error);
+};
+      </pre></div></div><br class="example-break"/></section></section><section xml:lang="es" class="section" id="api_external_wa_as"><div class="titlepage"><div><div><h3 class="title">Entre la aplicación web y el servidor de aplicaciones</h3></div></div></div><p>
+    La comunicación entre la aplicación web (<code class="code">WA</code>) y el servidor de terceros (<code class="code">AS</code>: Application Server) está fuera del alcance del servidor de notificaciones, ya que depende de cada aplicación el cómo se implementa.
+  </p><p>
+    Sin embargo, sí hay una serie de medidas que se pueden tomar para que esta transmisión de un dato importante sea seguro y no pueda ser interceptado por terceros que, aunque después sea complicado su uso porque depende de poder firmar con la clave privada las notificaciones, puede llevar a conocer datos privados de los clientes o instancias si se conoce el método de generación del <code class="code">appToken</code> (que está contenido en la URL) y la clave pública.
+  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        Que el envío se realice de forma segura, mediante HTTPS, para que sólo los extremos puedan conocer el contenido de la comunicación.
+      </p></li><li class="listitem"><p>
+        Usar cifrado para evitar que un posible ataque de man-in-the-middle pueda recoger los datos y saber de qué se trata. Algo sencillo computacionalmente ya que el cifrado se lleva a cabo en el cliente, que suelen tener menor potencia de cálculo que los servidores a los que van dirigidos.
+      </p></li><li class="listitem"><p>
+        No pensar sólo en el envío HTTP, sino que otros sistemas podrían ser correctos, como XMPP, correo electrónico o incluso un mensaje SMS si fuera necesario.
+      </p></li><li class="listitem"><p>
+        Por supuesto, asociar algún número que no permita saber a quién corresponde la URL enviada con qué usuario para un atacante externo, pero que el servicio pueda identificarlo de forma unívoca.
+      </p></li></ul></div></section><section xml:lang="es" class="section" id="api_external_as_ns"><div class="titlepage"><div><div><h3 class="title">Entre el servidor de aplicación y servidor de notificaciones</h3></div></div></div><p>
+    Este es el API que tienen que utilizar los servidores web para enviar las notificaciones de una forma estándar hacia el servidor de notificaciones para que éste las mande correctamente a los clientes.
+  </p><p>
+    El API se basa en protocolos estándar de la web y bien conocidos, como son los HTTP Post, mensajes JSON (JavaScript Object Notation) y las cabeceras de respuesta HTTP estándar, por lo que su implementación es muy sencilla y el protocolo, a parte de ser muy ligero, cuenta con cientos de programas software o librerías que implementan los métodos necesarios para poder enviar estas notificaciones.
+  </p><p>
+    Así pues, el servidor de terceros (<code class="code">AS</code>: Application Server), necesita varios elementos antes de poder enviar su notificación, como son:
+  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        Una clave privada, para poder firmar las notificaciones. Tiene que ser la correspondiente a la clave privada que disponen las aplicaciones guardada y con la que se han registrado.
+      </p></li><li class="listitem"><p>
+        Una URL (o recurso unificado) a la que enviar las notificaciones. Habrá sido enviada por la aplicación en un paso anterior por algún método elegido por el desarrollador.
+      </p></li><li class="listitem"><p>
+        Un mensaje que enviar (ya sea un número de versión o un mensaje con poco contenido o hasta 4KiB).
+      </p></li></ul></div><p>
+    Entonces, una vez que el servidor de terceros tenga estos datos, es capaz de empezar a mandar notificaciones para que sean entregadas a las aplicaciones finales, siempre dependiendo de la URL y de la firma con la que se mandan dichas notificaciones.
+  </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><p>Este API se corresponde a una simple interfaz REST que será mejorada en futuras versiones para incluir más características.</p></div><p>
+    Así pues, se acepta una petición HTTP Post usada para mandar la notificación con el mensaje real dentro. El siguiente esquema debe ser enviado la <code class="code">publicURL</code> que defina a la instancia de la aplicación para un usuario determinado (explicado en los puntos anteriores), del estilo de: <code class="code">https://push.telefonica.es/notify/SOME_RANDOM_TOKEN</code>
+  </p><div class="figure" id="idp745664"><div class="figure-title">Figura 3.5. Notificación enviada</div><div class="figure-contents"><pre class="programlisting">
+{
+  messageType: "notification",
+  id: "&lt;ID used by the Application Server&gt;",
+  message: "&lt;Message payload&gt;",
+  signature: "&lt;Signed message&gt;",
+  ttl: "&lt;time to live&gt;",
+  timestamp: "&lt;Since EPOCH Time&gt;",
+  priority: "&lt;prio&gt;"
+}
+    </pre></div></div><br class="figure-break"/><p>
+    La notificación tiene las siguientes características:
+  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        Es una notificación con un estilo JSON, simple y sencillo, que es autocontenido y fácil de parsear y de crear.
+      </p></li><li class="listitem"><p>
+        El tamaño de la notificación es mínimo, menor que si el sistema de intercambio de mensajes fuera un estricto XML.
+      </p></li></ul></div><p>
+    Y define los siguientes atributos (obligatorios si no se indica lo contrario):
+  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">messageType. </span>
+          Tiene que ser igual al texto <code class="code">notification</code>. En un futuro podría haber más <code class="code">messageType</code> para pedir información sobre la entrega de los mensajes o más funcionalidades.
+        </p></li><li class="listitem"><p><span class="formalpara-title">id. </span>
+          Identificador interno para el servidor de terceros, tiene que ser una cadena menor de 32 caracteres. Actualmente no tiene uso, pero en un futuro servirá para poder sobreescribir notificaciones (mandar otra notificación con el mismo <code class="code">id</code> que el anterior y, si aún no se ha entregado, modificarla) y para poder preguntar cuál es el estado de la notificación: entregada, sin entregar, expirada…
+        </p></li><li class="listitem"><p><span class="formalpara-title">message. </span>
+          Es el texto que tiene que utilizar la aplicación y que el servidor de terceros envía. Tiene que ser un texto plano o bien estar en un formato JSON, pero convertido a cadena, por ejemplo, con la función <code class="code">JSON.stringify</code> de JavaScript.
+        </p></li><li class="listitem"><p><span class="formalpara-title">signature. </span>
+          La firma con la clave privada de lo que se manda dentro de <code class="code">message</code>. Se firma con <code class="code">RSA-SHA256</code> por defecto, o con el algoritmo que se haya definido en el atributo <code class="code">algorithm</code> pasado a la función <code class="code">requestRemotePermission</code> cuando la aplicación ha pedido permiso a su sistema operativo.
+        </p></li><li class="listitem"><p><span class="formalpara-title">ttl. </span>
+          [<span class="optional">Opcional</span>] Tiempo de vida del mensaje. Está especificado en segundos, y puede ser desde 0 hasta 4 semanas (o 31 días, 2678400 segundos). Si es 0 significaría que no se guarda en la base de datos, que los destinatarios están desconectados y si no se puede entregar, la notificación se pierde. El tiempo por defecto es de 4 semanas. Una vez superado ese tiempo, si aún sigue en el sistema (esto es, no se ha entregado), se elimina y no se entrega.
+        </p></li><li class="listitem"><p><span class="formalpara-title">timestamp. </span>
+          [<span class="optional">Opcional</span>] Tiempo desde el inicio UNIX, en segundos, para indicar cuándo salió la notificación desde el servidor de terceros. A esto se le suma el <code class="code">ttl</code> para el tiempo máximo de vida en el sistema. Por defecto, se pone el momento en el que se recibe, si no está indicado.
+        </p></li><li class="listitem"><p><span class="formalpara-title">priority. </span>
+          [<span class="optional">Opcional</span>] Prioridad del mensaje. Varía entre <code class="code">1</code> y <code class="code">4</code>, donde 1 es más prioritario y 4 es menos prioritario. Por defecto el valor que se indica es 4. Usado para mostrar al servidor si tiene que entregar la notificación en el momento o puede retrasarla hasta que haya más o el terminal esté despierto.
+        </p></li></ul></div><p>
+    Pero además, se definen una serie de respuestas por parte del servidor dependiendo de si las notificaciones han sido aceptadas o no:
+  </p><section class="section" id="idp771072"><div class="titlepage"><div><div><h4 class="title">Mensajes sin códigos de error</h4></div></div></div><p>
+      Sólo hay un mensaje de OK, que indica que la notificación se ha procesado correctamente y va a poderse entregar a los dispositivos que están vinculados a la URL a la que se ha hecho HTTP Post.
+    </p><pre class="screen">
+Estado HTTP: 200
+{
+  status: "ACCEPTED"
+}
+  </pre></section><section class="section" id="idp772976"><div class="titlepage"><div><div><h4 class="title">Mensajes de error del servidor</h4></div></div></div><p>
+      Sin embargo, los mensajes más interesantes son los de error, es decir, todos aquellos diferentes al de la cabecera HTTP con respuesta <code class="code">200</code>. Dependiendo de la cabecera HTTP, el error varía, dando la razón en un formato escrito en el atributo <code class="code">reason</code> de la respuesta, que es un JSON.
+    </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><p>Estos mensajes de error están definidos en el fichero <code class="filename">/src/common/constants.js</code> a partir de la línea 28<a href="#ftn.idp776224" class="footnote"><sup class="footnote" id="idp776224">[14]</sup></a></p></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">JSON inválido. </span>
+            Se produce cuando la notificación no está correctamente formada y no puede ser parseada como un JSON válido. Puede que sea debido a que no hay un atributo correctamente cerrado o contenga caracteres no parseables dentro del juego de caracteres de JavaScript (UTF-16).
+          </p><pre class="screen">
+            Estado HTTP: 450
+            {
+              status: "ERROR",
+              reason: "JSON not valid error"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">URL incorrecta. </span>
+            No se ha reconocido el formato de la URL y no se puede identificar a quién va dirigido.
+          </p><pre class="screen">
+            Estado HTTP: 404
+            {
+              status: "ERROR",
+              reason: "Bad URL"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">appToken inválido. </span>
+            El appToken enviado no es válido o está vacío.
+          </p><pre class="screen">
+            Estado HTTP: 451
+            {
+              status: "ERROR",
+              reason: "No valid appToken"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">Se está usando un método HTTP no soportado. </span>
+            No se está enviando una petición HTTP Post.
+          </p><pre class="screen">
+            Estado HTTP: 405
+            {
+              status: "ERROR",
+              reason: "No valid HTTP method"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">No es una notificación. </span>
+            El atributo <code class="code">messageType</code> no contiene la cadena <code class="code">notification</code>, por lo que no es válido.
+          </p><pre class="screen">
+            Estado HTTP: 452
+            {
+              status: "ERROR",
+              reason: "Not messageType=notification"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">La notificación no está firmada. </span>
+            La notificación no tiene una firma para poder verificar el origen.
+          </p><pre class="screen">
+            Estado HTTP: 453
+            {
+              status: "ERROR",
+              reason: "Not signed"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">Identificador no válido. </span>
+            El identificador, que tiene que ser una cadena no nula, es inválido.
+          </p><pre class="screen">
+            Estado HTTP: 454
+            {
+              status: "ERROR",
+              reason: "Bad id"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">La notificación es demasiado grande. </span>
+            Supera el límite del servidor de notificaciones, que está en 4KiB ó 4096 bytes.
+          </p><pre class="screen">
+            Estado HTTP: 413
+            {
+              status: "ERROR",
+              reason: "Body too big"
+            }
+        </pre></li><li class="listitem"><p><span class="formalpara-title">Firma incorrecta. </span>
+            La notificación está firmada, pero no es correctamente válida, esto es, la comprobación de la firma con la clave pública con la que la aplicación se registró ha devuelto que el mensaje ha sido modificado o es inválido.
+          </p><pre class="screen">
+            Estado HTTP: 455
+            {
+              status: "ERROR",
+              reason: "Bad signature, dropping notification"
+            }
+        </pre></li></ul></div><p>
+      A partir de estos errores, el servidor de terceros es capaz de determinar el problema que tiene el servidor de notificaciones con las notificaciones que está intentando enviar.
+    </p><div style="margin-left: 0.5in; margin-right: 0.5in;" class="note"><h3 class="title">Nota</h3><p>Los mensajes de error pueden cambiar de un servidor a otro, sobre todo si se añaden extensiones o más características, pero estos son los básicos que debería responder en caso de algún problema.</p></div></section></section></section><div class="footnotes"><br/><hr class="footnote-hr"/><div id="ftn.idp669968" class="footnote"><p><a href="#idp669968" class="para"><sup class="para">[13] </sup></a>http://dvcs.w3.org/hg/push/raw-file/default/index.html</p></div><div id="ftn.idp776224" class="footnote"><p><a href="#idp776224" class="para"><sup class="para">[14] </sup></a>https://github.com/telefonicaid/notification_server/blob/develop/src/common/constants.js#L28</p></div></div></section><footer><div class="navfooter"><hr/><table style="width: 100%; "><tr><td style="width: 40%; text-align: left; "><a accesskey="p" href="ch02s03.xhtml">Anterior</a> </td><td style="width: 20%; text-align: center; "> </td><td style="width: 40%; text-align: right; "> <a accesskey="n" href="ch03s02.xhtml">Siguiente</a></td></tr><tr><td style="width: 40%; text-align: left; vertical-align: top; ">Internet </td><td style="width: 20%; text-align: center; "><a accesskey="h" href="index.xhtml">Inicio</a></td><td style="width: 40%; text-align: right; vertical-align: top; "> Interna: Entre el UA y el NS</td></tr></table></div></footer></body></html>

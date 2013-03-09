@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Capítulo 6. Seguridad</title><link rel="stylesheet" type="text/css" href="docbook.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"/><link rel="prev" href="ch05s03.xhtml" title="MongoDB"/><link rel="next" href="ch06s02.xhtml" title="Registro con clave pública-privada"/></head><body><header><div class="navheader"><table style="width: 100%; "><tr><th style="text-align: center; " colspan="3">Capítulo 6. Seguridad</th></tr><tr><td style="width: 20%; text-align: left; "><a accesskey="p" href="ch05s03.xhtml">Anterior</a> </td><th style="width: 60%; text-align: center; "> </th><td style="width: 20%; text-align: right; "> <a accesskey="n" href="ch06s02.xhtml">Siguiente</a></td></tr></table><hr/></div></header><section xml:lang="es" class="chapter" id="security"><div class="titlepage"><div><div><h1 class="title">Capítulo 6. Seguridad</h1></div></div></div><div class="toc"><div class="toc-title">Tabla de contenidos</div><ul><li><span class="section"><a href="ch06.xhtml#idp126096">Tokens de dispositivo</a></span></li><li><span class="section"><a href="ch06s02.xhtml">Registro con clave pública-privada</a></span></li><li><span class="section"><a href="ch06s03.xhtml">Notificaciones firmadas</a></span></li><li><span class="section"><a href="ch06s04.xhtml">Verificación de notificaciones</a></span></li><li><span class="section"><a href="ch06s05.xhtml">Ataque DDoS: flooding y replay</a></span></li><li><span class="section"><a href="ch06s06.xhtml">Comunicación cifrada vía SSL</a></span></li><li><span class="section"><a href="ch06s07.xhtml">UDP para notificaciones</a></span></li><li><span class="section"><a href="ch06s08.xhtml">Entrega de notificaciones a las aplicaciones</a></span></li></ul></div><p>
+    La seguridad es uno de los puntos más importantes en cualquier sistema informático y por supuesto no se obvia en este proyecto. Tener un sistema seguro es una tarea complicada, que requiere de mucho esfuerzo y dedicación, y sobre todo, de investigar cuáles pueden ser los fallos del sistema. Aún así, cualquier sistema, por muy seguro que sea, siempre puede ser mejorado, y debe serlo, puesto que en el servidor de notificaciones se están moviendo mensajes, que pueden ir en claro, e identificando quién los manda y hacia qué terminales, por lo que puede ser un grave problema si se tiene algún fallo de seguridad.
+  </p><p>
+    Ha habido diferentes elementos del sistema en los que hay que poner más énfasis en cuanto a seguridad, bien porque eran susceptibles de mostrar información personal, bien porque se creía que podrían recibir ataques por fuerza bruta o de denegación de servicio o incluso porque son aquellos que están expuestos tanto a los terminales como a Internet, y siempre son un dulce muy apetitoso para personas con no buenas intenciones.
+  </p><section class="section" id="idp126096"><div class="titlepage"><div><div><h2 class="title" style="clear: both">Tokens de dispositivo</h2></div></div></div><p>
+      El primer punto de entrada al sistema de notificaciones push es tener un token de dispositivo válido que permitirá que el UA (User Agent, explicado en el capítulo "API") se registre de forma correcta en el sistema.
+    </p><p>
+      Entonces, había que garantizar de algún modo que este token fuera tanto único como válido en nuestro sistema para poder controlar el abuso y si los registros de dispositivos venían de donde donde se quería, es decir, de dispositivos con Firefox OS en un primer lugar.
+    </p><p>
+      A lo largo del tiempo, se han desarrollado muchos mecanismos de intercambio de información para realizar conexiones de usuario de forma controlada, o identificación de aplicaciones sin tener que dar los nombres de usuario y contraseña a servicios de terceros, como OAuth<a href="#ftn.idp655696" class="footnote"><sup class="footnote" id="idp655696">[28]</sup></a>. Sin embargo, en el caso de la primera versión del servidor de notificaciones, se quería algo más sencillo, lo que se tradujo en los siguientes preceptos:
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="formalpara-title">Verificación sencilla. </span>
+            No debería requerir el uso de mucho cómputo para comprobar si el token de usuario es válido o no.
+          </p></li><li class="listitem"><p><span class="formalpara-title">Rápido de generar. </span>
+            Generación al vuelo, por lo que tendría que hacerse de forma rápida, ya que el cálculo era la respuesta a una petición HTTP y no se podía dejar dicha conexión HTTP abierta, teniendo en cuenta el uso de recursos en el sistema.
+          </p><p><span class="formalpara-title">Posibilidad de cambiarse en un futuro. </span>
+            Si se decide usar un nuevo sistema en el futuro, como pudiera ser OAuth, Mozilla Persona<a href="#ftn.idp661328" class="footnote"><sup class="footnote" id="idp661328">[29]</sup></a> (con lo que encajaría más aún en el sistema Firefox OS) o incluso si el token viniera preconfigurado desde fábrica, no debería suponer un cambio drástico en la infraestructura.
+          </p></li></ul></div><p>
+      Por consiguiente, la decisión en la implementación de generar un token<a href="#ftn.idp538176" class="footnote"><sup class="footnote" id="idp538176">[30]</sup></a>, se quedó con el siguiente código:
+      </p><div class="figure" id="idp538896"><div class="figure-title">Figura 6.1. Generación de token</div><div class="figure-contents"><pre class="programlisting">
+function token() {}
+
+token.prototype = {
+  serialNumber: 1,
+
+  // The TOKEN shall be unique
+  get: function() {
+    // SerialNumber + TimeStamp + NotificationServer_Id + CRC
+    var rawToken = this.serialNumber++ + "#" + Date.now() +
+                   "#" + process.serverId + "_" + uuid.v1();
+
+    // CRC
+    rawToken += "@" + crypto.hashMD5(rawToken);
+
+    // Encrypt token with AES
+    return crypto.encryptAES(rawToken, cryptokey);
+  },
+};
+        </pre></div></div><p><br class="figure-break"/>
+    </p><p>
+      En la figura anterior, se puede ver cómo está generado el token de dispositivo:
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+          Se usa un número de serie que aumenta en una unidad cada vez que hay una nueva petición.
+        </p></li><li class="listitem"><p>
+          Se añade el momento de generación actual, en milisegundos (según el estándar de JavaScript).
+        </p></li><li class="listitem"><p>
+          Se agrega el PID del proceso que lo ha generado.
+        </p></li><li class="listitem"><p>
+          Y un UUID (versión 1) para añadir aleatoriedad.
+        </p></li><li class="listitem"><p>
+          Se calcula el hash MD5 del <code class="code">rawToken</code> inicial, que se lo añadimos al token inicial con un <code class="code">@</code> entre medias. Esto se usa como CRC.
+        </p></li><li class="listitem"><p>
+          Se devuelve el token generado cifrado con AES y la clave <code class="code">cryptoKey</code> que está configurada en el fichero <code class="filename">config.js</code> que deben de forma obligatoria compartir todas las instancias del servidor de notificaciones que generen tokens, pues es el principal medio para descifrarlo de cara a realizar las operaciones. Se utiliza para comprobar si es válido en el sistema.
+        </p></li></ol></div><p>
+      Así pues, se puede observar que el token puede ser comprobado mediante la verificación con la función <code class="code">verify(token)</code>, es decir, descifrando el token y comprobando su CRC. En primer lugar, si el descifrado no es correcto, el token recibido no es válido, por lo que se puede rechazar. Pero además, y en segundo lugar, es posible comprobar si el CRC (el hash MD5 calculado en la figura anterior) es válido, separando por el caracter <code class="code">@</code> que descifrará después y comprobando si la segunda parte concuerda con la primera, tras aplicar la misma función de hash.
+      </p><div class="figure" id="idp551008"><div class="figure-title">Figura 6.2. Verificación de tokens</div><div class="figure-contents"><pre class="programlisting">
+// Verify the given TOKEN
+verify: function(token) {
+  if(!token)
+    return false;
+
+  // Decrypt token
+  var rawToken = crypto.decryptAES(token, cryptokey).split('@');
+
+  // CRC Verification
+  return (rawToken[1] == crypto.hashMD5(rawToken[0]));
+}
+        </pre></div></div><p><br class="figure-break"/>
+    </p><p>
+      Un ataque que podría intentarse es la suplantación de identidad. Sabiendo el token de dispositivo o <code class="code">UAToken</code>, es posible el registro de terceras partes como otro dispositivo. Sin embargo, esto no se considera un problema en el servidor de notificaciones y más en la parte cliente, aunque en todo caso, este token único debe estar gestionado por la seguridad que dé el sistema operativo, o User Agent (<code class="code">UA</code>) que implementa este protocolo.
+    </p></section><div class="footnotes"><br/><hr class="footnote-hr"/><div id="ftn.idp655696" class="footnote"><p><a href="#idp655696" class="para"><sup class="para">[28] </sup></a>http://oauth.net/2/</p></div><div id="ftn.idp661328" class="footnote"><p><a href="#idp661328" class="para"><sup class="para">[29] </sup></a>https://support.mozilla.org/es/kb/que-es-y-como-funciona-browserid . Mozilla Persona es un sistema de identificación similar a OpenID, con la diferencia de que Persona usa direcciones de correo en vez de URLs, lo que resulta más natural para la identificación</p></div><div id="ftn.idp538176" class="footnote"><p><a href="#idp538176" class="para"><sup class="para">[30] </sup></a>Se puede ver el módulo que realiza esta generación y verificación en: https://github.com/telefonicaid/notification_server/blob/develop/src/common/token.js</p></div></div></section><footer><div class="navfooter"><hr/><table style="width: 100%; "><tr><td style="width: 40%; text-align: left; "><a accesskey="p" href="ch05s03.xhtml">Anterior</a> </td><td style="width: 20%; text-align: center; "> </td><td style="width: 40%; text-align: right; "> <a accesskey="n" href="ch06s02.xhtml">Siguiente</a></td></tr><tr><td style="width: 40%; text-align: left; vertical-align: top; ">MongoDB </td><td style="width: 20%; text-align: center; "><a accesskey="h" href="index.xhtml">Inicio</a></td><td style="width: 40%; text-align: right; vertical-align: top; "> Registro con clave pública-privada</td></tr></table></div></footer></body></html>
